@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate - Community Wash for Life</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2e8b57;
+            --primary-dark: #1d6e42;
+            --primary-light: #3daa6d;
+            --accent: #f39c12;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+            --shadow: 0 4px 8px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+            --secondary: #eaf6f0;
+            --light-bg: #f5f5f5;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--dark);
+            background-color: var(--light-bg);
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+        
+        /* Header Styles */
+       
+
+        /* Header Styles */
+        header {
+            background: var(--light);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-right: 15px;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0;
+            line-height: 1.2;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+            color: var(--gray);
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            font-weight: 600;
+            font-size: 1rem;
+            position: relative;
+            text-decoration: none;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after, nav a.active::after {
+            width: 100%;
+        }
+
+        nav a.active, nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Mobile Navigation */
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        } 
+        /* Donate Section */
+        .donate-section {
+            background: var(--secondary);
+            padding: 4rem 1rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .donate-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 2.5rem;
+            margin-top: 1rem;
+        }
+        
+        .donate-container h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-size: 2.2rem;
+        }
+        
+        .donate-container > p {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            color: var(--gray);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: 'Open Sans', sans-serif;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.2);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--light);
+            padding: 10px 28px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            cursor: pointer;
+        }
+        .btn:hover, .btn:focus {
+            background: var(--primary-dark);
+            color: var(--light);
+            outline: none;
+        }
+        
+        .donate-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .donate-amount {
+            background-color: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            padding: 0.8rem 1.2rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 120px;
+            text-align: center;
+        }
+        
+        .donate-amount:hover {
+            border-color: var(--primary-light);
+            background-color: rgba(46, 139, 87, 0.1);
+        }
+        
+        .donate-amount.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* Payment Methods */
+        .payment-methods {
+            margin: 2rem 0;
+        }
+        
+        .payment-methods h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .payment-option {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .payment-option:hover {
+            border-color: var(--primary-light);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .payment-option.active {
+            border-color: var(--primary);
+            background-color: rgba(46, 139, 87, 0.05);
+        }
+        
+        .payment-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+            color: var(--primary);
+        }
+        
+        .payment-option.active .payment-icon {
+            color: var(--primary-dark);
+        }
+        
+        .payment-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .payment-desc {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+        
+        /* Payment Details */
+        .payment-details {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .payment-details h4 {
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+        
+        .payment-instructions {
+            margin-bottom: 1.5rem;
+        }
+        
+        .payment-instructions p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        /* Success Message */
+        .donation-success {
+            text-align: center;
+            padding: 2rem;
+            background-color: #f8fff8;
+            border-radius: 8px;
+            border: 1px solid #e1f5e1;
+            margin-top: 2rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 1rem 1rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-col h3 {
+            color: white;
+            margin-bottom: 1.2rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-col a {
+            display: block;
+            color: #ddd;
+            text-decoration: none;
+            margin-bottom: 0.7rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-col a:hover {
+             color: var(--primary-light);
+            padding-left: 5px;
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        
+        .footer-social a:hover {
+            
+             color: var(--primary-light);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* --- START: NAVBAR CSS FROM our_programes.html --- */
+.menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--dark);
+}
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+    nav {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: var(--light);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+        gap: 30px;
+    }
+    nav.active {
+        left: 0;
+    }
+    .header-container {
+        padding: 0 20px;
+    }
+}
+@media (min-width: 769px) {
+    nav {
+        display: flex;
+        gap: 25px;
+        position: static;
+        height: auto;
+        width: auto;
+        background: none;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        transition: none;
+    }
+    .menu-toggle {
+        display: none !important;
+    }
+}
+/* --- END: NAVBAR CSS FROM our_programes.html --- */
+        @media (max-width: 900px) {
+  .menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1101;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  #nav {
+    position: fixed;
+    top: 0;
+    left: -100vw;
+    right: auto;
+    width: 100vw;
+    height: 100vh;
+    background: #fff;
+    color: var(--primary-dark);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: left 0.3s ease;
+    z-index: 1100;
+    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+    display: flex;
+    gap: 0;
+  }
+  #nav.active {
+    left: 0;
+  }
+  #nav a {
+    color: var(--primary-dark);
+    padding: 0.7rem 0; /* Reduced vertical padding */
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    text-align: center;
+    font-size: 1.05rem;
+    background: none;
+    margin: 0;
+  }
+  .menu-toggle {
+    z-index: 1101;
+  }
+  body.nav-open::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: 1099;
+  }
+}
+@media (min-width: 901px) {
+  #nav {
+    position: static !important;
+    flex-direction: row !important;
+    height: auto !important;
+    width: auto !important;
+    background: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    gap: 25px !important;
+  }
+  #nav a {
+    color: var(--primary-dark);
+    border-bottom: none;
+    padding: 0;
+    text-align: left;
+  }
+  .menu-toggle {
+    display: none !important;
+  }
+}
+        @media (max-width: 600px) {
+            .donate-options {
+                flex-direction: column;
+            }
+            
+            .donate-amount {
+                width: 100%;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body> <header>
+            <div class="header-container">
+                <div class="logo">
+                    <img src="images/LOGO.JPG" alt="Community Wash for Life Logo" height="50" width="50" class="me-2 rounded-circle">
+                    <div class="logo-text">
+                        <h1>Community Wash for Life</h1>
+                        <p>Clean Water for All</p>
+                    </div>
+                </div>
+                <div class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <nav id="nav">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="programes.html">Programs</a>
+                    <a href="gallery.html">Gallery</a>
+                    <a href="donate.html" class="active">Donate</a>
+                </nav>
+            </div>
+        </header>
+
+    <main>
+        <section class="donate-section" id="donate">
+            <div class="donate-container">
+                <h2>Make a Difference Today</h2>
+                <p>Your donation provides clean water, sanitation, and hygiene education to communities in need.</p>
+            
+            <form id="donation-form" class="donation-form" autocomplete="off">
+                <div class="form-group">
+                    <label for="donor-name">Full Name</label>
+                    <input type="text" id="donor-name" name="donor-name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="donor-email">Email Address</label>
+                    <input type="email" id="donor-email" name="donor-email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="donor-phone">Phone Number</label>
+                    <input type="tel" id="donor-phone" name="donor-phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="donation-amount">Donation Amount (UGX)</label>
+                    <input type="number" id="donation-amount" name="donation-amount" min="1000" step="100" required>
+                </div>
+                
+                <div class="donate-options">
+                    <div class="donate-amount">UGX 10,000</div>
+                    <div class="donate-amount">UGX 25,000</div>
+                    <div class="donate-amount">UGX 50,000</div>
+                    <div class="donate-amount">UGX 100,000</div>
+                </div>
+                
+                <div class="payment-methods">
+                    <h3>Select Payment Method</h3>
+                    <div class="payment-options">
+                        <div class="payment-option" data-method="mtn">
+                            <div class="payment-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div class="payment-name">MTN Mobile Money</div>
+                            <div class="payment-desc">Pay via MTN Mobile Money</div>
+                        </div>
+                        
+                        <div class="payment-option" data-method="airtel">
+                            <div class="payment-icon">
+                                <i class="fas fa-mobile"></i>
+                            </div>
+                            <div class="payment-name">Airtel Money</div>
+                            <div class="payment-desc">Pay via Airtel Money</div>
+                        </div>
+                        
+                        <div class="payment-option" data-method="bank">
+                            <div class="payment-icon">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <div class="payment-name">Bank Transfer</div>
+                            <div class="payment-desc">Direct bank transfer</div>
+                        </div>
+                        
+                        <div class="payment-option" data-method="card">
+                            <div class="payment-icon">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <div class="payment-name">ATM Card</div>
+                            <div class="payment-desc">Visa, Mastercard, etc.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Payment method details (initially hidden) -->
+                <div id="payment-details-mtn" class="payment-details hidden">
+                    <h4>MTN Mobile Money Payment</h4>
+                    <div class="payment-instructions">
+                        <p>1. Dial *165*5# on your MTN line</p>
+                        <p>2. Select "Send Money"</p>
+                        <p>3. Enter phone number: <strong>0200902632</strong></p>
+                        <p>4. Enter the donation amount</p>
+                        <p>5. Enter your PIN to complete</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="mtn-phone">Your MTN Phone Number</label>
+                        <input type="tel" id="mtn-phone" name="mtn-phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="mtn-transaction">Transaction ID (Optional)</label>
+                        <input type="text" id="mtn-transaction" name="mtn-transaction" placeholder="If available">
+                    </div>
+                </div>
+                
+                <div id="payment-details-airtel" class="payment-details hidden">
+                    <h4>Airtel Money Payment</h4>
+                    <div class="payment-instructions">
+                        <p>1. Dial *185*9# on your Airtel line</p>
+                        <p>2. Select "Send Money"</p>
+                        <p>3. Enter phone number: <strong>0200902632</strong></p>
+                        <p>4. Enter the donation amount</p>
+                        <p>5. Enter your PIN to complete</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="airtel-phone">Your Airtel Phone Number</label>
+                        <input type="tel" id="airtel-phone" name="airtel-phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="airtel-transaction">Transaction ID (Optional)</label>
+                        <input type="text" id="airtel-transaction" name="airtel-transaction" placeholder="If available">
+                    </div>
+                </div>
+                
+                <div id="payment-details-bank" class="payment-details hidden">
+                    <h4>Bank Transfer Details</h4>
+                    <div class="payment-instructions">
+                        <p><strong>Account Name:</strong> SPIRITUAL NURTURE INTERNATIONAL UGANDA LIMITED</p>
+                        <p><strong>Bank:</strong> Stanbic Bank Uganda</p>
+                        <p><strong>Account Number:</strong> 9030012345678</p>
+                        <p><strong>Branch:</strong> Main Branch, Kampala</p>
+                        <p><strong>SWIFT Code:</strong> SBICUGKX</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="bank-reference">Transfer Reference</label>
+                        <input type="text" id="bank-reference" name="bank-reference" placeholder="Enter your transfer reference">
+                    </div>
+                </div>
+                
+                <div id="payment-details-card" class="payment-details hidden">
+                    <h4>Card Payment Details</h4>
+                    <div class="form-group">
+                        <label for="card-number">Card Number</label>
+                        <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9012 3456">
+                    </div>
+                    <div class="form-group" style="display: flex; gap: 1rem;">
+                        <div style="flex: 1;">
+                            <label for="card-expiry">Expiry Date</label>
+                            <input type="text" id="card-expiry" name="card-expiry" placeholder="MM/YY">
+                        </div>
+                        <div style="flex: 1;">
+                            <label for="card-cvv">CVV</label>
+                            <input type="text" id="card-cvv" name="card-cvv" placeholder="123">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="card-name">Name on Card</label>
+                        <input type="text" id="card-name" name="card-name">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="donation-message">Message (optional)</label>
+                    <textarea id="donation-message" name="donation-message" rows="3" placeholder="Any message you'd like to include with your donation"></textarea>
+                </div>
+                
+                <button type="submit" class="btn" style="width:100%;margin-top:1rem;">Donate Now</button>
+            </form>
+            
+            <div id="donation-success" class="donation-success" style="display:none;">
+                <i class="fas fa-check-circle" style="font-size:2.5rem;color:var(--primary);"></i>
+                <h3>Thank you for your support!</h3>
+                <p>Your donation has been received. We appreciate your generosity.</p>
+                <button class="btn" onclick="document.getElementById('donation-success').style.display='none'">Close</button>
+            </div>
+            
+            <div style="margin-top:3rem;">
+                <h4>Organization Details</h4>
+                <p><strong>SPIRITUAL NURTURE INTERNATIONAL UGANDA LIMITED</strong></p>
+                <p>Busia, Uganda</p>
+                <p>Email: <a href="mailto:info@spiritualnurture.international">info@spiritualnurture.international</a></p>
+                <p>Phone: 0200902632</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Community Wash for Life</h3>
+                <p>Improving access to clean water, sanitation, and hygiene in underserved communities to promote health, education, and sustainability.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <a href="index.html#home">Home</a>
+                <a href="index.html#about">About Us</a>
+                <a href="programes.html">Programs</a>
+                <a href="index.html#donate">Donate</a>
+            </div>
+            <div class="footer-col">
+                <h3>Our Programs</h3>
+                <a href="#">Water Access Projects</a>
+                <a href="#">Sanitation Facilities</a>
+                <a href="#">Hygiene Education</a>
+                <a href="#">Community Leadership</a>
+                <a href="#">Emergency Response</a>
+                <a href="#">School WASH Programs</a>
+            </div>
+            <div class="footer-col">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for updates on our projects and impact.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="email" placeholder="Your Email" required style="width: 100%; padding: 0.8rem; border-radius: 5px; border: none;">
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%; background: var(--primary);">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Community Wash for Life. All rights reserved. | designed by n-tech.com</p>
+        </div>
+    </footer>
+
+    <script>
+    // Mobile Menu Toggle (from our_programes.html)
+    document.addEventListener('DOMContentLoaded', function() {
+        // --- Prefill donation amount from URL parameter if present ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const amountParam = urlParams.get('amount');
+        if (amountParam) {
+            const amountInput = document.getElementById('donation-amount');
+            amountInput.value = amountParam;
+            // Highlight the matching quick-select card if present
+            document.querySelectorAll('.donate-amount').forEach(function(el) {
+                if (el.textContent.replace(/[^\d]/g, '') === amountParam) {
+                    document.querySelectorAll('.donate-amount').forEach(a => a.classList.remove('active'));
+                    el.classList.add('active');
+                }
+            });
+        }
+        const menuToggle = document.getElementById('menuToggle');
+        const nav = document.getElementById('nav');
+        menuToggle.addEventListener('click', function() {
+            nav.classList.toggle('active');
+            menuToggle.querySelector('i').classList.toggle('fa-bars');
+            menuToggle.querySelector('i').classList.toggle('fa-times');
+        });
+        nav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if(window.innerWidth <= 900 && nav.classList.contains('active')) {
+                    nav.classList.remove('active');
+                    menuToggle.querySelector('i').classList.remove('fa-times');
+                    menuToggle.querySelector('i').classList.add('fa-bars');
+                }
+            });
+        });
+
+        // Donation amount quick select
+        document.querySelectorAll('.donate-amount').forEach(function(el) {
+            el.addEventListener('click', function() {
+                document.getElementById('donation-amount').value = this.textContent.replace(/[^\d]/g, '');
+                document.querySelectorAll('.donate-amount').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Payment method selection
+        const paymentOptions = document.querySelectorAll('.payment-option');
+        let selectedMethod = null;
+        paymentOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                paymentOptions.forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+                document.querySelectorAll('.payment-details').forEach(detail => {
+                    detail.classList.add('hidden');
+                });
+                const method = this.getAttribute('data-method');
+                document.getElementById(`payment-details-${method}`).classList.remove('hidden');
+                selectedMethod = method;
+            });
+        });
+
+        // Form submission
+        document.getElementById('donation-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('donor-name').value;
+            const email = document.getElementById('donor-email').value;
+            const phone = document.getElementById('donor-phone').value;
+            const amount = document.getElementById('donation-amount').value;
+            if (!name || !email || !phone || !amount) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            if (!selectedMethod) {
+                alert('Please select a payment method');
+                return;
+            }
+            if (selectedMethod === 'mtn') {
+                const mtnPhone = document.getElementById('mtn-phone').value;
+                if (!mtnPhone) {
+                    alert('Please provide your MTN phone number');
+                    return;
+                }
+            } else if (selectedMethod === 'airtel') {
+                const airtelPhone = document.getElementById('airtel-phone').value;
+                if (!airtelPhone) {
+                    alert('Please provide your Airtel phone number');
+                    return;
+                }
+            } else if (selectedMethod === 'bank') {
+                const reference = document.getElementById('bank-reference').value;
+                if (!reference) {
+                    alert('Please provide a transfer reference');
+                    return;
+                }
+            } else if (selectedMethod === 'card') {
+                const cardNumber = document.getElementById('card-number').value;
+                const cardName = document.getElementById('card-name').value;
+                if (!cardNumber || !cardName) {
+                    alert('Please complete all card details');
+                    return;
+                }
+            }
+            document.getElementById('donation-success').style.display = 'block';
+            this.reset();
+            document.querySelectorAll('.donate-amount').forEach(a => a.classList.remove('active'));
+            document.querySelectorAll('.payment-option').forEach(a => a.classList.remove('active'));
+            document.querySelectorAll('.payment-details').forEach(a => a.classList.add('hidden'));
+            selectedMethod = null;
+            document.getElementById('donation-success').scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+    </script>
+</body>
+</html>
