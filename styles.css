@@ -1,4 +1,4 @@
-:root {
+        :root {
             --primary-green: #2E8B57;
             --dark-green: #1A5D3A;
             --light-green: #4CAF7D;
@@ -11,6 +11,19 @@
             --shadow-sm: 0 4px 12px rgba(46, 139, 87, 0.08);
             --shadow-md: 0 8px 24px rgba(46, 139, 87, 0.12);
             --shadow-lg: 0 12px 36px rgba(46, 139, 87, 0.15);
+
+            /* Backwards-compatible aliases used by pages */
+            --primary: var(--primary-green);
+            --primary-dark: var(--dark-green);
+            --primary-light: var(--light-green);
+            --accent: var(--accent-teal);
+            --light: var(--text-light);
+            --dark: var(--text-dark);
+            --gray: #6c757d;
+            --shadow: var(--shadow-sm);
+            --transition: all 0.3s ease;
+            --secondary: var(--pale-green);
+            --light-bg: #f5f5f5;
         }
         
         html, body {
@@ -269,6 +282,8 @@
             background-color: var(--pale-green);
             position: relative;
             overflow: hidden;
+            /* reduce vertical spacing for Success Stories area */
+            padding: 3rem 0; /* tighter than the default .section padding */
         }
         
         .education-section::before {
@@ -328,6 +343,17 @@
         
         .edu-content {
             padding: 1.5rem;
+        }
+
+        /* Tighten testimonials spacing inside education section */
+        .edu-testimonials {
+            margin-top: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .testimonial-card {
+            margin-bottom: 0; /* avoid extra gap under cards */
+            max-width: 680px;
         }
         
         .edu-content h3 {

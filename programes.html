@@ -7,20 +7,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
     <style>
-        :root {
-            --primary: #2e8b57;
-            --primary-dark: #1d6e42;
-            --primary-light: #3daa6d;
-            --accent: #f39c12;
-            --light: #f8f9fa;
-            --dark: #343a40;
-            --gray: #6c757d;
-            --shadow: 0 4px 8px rgba(0,0,0,0.1);
-            --transition: all 0.3s ease;
-            --secondary: #eaf6f0;
-            --light-bg: #f5f5f5;
-        }
+        /* Color variables are provided in styles.css (centralized) */
 
         * {
             margin: 0;
@@ -655,11 +644,15 @@
                 <i class="fas fa-bars"></i>
             </div>
             <nav id="nav">
-                <a href="index.html">Home</a>
+                <a href="index.html#home">Home</a>
                 <a href="about.html">About</a>
+                <a href="index.html#mission">Mission</a>
                 <a href="programes.html" class="active">Programs</a>
+                <a href="index.html#education">Education</a>
+                <a href="index.html#team">Team</a>
                 <a href="gallery.html">Gallery</a>
                 <a href="donate.html">Donate</a>
+                <a href="index.html#contact">Contact</a>
             </nav>
         </div>
     </header>
@@ -676,6 +669,22 @@
         </div>
     </section>
 
+        <!-- Program Details Modal -->
+        <div class="modal fade" id="programModal" tabindex="-1" aria-labelledby="programModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="programModalLabel">Program</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="programModalDesc"></p>
+                        <ul id="programModalFeatures" class="list-unstyled"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     <!-- Programs Section -->
     <section class="section programs" id="programs">
         <div class="container">
@@ -689,7 +698,7 @@
                     <div class="program-info">
                         <h3>Water Access Projects</h3>
                         <p>Building wells, rainwater harvesting systems, and water purification facilities in communities without access to clean water.</p>
-                        <a href="#" class="btn">Learn More</a>
+                        <a href="#" class="btn learn-more" data-title="Water Access Projects" data-desc="Building wells, rainwater harvesting systems, and purification facilities tailored to local needs." data-features="Well construction,Rainwater harvesting,Water purification,Community training,Maintenance plans">Learn More</a>
                     </div>
                 </div>
                 <div class="program-card">
@@ -697,7 +706,7 @@
                     <div class="program-info">
                         <h3>Sanitation Facilities</h3>
                         <p>Constructing community toilets, waste management systems, and promoting proper sanitation practices.</p>
-                        <a href="#" class="btn">Learn More</a>
+                        <a href="#" class="btn learn-more" data-title="Sanitation Facilities" data-desc="Constructing toilets, waste management, and sanitation infrastructure with local engagement." data-features="Community toilets,Waste management,Handwashing stations,Local training,Gender-segregated facilities">Learn More</a>
                     </div>
                 </div>
                 <div class="program-card">
@@ -705,7 +714,7 @@
                     <div class="program-info">
                         <h3>Hygiene Education</h3>
                         <p>Training community health workers and conducting workshops on handwashing, menstrual hygiene, and disease prevention.</p>
-                        <a href="#" class="btn">Learn More</a>
+                        <a href="#" class="btn learn-more" data-title="Hygiene Education" data-desc="Workshops and training on handwashing, menstrual hygiene, and disease prevention." data-features="School workshops,Community outreach,Materials & curriculum,Trainer training,Monitoring">Learn More</a>
                     </div>
                 </div>
                 <div class="program-card">
@@ -713,7 +722,7 @@
                     <div class="program-info">
                         <h3>Community Leadership</h3>
                         <p>Developing local water committees and training technicians to maintain water systems and promote WASH practices.</p>
-                        <a href="#" class="btn">Learn More</a>
+                        <a href="#" class="btn learn-more" data-title="Community Leadership" data-desc="Developing local water committees and technician training to ensure ownership and sustainability." data-features="Water committees,Technical training,Leadership workshops,Sustainability plans,Monitoring">Learn More</a>
                     </div>
                 </div>
                 <div class="program-card">
@@ -721,7 +730,7 @@
                     <div class="program-info">
                         <h3>Mental Health</h3>
                         <p>Supporting mental health through resources, community programs, and compassionate care. We help break the silence around depression and provide hope and guidance.</p>
-                        <a href="#" class="btn">Learn More</a>
+                        <a href="#" class="btn learn-more" data-title="Mental Health" data-desc="Support community mental health with resources, counseling, and resilience programs." data-features="Counseling,Support groups,Training for volunteers,Referral pathways,Community awareness">Learn More</a>
                     </div>
                 </div>
                 <div class="program-card">
@@ -729,7 +738,15 @@
                     <div class="program-info">
                         <h3>Climate Adaptation</h3>
                         <p>Helping communities adapt to climate change by promoting water conservation, sustainable agriculture, and disaster preparedness.</p>
-                        <a href="#" class="btn">Learn More</a>
+                        <a href="#" class="btn learn-more" data-title="Climate Adaptation" data-desc="Promote water conservation, sustainable agriculture, and disaster preparedness for vulnerable communities." data-features="Water conservation,Sustainable agriculture,Disaster prep,Climate-resilient tech,Training">Learn More</a>
+                    </div>
+                </div>
+                <div class="program-card">
+                    <div class="program-img" style="background-image: url('https://source.unsplash.com/random/600x400/?education,school');"></div>
+                    <div class="program-info">
+                        <h3>Education & School WASH</h3>
+                        <p>Support schools with WASH facilities, scholarships, teacher training, and learning materials so children stay healthy and in class.</p>
+                        <a href="#" class="btn learn-more" data-title="Education & School WASH" data-desc="Support schools with WASH facilities, scholarships, teacher training, and learning materials." data-features="School WASH facilities,Scholarships,Teacher training,Curriculum materials,Student projects">Learn More</a>
                     </div>
                 </div>
             </div>
@@ -838,7 +855,23 @@
         </div>
     </section>
 
-    <!-- Footer -->
+        <!-- Program Details Modal -->
+        <div class="modal fade" id="programModal" tabindex="-1" aria-labelledby="programModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="programModalLabel">Program</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="programModalDesc"></p>
+                        <ul id="programModalFeatures" class="list-unstyled"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
     <footer>
         <div class="footer-container">
             <div class="footer-col">
@@ -850,6 +883,14 @@
                     <a href="#"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-linkedin-in"></i></a>
                     <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="mt-3">
+                    <h5>Core Objectives</h5>
+                    <ul class="ps-3 mb-0">
+                        <li>Strengthen caregivers with livelihood skills to reduce poverty.</li>
+                        <li>Provide quality formal education to the needy and most marginalized groups.</li>
+                        <li>Carry out health training focused on preventive measures.</li>
+                    </ul>
                 </div>
             </div>
             <div class="footer-col">
@@ -884,6 +925,7 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Navbar scroll effect
@@ -996,6 +1038,45 @@
         
         window.addEventListener('scroll', checkCounter);
         window.addEventListener('load', checkCounter);
+
+        // Program modal: populate and show when 'Learn More' is clicked
+        document.addEventListener('DOMContentLoaded', function () {
+            const learnBtns = document.querySelectorAll('.learn-more');
+            const modalEl = document.getElementById('programModal');
+            const modalTitle = document.getElementById('programModalLabel');
+            const modalDesc = document.getElementById('programModalDesc');
+            const modalFeatures = document.getElementById('programModalFeatures');
+
+            if (!modalEl) return;
+
+            learnBtns.forEach(btn => {
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const title = btn.getAttribute('data-title') || 'Program';
+                    const desc = btn.getAttribute('data-desc') || '';
+                    const features = (btn.getAttribute('data-features') || '').split(',').map(s => s.trim()).filter(Boolean);
+
+                    if (modalTitle) modalTitle.textContent = title;
+                    if (modalDesc) modalDesc.textContent = desc;
+                    if (modalFeatures) {
+                        modalFeatures.innerHTML = '';
+                        features.forEach(f => {
+                            const li = document.createElement('li');
+                            li.textContent = '• ' + f;
+                            modalFeatures.appendChild(li);
+                        });
+                    }
+
+                    // Show Bootstrap modal
+                    try {
+                        const bsModal = new bootstrap.Modal(modalEl);
+                        bsModal.show();
+                    } catch (err) {
+                        console.error('Bootstrap modal show failed:', err);
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>

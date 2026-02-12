@@ -7,45 +7,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 
     <style>
-        :root {
-            --primary: #2e8b57;
-            --primary-dark: #1d6e42;
-            --primary-light: #3daa6d;
-            --accent: #f39c12;
-            --light: #f8f9fa;
-            --dark: #343a40;
-            --gray: #6c757d;
-            --shadow: 0 4px 8px rgba(0,0,0,0.1);
-            --transition: all 0.3s ease;
-            --secondary: #eaf6f0;
-            --light-bg: #f5f5f5;
-        }
+        /* Color variables are provided in styles.css (centralized) */
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
-        body {
-            font-family: 'Open Sans', sans-serif;
-            color: var(--dark);
-            background-color: var(--light-bg);
-            line-height: 1.6;
-        }
-        
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            color: var(--primary-dark);
-        }
-        
-        /* Header Styles */
-       
 
-        /* Header Styles */
         header {
             background: var(--light);
             box-shadow: var(--shadow);
@@ -607,13 +579,7 @@
                             <div class="payment-desc">Pay via Airtel Money</div>
                         </div>
                         
-                        <div class="payment-option" data-method="bank">
-                            <div class="payment-icon">
-                                <i class="fas fa-university"></i>
-                            </div>
-                            <div class="payment-name">Bank Transfer</div>
-                            <div class="payment-desc">Direct bank transfer</div>
-                        </div>
+                        <!-- Bank transfer removed - using MTN/Airtel/Card options only -->
                         
                         <div class="payment-option" data-method="card">
                             <div class="payment-icon">
@@ -664,26 +630,13 @@
                     </div>
                 </div>
                 
-                <div id="payment-details-bank" class="payment-details hidden">
-                    <h4>Bank Transfer Details</h4>
-                    <div class="payment-instructions">
-                        <p><strong>Account Name:</strong> UNKNOWN</p>
-                        <p><strong>Bank:</strong> Stanbic Bank Uganda</p>
-                        <p><strong>Account Number:</strong> 0709251412</p>
-                        <p><strong>Branch:</strong> Main Branch, Kampala</p>
-                        <p><strong>SWIFT Code:</strong> NULL</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="bank-reference">Transfer Reference</label>
-                        <input type="text" id="bank-reference" name="bank-reference" placeholder="Enter your transfer reference">
-                    </div>
-                </div>
+                <!-- Bank transfer details removed; bank transfers handled externally if needed -->
                 
                 <div id="payment-details-card" class="payment-details hidden">
                     <h4>Card Payment Details</h4>
                     <div class="form-group">
                         <label for="card-number">Card Number</label>
-                        <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9012 3456">
+                        <input type="text" id="card-number" name="card-number" placeholder="4242 4242 4242 4242">
                     </div>
                     <div class="form-group" style="display: flex; gap: 1rem;">
                         <div style="flex: 1;">
@@ -699,6 +652,7 @@
                         <label for="card-name">Name on Card</label>
                         <input type="text" id="card-name" name="card-name">
                     </div>
+                    <p style="font-size:0.9rem;color:var(--gray);">This page supports a client-side simulated card payment (no real charges). To accept real cards, add a backend to create PaymentIntents or use Stripe Payment Links.</p>
                 </div>
                 
                 <div class="form-group">
@@ -720,8 +674,9 @@
                 <h4>Organization Details</h4>
                 <p><strong>NEW GRACE JS</strong></p>
                 <p>Busia, Uganda</p>
-                <p>Email: <a href="mailto:communitywashforlife@gmail.com">communitywashforlife@gmail.com</a></p>
-                <p>Phone: 0709251412/0742168411</p>
+                <p>Email: <a href="mailto:newgracejs@gmail.com">newgracejs@gmail.com</a></p>
+                <p>Phone: 0709251412, 0785950405</p>
+                <p>Account Number: 304214000716</p>
             </div>
         </div>
     </section>
@@ -737,6 +692,14 @@
                     <a href="#"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-linkedin-in"></i></a>
                     <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="mt-3">
+                    <h5>Core Objectives</h5>
+                    <ul class="ps-3 mb-0">
+                        <li>Strengthen caregivers with livelihood skills to reduce poverty.</li>
+                        <li>Provide quality formal education to the needy and most marginalized groups.</li>
+                        <li>Carry out health training focused on preventive measures.</li>
+                    </ul>
                 </div>
             </div>
             <div class="footer-col">
@@ -833,6 +796,7 @@
         // Form submission
         document.getElementById('donation-form').addEventListener('submit', function(e) {
             e.preventDefault();
+            const form = this;
             const name = document.getElementById('donor-name').value;
             const email = document.getElementById('donor-email').value;
             const phone = document.getElementById('donor-phone').value;
@@ -845,39 +809,84 @@
                 alert('Please select a payment method');
                 return;
             }
+
+            const submitBtn = form.querySelector('button[type="submit"]');
+
             if (selectedMethod === 'mtn') {
                 const mtnPhone = document.getElementById('mtn-phone').value;
                 if (!mtnPhone) {
                     alert('Please provide your MTN phone number');
                     return;
                 }
+                // Show success for MTN submission (user will complete transfer on their phone)
+                document.getElementById('donation-success').innerHTML = '<i class="fas fa-check-circle" style="font-size:2.5rem;color:var(--primary);"></i><h3>Thank you!</h3><p>Please complete the transfer from your MTN line using the instructions provided.</p><button class="btn" onclick="document.getElementById(\'donation-success\').style.display=\'none\'">Close</button>';
+                document.getElementById('donation-success').style.display = 'block';
+                form.reset();
+                document.querySelectorAll('.donate-amount').forEach(a => a.classList.remove('active'));
+                document.querySelectorAll('.payment-option').forEach(a => a.classList.remove('active'));
+                document.querySelectorAll('.payment-details').forEach(a => a.classList.add('hidden'));
+                selectedMethod = null;
+                document.getElementById('donation-success').scrollIntoView({ behavior: 'smooth' });
+                return;
             } else if (selectedMethod === 'airtel') {
                 const airtelPhone = document.getElementById('airtel-phone').value;
                 if (!airtelPhone) {
                     alert('Please provide your Airtel phone number');
                     return;
                 }
-            } else if (selectedMethod === 'bank') {
-                const reference = document.getElementById('bank-reference').value;
-                if (!reference) {
-                    alert('Please provide a transfer reference');
-                    return;
-                }
+                document.getElementById('donation-success').innerHTML = '<i class="fas fa-check-circle" style="font-size:2.5rem;color:var(--primary);"></i><h3>Thank you!</h3><p>Please complete the transfer from your Airtel line using the instructions provided.</p><button class="btn" onclick="document.getElementById(\'donation-success\').style.display=\'none\'">Close</button>';
+                document.getElementById('donation-success').style.display = 'block';
+                form.reset();
+                document.querySelectorAll('.donate-amount').forEach(a => a.classList.remove('active'));
+                document.querySelectorAll('.payment-option').forEach(a => a.classList.remove('active'));
+                document.querySelectorAll('.payment-details').forEach(a => a.classList.add('hidden'));
+                selectedMethod = null;
+                document.getElementById('donation-success').scrollIntoView({ behavior: 'smooth' });
+                return;
             } else if (selectedMethod === 'card') {
-                const cardNumber = document.getElementById('card-number').value;
-                const cardName = document.getElementById('card-name').value;
-                if (!cardNumber || !cardName) {
+                // Simulated client-side card payment (no real charge)
+                const cardNumber = (document.getElementById('card-number') || {}).value || '';
+                const cardName = (document.getElementById('card-name') || {}).value || '';
+                const cardExpiry = (document.getElementById('card-expiry') || {}).value || '';
+                const cardCvv = (document.getElementById('card-cvv') || {}).value || '';
+                if (!cardNumber || !cardName || !cardExpiry || !cardCvv) {
                     alert('Please complete all card details');
                     return;
                 }
+
+                // Basic formatting/cleanup
+                const cleaned = cardNumber.replace(/[^0-9]/g, '').trim();
+
+                // Disable button while "processing"
+                submitBtn.disabled = true;
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Processing...';
+
+                // Simulate network/payment delay
+                setTimeout(function() {
+                    // Accept common test Visa pattern (starts with 4 and length 16) as successful simulation
+                    const isTestVisa = /^4[0-9]{15}$/.test(cleaned);
+                    if (!isTestVisa) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = originalText;
+                        alert('Card declined (simulation). For testing use a 16-digit Visa-like number starting with 4 (e.g. 4242424242424242).');
+                        return;
+                    }
+
+                    const tx = 'SIMTX-' + Date.now().toString(36).toUpperCase();
+                    document.getElementById('donation-success').innerHTML = '<i class="fas fa-check-circle" style="font-size:2.5rem;color:var(--primary);"></i><h3>Payment successful</h3><p>Transaction ID: ' + tx + '</p><p>Thank you ' + (name || '') + '. We received UGX ' + (amount || '') + '.</p><button class="btn" onclick="document.getElementById(\'donation-success\').style.display=\'none\'">Close</button>';
+                    document.getElementById('donation-success').style.display = 'block';
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                    form.reset();
+                    document.querySelectorAll('.donate-amount').forEach(a => a.classList.remove('active'));
+                    document.querySelectorAll('.payment-option').forEach(a => a.classList.remove('active'));
+                    document.querySelectorAll('.payment-details').forEach(a => a.classList.add('hidden'));
+                    selectedMethod = null;
+                    document.getElementById('donation-success').scrollIntoView({ behavior: 'smooth' });
+                }, 1200);
+                return;
             }
-            document.getElementById('donation-success').style.display = 'block';
-            this.reset();
-            document.querySelectorAll('.donate-amount').forEach(a => a.classList.remove('active'));
-            document.querySelectorAll('.payment-option').forEach(a => a.classList.remove('active'));
-            document.querySelectorAll('.payment-details').forEach(a => a.classList.add('hidden'));
-            selectedMethod = null;
-            document.getElementById('donation-success').scrollIntoView({ behavior: 'smooth' });
         });
     });
     </script>

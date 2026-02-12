@@ -8,26 +8,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
     <style>
         /* --- ABOUT.HTML-SPECIFIC CSS (NO NAVBAR) --- */
-        :root {
-            --primary: #2e8b57;
-            --primary-dark: #1d6e42;
-            --primary-light: #3daa6d;
-            --accent: #f39c12;
-            --light: #f8f9fa;
-            --dark: #343a40;
-            --gray: #6c757d;
-            --shadow: 0 4px 8px rgba(0,0,0,0.1);
-            --transition: all 0.3s ease;
-            --secondary: #eaf6f0;
-            --light-bg: #f5f5f5;
-            --gradient-primary: linear-gradient(90deg, var(--primary) 0%, var(--primary-light) 100%);
-            --gradient-light: linear-gradient(90deg, var(--light) 0%, var(--primary-light) 100%);
-            --text-light: var(--gray);
-            --text-dark: var(--dark);
-        }
+        /* Color variables are provided in styles.css (centralized) */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { width: 100%; overflow-x: hidden; }
         body {
@@ -448,25 +433,29 @@
 
     <!-- Header with Custom Navbar -->
     <header>
-        <div class="header-container">
-            <div class="logo" style="display: flex; align-items: center;">
-                <img src="images/LOGO.JPG" alt="New Grace JS Logo" height="50" width="50" class="me-2 rounded-circle">
-                <div class="logo-text">
-                    <h1>New Grace JS</h1>
-                    <p>Education for All</p>
-                </div>
-            </div>
-            <nav id="nav">
-                <a href="index.html">Home</a>
-                <a href="about.html" class="active">About</a>
-                <a href="programes.html">Programs</a>
-                <a href="gallery.html">Gallery</a>
-                <a href="donate.html">Donate</a>
-            </nav>
-            <div class="menu-toggle" id="menuToggle" style="margin-left: 16px;">
-                <i class="fas fa-bars"></i>
-            </div>
+      <div class="header-container">
+        <div class="logo" style="display: flex; align-items: center;">
+          <img src="images/LOGO.JPG" alt="New Grace JS Logo" height="50" width="50" class="me-2 rounded-circle">
+          <div class="logo-text">
+            <h1>New Grace JS</h1>
+            <p>Education for All</p>
+          </div>
         </div>
+        <div class="menu-toggle" id="menuToggle">
+          <i class="fas fa-bars"></i>
+        </div>
+        <nav id="nav">
+          <a href="index.html#home">Home</a>
+          <a href="about.html" class="active">About</a>
+          <a href="index.html#mission">Mission</a>
+          <a href="programes.html">Programs</a>
+          <a href="index.html#education">Education</a>
+          <a href="index.html#team">Team</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="donate.html">Donate</a>
+          <a href="index.html#contact">Contact</a>
+        </nav>
+      </div>
     </header>
 
     <!-- Hero Section -->
@@ -476,7 +465,7 @@
         <div class="row justify-content-center text-center">
           <div class="col-lg-8">
             <h1 class="display-4 fw-bold mb-4" data-aos="fade-down">About Our Mission</h1>
-            <p class="lead mb-4" data-aos="fade-up" data-aos-delay="200">Learn about our journey, values, and the dedicated team working to provide clean water and sanitation to communities in need.</p>
+            <p class="lead mb-4" data-aos="fade-up" data-aos-delay="200">Learn about our journey, values, and the dedicated team working to provide clean water, sanitation, quality education, and healthcare to communities in need.</p>
             <div data-aos="fade-up" data-aos-delay="400">
               <a href="#about-details" class="btn btn-light btn-lg rounded-pill px-4 py-2 me-2">Explore</a>
               <a href="donate.html" class="btn btn-outline-light btn-lg rounded-pill px-4 py-2">Support Us</a>
@@ -495,9 +484,9 @@
               <h2 class="fw-bold section-title" data-aos="fade-up">About New Grace JS</h2>
             </div>
             <div class="about-content" data-aos="fade-up" data-aos-delay="200">
-              <p class="lead">New Grace JS is a global charity committed to addressing the critical need for clean water, sanitation, and hygiene (WASH) in underserved communities worldwide. Founded in 2010, we've worked across 35 countries to implement sustainable solutions that transform lives.</p>
-              <p>Our approach combines infrastructure development with community education and empowerment. We believe that access to clean water is a fundamental human right and the foundation for health, education, and economic development.</p>
-              <p>With a team of local experts and international specialists, we tailor solutions to each community's specific needs, ensuring long-term success and local ownership of water projects.</p>
+              <p class="lead">New Grace JS is a global charity committed to addressing the critical need for clean water, sanitation, hygiene (WASH), and quality education in underserved communities worldwide. Founded in 2018 in Uganda, we currently operate as a community-based organisation in Namayingo and Busia, implementing sustainable solutions that transform lives.</p>
+              <p>Our approach combines infrastructure development with quality education, community education, and empowerment. We believe that access to clean water and education are fundamental human rights and the foundation for health, economic development, and sustainable communities.</p>
+              <p>With a team of local experts and international specialists, we tailor solutions to each community's specific needs, ensuring long-term success and local ownership of water and education projects.</p>
               
               <div class="row mt-5">
                 <div class="col-md-6" data-aos="fade-right" data-aos-delay="300">
@@ -514,8 +503,17 @@
                   </ul>
                 </div>
               </div>
+               <div class="mt-5" data-aos="fade-up">
+                <h3 class="mt-4">Core Objectives</h3>
+                <ul class="ps-4">
+                  <li>To strengthen caregivers with livelihood skills to reduce poverty.</li>
+                  <li>To provide quality formal education to the needy and most marginalized groups.</li>
+                  <li>To carry out health training focused on preventive measures.</li>
+                </ul>
+              </div>
 
               <h3 class="mt-5" data-aos="fade-up">Our Values</h3>
+             
               <div class="row mt-4">
                 <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
                   <div class="d-flex mb-4">
@@ -562,6 +560,8 @@
           </div>
         </div>
       </div>
+
+      
     </section>
 
     <!-- Impact Stats Bar with Animated Counters -->
@@ -624,11 +624,11 @@
           <div class="col-12 col-sm-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
             <div class="team-member card h-100 text-center p-3 border-0">
               <div class="card-img-wrapper overflow-hidden rounded-circle mx-auto" style="width:150px; height:150px;">
-                <img src="images/IMG_20250829_123723.jpg" alt="MR ISAAC SIFUNA" class="card-img-top w-100 h-100" style="object-fit:cover;">
+                <img src="images/IMG_20250829_123723.jpg" alt="SSESSAAZI HERMAN" class="card-img-top w-100 h-100" style="object-fit:cover;">
               </div>
               <div class="card-body">
-                <h3 class="card-title h5 mt-3">MR ISAAC SIFUNA</h3>
-                <div class="position text-primary fw-bold">Exective Director</div>
+                <h3 class="card-title h5 mt-3">SSESSAAZI HERMAN</h3>
+                <div class="position text-primary fw-bold">Director of Field Operations</div>
                 <p class="mt-2">Public health specialist with field experience in 20+ countries</p>
                 <div class="social-links mt-3">
                   <a href="#"><i class="fab fa-linkedin-in"></i></a>
@@ -744,6 +744,14 @@
               <a href="#"><i class="fab fa-instagram"></i></a>
               <a href="#"><i class="fab fa-linkedin-in"></i></a>
               <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="mt-3">
+              <h5>Core Objectives</h5>
+              <ul class="ps-3 mb-0">
+                <li>Strengthen caregivers with livelihood skills to reduce poverty.</li>
+                <li>Provide quality formal education to the needy and most marginalized groups.</li>
+                <li>Carry out health training focused on preventive measures.</li>
+              </ul>
             </div>
           </div>
           <div class="col-6 col-md-2">
