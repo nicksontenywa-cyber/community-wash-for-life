@@ -1,894 +1,908 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Donate - New Grace JS</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-
-    <style>
-        /* Color variables are provided in styles.css (centralized) */
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        header {
-            background: var(--light);
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 15px 0;
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .logo i {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-right: 15px;
-        }
-
-        .logo-text h1 {
-            font-size: 1.5rem;
-            margin-bottom: 0;
-            line-height: 1.2;
-        }
-
-        .logo-text p {
-            font-size: 0.9rem;
-            margin-bottom: 0;
-            color: var(--gray);
-        }
-
-        nav {
-            display: flex;
-            gap: 25px;
-        }
-
-        nav a {
-            font-weight: 600;
-            font-size: 1rem;
-            position: relative;
-            text-decoration: none;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: var(--transition);
-        }
-
-        nav a:hover::after, nav a.active::after {
-            width: 100%;
-        }
-
-        nav a.active, nav a:hover {
-            color: var(--primary);
-        }
-
-        /* Mobile Navigation */
-        .menu-toggle {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--dark);
-        } 
-        /* Donate Section */
-        .donate-section {
-            background: var(--secondary);
-            padding: 4rem 1rem;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        
-        .donate-container {
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            padding: 2.5rem;
-            margin-top: 1rem;
-        }
-        
-        .donate-container h2 {
-            text-align: center;
-            margin-bottom: 1rem;
-            color: var(--primary);
-            font-size: 2.2rem;
-        }
-        
-        .donate-container > p {
-            text-align: center;
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-            color: var(--gray);
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--dark);
-        }
-        
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            font-family: 'Open Sans', sans-serif;
-            transition: border-color 0.3s;
-        }
-        
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(46, 139, 87, 0.2);
-        }
-        
-        .btn {
-            display: inline-block;
-            background: var(--primary);
-            color: var(--light);
-            padding: 10px 28px;
-            border: none;
-            border-radius: 5px;
-            font-weight: 600;
-            font-size: 1rem;
-            text-decoration: none;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-            cursor: pointer;
-        }
-        .btn:hover, .btn:focus {
-            background: var(--primary-dark);
-            color: var(--light);
-            outline: none;
-        }
-        
-        .donate-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        
-        .donate-amount {
-            background-color: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 5px;
-            padding: 0.8rem 1.2rem;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            flex: 1;
-            min-width: 120px;
-            text-align: center;
-        }
-        
-        .donate-amount:hover {
-            border-color: var(--primary-light);
-            background-color: rgba(46, 139, 87, 0.1);
-        }
-        
-        .donate-amount.active {
-            background-color: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-        
-        /* Payment Methods */
-        .payment-methods {
-            margin: 2rem 0;
-        }
-        
-        .payment-methods h3 {
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-        
-        .payment-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-        
-        .payment-option {
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            padding: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-        
-        .payment-option:hover {
-            border-color: var(--primary-light);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-        }
-        
-        .payment-option.active {
-            border-color: var(--primary);
-            background-color: rgba(46, 139, 87, 0.05);
-        }
-        
-        .payment-icon {
-            font-size: 2rem;
-            margin-bottom: 0.8rem;
-            color: var(--primary);
-        }
-        
-        .payment-option.active .payment-icon {
-            color: var(--primary-dark);
-        }
-        
-        .payment-name {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .payment-desc {
-            font-size: 0.85rem;
-            color: var(--gray);
-        }
-        
-        /* Payment Details */
-        .payment-details {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            border-left: 4px solid var(--primary);
-        }
-        
-        .payment-details h4 {
-            margin-bottom: 1rem;
-            color: var(--primary-dark);
-        }
-        
-        .payment-instructions {
-            margin-bottom: 1.5rem;
-        }
-        
-        .payment-instructions p {
-            margin-bottom: 0.5rem;
-        }
-        
-        .hidden {
-            display: none;
-        }
-        
-        /* Success Message */
-        .donation-success {
-            text-align: center;
-            padding: 2rem;
-            background-color: #f8fff8;
-            border-radius: 8px;
-            border: 1px solid #e1f5e1;
-            margin-top: 2rem;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 3rem 1rem 1rem;
-            margin-top: 4rem;
-        }
-        
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-        
-        .footer-col h3 {
-            color: white;
-            margin-bottom: 1.2rem;
-            font-size: 1.2rem;
-        }
-        
-        .footer-col a {
-            display: block;
-            color: #ddd;
-            text-decoration: none;
-            margin-bottom: 0.7rem;
-            transition: color 0.3s;
-        }
-        
-        .footer-col a:hover {
-             color: var(--primary-light);
-            padding-left: 5px;
-        }
-        
-        .footer-social {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        
-        .footer-social a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            transition: all 0.3s;
-        }
-        
-        .footer-social a:hover {
-            
-             color: var(--primary-light);
-            padding-left: 5px;
-        }
-        
-        .copyright {
-            text-align: center;
-            margin-top: 3rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #aaa;
-            font-size: 0.9rem;
-        }
-        
-        /* --- START: NAVBAR CSS FROM our_programes.html --- */
-.menu-toggle {
-    display: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--dark);
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Support New Grace JS — choose your impact level and help provide clean water, sanitation and education to communities in Namayingo District, Uganda.">
+<title>Donate | New Grace JS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/*──────────────── TOKENS ────────────────*/
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0B1F18;--forest:#1B4D3E;--jade:#2A7A5F;
+  --gold:#C9963A;--amber:#E8B855;--ap:rgba(232,184,85,.12);
+  --cream:#F6F0E4;--parch:#EDE5D4;--white:#fff;
+  --ease:cubic-bezier(.34,1.56,.64,1);
+  --ease2:cubic-bezier(.16,1,.3,1);
+  --r:1.5rem;--r2:2rem;--nh:76px;
 }
-@media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
-    }
-    nav {
-        position: fixed;
-        top: 80px;
-        left: -100%;
-        width: 100%;
-        height: calc(100vh - 80px);
-        background: var(--light);
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        transition: var(--transition);
-        gap: 30px;
-    }
-    nav.active {
-        left: 0;
-    }
-    .header-container {
-        padding: 0 20px;
-    }
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--ink);color:var(--white);overflow-x:hidden;cursor:none;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer}
+
+/*── CURSOR ──*/
+#cur,#cur-r{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%)}
+#cur{width:10px;height:10px;background:var(--amber);z-index:9999;transition:width .2s var(--ease),height .2s var(--ease),background .2s}
+#cur-r{width:36px;height:36px;border:1.5px solid rgba(232,184,85,.42);z-index:9998;transition:left .12s var(--ease2),top .12s var(--ease2),width .35s var(--ease),height .35s var(--ease)}
+body:has(a:hover) #cur,body:has(button:hover) #cur{width:18px;height:18px;background:var(--gold)}
+body:has(a:hover) #cur-r,body:has(button:hover) #cur-r{width:52px;height:52px}
+@media(pointer:coarse){#cur,#cur-r{display:none}body{cursor:auto}}
+
+/*── SCROLL PROGRESS ──*/
+#prog{position:fixed;top:0;left:0;height:3px;width:0;z-index:10001;background:linear-gradient(90deg,var(--forest),var(--gold),var(--amber));box-shadow:0 0 10px rgba(232,184,85,.55);transition:width .08s linear}
+
+/*── NOISE ──*/
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.45;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E")}
+
+/*── NAV ──*/
+#nav{position:fixed;inset:0 0 auto;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:1.3rem 3.5rem;transition:padding .4s var(--ease2),background .4s,border-color .4s}
+#nav.sc{background:rgba(11,31,24,.94);backdrop-filter:blur(28px) saturate(1.5);border-bottom:1px solid rgba(201,150,58,.18);padding:.85rem 3.5rem}
+.n-logo{display:flex;align-items:center;gap:.7rem;flex-shrink:0}
+.n-logo img{width:44px;height:44px;border-radius:12px;border:2px solid rgba(201,150,58,.4);object-fit:cover;transition:transform .3s var(--ease)}
+.n-logo:hover img{transform:scale(1.08) rotate(-2deg)}
+.n-logo strong{display:block;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;background:linear-gradient(130deg,#fff,var(--amber));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.n-logo span{font-size:.58rem;color:rgba(255,255,255,.42);letter-spacing:.1em}
+.n-links{display:flex;gap:2rem;align-items:center}
+.n-links a{color:rgba(255,255,255,.62);font-size:.79rem;font-weight:500;letter-spacing:.04em;position:relative;transition:color .25s;padding-bottom:2px}
+.n-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--amber);transition:width .3s var(--ease2)}
+.n-links a:hover,.n-links a.act{color:#fff}
+.n-links a:hover::after,.n-links a.act::after{width:100%}
+.n-cta{background:linear-gradient(135deg,var(--gold),var(--amber));color:var(--ink)!important;font-weight:700!important;padding:.52rem 1.35rem;border-radius:100px;font-size:.77rem!important;letter-spacing:.04em;transition:transform .2s var(--ease),box-shadow .2s;box-shadow:0 4px 16px rgba(201,150,58,.25)}
+.n-cta:hover{transform:translateY(-2px)!important;box-shadow:0 10px 28px rgba(201,150,58,.4)!important}
+.n-cta::after{display:none!important}
+
+/*── HAMBURGER ──*/
+#hb{display:none;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;padding:9px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;transition:background .2s}
+#hb:hover{background:rgba(255,255,255,.15)}
+#hb span{display:block;height:1.5px;border-radius:2px;background:#fff;transition:transform .35s var(--ease2),opacity .25s,width .3s;transform-origin:center}
+#hb span:nth-child(2){width:70%}
+#hb.op span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+#hb.op span:nth-child(2){opacity:0;transform:scaleX(0)}
+#hb.op span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/*── MOBILE DRAWER ──*/
+#mm{position:fixed;inset:0;z-index:999;background:rgba(11,31,24,.98);backdrop-filter:blur(32px);display:flex;flex-direction:column;padding:calc(var(--nh) + 1.5rem) 2rem 2.5rem;opacity:0;pointer-events:none;transform:translateX(102%);transition:opacity .4s var(--ease2),transform .4s var(--ease2)}
+#mm.op{opacity:1;pointer-events:all;transform:none}
+.mm-links{display:flex;flex-direction:column;gap:.35rem;flex:1}
+.mm-links a{color:rgba(255,255,255,.78);font-size:1.45rem;font-weight:600;font-family:'Playfair Display',serif;padding:.8rem 0;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;transition:color .2s,padding-left .25s}
+.mm-links a:hover{color:var(--amber);padding-left:.4rem}
+.mm-links a i{font-size:.85rem;opacity:.35}
+.mm-soc{display:flex;gap:.75rem;margin-top:1.8rem}
+.mm-soc a{width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:.9rem;transition:all .2s}
+.mm-soc a:hover{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.mm-btn{margin-top:1.25rem;background:linear-gradient(135deg,var(--gold),var(--amber));color:var(--ink);font-weight:800;font-size:.95rem;padding:1rem;border-radius:var(--r);border:none;width:100%;letter-spacing:.05em}
+
+/*── PAGE HERO ──*/
+.ph{min-height:70vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.ph-img{position:absolute;inset:0;z-index:0;background-image:url('images/waterpurifier.jpeg');background-size:cover;background-position:center;opacity:.18;animation:kz 24s ease infinite alternate}
+@keyframes kz{from{transform:scale(1)}to{transform:scale(1.08)}}
+.ph-bg{position:absolute;inset:0;z-index:1;background:linear-gradient(150deg,rgba(11,31,24,.97) 0%,rgba(27,77,62,.82) 55%,rgba(11,45,32,.97) 100%)}
+.ph-grid{position:absolute;inset:0;z-index:2;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:72px 72px}
+.orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(90px)}
+.o1{width:500px;height:500px;background:rgba(42,122,95,.2);top:-100px;right:-120px;animation:of 9s ease-in-out infinite alternate}
+.o2{width:340px;height:340px;background:rgba(201,150,58,.12);bottom:0;left:-80px;animation:of 11s ease-in-out infinite alternate-reverse}
+.o3{width:220px;height:220px;background:rgba(27,77,62,.25);top:30%;right:14%;animation:of 7s ease-in-out infinite alternate}
+@keyframes of{from{transform:translate(0,0) scale(1)}to{transform:translate(38px,-48px) scale(1.12)}}
+#pts{position:absolute;inset:0;z-index:2;overflow:hidden;pointer-events:none}
+.pt{position:absolute;border-radius:50%;background:rgba(232,184,85,.5);animation:rise linear infinite}
+@keyframes rise{0%{transform:translateY(100vh) scale(0);opacity:0}8%{opacity:1}92%{opacity:.35}100%{transform:translateY(-20px) scale(1);opacity:0}}
+
+.ph-inner{position:relative;z-index:5;text-align:center;max-width:820px;width:100%;padding:calc(var(--nh) + 2.5rem) 1.5rem 5rem}
+.ph-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--ap);border:1px solid rgba(232,184,85,.3);color:var(--amber);font-size:.67rem;font-weight:700;letter-spacing:.2em;padding:.42rem 1.05rem;border-radius:100px;margin-bottom:2rem;animation:fu .8s var(--ease2) .2s both}
+.pdot{width:7px;height:7px;border-radius:50%;background:var(--amber);animation:pd 2.2s ease-in-out infinite;flex-shrink:0}
+@keyframes pd{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
+.ph-title{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,7.5vw,6rem);font-weight:900;line-height:.92;letter-spacing:-.03em;margin-bottom:1.6rem;animation:fu .9s var(--ease2) .35s both}
+.ph-title .it{display:block;font-style:italic;background:linear-gradient(135deg,var(--gold),var(--amber),#f5d08a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ph-sub{font-size:clamp(.9rem,2.2vw,1.1rem);color:rgba(255,255,255,.65);max-width:520px;margin:0 auto 2.5rem;line-height:1.82;font-weight:300;animation:fu .9s var(--ease2) .5s both}
+.ph-ctas{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;animation:fu .9s var(--ease2) .65s both}
+@keyframes fu{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:none}}
+.bc{background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.07);padding:.65rem 3.5rem;display:flex;align-items:center;gap:.5rem;font-size:.72rem;color:rgba(255,255,255,.38);position:relative;z-index:10}
+.bc a{color:rgba(255,255,255,.45);transition:color .2s}.bc a:hover{color:var(--amber)}
+.bc i{font-size:.55rem}
+
+/*── SHARED ──*/
+.lbl{display:inline-flex;align-items:center;gap:.65rem;font-size:.64rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:1rem}
+.lbl::before{content:'';width:26px;height:1px;background:var(--amber);flex-shrink:0}
+.lbl.dk{color:var(--forest)}.lbl.dk::before{background:var(--forest)}
+.reveal{opacity:0;transform:translateY(46px);transition:opacity .9s var(--ease2),transform .9s var(--ease2)}
+.reveal.v{opacity:1;transform:none}
+.bg-btn{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--gold),var(--amber));color:var(--ink);font-weight:700;font-size:.87rem;letter-spacing:.04em;padding:.88rem 2.1rem;border-radius:100px;border:none;transition:transform .25s var(--ease),box-shadow .25s;white-space:nowrap;cursor:pointer}
+.bg-btn:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(201,150,58,.45)}
+
+/*── IMPACT LEVEL CARDS ──*/
+.lvl-sec{background:var(--cream);color:var(--ink);padding:7rem 3.5rem}
+.lvl-in{max-width:1280px;margin:0 auto}
+.lvl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.3rem;margin-top:1rem}
+.lvl-card{background:rgba(255,255,255,.8);backdrop-filter:blur(12px);border:1.5px solid rgba(27,77,62,.12);border-radius:var(--r2);padding:2.3rem 1.6rem;text-align:center;cursor:pointer;position:relative;transition:transform .4s var(--ease),box-shadow .4s,background .3s,border-color .3s}
+.lvl-card:hover{transform:translateY(-8px);box-shadow:0 28px 56px rgba(27,77,62,.18);background:#fff}
+.lvl-card.pop{border-color:var(--forest);border-width:2.5px;transform:scale(1.02)}
+.lvl-card.pop:hover{transform:scale(1.02) translateY(-8px)}
+.pop-badge{position:absolute;top:-1rem;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--forest),var(--jade));color:#fff;font-size:.6rem;font-weight:800;letter-spacing:.14em;padding:.28rem 1rem;border-radius:100px;white-space:nowrap}
+.lvl-icon{font-size:2.2rem;margin-bottom:1rem;display:block}
+.lvl-card h3{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;margin-bottom:.35rem;color:var(--ink)}
+.lvl-amount{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:900;color:var(--forest);margin-bottom:.6rem}
+.lvl-card p{color:rgba(11,31,24,.58);font-size:.83rem;line-height:1.65;margin-bottom:1.4rem}
+.lvl-btn{width:100%;padding:.7rem;border-radius:100px;border:2px solid var(--forest);background:transparent;color:var(--forest);font-weight:700;font-size:.8rem;letter-spacing:.06em;cursor:pointer;transition:all .25s var(--ease)}
+.lvl-btn:hover,.lvl-card.pop .lvl-btn{background:var(--forest);color:#fff}
+
+/*── IMPACT CALCULATOR ──*/
+.calc-sec{background:var(--ink);padding:7rem 3.5rem}
+.calc-in{max-width:860px;margin:0 auto}
+.calc-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:var(--r2);padding:3.5rem}
+.calc-card h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;margin-bottom:.6rem;text-align:center}
+.calc-card h2 em{color:var(--amber);font-style:italic}
+.calc-card>p{text-align:center;color:rgba(255,255,255,.5);font-size:.9rem;margin-bottom:2.5rem}
+/* slider */
+.slider-wrap{position:relative;margin-bottom:2.5rem}
+#impactSlider{
+  -webkit-appearance:none;appearance:none;
+  width:100%;height:6px;border-radius:3px;outline:none;cursor:pointer;
+  background:linear-gradient(to right,var(--forest) 0%,var(--forest) 50%,rgba(255,255,255,.12) 50%,rgba(255,255,255,.12) 100%);
 }
-@media (min-width: 769px) {
-    nav {
-        display: flex;
-        gap: 25px;
-        position: static;
-        height: auto;
-        width: auto;
-        background: none;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-end;
-        transition: none;
-    }
-    .menu-toggle {
-        display: none !important;
-    }
+#impactSlider::-webkit-slider-thumb{
+  -webkit-appearance:none;width:26px;height:26px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold),var(--amber));
+  border:3px solid var(--ink);box-shadow:0 4px 14px rgba(201,150,58,.5);
+  cursor:pointer;transition:transform .2s var(--ease);
 }
-/* --- END: NAVBAR CSS FROM our_programes.html --- */
-        @media (max-width: 900px) {
-  .menu-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1101;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
-  #nav {
-    position: fixed;
-    top: 0;
-    left: -100vw;
-    right: auto;
-    width: 100vw;
-    height: 100vh;
-    background: #fff;
-    color: var(--primary-dark);
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: left 0.3s ease;
-    z-index: 1100;
-    box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-    display: flex;
-    gap: 0;
-  }
-  #nav.active {
-    left: 0;
-  }
-  #nav a {
-    color: var(--primary-dark);
-    padding: 0.7rem 0; /* Reduced vertical padding */
-    border-bottom: 1px solid #eee;
-    width: 100%;
-    text-align: center;
-    font-size: 1.05rem;
-    background: none;
-    margin: 0;
-  }
-  .menu-toggle {
-    z-index: 1101;
-  }
-  body.nav-open::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0,0,0,0.5);
-    z-index: 1099;
-  }
+#impactSlider::-webkit-slider-thumb:hover{transform:scale(1.2)}
+#impactSlider::-moz-range-thumb{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--amber));border:3px solid var(--ink);cursor:pointer}
+.calc-display{text-align:center;margin-bottom:2.5rem}
+#impactAmount{font-family:'Playfair Display',serif;font-size:3.2rem;font-weight:900;color:var(--amber);display:block;margin-bottom:.4rem}
+#impactDesc{color:rgba(255,255,255,.65);font-size:.95rem}
+.impact-items{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.impact-item{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:var(--r);padding:.9rem 1.1rem;display:flex;align-items:center;gap:.75rem;font-size:.84rem;color:rgba(255,255,255,.75)}
+.impact-item i{color:var(--amber);font-size:.9rem;flex-shrink:0}
+
+/*── DONATION FORM ──*/
+.form-sec{background:var(--parch);color:var(--ink);padding:7rem 3.5rem}
+.form-in{max-width:900px;margin:0 auto}
+.form-card{background:rgba(255,255,255,.85);backdrop-filter:blur(16px);border:1px solid rgba(27,77,62,.1);border-radius:var(--r2);padding:3.5rem;box-shadow:0 40px 80px rgba(27,77,62,.12)}
+.form-card h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;margin-bottom:.5rem;color:var(--ink)}
+.form-card h2 em{color:var(--forest);font-style:italic}
+.form-card>p{color:rgba(11,31,24,.6);font-size:.9rem;margin-bottom:2.5rem;line-height:1.7}
+/* form grid */
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.2rem}
+.f-group{display:flex;flex-direction:column;gap:.45rem}
+.f-group label{font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(11,31,24,.55)}
+.f-inp{width:100%;background:rgba(11,31,24,.05);border:1.5px solid rgba(11,31,24,.15);border-radius:100px;padding:.82rem 1.3rem;font-size:.9rem;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;transition:border-color .25s,box-shadow .25s}
+.f-inp:focus{border-color:var(--forest);box-shadow:0 0 0 3px rgba(27,77,62,.12)}
+.f-inp::placeholder{color:rgba(11,31,24,.3)}
+.f-ta{border-radius:var(--r);resize:vertical;min-height:90px}
+
+/* quick amounts */
+.quick-amts{display:flex;flex-wrap:wrap;gap:.55rem;margin-bottom:1.8rem}
+.qa{background:rgba(11,31,24,.06);border:1.5px solid rgba(11,31,24,.15);color:rgba(11,31,24,.65);font-size:.78rem;font-weight:700;padding:.48rem 1.05rem;border-radius:100px;cursor:pointer;transition:all .22s var(--ease)}
+.qa:hover{border-color:var(--forest);color:var(--forest);background:rgba(27,77,62,.08)}
+.qa.on{background:var(--forest);border-color:var(--forest);color:#fff}
+
+/* payment method */
+.pay-methods{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:0}
+.pay-card{background:rgba(11,31,24,.04);border:1.5px solid rgba(11,31,24,.12);border-radius:var(--r);padding:1.5rem 1rem;text-align:center;cursor:pointer;transition:all .3s var(--ease)}
+.pay-card:hover{border-color:var(--forest);background:rgba(27,77,62,.06)}
+.pay-card.on{border-color:var(--forest);background:rgba(27,77,62,.08);box-shadow:0 0 0 3px rgba(27,77,62,.12)}
+.pay-card i{font-size:2rem;color:var(--forest);margin-bottom:.65rem;display:block}
+.pay-card h4{font-size:.85rem;font-weight:700;color:var(--ink);margin-bottom:.2rem}
+.pay-card span{font-size:.7rem;color:rgba(11,31,24,.45)}
+
+/* payment details box */
+.pay-detail{background:rgba(27,77,62,.07);border:1px solid rgba(27,77,62,.15);border-radius:var(--r);padding:1.7rem;margin-top:1.4rem;display:none}
+.pay-detail.show{display:block}
+.pay-detail h4{font-size:.9rem;font-weight:700;color:var(--forest);margin-bottom:1rem}
+.pay-steps{background:#fff;border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:1.3rem;border-left:3px solid var(--forest)}
+.pay-steps p{font-size:.84rem;line-height:1.8;color:rgba(11,31,24,.7)}
+.pay-steps strong{color:var(--forest)}
+
+/* submit button */
+.submit-btn{width:100%;background:linear-gradient(135deg,var(--forest),var(--jade));color:#fff;font-weight:800;font-size:1rem;letter-spacing:.06em;padding:1.1rem 2rem;border-radius:100px;border:none;cursor:pointer;position:relative;overflow:hidden;transition:transform .25s var(--ease),box-shadow .25s;margin-top:1.8rem}
+.submit-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.15),transparent 60%);opacity:0;transition:opacity .3s}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(27,77,62,.35)}
+.submit-btn:hover::before{opacity:1}
+.submit-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+/* org details */
+.org-box{background:rgba(27,77,62,.06);border:1px solid rgba(27,77,62,.12);border-radius:var(--r);padding:1.5rem 1.8rem;margin-top:1.8rem}
+.org-box h4{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--forest);margin-bottom:1rem}
+.org-row{display:flex;align-items:center;gap:.65rem;font-size:.85rem;color:rgba(11,31,24,.65);margin-bottom:.55rem}
+.org-row i{color:var(--forest);font-size:.85rem;width:16px;text-align:center}
+.org-row a{color:var(--forest);transition:color .2s}
+.org-row a:hover{color:var(--jade)}
+
+/* success state */
+.success-box{background:linear-gradient(135deg,var(--forest),var(--jade));border-radius:var(--r2);padding:3.5rem;text-align:center;display:none}
+.success-box.show{display:block}
+.success-box i{font-size:3.5rem;color:var(--amber);margin-bottom:1.2rem}
+.success-box h3{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;margin-bottom:.75rem}
+.success-box p{color:rgba(255,255,255,.8);font-size:.95rem;line-height:1.75;margin-bottom:2rem}
+
+/* trust strip */
+.trust-strip{background:var(--ink);border-top:1px solid rgba(255,255,255,.06);padding:2.5rem 3.5rem}
+.trust-inner{max-width:1280px;margin:0 auto;display:flex;justify-content:center;flex-wrap:wrap;gap:2.5rem}
+.trust-item{display:flex;align-items:center;gap:.55rem;font-size:.78rem;color:rgba(255,255,255,.4);font-weight:500}
+.trust-item i{color:var(--amber);font-size:1rem}
+
+/*── CONTACT STRIP ──*/
+.co-strip{background:var(--ink);border-top:1px solid rgba(255,255,255,.06);padding:3.8rem 3.5rem}
+.co-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;text-align:center}
+.co-bl i{font-size:1.55rem;color:var(--amber);margin-bottom:.7rem}
+.co-bl h4{font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-bottom:.45rem}
+.co-bl p,.co-bl a{font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.6;transition:color .2s}
+.co-bl a:hover{color:var(--amber)}
+
+/*── FOOTER ──*/
+footer{background:#040D09;padding:5rem 3.5rem 2.3rem;color:rgba(255,255,255,.48)}
+.f-in{max-width:1280px;margin:0 auto}
+.f-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.6fr;gap:3rem;margin-bottom:3.5rem}
+.f-br img{width:46px;height:46px;border-radius:12px;margin-bottom:.95rem;border:2px solid rgba(201,150,58,.28);object-fit:cover}
+.f-br h4{font-family:'Playfair Display',serif;color:#fff;font-size:1.05rem;margin-bottom:.45rem}
+.f-br p{font-size:.82rem;line-height:1.72}
+.f-col h5{color:#fff;font-size:.63rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.1rem}
+.f-col ul{list-style:none}
+.f-col li{margin-bottom:.52rem}
+.f-col a{color:rgba(255,255,255,.42);font-size:.83rem;transition:color .22s}
+.f-col a:hover{color:var(--amber)}
+.f-nl h5{color:#fff;font-size:.63rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.1rem}
+.f-nl p{font-size:.82rem;line-height:1.7;margin-bottom:.9rem}
+.nl-rw{display:flex}
+.nl-rw input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-right:none;border-radius:100px 0 0 100px;padding:.68rem 1.15rem;color:#fff;font-size:.8rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .3s}
+.nl-rw input:focus{border-color:var(--amber)}
+.nl-rw input::placeholder{color:rgba(255,255,255,.26)}
+.nl-rw button{background:linear-gradient(135deg,var(--gold),var(--amber));color:var(--ink);font-weight:700;font-size:.73rem;letter-spacing:.06em;padding:.68rem 1.05rem;border-radius:0 100px 100px 0;border:none;cursor:pointer;transition:opacity .2s}
+.nl-rw button:hover{opacity:.9}
+#nl-m{font-size:.72rem;margin-top:.4rem}
+.f-div{border:none;border-top:1px solid rgba(255,255,255,.06);margin:0 0 1.7rem}
+.f-bot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.f-bot p{font-size:.72rem}
+.socs{display:flex;gap:.7rem}
+.socs a{width:33px;height:33px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.38);font-size:.76rem;transition:all .22s}
+.socs a:hover{background:var(--gold);border-color:var(--gold);color:var(--ink);transform:translateY(-2px)}
+
+/*── TOAST & BTT ──*/
+#toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(70px);z-index:11000;background:var(--forest);color:#fff;padding:.8rem 1.9rem;border-radius:100px;font-size:.83rem;font-weight:600;box-shadow:0 12px 38px rgba(27,77,62,.4);transition:transform .4s var(--ease),opacity .4s;opacity:0;border:1px solid rgba(255,255,255,.1);white-space:nowrap;pointer-events:none}
+#toast.sh{transform:translateX(-50%) translateY(0);opacity:1}
+#btt{position:fixed;bottom:2rem;right:1.5rem;z-index:500;width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--amber));color:var(--ink);border:none;font-size:.9rem;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(201,150,58,.35);opacity:0;transform:translateY(18px);pointer-events:none;transition:opacity .35s,transform .35s var(--ease)}
+#btt.sh{opacity:1;transform:none;pointer-events:all}
+#btt:hover{transform:translateY(-3px)!important;box-shadow:0 14px 30px rgba(201,150,58,.5)}
+
+/*── RESPONSIVE ──*/
+@media(max-width:1100px){
+  .lvl-grid{grid-template-columns:repeat(2,1fr)}
+  .f-grid{grid-template-columns:1fr 1fr}
 }
-@media (min-width: 901px) {
-  #nav {
-    position: static !important;
-    flex-direction: row !important;
-    height: auto !important;
-    width: auto !important;
-    background: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    gap: 25px !important;
-  }
-  #nav a {
-    color: var(--primary-dark);
-    border-bottom: none;
-    padding: 0;
-    text-align: left;
-  }
-  .menu-toggle {
-    display: none !important;
-  }
+@media(max-width:860px){
+  :root{--nh:65px}
+  #nav,#nav.sc{padding:.85rem 1.4rem}
+  .n-links{display:none}
+  #hb{display:flex}
+  .ph-inner{padding:calc(var(--nh) + 2rem) 1.2rem 4.5rem}
+  .ph-title{font-size:clamp(2.2rem,9vw,3.8rem)}
+  .bc{padding:.6rem 1.4rem}
+  .lvl-sec,.calc-sec,.form-sec{padding:4.5rem 1.4rem}
+  .lvl-grid{grid-template-columns:1fr 1fr}
+  .f-row{grid-template-columns:1fr}
+  .pay-methods{grid-template-columns:1fr}
+  .impact-items{grid-template-columns:1fr}
+  .form-card{padding:2rem}
+  .calc-card{padding:2.2rem}
+  .trust-strip{padding:2rem 1.4rem}
+  .trust-inner{gap:1.5rem}
+  .co-strip{padding:3rem 1.4rem}
+  .co-in{grid-template-columns:1fr;gap:2rem}
+  footer{padding:3.8rem 1.4rem 2rem}
+  .f-grid{grid-template-columns:1fr}
+  .f-bot{flex-direction:column;text-align:center}
 }
-        @media (max-width: 600px) {
-            .donate-options {
-                flex-direction: column;
-            }
-            
-            .donate-amount {
-                width: 100%;
-            }
-            
-            .footer-container {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+@media(max-width:480px){
+  .ph-title{font-size:clamp(1.9rem,10vw,2.7rem)}
+  .ph-ctas{flex-direction:column;align-items:center}
+  .lvl-grid{grid-template-columns:1fr}
+  .quick-amts{gap:.4rem}
+  .trust-inner{flex-direction:column;align-items:center;gap:1rem}
+  .nl-rw{flex-direction:column}
+  .nl-rw input{border-right:1px solid rgba(255,255,255,.1);border-bottom:none;border-radius:var(--r) var(--r) 0 0}
+  .nl-rw button{border-radius:0 0 var(--r) var(--r);padding:.72rem}
+  .mm-links a{font-size:1.25rem}
+}
+</style>
 </head>
-<body> <header>
-            <div class="header-container">
-                <div class="logo">
-                    <img src="images/LOGO.JPG" alt="New Grace JS Logo" height="50" width="50" class="me-2 rounded-circle">
-                    <div class="logo-text">
-                        <h1>New Grace JS</h1>
-                        <p>Education for All</p>
-                    </div>
-                </div>
-                <div class="menu-toggle" id="menuToggle">
-                    <i class="fas fa-bars"></i>
-                </div>
-                <nav id="nav">
-                    <a href="index.html">Home</a>
-                    <a href="about.html">About</a>
-                    <a href="programes.html">Programs</a>
-                    <a href="gallery.html">Gallery</a>
-                    <a href="donate.html" class="active">Donate</a>
-                </nav>
-            </div>
-        </header>
+<body>
 
-    <main>
-        <section class="donate-section" id="donate">
-            <div class="donate-container">
-                <h2>Make a Difference Today</h2>
-                <p>Your donation provides clean water, sanitation, and hygiene education to communities in need.</p>
-            
-            <form id="donation-form" class="donation-form" autocomplete="off">
-                <div class="form-group">
-                    <label for="donor-name">Full Name</label>
-                    <input type="text" id="donor-name" name="donor-name" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="donor-email">Email Address</label>
-                    <input type="email" id="donor-email" name="donor-email" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="donor-phone">Phone Number</label>
-                    <input type="tel" id="donor-phone" name="donor-phone" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="donation-amount">Donation Amount (UGX)</label>
-                    <input type="number" id="donation-amount" name="donation-amount" min="1000" step="100" required>
-                </div>
-                
-                <div class="donate-options">
-                    <div class="donate-amount">UGX 10,000</div>
-                    <div class="donate-amount">UGX 25,000</div>
-                    <div class="donate-amount">UGX 50,000</div>
-                    <div class="donate-amount">UGX 100,000</div>
-                </div>
-                
-                <div class="payment-methods">
-                    <h3>Select Payment Method</h3>
-                    <div class="payment-options">
-                        <div class="payment-option" data-method="mtn">
-                            <div class="payment-icon">
-                                <i class="fas fa-mobile-alt"></i>
-                            </div>
-                            <div class="payment-name">MTN Mobile Money</div>
-                            <div class="payment-desc">Pay via MTN Mobile Money</div>
-                        </div>
-                        
-                        <div class="payment-option" data-method="airtel">
-                            <div class="payment-icon">
-                                <i class="fas fa-mobile"></i>
-                            </div>
-                            <div class="payment-name">Airtel Money</div>
-                            <div class="payment-desc">Pay via Airtel Money</div>
-                        </div>
-                        
-                        <!-- Bank transfer removed - using MTN/Airtel/Card options only -->
-                        
-                        <div class="payment-option" data-method="card">
-                            <div class="payment-icon">
-                                <i class="fas fa-credit-card"></i>
-                            </div>
-                            <div class="payment-name">ATM Card</div>
-                            <div class="payment-desc">Visa, Mastercard, etc.</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Payment method details (initially hidden) -->
-                <div id="payment-details-mtn" class="payment-details hidden">
-                    <h4>MTN Mobile Money Payment</h4>
-                    <div class="payment-instructions">
-                        <p>1. Dial *165*5# on your MTN line</p>
-                        <p>2. Select "Send Money"</p>
-                        <p>3. Enter phone number: <strong>0200902632</strong></p>
-                        <p>4. Enter the donation amount</p>
-                        <p>5. Enter your PIN to complete</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="mtn-phone">Your MTN Phone Number</label>
-                        <input type="tel" id="mtn-phone" name="mtn-phone">
-                    </div>
-                    <div class="form-group">
-                        <label for="mtn-transaction">Transaction ID (Optional)</label>
-                        <input type="text" id="mtn-transaction" name="mtn-transaction" placeholder="If available">
-                    </div>
-                </div>
-                
-                <div id="payment-details-airtel" class="payment-details hidden">
-                    <h4>Airtel Money Payment</h4>
-                    <div class="payment-instructions">
-                        <p>1. Dial *185*9# on your Airtel line</p>
-                        <p>2. Select "Send Money"</p>
-                        <p>3. Enter phone number: <strong>0200902632</strong></p>
-                        <p>4. Enter the donation amount</p>
-                        <p>5. Enter your PIN to complete</p>
-                    </div>
-                    <div class="form-group">
-                        <label for="airtel-phone">Your Airtel Phone Number</label>
-                        <input type="tel" id="airtel-phone" name="airtel-phone">
-                    </div>
-                    <div class="form-group">
-                        <label for="airtel-transaction">Transaction ID (Optional)</label>
-                        <input type="text" id="airtel-transaction" name="airtel-transaction" placeholder="If available">
-                    </div>
-                </div>
-                
-                <!-- Bank transfer details removed; bank transfers handled externally if needed -->
-                
-                <div id="payment-details-card" class="payment-details hidden">
-                    <h4>Card Payment Details</h4>
-                    <div class="form-group">
-                        <label for="card-number">Card Number</label>
-                        <input type="text" id="card-number" name="card-number" placeholder="4242 4242 4242 4242">
-                    </div>
-                    <div class="form-group" style="display: flex; gap: 1rem;">
-                        <div style="flex: 1;">
-                            <label for="card-expiry">Expiry Date</label>
-                            <input type="text" id="card-expiry" name="card-expiry" placeholder="MM/YY">
-                        </div>
-                        <div style="flex: 1;">
-                            <label for="card-cvv">CVV</label>
-                            <input type="text" id="card-cvv" name="card-cvv" placeholder="123">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="card-name">Name on Card</label>
-                        <input type="text" id="card-name" name="card-name">
-                    </div>
-                    <p style="font-size:0.9rem;color:var(--gray);">This page supports a client-side simulated card payment (no real charges). To accept real cards, add a backend to create PaymentIntents or use Stripe Payment Links.</p>
-                </div>
-                
-                <div class="form-group">
-                    <label for="donation-message">Message (optional)</label>
-                    <textarea id="donation-message" name="donation-message" rows="3" placeholder="Any message you'd like to include with your donation"></textarea>
-                </div>
-                
-                <button type="submit" class="btn" style="width:100%;margin-top:1rem;">Donate Now</button>
-            </form>
-            
-            <div id="donation-success" class="donation-success" style="display:none;">
-                <i class="fas fa-check-circle" style="font-size:2.5rem;color:var(--primary);"></i>
-                <h3>Thank you for your support!</h3>
-                <p>Your donation has been received. We appreciate your generosity.</p>
-                <button class="btn" onclick="document.getElementById('donation-success').style.display='none'">Close</button>
-            </div>
-            
-            <div style="margin-top:3rem;">
-                <h4>Organization Details</h4>
-                <p><strong>NEW GRACE JS</strong></p>
-                <p>Busia, Uganda</p>
-                <p>Email: <a href="mailto:newgracejs@gmail.com">newgracejs@gmail.com</a></p>
-                <p>Phone: 0709251412, 0785950405</p>
-                <p>Account Number: 304214000716</p>
-            </div>
+<div id="cur"></div><div id="cur-r"></div>
+<div id="prog"></div>
+<div id="toast"><i class="fas fa-check-circle"></i> <span id="t-msg"></span></div>
+<button id="btt" onclick="scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+<!-- ═══ NAV ═══ -->
+<nav id="nav">
+  <a href="index.html" class="n-logo">
+    <img src="images/LOGO.JPG" alt="New Grace JS">
+    <div><strong>New Grace JS</strong><span>NAMAYINGO · UGANDA · EST. 2018</span></div>
+  </a>
+  <div class="n-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="education.html">Education</a>
+    <a href="water-sanitation.html">WASH</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="blog.html">Blog</a>
+    <a href="contact.html">Contact</a>
+    <a href="donate.html" class="act">Donate</a>
+  </div>
+  <button id="hb" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- Mobile drawer -->
+<div id="mm" role="dialog" aria-label="Site navigation">
+  <div class="mm-links">
+    <a href="index.html">Home <i class="fas fa-arrow-right"></i></a>
+    <a href="about.html">About <i class="fas fa-arrow-right"></i></a>
+    <a href="education.html">Education <i class="fas fa-arrow-right"></i></a>
+    <a href="water-sanitation.html">WASH <i class="fas fa-arrow-right"></i></a>
+    <a href="gallery.html">Gallery <i class="fas fa-arrow-right"></i></a>
+    <a href="blog.html">Blog <i class="fas fa-arrow-right"></i></a>
+    <a href="contact.html">Contact <i class="fas fa-arrow-right"></i></a>
+    <a href="services.html">Services <i class="fas fa-arrow-right"></i></a>
+  </div>
+  <div class="mm-soc">
+    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+  </div>
+  <button class="mm-btn" onclick="document.getElementById('form-sec').scrollIntoView({behavior:'smooth'});document.body.style.overflow=''">
+    <i class="fas fa-heart"></i> Donate Now
+  </button>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="ph">
+  <div class="ph-img"></div>
+  <div class="ph-bg"></div>
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+  <div class="ph-grid"></div>
+  <div id="pts"></div>
+  <div class="ph-inner">
+    <div class="ph-badge"><span class="pdot"></span>MAKE A DIFFERENCE</div>
+    <h1 class="ph-title">
+      Give the Gift of<br>
+      <span class="it">Clean Water.</span>
+    </h1>
+    <p class="ph-sub">Every shilling you give brings safe water and quality education to families in Namayingo District, Uganda. Choose your impact level below.</p>
+    <div class="ph-ctas">
+      <button class="bg-btn" onclick="document.getElementById('form-sec').scrollIntoView({behavior:'smooth'})">
+        <i class="fas fa-heart"></i> Donate Now
+      </button>
+      <a href="#calc" class="bg-btn" style="background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border:1.5px solid rgba(255,255,255,.22);color:#fff;box-shadow:none">
+        <i class="fas fa-calculator"></i> See My Impact
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Breadcrumb -->
+<div class="bc">
+  <a href="index.html">Home</a>
+  <i class="fas fa-chevron-right"></i>
+  <span style="color:var(--amber)">Donate</span>
+</div>
+
+<!-- ═══ IMPACT LEVELS ═══ -->
+<section class="lvl-sec">
+  <div class="lvl-in">
+    <div style="text-align:center;margin-bottom:4rem" class="reveal">
+      <div class="lbl dk" style="justify-content:center">Choose Your Impact</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.5rem);font-weight:900;line-height:1.1;color:var(--ink)">
+        See what your donation <em style="color:var(--forest);font-style:italic">makes possible</em>
+      </h2>
+    </div>
+    <div class="lvl-grid">
+      <div class="lvl-card reveal" style="transition-delay:.05s" onclick="selectLevel(10000,'Provides clean water for one family for a full month')">
+        <span class="lvl-icon">💧</span>
+        <h3>Water Hero</h3>
+        <div class="lvl-amount">UGX 10,000+</div>
+        <p>One family gets clean, safe water for an entire month</p>
+        <button class="lvl-btn">Select</button>
+      </div>
+      <div class="lvl-card reveal" style="transition-delay:.12s" onclick="selectLevel(25000,'Educates 10 students about water safety and hygiene')">
+        <span class="lvl-icon">📚</span>
+        <h3>Education Champion</h3>
+        <div class="lvl-amount">UGX 25,000+</div>
+        <p>Educates 10 students on water safety and proper hygiene</p>
+        <button class="lvl-btn">Select</button>
+      </div>
+      <div class="lvl-card pop reveal" style="transition-delay:.19s" onclick="selectLevel(50000,'Supports a complete community water system for a season')">
+        <div class="pop-badge">⭐ MOST POPULAR</div>
+        <span class="lvl-icon">🏆</span>
+        <h3>Community Lifesaver</h3>
+        <div class="lvl-amount">UGX 50,000+</div>
+        <p>Supports a complete community water system for an entire season</p>
+        <button class="lvl-btn">Select</button>
+      </div>
+      <div class="lvl-card reveal" style="transition-delay:.26s" onclick="selectLevel(100000,'Builds a complete water and sanitation facility')">
+        <span class="lvl-icon">🏛️</span>
+        <h3>Legacy Builder</h3>
+        <div class="lvl-amount">UGX 100,000+</div>
+        <p>Builds a complete water and sanitation facility for the community</p>
+        <button class="lvl-btn">Select</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ IMPACT CALCULATOR ═══ -->
+<section class="calc-sec" id="calc">
+  <div class="calc-in">
+    <div class="calc-card reveal">
+      <h2>Impact <em>Calculator</em></h2>
+      <p>Slide to see exactly what your donation provides for communities in Namayingo</p>
+      <div class="slider-wrap">
+        <input type="range" id="impactSlider" min="1000" max="500000" step="1000" value="50000">
+      </div>
+      <div class="calc-display">
+        <span id="impactAmount">UGX 50,000</span>
+        <span id="impactDesc">Supports a complete community water system</span>
+      </div>
+      <div class="impact-items">
+        <div class="impact-item"><i class="fas fa-check-circle"></i><span id="ii1">Clean water access for a community</span></div>
+        <div class="impact-item"><i class="fas fa-check-circle"></i><span id="ii2">Sanitation facilities</span></div>
+        <div class="impact-item"><i class="fas fa-check-circle"></i><span id="ii3">Hygiene education for families</span></div>
+        <div class="impact-item"><i class="fas fa-check-circle"></i><span id="ii4">Community maintenance training</span></div>
+      </div>
+      <div style="text-align:center;margin-top:2rem">
+        <button class="bg-btn" onclick="applyCalcAmount();document.getElementById('form-sec').scrollIntoView({behavior:'smooth'})">
+          Donate this amount <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DONATION FORM ═══ -->
+<section class="form-sec" id="form-sec">
+  <div class="form-in">
+    <div class="form-card reveal">
+      <h2>Make a <em>Donation</em></h2>
+      <p>Fill in your details below to complete your donation. All payments are secure and every shilling goes directly to our programmes.</p>
+
+      <!-- Success box -->
+      <div class="success-box" id="success-box">
+        <i class="fas fa-heart"></i>
+        <h3>Thank You!</h3>
+        <p id="success-msg">Your donation has been received. You are now part of the change.</p>
+        <button class="bg-btn" onclick="document.getElementById('success-box').classList.remove('show')">
+          <i class="fas fa-arrow-left"></i> Make Another Donation
+        </button>
+      </div>
+
+      <!-- The form -->
+      <form id="don-form">
+        <div class="f-row">
+          <div class="f-group">
+            <label for="d-name">Full Name *</label>
+            <input type="text" id="d-name" class="f-inp" placeholder="Your full name" required>
+          </div>
+          <div class="f-group">
+            <label for="d-email">Email Address *</label>
+            <input type="email" id="d-email" class="f-inp" placeholder="your@email.com" required>
+          </div>
         </div>
-    </section>
-
-    <footer>
-        <div class="footer-container">
-            <div class="footer-col">
-                <h3>New Grace JS</h3>
-                <p>Improving access to clean water, sanitation, and hygiene in underserved communities to promote health, education, and sustainability.</p>
-                <div class="footer-social">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                </div>
-                <div class="mt-3">
-                    <h5>Core Objectives</h5>
-                    <ul class="ps-3 mb-0">
-                        <li>Strengthen caregivers with livelihood skills to reduce poverty.</li>
-                        <li>Provide quality formal education to the needy and most marginalized groups.</li>
-                        <li>Carry out health training focused on preventive measures.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-col">
-                <h3>Quick Links</h3>
-                <a href="index.html#home">Home</a>
-                <a href="index.html#about">About Us</a>
-                <a href="programes.html">Programs</a>
-                <a href="index.html#donate">Donate</a>
-            </div>
-            <div class="footer-col">
-                <h3>Our Programs</h3>
-                <a href="#">Water Access Projects</a>
-                <a href="#">Sanitation Facilities</a>
-                <a href="#">Hygiene Education</a>
-                <a href="#">Community Leadership</a>
-                <a href="#">Emergency Response</a>
-                <a href="#">School WASH Programs</a>
-            </div>
-            <div class="footer-col">
-                <h3>Newsletter</h3>
-                <p>Subscribe to our newsletter for updates on our projects and impact.</p>
-                <form>
-                    <div class="form-group">
-                        <input type="email" placeholder="Your Email" required style="width: 100%; padding: 0.8rem; border-radius: 5px; border: none;">
-                    </div>
-                    <button type="submit" class="btn" style="width: 100%; background: var(--primary);">Subscribe</button>
-                </form>
-            </div>
+        <div class="f-row">
+          <div class="f-group">
+            <label for="d-phone">Phone Number *</label>
+            <input type="tel" id="d-phone" class="f-inp" placeholder="07XX XXX XXX" required>
+          </div>
+          <div class="f-group">
+            <label for="d-amount">Donation Amount (UGX) *</label>
+            <input type="number" id="d-amount" class="f-inp" min="1000" step="100" value="50000" required>
+          </div>
         </div>
-        <div class="copyright">
-            <p>&copy; 2025 New Grace JS. All rights reserved. | designed by n-tech.com</p>
+
+        <!-- Quick amounts -->
+        <div class="quick-amts">
+          <button type="button" class="qa" data-a="10000">UGX 10,000</button>
+          <button type="button" class="qa" data-a="25000">UGX 25,000</button>
+          <button type="button" class="qa on" data-a="50000">UGX 50,000</button>
+          <button type="button" class="qa" data-a="100000">UGX 100,000</button>
+          <button type="button" class="qa" data-a="250000">UGX 250,000</button>
         </div>
-    </footer>
 
-    <script>
-    // Mobile Menu Toggle (from our_programes.html)
-    document.addEventListener('DOMContentLoaded', function() {
-        // --- Prefill donation amount from URL parameter if present ---
-        const urlParams = new URLSearchParams(window.location.search);
-        const amountParam = urlParams.get('amount');
-        if (amountParam) {
-            const amountInput = document.getElementById('donation-amount');
-            amountInput.value = amountParam;
-            // Highlight the matching quick-select card if present
-            document.querySelectorAll('.donate-amount').forEach(function(el) {
-                if (el.textContent.replace(/[^\d]/g, '') === amountParam) {
-                    document.querySelectorAll('.donate-amount').forEach(a => a.classList.remove('active'));
-                    el.classList.add('active');
-                }
-            });
-        }
-        const menuToggle = document.getElementById('menuToggle');
-        const nav = document.getElementById('nav');
-        menuToggle.addEventListener('click', function() {
-            nav.classList.toggle('active');
-            menuToggle.querySelector('i').classList.toggle('fa-bars');
-            menuToggle.querySelector('i').classList.toggle('fa-times');
-        });
-        nav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                if(window.innerWidth <= 900 && nav.classList.contains('active')) {
-                    nav.classList.remove('active');
-                    menuToggle.querySelector('i').classList.remove('fa-times');
-                    menuToggle.querySelector('i').classList.add('fa-bars');
-                }
-            });
-        });
+        <!-- Payment method -->
+        <div class="f-group" style="margin-bottom:1.3rem">
+          <label>Select Payment Method *</label>
+          <div style="height:.5rem"></div>
+          <div class="pay-methods">
+            <div class="pay-card" data-method="mtn" onclick="selectPay('mtn')">
+              <i class="fas fa-mobile-alt"></i>
+              <h4>MTN Mobile Money</h4>
+              <span>Pay via MTN MoMo</span>
+            </div>
+            <div class="pay-card" data-method="airtel" onclick="selectPay('airtel')">
+              <i class="fas fa-mobile"></i>
+              <h4>Airtel Money</h4>
+              <span>Pay via Airtel</span>
+            </div>
+            <div class="pay-card" data-method="card" onclick="selectPay('card')">
+              <i class="fas fa-credit-card"></i>
+              <h4>ATM / Debit Card</h4>
+              <span>Visa, Mastercard</span>
+            </div>
+          </div>
+        </div>
 
-        // Donation amount quick select
-        document.querySelectorAll('.donate-amount').forEach(function(el) {
-            el.addEventListener('click', function() {
-                document.getElementById('donation-amount').value = this.textContent.replace(/[^\d]/g, '');
-                document.querySelectorAll('.donate-amount').forEach(a => a.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
+        <!-- MTN details -->
+        <div class="pay-detail" id="pd-mtn">
+          <h4><i class="fas fa-mobile-alt"></i> MTN Mobile Money Instructions</h4>
+          <div class="pay-steps">
+            <p>1. Dial <strong>*165*5#</strong> on your MTN line<br>
+            2. Select <strong>"Send Money"</strong><br>
+            3. Enter number: <strong>0709 251 412</strong><br>
+            4. Enter the donation amount<br>
+            5. Enter your PIN and confirm</p>
+          </div>
+          <div class="f-row" style="margin-bottom:0">
+            <div class="f-group">
+              <label for="mtn-p">Your MTN Number *</label>
+              <input type="tel" id="mtn-p" class="f-inp" placeholder="07XX XXX XXX">
+            </div>
+            <div class="f-group">
+              <label for="mtn-tx">Transaction ID (optional)</label>
+              <input type="text" id="mtn-tx" class="f-inp" placeholder="If you have it">
+            </div>
+          </div>
+        </div>
 
-        // Payment method selection
-        const paymentOptions = document.querySelectorAll('.payment-option');
-        let selectedMethod = null;
-        paymentOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                paymentOptions.forEach(opt => opt.classList.remove('active'));
-                this.classList.add('active');
-                document.querySelectorAll('.payment-details').forEach(detail => {
-                    detail.classList.add('hidden');
-                });
-                const method = this.getAttribute('data-method');
-                document.getElementById(`payment-details-${method}`).classList.remove('hidden');
-                selectedMethod = method;
-            });
-        });
+        <!-- Airtel details -->
+        <div class="pay-detail" id="pd-airtel">
+          <h4><i class="fas fa-mobile"></i> Airtel Money Instructions</h4>
+          <div class="pay-steps">
+            <p>1. Dial <strong>*185*9#</strong> on your Airtel line<br>
+            2. Select <strong>"Send Money"</strong><br>
+            3. Enter number: <strong>0785 950 405</strong><br>
+            4. Enter the donation amount<br>
+            5. Enter your PIN and confirm</p>
+          </div>
+          <div class="f-row" style="margin-bottom:0">
+            <div class="f-group">
+              <label for="airt-p">Your Airtel Number *</label>
+              <input type="tel" id="airt-p" class="f-inp" placeholder="07XX XXX XXX">
+            </div>
+            <div class="f-group">
+              <label for="airt-tx">Transaction ID (optional)</label>
+              <input type="text" id="airt-tx" class="f-inp" placeholder="If you have it">
+            </div>
+          </div>
+        </div>
 
-        // Form submission
-        document.getElementById('donation-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const form = this;
-            const name = document.getElementById('donor-name').value;
-            const email = document.getElementById('donor-email').value;
-            const phone = document.getElementById('donor-phone').value;
-            const amount = document.getElementById('donation-amount').value;
-            if (!name || !email || !phone || !amount) {
-                alert('Please fill in all required fields');
-                return;
-            }
-            if (!selectedMethod) {
-                alert('Please select a payment method');
-                return;
-            }
+        <!-- Card details -->
+        <div class="pay-detail" id="pd-card">
+          <h4><i class="fas fa-credit-card"></i> Card Payment</h4>
+          <div class="f-row">
+            <div class="f-group" style="grid-column:1/-1">
+              <label for="c-num">Card Number</label>
+              <input type="text" id="c-num" class="f-inp" placeholder="4242 4242 4242 4242" maxlength="19">
+            </div>
+          </div>
+          <div class="f-row" style="margin-bottom:1rem">
+            <div class="f-group">
+              <label for="c-exp">Expiry Date</label>
+              <input type="text" id="c-exp" class="f-inp" placeholder="MM / YY" maxlength="7">
+            </div>
+            <div class="f-group">
+              <label for="c-cvv">CVV</label>
+              <input type="text" id="c-cvv" class="f-inp" placeholder="123" maxlength="4">
+            </div>
+          </div>
+          <div class="f-group">
+            <label for="c-name">Name on Card</label>
+            <input type="text" id="c-name" class="f-inp" placeholder="As it appears on your card">
+          </div>
+          <p style="font-size:.72rem;color:rgba(11,31,24,.4);margin-top:.75rem">Simulated card payment — no real charges will be made.</p>
+        </div>
 
-            const submitBtn = form.querySelector('button[type="submit"]');
+        <!-- Message -->
+        <div class="f-group" style="margin-top:1.3rem;margin-bottom:0">
+          <label for="d-msg">Message (optional)</label>
+          <textarea id="d-msg" class="f-inp f-ta" placeholder="Any message to include with your donation…"></textarea>
+        </div>
 
-            if (selectedMethod === 'mtn') {
-                const mtnPhone = document.getElementById('mtn-phone').value;
-                if (!mtnPhone) {
-                    alert('Please provide your MTN phone number');
-                    return;
-                }
-                // Show success for MTN submission (user will complete transfer on their phone)
-                document.getElementById('donation-success').innerHTML = '<i class="fas fa-check-circle" style="font-size:2.5rem;color:var(--primary);"></i><h3>Thank you!</h3><p>Please complete the transfer from your MTN line using the instructions provided.</p><button class="btn" onclick="document.getElementById(\'donation-success\').style.display=\'none\'">Close</button>';
-                document.getElementById('donation-success').style.display = 'block';
-                form.reset();
-                document.querySelectorAll('.donate-amount').forEach(a => a.classList.remove('active'));
-                document.querySelectorAll('.payment-option').forEach(a => a.classList.remove('active'));
-                document.querySelectorAll('.payment-details').forEach(a => a.classList.add('hidden'));
-                selectedMethod = null;
-                document.getElementById('donation-success').scrollIntoView({ behavior: 'smooth' });
-                return;
-            } else if (selectedMethod === 'airtel') {
-                const airtelPhone = document.getElementById('airtel-phone').value;
-                if (!airtelPhone) {
-                    alert('Please provide your Airtel phone number');
-                    return;
-                }
-                document.getElementById('donation-success').innerHTML = '<i class="fas fa-check-circle" style="font-size:2.5rem;color:var(--primary);"></i><h3>Thank you!</h3><p>Please complete the transfer from your Airtel line using the instructions provided.</p><button class="btn" onclick="document.getElementById(\'donation-success\').style.display=\'none\'">Close</button>';
-                document.getElementById('donation-success').style.display = 'block';
-                form.reset();
-                document.querySelectorAll('.donate-amount').forEach(a => a.classList.remove('active'));
-                document.querySelectorAll('.payment-option').forEach(a => a.classList.remove('active'));
-                document.querySelectorAll('.payment-details').forEach(a => a.classList.add('hidden'));
-                selectedMethod = null;
-                document.getElementById('donation-success').scrollIntoView({ behavior: 'smooth' });
-                return;
-            } else if (selectedMethod === 'card') {
-                // Simulated client-side card payment (no real charge)
-                const cardNumber = (document.getElementById('card-number') || {}).value || '';
-                const cardName = (document.getElementById('card-name') || {}).value || '';
-                const cardExpiry = (document.getElementById('card-expiry') || {}).value || '';
-                const cardCvv = (document.getElementById('card-cvv') || {}).value || '';
-                if (!cardNumber || !cardName || !cardExpiry || !cardCvv) {
-                    alert('Please complete all card details');
-                    return;
-                }
+        <button type="submit" class="submit-btn" id="sub-btn">
+          <i class="fas fa-heart"></i> DONATE NOW
+        </button>
 
-                // Basic formatting/cleanup
-                const cleaned = cardNumber.replace(/[^0-9]/g, '').trim();
+        <!-- Org details -->
+        <div class="org-box">
+          <h4>Organisation Details</h4>
+          <div class="org-row"><i class="fas fa-building"></i><strong>NEW GRACE JS</strong></div>
+          <div class="org-row"><i class="fas fa-location-dot"></i><span>Banda Subcounty, Namayingo District, Uganda</span></div>
+          <div class="org-row"><i class="fas fa-envelope"></i><a href="mailto:newgracejs@gmail.com">newgracejs@gmail.com</a></div>
+          <div class="org-row"><i class="fas fa-phone"></i><a href="tel:+256709251412">0709 251 412</a> &nbsp;/&nbsp; <a href="tel:+256785950405">0785 950 405</a></div>
+          <div class="org-row"><i class="fas fa-university"></i><span>Account: <strong>304214000716</strong></span></div>
+          <div class="org-row"><i class="fas fa-certificate"></i><span>Charity Reg: <strong>BAS/CS/4067</strong></span></div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
 
-                // Disable button while "processing"
-                submitBtn.disabled = true;
-                const originalText = submitBtn.textContent;
-                submitBtn.textContent = 'Processing...';
+<!-- ═══ TRUST STRIP ═══ -->
+<div class="trust-strip">
+  <div class="trust-inner">
+    <span class="trust-item"><i class="fas fa-shield-halved"></i> Secure & Encrypted</span>
+    <span class="trust-item"><i class="fas fa-certificate"></i> Registered Charity</span>
+    <span class="trust-item"><i class="fas fa-receipt"></i> Receipt Provided</span>
+    <span class="trust-item"><i class="fas fa-hand-holding-heart"></i> 100% Goes to Programs</span>
+    <span class="trust-item"><i class="fas fa-users"></i> 5,000+ People Helped</span>
+  </div>
+</div>
 
-                // Simulate network/payment delay
-                setTimeout(function() {
-                    // Accept common test Visa pattern (starts with 4 and length 16) as successful simulation
-                    const isTestVisa = /^4[0-9]{15}$/.test(cleaned);
-                    if (!isTestVisa) {
-                        submitBtn.disabled = false;
-                        submitBtn.textContent = originalText;
-                        alert('Card declined (simulation). For testing use a 16-digit Visa-like number starting with 4 (e.g. 4242424242424242).');
-                        return;
-                    }
+<!-- ═══ CONTACT STRIP ═══ -->
+<div class="co-strip">
+  <div class="co-in">
+    <div class="co-bl reveal"><i class="fas fa-location-dot"></i><h4>Location</h4><p>Busuma Village, Buchumba Parish<br>Banda Subcounty, Namayingo, Uganda</p></div>
+    <div class="co-bl reveal" style="transition-delay:.12s"><i class="fas fa-phone"></i><h4>Phone</h4><a href="tel:+256709251412">0709 251 412</a><br><a href="tel:+256785950405">0785 950 405</a></div>
+    <div class="co-bl reveal" style="transition-delay:.22s"><i class="fas fa-envelope"></i><h4>Email</h4><a href="mailto:newgracejs@gmail.com">newgracejs@gmail.com</a></div>
+  </div>
+</div>
 
-                    const tx = 'SIMTX-' + Date.now().toString(36).toUpperCase();
-                    document.getElementById('donation-success').innerHTML = '<i class="fas fa-check-circle" style="font-size:2.5rem;color:var(--primary);"></i><h3>Payment successful</h3><p>Transaction ID: ' + tx + '</p><p>Thank you ' + (name || '') + '. We received UGX ' + (amount || '') + '.</p><button class="btn" onclick="document.getElementById(\'donation-success\').style.display=\'none\'">Close</button>';
-                    document.getElementById('donation-success').style.display = 'block';
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = originalText;
-                    form.reset();
-                    document.querySelectorAll('.donate-amount').forEach(a => a.classList.remove('active'));
-                    document.querySelectorAll('.payment-option').forEach(a => a.classList.remove('active'));
-                    document.querySelectorAll('.payment-details').forEach(a => a.classList.add('hidden'));
-                    selectedMethod = null;
-                    document.getElementById('donation-success').scrollIntoView({ behavior: 'smooth' });
-                }, 1200);
-                return;
-            }
-        });
-    });
-    </script>
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="f-in">
+    <div class="f-grid">
+      <div class="f-br">
+        <img src="images/LOGO.JPG" alt="New Grace JS">
+        <h4>New Grace JS</h4>
+        <p>Transforming communities through clean water, sanitation and quality education in Namayingo District, Uganda. Registered Charity BAS/CS/4067.</p>
+      </div>
+      <div class="f-col"><h5>Navigate</h5><ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="water-sanitation.html">WASH</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="volunteer.html">Volunteer</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="donate.html">Donate</a></li>
+      </ul></div>
+      <div class="f-col"><h5>Programs</h5><ul>
+        <li><a href="education.html">School Programs</a></li>
+        <li><a href="water-sanitation.html">Clean Water</a></li>
+        <li><a href="services.html">All Services</a></li>
+        <li><a href="donate.html">Donate</a></li>
+      </ul></div>
+      <div class="f-nl">
+        <h5>Stay Updated</h5>
+        <p>Monthly impact stories direct to your inbox.</p>
+        <div class="nl-rw">
+          <input type="email" id="nle" placeholder="your@email.com" autocomplete="email">
+          <button onclick="subNL()">Go</button>
+        </div>
+        <p id="nl-m"></p>
+      </div>
+    </div>
+    <hr class="f-div">
+    <div class="f-bot">
+      <p>© 2026 New Grace JS · All Rights Reserved · Registered Charity BAS/CS/4067</p>
+      <div class="socs">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+'use strict';
+/* ── Cursor ── */
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+if(matchMedia('(pointer:fine)').matches){
+  addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+  (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(loop)})();
+}
+
+/* ── Progress + Nav + BTT ── */
+const pgEl=document.getElementById('prog'),btt=document.getElementById('btt'),nav=document.getElementById('nav');
+addEventListener('scroll',()=>{
+  const p=scrollY/(document.documentElement.scrollHeight-innerHeight)*100;
+  pgEl.style.width=p+'%';
+  scrollY>80?nav.classList.add('sc'):nav.classList.remove('sc');
+  scrollY>500?btt.classList.add('sh'):btt.classList.remove('sh');
+},{passive:true});
+
+/* ── Hamburger ── */
+const hb=document.getElementById('hb'),mm=document.getElementById('mm');
+const toggleMM=()=>{
+  const op=mm.classList.toggle('op');
+  hb.classList.toggle('op',op);hb.setAttribute('aria-expanded',op);
+  document.body.style.overflow=op?'hidden':'';
+};
+hb.addEventListener('click',toggleMM);
+mm.querySelectorAll('a,button').forEach(el=>el.addEventListener('click',()=>{
+  mm.classList.remove('op');hb.classList.remove('op');hb.setAttribute('aria-expanded','false');document.body.style.overflow='';
+}));
+addEventListener('keydown',e=>{if(e.key==='Escape'&&mm.classList.contains('op'))toggleMM()});
+
+/* ── Particles ── */
+const pts=document.getElementById('pts');
+for(let i=0;i<40;i++){
+  const p=document.createElement('div');p.className='pt';
+  const s=1+Math.random()*2;
+  Object.assign(p.style,{left:Math.random()*100+'vw',width:s+'px',height:s+'px',animationDuration:(8+Math.random()*16)+'s',animationDelay:(-Math.random()*24)+'s',opacity:.2+Math.random()*.5});
+  pts.appendChild(p);
+}
+
+/* ── Reveal ── */
+const rObs=new IntersectionObserver(en=>{
+  en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');rObs.unobserve(e.target)}});
+},{threshold:.08,rootMargin:'0px 0px -36px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>rObs.observe(el));
+
+/* ── Impact Calculator ── */
+const slider=document.getElementById('impactSlider');
+const ii={amt:document.getElementById('impactAmount'),desc:document.getElementById('impactDesc'),i1:document.getElementById('ii1'),i2:document.getElementById('ii2'),i3:document.getElementById('ii3'),i4:document.getElementById('ii4')};
+
+function updateCalc(v){
+  v=+v;
+  // Update gradient
+  const pct=((v-1000)/(500000-1000))*100;
+  slider.style.background=`linear-gradient(to right,var(--forest) 0%,var(--forest) ${pct}%,rgba(255,255,255,.12) ${pct}%,rgba(255,255,255,.12) 100%)`;
+  ii.amt.textContent='UGX '+v.toLocaleString();
+  if(v<25000){
+    ii.desc.textContent='Provides clean water for one family for a month';
+    ii.i1.textContent='Clean water for one family';ii.i2.textContent='Basic hygiene supplies';
+    ii.i3.textContent='Hygiene education for the family';ii.i4.textContent='Follow-up support visits';
+  } else if(v<50000){
+    ii.desc.textContent='Educates 10 students about water safety';
+    ii.i1.textContent='Water safety education for 10 students';ii.i2.textContent='Hygiene kits for a school';
+    ii.i3.textContent='Teacher training materials';ii.i4.textContent='Monitoring and evaluation';
+  } else if(v<100000){
+    ii.desc.textContent='Supports a complete community water system';
+    ii.i1.textContent='Clean water access for a community';ii.i2.textContent='Sanitation facilities';
+    ii.i3.textContent='Hygiene education for families';ii.i4.textContent='Community maintenance training';
+  } else {
+    ii.desc.textContent='Builds a complete water and sanitation facility';
+    ii.i1.textContent='New borehole or water system';ii.i2.textContent='Latrines and handwashing stations';
+    ii.i3.textContent='Comprehensive hygiene training';ii.i4.textContent='Long-term community ownership';
+  }
+}
+slider.addEventListener('input',e=>updateCalc(e.target.value));
+updateCalc(50000);
+
+function applyCalcAmount(){
+  document.getElementById('d-amount').value=slider.value;
+  setQA(slider.value);
+}
+
+/* ── Level card selection ── */
+function selectLevel(amt,desc){
+  document.getElementById('d-amount').value=amt;
+  slider.value=Math.min(amt,500000);
+  updateCalc(slider.value);
+  setQA(amt);
+  document.getElementById('form-sec').scrollIntoView({behavior:'smooth'});
+}
+
+/* ── Quick amounts ── */
+function setQA(amt){
+  document.querySelectorAll('.qa').forEach(b=>{
+    b.classList.toggle('on',+b.dataset.a===+amt);
+  });
+}
+document.querySelectorAll('.qa').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.getElementById('d-amount').value=btn.dataset.a;
+    slider.value=Math.min(+btn.dataset.a,500000);
+    updateCalc(slider.value);
+    setQA(+btn.dataset.a);
+  });
+});
+document.getElementById('d-amount').addEventListener('input',function(){
+  setQA(+this.value);
+  if(+this.value>=1000&&+this.value<=500000){slider.value=this.value;updateCalc(this.value)}
+});
+
+/* ── URL param ── */
+const up=new URLSearchParams(location.search);
+if(up.has('amount')){
+  const a=+up.get('amount');
+  document.getElementById('d-amount').value=a;
+  slider.value=Math.min(a,500000);
+  updateCalc(slider.value);
+  setQA(a);
+}
+
+/* ── Payment method ── */
+let selPay=null;
+function selectPay(m){
+  document.querySelectorAll('.pay-card').forEach(c=>c.classList.remove('on'));
+  document.querySelector(`.pay-card[data-method="${m}"]`).classList.add('on');
+  document.querySelectorAll('.pay-detail').forEach(d=>d.classList.remove('show'));
+  document.getElementById('pd-'+m).classList.add('show');
+  selPay=m;
+}
+
+/* ── Form submit ── */
+document.getElementById('don-form').addEventListener('submit',function(e){
+  e.preventDefault();
+  const name=document.getElementById('d-name').value.trim();
+  const email=document.getElementById('d-email').value.trim();
+  const phone=document.getElementById('d-phone').value.trim();
+  const amount=document.getElementById('d-amount').value;
+  if(!name||!email||!phone||!amount){toast('Please fill in all required fields.');return}
+  if(!selPay){toast('Please select a payment method.');return}
+  // Payment-specific validation
+  if(selPay==='mtn'&&!document.getElementById('mtn-p').value.trim()){toast('Please enter your MTN phone number.');return}
+  if(selPay==='airtel'&&!document.getElementById('airt-p').value.trim()){toast('Please enter your Airtel phone number.');return}
+  if(selPay==='card'){
+    const n=document.getElementById('c-num').value.trim();
+    const ex=document.getElementById('c-exp').value.trim();
+    const cv=document.getElementById('c-cvv').value.trim();
+    const cn=document.getElementById('c-name').value.trim();
+    if(!n||!ex||!cv||!cn){toast('Please complete all card details.');return}
+  }
+  const btn=document.getElementById('sub-btn');
+  btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Processing…';
+  setTimeout(()=>{
+    let msg='';
+    if(selPay==='mtn')msg='Please complete the transfer from your MTN line using the instructions above.';
+    else if(selPay==='airtel')msg='Please complete the transfer from your Airtel line using the instructions above.';
+    else{const tx='SIMTX-'+Date.now().toString(36).toUpperCase();msg=`Transaction ID: ${tx}. Thank you, ${name}! UGX ${(+amount).toLocaleString()} donation received.`}
+    document.getElementById('success-msg').textContent=msg;
+    document.getElementById('success-box').classList.add('show');
+    document.getElementById('don-form').reset();
+    document.querySelectorAll('.pay-card').forEach(c=>c.classList.remove('on'));
+    document.querySelectorAll('.pay-detail').forEach(d=>d.classList.remove('show'));
+    document.querySelectorAll('.qa').forEach(q=>q.classList.remove('on'));
+    document.querySelector('.qa[data-a="50000"]').classList.add('on');
+    slider.value=50000;updateCalc(50000);
+    selPay=null;
+    btn.disabled=false;btn.innerHTML='<i class="fas fa-heart"></i> DONATE NOW';
+    document.getElementById('success-box').scrollIntoView({behavior:'smooth',block:'center'});
+    toast('🎉 Thank you for your generous donation!');
+  },1800);
+});
+
+
+
+/* ── Card number formatting ── */
+document.getElementById('c-num').addEventListener('input',function(){
+  let v=this.value.replace(/\D/g,'').substring(0,16);
+  this.value=v.replace(/(.{4})/g,'$1 ').trim();
+});
+document.getElementById('c-exp').addEventListener('input',function(){
+  let v=this.value.replace(/\D/g,'').substring(0,4);
+  if(v.length>2)v=v.substring(0,2)+' / '+v.substring(2);
+  this.value=v;
+});
+
+/* ── Toast ── */
+function toast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('t-msg').textContent=msg;
+  t.classList.add('sh');setTimeout(()=>t.classList.remove('sh'),3400);
+}
+
+/* ── Newsletter ── */
+function subNL(){
+  const v=document.getElementById('nle').value.trim();
+  const m=document.getElementById('nl-m');
+  if(v&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){
+    m.textContent='✓ Subscribed — thank you!';m.style.color='var(--amber)';
+    document.getElementById('nle').value='';
+    toast('🎉 Welcome! You are now subscribed.');
+  }else{m.textContent='✗ Please enter a valid email.';m.style.color='#ff6b6b'}
+  setTimeout(()=>m.textContent='',4200);
+}
+document.getElementById('nle').addEventListener('keydown',e=>{if(e.key==='Enter')subNL()});
+</script>
 </body>
 </html>

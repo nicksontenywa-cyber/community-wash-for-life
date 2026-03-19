@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Frequently asked questions about New Grace JS – our mission, programs, donations, and how to get involved.">
+    <title>FAQ | New Grace JS</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    
+    <!-- AOS (Animate on Scroll) -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap');
+        
+        :root { --primary: #1B4D3E; }
+        
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .heading-font { font-family: 'Montserrat', sans-serif; }
+        
+        /* Water drops background (subtle) */
+        .water-drops-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .water-drop {
+            position: absolute;
+            top: -100px;
+            width: 40px;
+            height: 40px;
+            background: rgba(27, 77, 62, 0.03);
+            border-radius: 50% 50% 0 50%;
+            transform: rotate(45deg);
+            animation: fall 20s linear infinite;
+        }
+        .water-drop::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 20px;
+            height: 20px;
+            background: rgba(27, 77, 62, 0.02);
+            border-radius: 50%;
+        }
+        @keyframes fall {
+            0% { top: -100px; opacity: 0; transform: rotate(45deg) scale(0.5); }
+            50% { opacity: 0.8; transform: rotate(45deg) scale(1.2); }
+            100% { top: 100vh; opacity: 0; transform: rotate(45deg) scale(0.5); }
+        }
+        
+        /* Navbar underline effect */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover:after,
+        .nav-link.active:after { width: 100%; }
+        
+        /* Card hover */
+        .card-hover {
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px -12px rgb(27 77 62 / 0.25);
+        }
+        
+        /* Donation card active state */
+        .donate-card.active {
+            background: rgba(255,255,255,0.25);
+            border: 2px solid white;
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3);
+        }
+        
+        /* Modal animation */
+        #modal {
+            animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        @keyframes modalPop {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        
+        /* Focus outline */
+        *:focus-visible {
+            outline: 3px solid #C6A15B;
+            outline-offset: 2px;
+        }
+        
+        /* Button hover */
+        .btn-primary {
+            transition: all 0.2s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0F3A2E;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(27,77,62,0.4);
+        }
+        
+        /* Wave separator (for hero) */
+        .custom-shape-divider-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+        .custom-shape-divider-bottom svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 80px;
+        }
+        .custom-shape-divider-bottom .shape-fill {
+            fill: #FFFFFF;
+        }
+        
+        /* FAQ Accordion */
+        details.faq-item {
+            border: 1px solid #e5e7eb;
+            border-radius: 1rem;
+            margin-bottom: 1rem;
+            background: white;
+            transition: all 0.2s;
+        }
+        details.faq-item[open] {
+            box-shadow: 0 10px 25px -5px rgba(27,77,62,0.1);
+        }
+        details.faq-item summary {
+            list-style: none;
+            padding: 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        details.faq-item summary::-webkit-details-marker {
+            display: none;
+        }
+        details.faq-item summary::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            transition: transform 0.2s;
+        }
+        details.faq-item[open] summary::after {
+            transform: rotate(180deg);
+        }
+        .faq-content {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+            color: #4b5563;
+        }
+        
+        /* Category tabs */
+        .faq-tab {
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: all 0.2s;
+            background: white;
+            border: 2px solid #e5e7eb;
+            cursor: pointer;
+        }
+        .faq-tab.active {
+            background: #1B4D3E;
+            border-color: #1B4D3E;
+            color: white;
+        }
+        .faq-tab:hover {
+            border-color: #1B4D3E;
+        }
+        
+        /* Search input */
+        .search-wrapper {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto 2rem;
+        }
+        .search-wrapper input {
+            width: 100%;
+            padding: 1rem 1.5rem 1rem 3rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 60px;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        .search-wrapper input:focus {
+            border-color: #1B4D3E;
+            box-shadow: 0 0 0 4px rgba(27,77,62,0.1);
+            outline: none;
+        }
+        .search-wrapper i {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body class="bg-white text-neutral-800 overflow-x-hidden">
+
+<!-- Floating Water Drops (subtle background) -->
+<div class="water-drops-container">
+    <div class="water-drop" style="left: 5%; animation-delay: 0s;"></div>
+    <div class="water-drop" style="left: 15%; animation-delay: 2s;"></div>
+    <div class="water-drop" style="left: 25%; animation-delay: 4s;"></div>
+    <div class="water-drop" style="left: 35%; animation-delay: 6s;"></div>
+    <div class="water-drop" style="left: 45%; animation-delay: 8s;"></div>
+    <div class="water-drop" style="left: 55%; animation-delay: 10s;"></div>
+    <div class="water-drop" style="left: 65%; animation-delay: 12s;"></div>
+    <div class="water-drop" style="left: 75%; animation-delay: 14s;"></div>
+    <div class="water-drop" style="left: 85%; animation-delay: 16s;"></div>
+    <div class="water-drop" style="left: 95%; animation-delay: 18s;"></div>
+</div>
+
+<!-- NAVBAR (same as all other pages) -->
+<nav class="bg-white/95 backdrop-blur-2xl border-b sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+        <a href="index.html" class="flex items-center gap-3" aria-label="New Grace JS home">
+            <img src="images/LOGO.JPG" alt="New Grace JS logo" class="w-14 h-14 rounded-2xl shadow">
+            <div>
+                <span class="heading-font text-3xl font-bold tracking-tighter text-[#1B4D3E]">New Grace JS</span>
+                <p class="text-xs text-neutral-500 -mt-1">Since 2018 • Namayingo, Uganda</p>
+            </div>
+        </a>
+        
+        <div class="hidden md:flex items-center gap-9 text-sm font-medium">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="services.html" class="nav-link">Services</a>
+            <a href="education.html" class="nav-link">Education</a>
+            <a href="water-sanitation.html" class="nav-link">WASH</a>
+            <a href="gallery.html" class="nav-link">Gallery</a>
+            <a href="blog.html" class="nav-link">Blog</a>
+            <a href="volunteer.html" class="nav-link">Volunteer</a>
+            <a href="faq.html" class="nav-link active" aria-current="page">FAQ</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+            <a href="donate.html" class="nav-link">Donate</a>
+        </div>
+        
+        <button onclick="document.getElementById('donate').scrollIntoView({behavior:'smooth'})" 
+                class="btn-primary bg-[#1B4D3E] hover:bg-[#0F3A2E] text-white px-8 py-4 rounded-3xl font-semibold flex items-center gap-2 shadow"
+                aria-label="Donate now">
+            <i class="fas fa-heart" aria-hidden="true"></i> Donate
+        </button>
+    </div>
+</nav>
+
+<!-- HERO (gradient + wave) -->
+<section class="relative bg-gradient-to-b from-[#0A2F24] to-[#1B4D3E] text-white py-24 md:py-32 overflow-hidden">
+    <div class="custom-shape-divider-bottom">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none" class="w-full h-auto">
+            <path d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z" fill="white"></path>
+        </svg>
+    </div>
+    <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
+        <h1 class="heading-font text-5xl md:text-6xl font-bold mb-6" data-aos="fade-down">Frequently Asked Questions</h1>
+        <p class="text-xl md:text-2xl max-w-3xl mx-auto opacity-90 mb-10" data-aos="fade-up" data-aos-delay="200">
+            Find answers to common questions about our organization, programs, and how you can support us.
+        </p>
+    </div>
+</section>
+
+<!-- FAQ SECTION -->
+<section class="py-20 bg-neutral-50">
+    <div class="max-w-4xl mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="heading-font text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">Common Questions</h2>
+            <div class="w-24 h-1 bg-[#1B4D3E] mx-auto rounded-full"></div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-wrapper" data-aos="fade-up">
+            <input type="text" id="faqSearch" placeholder="Search FAQs...">
+            <i class="fas fa-search"></i>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="flex flex-wrap justify-center gap-3 mb-10" data-aos="fade-up">
+            <button class="faq-tab active" onclick="filterFAQ('all', this)">All</button>
+            <button class="faq-tab" onclick="filterFAQ('organization', this)">Organization</button>
+            <button class="faq-tab" onclick="filterFAQ('donations', this)">Donations</button>
+            <button class="faq-tab" onclick="filterFAQ('programs', this)">Programs</button>
+            <button class="faq-tab" onclick="filterFAQ('involvement', this)">Get Involved</button>
+        </div>
+
+        <!-- FAQ Accordion -->
+        <div id="faqContainer" class="space-y-4">
+            <!-- Organization Questions -->
+            <details class="faq-item" data-category="organization">
+                <summary>Who is New Grace JS and what does the organization do?</summary>
+                <div class="faq-content">
+                    New Grace JS is a global charity founded in 2018, dedicated to providing clean water, sanitation, hygiene (WASH), quality education, and community empowerment in underserved areas. We work primarily in Uganda with local expertise and international partnerships to implement sustainable solutions that transform lives.
+                </div>
+            </details>
+
+            <details class="faq-item" data-category="organization">
+                <summary>Is New Grace JS registered as a charitable organization?</summary>
+                <div class="faq-content">
+                    Yes, we are registered as a Community-Based Organization in Uganda with Registration Number BAS/CS/4067 as of December 4, 2020. Our operations are based in Banda Sub County, Busia District, Uganda, with a focus on serving Namayingo and Busia communities.
+                </div>
+            </details>
+
+            <details class="faq-item" data-category="organization">
+                <summary>What are the core values of New Grace JS?</summary>
+                <div class="faq-content">
+                    Our core values include: Integrity (transparency and ethical actions), Innovation (embracing new ideas), Community Empowerment (working hand-in-hand with communities), and Collaboration (partnering with multiple stakeholders). These guide all our actions and decisions.
+                </div>
+            </details>
+
+            <!-- Donation Questions -->
+            <details class="faq-item" data-category="donations">
+                <summary>How can I donate to New Grace JS?</summary>
+                <div class="faq-content">
+                    You can donate through our website at donate.html. We accept donations via MTN Mobile Money, Airtel Money, and ATM cards. You can make a one-time donation or become a monthly supporter. Visit our donate page for detailed instructions for each payment method.
+                </div>
+            </details>
+
+            <details class="faq-item" data-category="donations">
+                <summary>Is my donation tax-deductible?</summary>
+                <div class="faq-content">
+                    As a registered Community-Based Organization in Uganda, we are committed to transparency and proper financial management. For tax deductibility information in your country, please contact us directly at newgracejs@gmail.com or call 0709251412.
+                </div>
+            </details>
+
+            <details class="faq-item" data-category="donations">
+                <summary>Where does my donation go?</summary>
+                <div class="faq-content">
+                    Your donations directly support our programs: water and sanitation projects, education initiatives, health education, and community empowerment programs. We maintain a high program ratio, ensuring most of your donation reaches community projects. See our impact page for detailed statistics.
+                </div>
+            </details>
+
+            <!-- Program Questions -->
+            <details class="faq-item" data-category="programs">
+                <summary>What are the main programs offered by New Grace JS?</summary>
+                <div class="faq-content">
+                    Our main programs include: Quality Education (formal education support, teacher training, vocational skills), Water & Sanitation (water access projects, sanitation facilities, hygiene education), Health & Hygiene (disease prevention, nutrition programs), and Community Leadership (livelihood skills, women's groups, microfinance).
+                </div>
+            </details>
+
+            <details class="faq-item" data-category="programs">
+                <summary>How many people has New Grace JS helped?</summary>
+                <div class="faq-content">
+                    To date, we have reached over 5,000 community members, educated 1,200+ school children, supported 20+ local schools, and completed dozens of water and sanitation projects. Our work continues to expand as we secure more partnerships and resources.
+                </div>
+            </details>
+
+            <details class="faq-item" data-category="programs">
+                <summary>How are projects selected and prioritized?</summary>
+                <div class="faq-content">
+                    Projects are selected through community consultations where we identify the most pressing needs. We prioritize based on community demand, organizational capacity, available resources, and potential for long-term sustainable impact. Community participation and ownership are essential in all project selection.
+                </div>
+            </details>
+
+            <!-- Involvement Questions -->
+            <details class="faq-item" data-category="involvement">
+                <summary>How can I volunteer with New Grace JS?</summary>
+                <div class="faq-content">
+                    We have many volunteer opportunities available! Visit our volunteer page to see current opportunities, including education, water projects, health education, and digital support roles. Complete our volunteer application form, and our team will review your application and contact you with next steps.
+                </div>
+            </details>
+
+            <details class="faq-item" data-category="involvement">
+                <summary>Do I need experience to volunteer?</summary>
+                <div class="faq-content">
+                    While some positions require specific skills or experience, we welcome volunteers of all skill levels. We provide training and support to help you succeed in your role. Your commitment and willingness to learn are most important.
+                </div>
+            </details>
+
+            <details class="faq-item" data-category="involvement">
+                <summary>Can I partner with New Grace JS for corporate social responsibility?</summary>
+                <div class="faq-content">
+                    Absolutely! We welcome corporate partnerships and CSR collaborations. Organizations can support specific projects, provide volunteer time, offer in-kind contributions, or sponsor initiatives. Contact us at newgracejs@gmail.com to discuss partnership opportunities that align with your organization's goals.
+                </div>
+            </details>
+        </div>
+    </div>
+</section>
+
+<!-- STILL HAVE QUESTIONS? -->
+<section class="py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+        <h2 class="heading-font text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">Still Have Questions?</h2>
+        <p class="text-xl text-neutral-600 mb-8" data-aos="fade-up" data-aos-delay="200">Can't find the answer? Contact us directly!</p>
+        <a href="contact.html" class="inline-block bg-[#1B4D3E] text-white px-10 py-4 rounded-full font-semibold text-lg hover:bg-[#0F3A2E] transition shadow-lg" data-aos="fade-up" data-aos-delay="400">Contact Us</a>
+    </div>
+</section>
+
+<!-- DONATE CTA (same as all other pages) -->
+<section id="donate" class="py-24 bg-[#1B4D3E] text-white">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+        <h2 class="heading-font text-5xl font-bold mb-4" data-aos="fade-up">Support Our Mission</h2>
+        <p class="text-2xl opacity-90 mb-12" data-aos="fade-up" data-aos-delay="200">Your donation helps us empower communities through education, water, and leadership programs.</p>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12" data-aos="fade-up" data-aos-delay="300">
+            <div onclick="selectAmount(this)" data-amount="25000" class="donate-card active bg-white/20 rounded-3xl p-8 cursor-pointer transition-all hover:bg-white/30" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' ') selectAmount(this)">
+                <div class="text-3xl font-bold">UGX 25,000</div>
+                <small class="opacity-90">Training materials for 10 leaders</small>
+            </div>
+            <div onclick="selectAmount(this)" data-amount="50000" class="donate-card bg-white/20 rounded-3xl p-8 cursor-pointer transition-all hover:bg-white/30" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' ') selectAmount(this)">
+                <div class="text-3xl font-bold">UGX 50,000</div>
+                <small class="opacity-90">Seed funding for a women's group</small>
+            </div>
+            <div onclick="selectAmount(this)" data-amount="100000" class="donate-card bg-white/20 rounded-3xl p-8 cursor-pointer transition-all hover:bg-white/30" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' ') selectAmount(this)">
+                <div class="text-3xl font-bold">UGX 100,000</div>
+                <small class="opacity-90">Start a community cooperative</small>
+            </div>
+            <div onclick="selectAmount(this)" data-amount="250000" class="donate-card bg-white/20 rounded-3xl p-8 cursor-pointer transition-all hover:bg-white/30" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' ') selectAmount(this)">
+                <div class="text-3xl font-bold">UGX 250,000</div>
+                <small class="opacity-90">Leadership program for 30 youth</small>
+            </div>
+        </div>
+        
+        <form action="donate.html" method="get">
+            <input type="hidden" id="selected-amount" name="amount" value="25000">
+            <button type="submit" class="btn-primary bg-white text-[#1B4D3E] w-full max-w-md mx-auto py-7 rounded-3xl text-2xl font-semibold shadow-2xl hover:bg-amber-100 transition">
+                DONATE UGX <span id="selected-amount-display">25,000</span> NOW
+            </button>
+        </form>
+    </div>
+</section>
+
+<!-- FOOTER (exact same as all other pages) -->
+<footer class="bg-neutral-950 text-white py-20">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-5 gap-12">
+            <div>
+                <img src="images/LOGO.JPG" alt="New Grace JS logo" class="w-16 h-16 rounded-2xl mb-6">
+                <h5 class="font-semibold">New Grace JS</h5>
+                <p class="text-neutral-400 text-sm mt-2">Transforming communities through clean water and education.</p>
+            </div>
+            
+            <div>
+                <h6 class="uppercase font-medium mb-6">Quick Links</h6>
+                <ul class="space-y-3 text-neutral-400">
+                    <li><a href="index.html" class="hover:text-white focus:outline-none focus:underline">Home</a></li>
+                    <li><a href="about.html" class="hover:text-white focus:outline-none focus:underline">About</a></li>
+                    <li><a href="education.html" class="hover:text-white focus:outline-none focus:underline">Education</a></li>
+                    <li><a href="water-sanitation.html" class="hover:text-white focus:outline-none focus:underline">WASH</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h6 class="uppercase font-medium mb-6">Programs</h6>
+                <ul class="space-y-3 text-neutral-400">
+                    <li><a href="education.html" class="hover:text-white focus:outline-none focus:underline">School Programs</a></li>
+                    <li><a href="water-sanitation.html" class="hover:text-white focus:outline-none focus:underline">Clean Water</a></li>
+                    <li><a href="gallery.html" class="hover:text-white focus:outline-none focus:underline">Our Impact</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h6 class="uppercase font-medium mb-6">Contact</h6>
+                <p class="text-neutral-400">Busuma Village, Buchumba Parish<br>Banda Subcounty, Namayingo District, Uganda</p>
+                <p class="mt-4 text-neutral-400">0709 251 412 • 0785 950 405<br>newgracejs@gmail.com</p>
+            </div>
+            
+            <!-- Newsletter with label and inline feedback -->
+            <div>
+                <h6 class="uppercase font-medium mb-6">Stay Updated</h6>
+                <p class="text-neutral-400 text-sm mb-4">Monthly impact stories straight to your inbox.</p>
+                <form id="newsletter" class="flex flex-col">
+                    <div class="flex">
+                        <label for="newsletter-email" class="sr-only">Email address</label>
+                        <input type="email" id="newsletter-email" placeholder="your@email.com" 
+                               class="bg-neutral-900 border border-neutral-700 rounded-l-3xl px-6 py-4 text-white flex-1 focus:outline-none focus:ring-2 focus:ring-amber-600">
+                        <button type="submit" class="bg-[#C6A15B] hover:bg-amber-400 text-neutral-900 font-semibold px-8 rounded-r-3xl transition">Subscribe</button>
+                    </div>
+                    <div id="newsletter-feedback" class="text-sm mt-2 text-amber-300 hidden"></div>
+                </form>
+            </div>
+        </div>
+        
+        <hr class="border-neutral-800 my-12">
+        
+        <div class="text-center text-neutral-500 text-sm">
+            © 2026 New Grace JS • All Rights Reserved • Registered Charity BAS/CS/4067
+        </div>
+    </div>
+</footer>
+
+<!-- MODAL with close button and X -->
+<div id="modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-[9999] p-4" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto relative">
+        <button onclick="closeModal()" class="absolute top-4 right-4 text-neutral-500 hover:text-neutral-800 text-3xl w-10 h-10 flex items-center justify-center rounded-full bg-white/80 backdrop-blur z-10" aria-label="Close modal">&times;</button>
+        <img id="modal-image" class="w-full h-72 object-cover" alt="">
+        <div class="p-8">
+            <h3 id="modal-title" class="heading-font text-3xl font-bold"></h3>
+            <div id="modal-text" class="mt-6 text-neutral-700"></div>
+            <button onclick="closeModal()" class="mt-10 w-full py-4 bg-[#1B4D3E] text-white rounded-3xl font-medium hover:bg-[#0F3A2E] transition">Close</button>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init({ once: true, duration: 900, offset: 80 });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // FAQ Filtering
+    function filterFAQ(category, btn) {
+        // Update active tab
+        document.querySelectorAll('.faq-tab').forEach(tab => tab.classList.remove('active'));
+        btn.classList.add('active');
+
+        const items = document.querySelectorAll('.faq-item');
+        items.forEach(item => {
+            if (category === 'all' || item.dataset.category === category) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    // Search functionality
+    document.getElementById('faqSearch').addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        const items = document.querySelectorAll('.faq-item');
+        items.forEach(item => {
+            const question = item.querySelector('summary').textContent.toLowerCase();
+            const answer = item.querySelector('.faq-content').textContent.toLowerCase();
+            if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+
+    // Donation selector
+    function selectAmount(el) {
+        document.querySelectorAll('.donate-card').forEach(c => {
+            c.classList.remove('active');
+            c.setAttribute('aria-selected', 'false');
+        });
+        el.classList.add('active');
+        el.setAttribute('aria-selected', 'true');
+        const amount = el.dataset.amount;
+        document.getElementById('selected-amount').value = amount;
+        document.getElementById('selected-amount-display').textContent = Number(amount).toLocaleString();
+    }
+
+    // Modal functions
+    function openModal(title, text, img) {
+        document.getElementById('modal-title').textContent = title;
+        document.getElementById('modal-text').innerHTML = text;
+        document.getElementById('modal-image').src = img;
+        document.getElementById('modal-image').alt = title + ' image';
+        document.getElementById('modal').classList.remove('hidden');
+        document.getElementById('modal').classList.add('flex');
+        document.querySelector('#modal button:last-child').focus();
+    }
+    function closeModal() {
+        document.getElementById('modal').classList.add('hidden');
+        document.getElementById('modal').classList.remove('flex');
+    }
+
+    // Newsletter with inline feedback
+    document.getElementById('newsletter').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('newsletter-email').value.trim();
+        const feedback = document.getElementById('newsletter-feedback');
+        if (email && email.includes('@')) {
+            feedback.textContent = '✅ Thank you! You are now subscribed.';
+            feedback.classList.remove('hidden');
+            this.reset();
+        } else {
+            feedback.textContent = '❌ Please enter a valid email address.';
+            feedback.classList.remove('hidden');
+        }
+        setTimeout(() => feedback.classList.add('hidden'), 5000);
+    });
+
+    // Set first donate card active on load
+    window.addEventListener('load', function() {
+        document.querySelectorAll('.donate-card').forEach((c, i) => {
+            if (i === 0) {
+                c.classList.add('active');
+                c.setAttribute('aria-selected', 'true');
+            } else {
+                c.setAttribute('aria-selected', 'false');
+            }
+        });
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !document.getElementById('modal').classList.contains('hidden')) {
+            closeModal();
+        }
+    });
+</script>
+</body>
+</html>

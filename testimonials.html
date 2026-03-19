@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testimonials - New Grace JS</title>
+    <script src="https://cdn.tailwindcss.com"></script> rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    
+</head>
+<body>
+<!-- NAVBAR -->
+<nav class="bg-white/95 backdrop-blur-2xl border-b sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+        <a href="index.html" class="flex items-center gap-3" aria-label="New Grace JS home">
+            <img src="images/LOGO.JPG" alt="New Grace JS logo" class="w-14 h-14 rounded-2xl shadow">
+            <div>
+                <span class="heading-font text-3xl font-bold tracking-tighter text-[#1B4D3E]">New Grace JS</span>
+                <p class="text-xs text-neutral-500 -mt-1">Since 2018 • Namayingo, Uganda</p>
+            </div>
+        </a>
+        
+        <div class="hidden md:flex items-center gap-9 text-sm font-medium">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="services.html" class="nav-link">Services</a>
+            <a href="education.html" class="nav-link">Education</a>
+            <a href="gallery.html" class="nav-link">Gallery</a>
+            <a href="blog.html" class="nav-link">Blog</a>
+            <a href="testimonials.html" class="nav-link active" aria-current="page">Testimonials</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+            <a href="donate.html" class="nav-link">Donate</a>
+        </div>
+        
+        <button onclick="document.getElementById('donate').scrollIntoView({behavior:'smooth'})" 
+                class="btn-primary bg-[#1B4D3E] hover:bg-[#0F3A2E] text-white px-8 py-4 rounded-3xl font-semibold flex items-center gap-2 shadow transition-all"
+                aria-label="Donate now">
+            <i class="fas fa-heart" aria-hidden="true"></i> Donate
+        </button>
+    </div>
+</nav>
+
+    <section class="hero reveal">
+      <div class="container hero-content">
+        <div class="row justify-content-center text-center">
+          <div class="col-lg-8">
+            <h1 class="display-4 fw-bold mb-4" data-aos="fade-down">Stories of Transformation</h1>
+            <p class="lead mb-4" data-aos="fade-up" data-aos-delay="200">Hear from students, educators, and community leaders whose lives have been transformed by our programs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-white reveal reveal">
+      <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+          <h2 class="fw-bold section-title">What People Say</h2>
+        </div>
+
+        <!-- Featured Testimonial Carousel -->
+        <div class="testimonial-carousel mb-5" id="testimonialCarousel" data-aos="fade-up">
+          <div style="max-width: 800px; margin: 0 auto; background: linear-gradient(135deg, rgba(46,139,87,0.1) 0%, rgba(46,139,87,0.05) 100%); padding: 3rem; border-radius: 16px; border-left: 6px solid var(--primary-green);">
+            <!-- Testimonial 1 -->
+            <div class="carousel-testimonial active" style="text-align: center;">
+              <div class="star-rating" style="justify-content: center; margin-bottom: 1.5rem;">
+                <i class="fas fa-star" style="color: #FFD700;"></i><i class="fas fa-star" style="color: #FFD700;"></i><i class="fas fa-star" style="color: #FFD700;"></i><i class="fas fa-star" style="color: #FFD700;"></i><i class="fas fa-star" style="color: #FFD700;"></i>
+              </div>
+              <p style="font-size: 1.2rem; font-style: italic; color: var(--text-dark); margin-bottom: 2rem; line-height: 1.8;">"The water project changed our community completely. Before, we walked hours to get clean water. Now it's minutes away, and our children's health has improved dramatically."</p>
+              <div style="display: flex; align-items: center; justify-content: center; gap: 1rem;">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=100&auto=format&fit=crop" alt="Grace M." style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+                <div style="text-align: left;">
+                  <h5 style="margin: 0; color: var(--primary-green); font-weight: 700;">Grace M.</h5>
+                  <p style="margin: 0; color: var(--gray); font-size: 0.9rem;">Community Member, Busia</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="carousel-testimonial" style="text-align: center;">
+              <div class="star-rating" style="justify-content: center; margin-bottom: 1.5rem;">
+                <i class="fas fa-star" style="color: #FFD700;"></i><i class="fas fa-star" style="color: #FFD700;"></i><i class="fas fa-star" style="color: #FFD700;"></i><i class="fas fa-star" style="color: #FFD700;"></i><i class="fas fa-star" style="color: #FFD700;"></i>
+              </div>
+              <p style="font-size: 1.2rem; font-style: italic; color: var(--text-dark); margin-bottom: 2rem; line-height: 1.8;">"The teacher training program equipped me with modern teaching methods. My students are more engaged, and our school's performance has improved significantly. I'm grateful for this support."</p>
+              <div style="display: flex; align-items: center; justify-content: center; gap: 1rem;">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100&auto=format&fit=crop" alt="Mr. Juma K." style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+                <div style="text-align: left;">
+                  <h5 style="margin: 0; color: var(--primary-green); font-weight: 700;">Mr. Juma K.</h5>
+                  <p style="margin: 0; color: var(--gray); font-size: 0.9rem;">School Teacher, Namayingo</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="carousel-testimonial" style="text-align: center;">
+              <div class="star-rating" style="justify-content: center; margin-bottom: 1.5rem;">
+                <i class="fas fa-star" style="color: #FFD700;"></i><i class="fas fa-star" style="color: #FFD700;"></i><i class="fas fa-star" style="color: #FFD700;"></i><i class="fas fa-star" style="color: #FFD700;"></i><i class="fas fa-star" style="color: #FFD700;"></i>
+              </div>
+              <p style="font-size: 1.2rem; font-style: italic; color: var(--text-dark); margin-bottom: 2rem; line-height: 1.8;">"The vocational training gave me skills I never thought I'd have. I've started my own tailoring business and can now support my family. New Grace JS truly changed my life."</p>
+              <div style="display: flex; align-items: center; justify-content: center; gap: 1rem;">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop" alt="Ruth O." style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">
+                <div style="text-align: left;">
+                  <h5 style="margin: 0; color: var(--primary-green); font-weight: 700;">Ruth O.</h5>
+                  <p style="margin: 0; color: var(--gray); font-size: 0.9rem;">Business Owner, Busia</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Carousel Navigation Dots -->
+          <div class="carousel-nav">
+            <span class="carousel-dot active"></span>
+            <span class="carousel-dot"></span>
+            <span class="carousel-dot"></span>
+          </div>
+        </div>
+
+        <!-- All Testimonials Grid -->
+        <div style="margin-top: 4rem;">
+          <h3 style="text-align: center; margin-bottom: 2rem; color: var(--primary-green);">More Success Stories</h3>
+          <div class="row g-4">
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="testimonial-card">
+              <div class="star-rating">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              </div>
+              <p class="testimonial-quote">"The water project changed our community completely. Before, we walked hours to get clean water. Now it's minutes away, and our children's health has improved dramatically."</p>
+              <div class="testimonial-author">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=400&auto=format&fit=crop" alt="Community member">
+                <div class="author-info">
+                  <h5>Grace M.</h5>
+                  <p>Community Member, Busia</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="testimonial-card">
+              <div class="star-rating">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              </div>
+              <p class="testimonial-quote">"The teacher training program equipped me with modern teaching methods. My students are more engaged, and our school's performance has improved significantly. I'm grateful for this support."</p>
+              <div class="testimonial-author">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop" alt="Teacher">
+                <div class="author-info">
+                  <h5>Mr. Juma K.</h5>
+                  <p>School Teacher, Namayingo</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="testimonial-card">
+              <div class="star-rating">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              </div>
+              <p class="testimonial-quote">"The vocational training gave me skills I never thought I'd have. I've started my own tailoring business and can now support my family. New Grace JS truly changed my life."</p>
+              <div class="testimonial-author">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop" alt="Entrepreneur">
+                <div class="author-info">
+                  <h5>Ruth O.</h5>
+                  <p>Business Owner, Busia</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="400">
+            <div class="testimonial-card">
+              <div class="star-rating">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              </div>
+              <p class="testimonial-quote">"Volunteering here was the most rewarding experience of my life. The team is professional, the impact is real, and the community's response is genuinely heartwarming."</p>
+              <div class="testimonial-author">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=400&auto=format&fit=crop" alt="Volunteer">
+                <div class="author-info">
+                  <h5>Sarah M.</h5>
+                  <p>International Volunteer</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="500">
+            <div class="testimonial-card">
+              <div class="star-rating">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              </div>
+              <p class="testimonial-quote">"Our son now has access to quality education and clean water at school. His attendance improved, and we can see his confidence growing. Thank you for investing in our children's future."</p>
+              <div class="testimonial-author">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=400&auto=format&fit=crop" alt="Parent">
+                <div class="author-info">
+                  <h5>John P.</h5>
+                  <p>Parent, Namayingo District</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="600">
+            <div class="testimonial-card">
+              <div class="star-rating">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              </div>
+              <p class="testimonial-quote">"Seeing the health improvements in our community after hygiene education is incredible. Waterborne diseases have decreased, and the community is more aware. Great work by the team!"</p>
+              <div class="testimonial-author">
+                <img src="https://images.unsplash.com/photo-1567532939604-b6b5b0e16019?q=80&w=400&auto=format&fit=crop" alt="Health worker">
+                <div class="author-info">
+                  <h5>Dr. Amina H.</h5>
+                  <p>Community Health Worker</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-light reveal reveal">
+      <div class="container text-center">
+        <h2 class="fw-bold mb-4" data-aos="fade-up">Your Impact Matters</h2>
+        <p class="lead mb-4" data-aos="fade-up" data-aos-delay="200">Every contribution directly improves lives. Join thousands making a difference.</p>
+        <a href="donate.html" class="btn px-4" style="background: var(--primary-green); color: white; padding: 0.8rem 2rem;" data-aos="fade-up" data-aos-delay="400">Donate Today</a>
+      </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <!-- Footer Top Section -->
+            <div class="footer-top">
+                <div class="row gy-5">
+                    <!-- Brand Column -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-brand">
+                            <img src="images/LOGO.JPG" alt="New Grace JS Logo">
+                            <h3>New Grace JS</h3>
+                            <p>Transforming communities through clean water, sanitation, hygiene, and quality education. Building sustainable solutions for a healthier future.</p>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links Column -->
+                    <div class="col-lg-2 col-md-6">
+                        <div class="footer-section">
+                            <h4>Quick Links</h4>
+                            <ul>
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="about.html">About Us</a></li>
+                                <li><a href="services.html">Services</a></li>
+                                <li><a href="donate.html">Donate Now</a></li>
+                                <li><a href="volunteer.html">Volunteer</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Programs Column -->
+                    <div class="col-lg-2 col-md-6">
+                        <div class="footer-section">
+                            <h4>Programs</h4>
+                            <ul>
+                                <li><a href="education.html">Education</a></li>
+                                <li><a href="water-sanitation.html">Water & Sanitation</a></li>
+                                <li><a href="health-hygiene.html">Health</a></li>
+                                <li><a href="community-leadership.html">Community Leadership</a></li>
+                                <li><a href="projects.html">Projects</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Resources Column -->
+                    <div class="col-lg-2 col-md-6">
+                        <div class="footer-section">
+                            <h4>Resources</h4>
+                            <ul>
+                                <li><a href="blog.html">Blog & News</a></li>
+                                <li><a href="resources.html">Reports & Docs</a></li>
+                                <li><a href="gallery.html">Gallery</a></li>
+                                <li><a href="faq.html">FAQs</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Contact Column -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-section">
+                            <h4>Get In Touch</h4>
+                            <div class="footer-contact">
+                                <div class="footer-contact-item">
+                                    <div class="footer-contact-icon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div class="footer-contact-info">
+                                        <h5>Location</h5>
+                                        <p>Banda Sub County<br>Busia District, Uganda</p>
+                                    </div>
+                                </div>
+                                <div class="footer-contact-item">
+                                    <div class="footer-contact-icon">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div class="footer-contact-info">
+                                        <h5>Phone</h5>
+                                        <p>+256 709 251 412<br>+256 785 950 405</p>
+                                    </div>
+                                </div>
+                                <div class="footer-contact-item">
+                                    <div class="footer-contact-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="footer-contact-info">
+                                        <h5>Email</h5>
+                                        <p>newgracejs@gmail.com</p>
+                                    </div>
+                                </div>
+                                <div class="footer-social-group">
+                                    <h5>Follow Us</h5>
+                                    <div class="footer-social-icons">
+                                        <a href="#" class="footer-social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                        <a href="#" class="footer-social-icon" title="Twitter"><i class="fab fa-twitter"></i></a>
+                                        <a href="#" class="footer-social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
+                                        <a href="#" class="footer-social-icon" title="YouTube"><i class="fab fa-youtube"></i></a>
+                                        <a href="#" class="footer-social-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Newsletter Section Inside Footer -->
+            <div class="bg-light py-4 py-md-5 border-top">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-8 col-lg-6 text-center">
+                            <h3 class="mb-2">Stay Connected</h3>
+                            <p class="text-muted mb-4">Get updates on our latest projects, impact stories, and ways you can help make a difference.</p>
+                            <form class="d-flex gap-2 flex-column flex-sm-row">
+                                <input type="email" class="form-control" placeholder="Enter your email address" required>
+                                <button type="submit" class="btn btn-primary btn-sm">Subscribe</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="footer-bottom-item">
+                        <h6>People Reached</h6>
+                        <p>5,000+</p>
+                    </div>
+                    <div class="footer-bottom-item">
+                        <h6>Students Supported</h6>
+                        <p>1,200+</p>
+                    </div>
+                    <div class="footer-bottom-item">
+                        <h6>Schools Partnered</h6>
+                        <p>20+</p>
+                    </div>
+                    <div class="footer-bottom-item">
+                        <h6>Success Rate</h6>
+                        <p>58%</p>
+                    </div>
+                </div>
+
+                <div class="footer-copyright">
+                    <div class="footer-copyright-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Code of Conduct</a>
+                        <a href="#">Transparency Report</a>
+                    </div>
+                    <p>&copy; 2025 New Grace JS. All rights reserved. | Transforming Lives Through Education & WASH</p>
+                    <p>Registration: BAS/CS/4067 | Founded: 2018</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init({ once: true, duration: 900, offset: 80 });
+      document.addEventListener('DOMContentLoaded', function() {
+        const menuToggle = document.getElementById('menuToggle');
+        const nav = document.getElementById('nav');
+        if(menuToggle && nav) {
+          menuToggle.addEventListener('click', function() {
+            nav.classList.toggle('active');
+            menuToggle.querySelector('i').classList.toggle('fa-bars');
+            menuToggle.querySelector('i').classList.toggle('fa-times');
+          });
+        }
+      });
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>

@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="New Grace JS provides clean water, sanitation, hygiene (WASH) and quality education to underserved communities in Namayingo District, Uganda.">
-<title>New Grace JS | Clean Water & Education · Namayingo, Uganda</title>
+<meta name="description" content="Education programs by New Grace JS — quality schooling, vocational training and community education in Namayingo District, Uganda.">
+<title>Education Programs | New Grace JS</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
+/*──────────────── TOKENS (same as homepage) ────────────────*/
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --ink:#0B1F18;--forest:#1B4D3E;--jade:#2A7A5F;
@@ -24,7 +25,7 @@ img{display:block;max-width:100%}
 a{text-decoration:none;color:inherit}
 button{font-family:inherit;cursor:pointer}
 
-/* ── CURSOR ── */
+/*── CURSOR ──*/
 #cur,#cur-r{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%)}
 #cur{width:10px;height:10px;background:var(--amber);z-index:9999;transition:width .2s var(--ease),height .2s var(--ease),background .2s}
 #cur-r{width:36px;height:36px;border:1.5px solid rgba(232,184,85,.42);z-index:9998;transition:left .12s var(--ease2),top .12s var(--ease2),width .35s var(--ease),height .35s var(--ease)}
@@ -32,13 +33,13 @@ body:has(a:hover) #cur,body:has(button:hover) #cur{width:18px;height:18px;backgr
 body:has(a:hover) #cur-r,body:has(button:hover) #cur-r{width:52px;height:52px}
 @media(pointer:coarse){#cur,#cur-r{display:none}body{cursor:auto}}
 
-/* ── SCROLL PROGRESS ── */
+/*── SCROLL PROGRESS ──*/
 #prog{position:fixed;top:0;left:0;height:3px;width:0;z-index:10001;background:linear-gradient(90deg,var(--forest),var(--gold),var(--amber));box-shadow:0 0 10px rgba(232,184,85,.55);transition:width .08s linear}
 
-/* ── NOISE ── */
+/*── NOISE ──*/
 body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.45;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E")}
 
-/* ── NAV ── */
+/*── NAV ──*/
 #nav{position:fixed;inset:0 0 auto;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:1.3rem 3.5rem;transition:padding .4s var(--ease2),background .4s,border-color .4s}
 #nav.sc{background:rgba(11,31,24,.94);backdrop-filter:blur(28px) saturate(1.5);border-bottom:1px solid rgba(201,150,58,.18);padding:.85rem 3.5rem}
 .n-logo{display:flex;align-items:center;gap:.7rem;flex-shrink:0}
@@ -49,12 +50,13 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opa
 .n-links{display:flex;gap:2rem;align-items:center}
 .n-links a{color:rgba(255,255,255,.62);font-size:.79rem;font-weight:500;letter-spacing:.04em;position:relative;transition:color .25s;padding-bottom:2px}
 .n-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--amber);transition:width .3s var(--ease2)}
-.n-links a:hover{color:#fff}.n-links a:hover::after{width:100%}
+.n-links a:hover,.n-links a.act{color:#fff}
+.n-links a:hover::after,.n-links a.act::after{width:100%}
 .n-cta{background:linear-gradient(135deg,var(--gold),var(--amber));color:var(--ink)!important;font-weight:700!important;padding:.52rem 1.35rem;border-radius:100px;font-size:.77rem!important;letter-spacing:.04em;transition:transform .2s var(--ease),box-shadow .2s;box-shadow:0 4px 16px rgba(201,150,58,.25)}
 .n-cta:hover{transform:translateY(-2px)!important;box-shadow:0 10px 28px rgba(201,150,58,.4)!important}
 .n-cta::after{display:none!important}
 
-/* Hamburger */
+/*── HAMBURGER ──*/
 #hb{display:none;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;padding:9px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;transition:background .2s}
 #hb:hover{background:rgba(255,255,255,.15)}
 #hb span{display:block;height:1.5px;border-radius:2px;background:#fff;transition:transform .35s var(--ease2),opacity .25s,width .3s;transform-origin:center}
@@ -63,7 +65,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opa
 #hb.op span:nth-child(2){opacity:0;transform:scaleX(0)}
 #hb.op span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 
-/* Mobile drawer */
+/*── MOBILE DRAWER ──*/
 #mm{position:fixed;inset:0;z-index:999;background:rgba(11,31,24,.98);backdrop-filter:blur(32px);display:flex;flex-direction:column;padding:calc(var(--nh) + 1.5rem) 2rem 2.5rem;opacity:0;pointer-events:none;transform:translateX(102%);transition:opacity .4s var(--ease2),transform .4s var(--ease2)}
 #mm.op{opacity:1;pointer-events:all;transform:none}
 .mm-links{display:flex;flex-direction:column;gap:.35rem;flex:1}
@@ -75,42 +77,36 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opa
 .mm-soc a:hover{background:var(--gold);color:var(--ink);border-color:var(--gold)}
 .mm-btn{margin-top:1.25rem;background:linear-gradient(135deg,var(--gold),var(--amber));color:var(--ink);font-weight:800;font-size:.95rem;padding:1rem;border-radius:var(--r);border:none;width:100%;letter-spacing:.05em}
 
-/* ── HERO ── */
-.hero{min-height:100svh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.h-img{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;opacity:.22;transition:opacity .55s ease;animation:kz 22s ease infinite alternate}
-@keyframes kz{from{transform:scale(1)}to{transform:scale(1.1)}}
-.h-bg{position:absolute;inset:0;z-index:1;background:linear-gradient(160deg,rgba(11,31,24,.96) 0%,rgba(27,77,62,.8) 55%,rgba(11,45,32,.96) 100%)}
+/*── PAGE HERO ──*/
+.ph{min-height:80vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.ph-img{position:absolute;inset:0;z-index:0;background-image:url('images/education%20for%20all.jpeg');background-size:cover;background-position:center;opacity:.2;animation:kz 24s ease infinite alternate}
+@keyframes kz{from{transform:scale(1)}to{transform:scale(1.08)}}
+.ph-bg{position:absolute;inset:0;z-index:1;background:linear-gradient(150deg,rgba(11,31,24,.97) 0%,rgba(27,77,62,.82) 55%,rgba(11,45,32,.97) 100%)}
+.ph-grid{position:absolute;inset:0;z-index:2;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:72px 72px}
 .orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(90px)}
-.o1{width:520px;height:520px;background:rgba(42,122,95,.2);top:-120px;right:-140px;animation:of 9s ease-in-out infinite alternate}
-.o2{width:360px;height:360px;background:rgba(201,150,58,.12);bottom:20px;left:-90px;animation:of 11s ease-in-out infinite alternate-reverse}
-.o3{width:260px;height:260px;background:rgba(27,77,62,.28);top:35%;right:16%;animation:of 7s ease-in-out infinite alternate}
+.o1{width:500px;height:500px;background:rgba(42,122,95,.2);top:-100px;right:-120px;animation:of 9s ease-in-out infinite alternate}
+.o2{width:340px;height:340px;background:rgba(201,150,58,.12);bottom:0;left:-80px;animation:of 11s ease-in-out infinite alternate-reverse}
+.o3{width:220px;height:220px;background:rgba(27,77,62,.25);top:30%;right:14%;animation:of 7s ease-in-out infinite alternate}
 @keyframes of{from{transform:translate(0,0) scale(1)}to{transform:translate(38px,-48px) scale(1.12)}}
-.h-grid{position:absolute;inset:0;z-index:2;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:72px 72px}
 #pts{position:absolute;inset:0;z-index:2;overflow:hidden;pointer-events:none}
 .pt{position:absolute;border-radius:50%;background:rgba(232,184,85,.5);animation:rise linear infinite}
 @keyframes rise{0%{transform:translateY(100vh) scale(0);opacity:0}8%{opacity:1}92%{opacity:.35}100%{transform:translateY(-20px) scale(1);opacity:0}}
 
-.h-inner{position:relative;z-index:5;text-align:center;max-width:980px;width:100%;padding:calc(var(--nh) + 2.5rem) 1.5rem 6rem}
-.h-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--ap);border:1px solid rgba(232,184,85,.3);color:var(--amber);font-size:.67rem;font-weight:700;letter-spacing:.2em;padding:.42rem 1.05rem;border-radius:100px;margin-bottom:2rem;animation:fu .8s var(--ease2) .2s both}
+.ph-inner{position:relative;z-index:5;text-align:center;max-width:820px;width:100%;padding:calc(var(--nh) + 2.5rem) 1.5rem 5rem}
+.ph-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--ap);border:1px solid rgba(232,184,85,.3);color:var(--amber);font-size:.67rem;font-weight:700;letter-spacing:.2em;padding:.42rem 1.05rem;border-radius:100px;margin-bottom:2rem;animation:fu .8s var(--ease2) .2s both}
 .pdot{width:7px;height:7px;border-radius:50%;background:var(--amber);animation:pd 2.2s ease-in-out infinite;flex-shrink:0}
 @keyframes pd{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
-.h-title{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,8.5vw,7.5rem);font-weight:900;line-height:.92;letter-spacing:-.03em;margin-bottom:1.7rem;animation:fu .9s var(--ease2) .35s both}
-.h-title .it{display:block;font-style:italic;background:linear-gradient(135deg,var(--gold),var(--amber),#f5d08a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.h-title .bl{display:block}
-.h-sub{font-size:clamp(.9rem,2.4vw,1.12rem);color:rgba(255,255,255,.68);max-width:540px;margin:0 auto 2.6rem;line-height:1.82;font-weight:300;animation:fu .9s var(--ease2) .5s both}
-.h-ctas{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;animation:fu .9s var(--ease2) .65s both}
+.ph-title{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,7.5vw,6.5rem);font-weight:900;line-height:.92;letter-spacing:-.03em;margin-bottom:1.6rem;animation:fu .9s var(--ease2) .35s both}
+.ph-title .it{display:block;font-style:italic;background:linear-gradient(135deg,var(--gold),var(--amber),#f5d08a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ph-sub{font-size:clamp(.9rem,2.2vw,1.1rem);color:rgba(255,255,255,.65);max-width:540px;margin:0 auto 2.6rem;line-height:1.82;font-weight:300;animation:fu .9s var(--ease2) .5s both}
+.ph-ctas{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;animation:fu .9s var(--ease2) .65s both}
 @keyframes fu{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:none}}
+.bc{background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.07);padding:.65rem 3.5rem;display:flex;align-items:center;gap:.5rem;font-size:.72rem;color:rgba(255,255,255,.38);position:relative;z-index:10}
+.bc a{color:rgba(255,255,255,.45);transition:color .2s}
+.bc a:hover{color:var(--amber)}
+.bc i{font-size:.55rem}
 
-.s-rail{position:absolute;left:2rem;top:50%;transform:translateY(-50%);z-index:6;display:flex;flex-direction:column;gap:.55rem}
-.s-pip{width:3px;border-radius:2px;background:rgba(255,255,255,.22);border:none;cursor:pointer;transition:height .4s var(--ease),background .3s;height:18px}
-.s-pip.on{height:42px;background:var(--amber)}
-.s-ctr{position:absolute;bottom:2rem;right:2.5rem;z-index:6;font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;color:rgba(255,255,255,.15);letter-spacing:-.04em;user-select:none}
-.s-ctr span{font-size:.95rem;color:var(--amber);opacity:.75}
-.sc-cue{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:6;display:flex;flex-direction:column;align-items:center;gap:.4rem;color:rgba(255,255,255,.32);font-size:.6rem;letter-spacing:.16em;animation:fu 1s var(--ease2) 1.2s both}
-.sc-cue .tr{width:1px;height:48px;background:linear-gradient(to bottom,var(--amber),transparent);animation:st 2.2s ease-in-out infinite}
-@keyframes st{0%,100%{transform:scaleY(1);opacity:1}50%{transform:scaleY(.4);opacity:.25}}
-
-/* ── SHARED ── */
+/*── SHARED UTILITIES ──*/
 .lbl{display:inline-flex;align-items:center;gap:.65rem;font-size:.64rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:1rem}
 .lbl::before{content:'';width:26px;height:1px;background:var(--amber);flex-shrink:0}
 .lbl.dk{color:var(--forest)}.lbl.dk::before{background:var(--forest)}
@@ -118,8 +114,13 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opa
 .rl{opacity:0;transform:translateX(-50px);transition:opacity .9s var(--ease2),transform .9s var(--ease2)}
 .rr{opacity:0;transform:translateX(50px);transition:opacity .9s var(--ease2),transform .9s var(--ease2)}
 .reveal.v,.rl.v,.rr.v{opacity:1;transform:none}
+.sec-hd{text-align:center;margin-bottom:4.5rem}
+.sec-hd h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.5rem);font-weight:900;line-height:1.1}
+.sec-hd h2 em{color:var(--amber);font-style:italic}
+.sec-hd p{color:rgba(255,255,255,.52);max-width:540px;margin:.85rem auto 0;line-height:1.72;font-size:.93rem}
+.sec-hd.dk p{color:rgba(11,31,24,.6)}
 
-/* ── BUTTONS ── */
+/*── BUTTONS ──*/
 .bg{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--gold),var(--amber));color:var(--ink);font-weight:700;font-size:.87rem;letter-spacing:.04em;padding:.88rem 2.1rem;border-radius:100px;border:none;transition:transform .25s var(--ease),box-shadow .25s;white-space:nowrap}
 .bg:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(201,150,58,.45)}
 .bgh{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.22);color:#fff;font-weight:500;font-size:.87rem;padding:.88rem 2.1rem;border-radius:100px;transition:background .25s,border-color .25s;backdrop-filter:blur(8px);white-space:nowrap}
@@ -127,7 +128,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opa
 .bf{display:inline-flex;align-items:center;gap:.5rem;background:var(--forest);color:#fff;font-weight:600;font-size:.83rem;padding:.82rem 1.9rem;border-radius:100px;border:none;letter-spacing:.03em;transition:transform .2s var(--ease),box-shadow .2s}
 .bf:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(27,77,62,.4)}
 
-/* ── IMPACT BAR ── */
+/*── IMPACT BAR ──*/
 .imp-bar{display:grid;grid-template-columns:repeat(4,1fr);background:linear-gradient(135deg,var(--gold) 0%,#d4a843 40%,var(--amber) 100%);position:relative;overflow:hidden}
 .imp-bar::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000' fill-opacity='.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")}
 .imp-it{padding:2.6rem 1.2rem;text-align:center;position:relative}
@@ -136,7 +137,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opa
 .imp-n{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,3.8vw,3rem);font-weight:900;color:var(--ink);line-height:1;margin-bottom:.28rem}
 .imp-l{font-size:.72rem;font-weight:700;color:rgba(11,31,24,.58);letter-spacing:.07em;text-transform:uppercase}
 
-/* ── MARQUEE ── */
+/*── MARQUEE ──*/
 .mq-sec{background:var(--ink);border-top:1px solid rgba(255,255,255,.06);padding:1.8rem 0;overflow:hidden}
 .mq-track{display:flex;gap:3.5rem;align-items:center;animation:mq 22s linear infinite;width:max-content}
 .mq-track:hover{animation-play-state:paused}
@@ -145,68 +146,71 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opa
 .mq-it i{color:var(--amber);font-size:.55rem}
 @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* ── ABOUT ── */
-.ab-sec{background:var(--cream);color:var(--ink);padding:7rem 3.5rem;overflow:hidden}
-.ab-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5.5rem;align-items:center}
-.img-st{position:relative}
-.img-m{width:100%;border-radius:var(--r2);box-shadow:0 40px 80px rgba(11,31,24,.17)}
-.img-a{position:absolute;width:52%;border-radius:var(--r);bottom:-2.2rem;right:-2.2rem;box-shadow:0 20px 55px rgba(11,31,24,.22);border:4px solid var(--cream)}
-.yr-b{position:absolute;top:-1.4rem;left:-1.4rem;background:var(--forest);color:#fff;border-radius:var(--r);padding:1.3rem 1.6rem;text-align:center;box-shadow:0 16px 40px rgba(27,77,62,.35);border:3px solid var(--cream)}
-.yr-b strong{display:block;font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--amber);line-height:1}
-.yr-b span{font-size:.62rem;letter-spacing:.12em;opacity:.75;text-transform:uppercase}
-.ab-txt h2{font-family:'Playfair Display',serif;font-size:clamp(1.85rem,3.8vw,3.1rem);font-weight:900;line-height:1.12;margin-bottom:1.3rem}
-.ab-txt h2 em{color:var(--forest);font-style:italic}
-.ab-txt p{font-size:.98rem;line-height:1.82;color:rgba(11,31,24,.67);margin-bottom:1.2rem}
+/*── MISSION OVERVIEW ──*/
+.mis-sec{background:var(--cream);color:var(--ink);padding:7rem 3.5rem}
+.mis-in{max-width:1280px;margin:0 auto}
+.mis-intro{max-width:760px;margin:0 auto 4rem;text-align:center}
+.mis-intro p{font-size:1.05rem;line-height:1.85;color:rgba(11,31,24,.68)}
+.mis-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.3rem}
+.mis-card{background:rgba(255,255,255,.7);backdrop-filter:blur(12px);border:1px solid rgba(27,77,62,.1);border-radius:var(--r2);padding:2.2rem 1.6rem;text-align:center;transition:transform .4s var(--ease),box-shadow .4s,background .3s;position:relative;overflow:hidden}
+.mis-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(27,77,62,.08),transparent 70%);opacity:0;transition:opacity .4s}
+.mis-card:hover{transform:translateY(-8px);box-shadow:0 28px 56px rgba(27,77,62,.18);background:rgba(255,255,255,.9)}
+.mis-card:hover::before{opacity:1}
+.mis-icon{width:60px;height:60px;border-radius:1rem;background:linear-gradient(135deg,var(--forest),var(--jade));display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 1.4rem;box-shadow:0 8px 20px rgba(27,77,62,.3)}
+.mis-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:.65rem;color:var(--ink)}
+.mis-card p{color:rgba(11,31,24,.62);font-size:.83rem;line-height:1.72}
+
+/*── KEY PROGRAMS ──*/
+.kp-sec{background:var(--ink);padding:7rem 3.5rem}
+.kp-in{max-width:1280px;margin:0 auto}
+.kp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.kp-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--r2);padding:2.5rem;position:relative;overflow:hidden;transition:transform .4s var(--ease),border-color .4s,background .3s;cursor:default}
+.kp-glow{position:absolute;inset:0;opacity:0;background:radial-gradient(ellipse at 30% 30%,rgba(42,122,95,.2),transparent 70%);transition:opacity .5s}
+.kp-card:hover{transform:translateY(-7px);border-color:rgba(201,150,58,.28);background:rgba(255,255,255,.07)}
+.kp-card:hover .kp-glow{opacity:1}
+.kp-n{font-family:'Playfair Display',serif;font-size:4.5rem;font-weight:900;color:rgba(255,255,255,.04);position:absolute;top:.3rem;right:1.2rem;line-height:1;pointer-events:none}
+.kp-icon{width:50px;height:50px;border-radius:.85rem;background:linear-gradient(135deg,var(--forest),var(--jade));display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1.5rem;box-shadow:0 8px 20px rgba(27,77,62,.45)}
+.kp-card h3{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:.6rem}
+.kp-card p{color:rgba(255,255,255,.55);font-size:.86rem;line-height:1.72;margin-bottom:1.2rem}
+.kp-tag{display:inline-flex;align-items:center;gap:.38rem;background:rgba(201,150,58,.1);border:1px solid rgba(201,150,58,.22);color:var(--amber);font-size:.7rem;font-weight:700;letter-spacing:.07em;padding:.3rem .82rem;border-radius:100px}
+
+/*── FEATURED STORY ──*/
+.feat-sec{background:var(--parch);color:var(--ink);padding:7rem 3.5rem;overflow:hidden}
+.feat-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5.5rem;align-items:center}
+.feat-img-wrap{position:relative}
+.feat-img-main{width:100%;border-radius:var(--r2);box-shadow:0 40px 80px rgba(11,31,24,.17)}
+.feat-img-accent{position:absolute;width:52%;border-radius:var(--r);bottom:-2.2rem;right:-2.2rem;box-shadow:0 20px 55px rgba(11,31,24,.22);border:4px solid var(--parch)}
+.feat-badge{position:absolute;top:-1.4rem;left:-1.4rem;background:var(--forest);color:#fff;border-radius:var(--r);padding:1.3rem 1.6rem;text-align:center;box-shadow:0 16px 40px rgba(27,77,62,.35);border:3px solid var(--parch)}
+.feat-badge strong{display:block;font-family:'Playfair Display',serif;font-size:2rem;color:var(--amber);line-height:1}
+.feat-badge span{font-size:.62rem;letter-spacing:.12em;opacity:.75;text-transform:uppercase}
+.feat-txt h2{font-family:'Playfair Display',serif;font-size:clamp(1.85rem,3.5vw,3rem);font-weight:900;line-height:1.12;margin-bottom:1.3rem;color:var(--ink)}
+.feat-txt h2 em{color:var(--forest);font-style:italic}
+.feat-txt p{font-size:.97rem;line-height:1.82;color:rgba(11,31,24,.67);margin-bottom:1.15rem}
 .chips{display:flex;flex-wrap:wrap;gap:.55rem;margin:1.7rem 0}
 .chip{background:rgba(27,77,62,.1);color:var(--forest);border:1px solid rgba(27,77,62,.2);font-size:.7rem;font-weight:600;letter-spacing:.04em;padding:.38rem .9rem;border-radius:100px;transition:background .2s,color .2s}
 .chip:hover{background:var(--forest);color:#fff}
 
-/* ── PILLARS ── */
-.pl-sec{background:var(--ink);padding:7rem 3.5rem}
-.pl-in{max-width:1280px;margin:0 auto}
-.sec-hd{text-align:center;margin-bottom:4.5rem}
-.sec-hd h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.5rem);font-weight:900;line-height:1.1}
-.sec-hd h2 em{color:var(--amber);font-style:italic}
-.sec-hd p{color:rgba(255,255,255,.52);max-width:500px;margin:.85rem auto 0;line-height:1.72;font-size:.93rem}
-.pl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.3rem}
-.pl-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--r2);padding:2.7rem;cursor:pointer;position:relative;overflow:hidden;transition:transform .4s var(--ease),border-color .4s,background .35s;transform-style:preserve-3d}
-.pl-glow{position:absolute;inset:0;opacity:0;background:radial-gradient(ellipse at 30% 40%,rgba(42,122,95,.22),transparent 70%);transition:opacity .5s}
-.pl-card:hover{transform:translateY(-8px);border-color:rgba(201,150,58,.28);background:rgba(255,255,255,.07)}
-.pl-card:hover .pl-glow{opacity:1}
-.pl-n{font-family:'Playfair Display',serif;font-size:5rem;font-weight:900;color:rgba(255,255,255,.04);position:absolute;top:.4rem;right:1.4rem;line-height:1;pointer-events:none}
-.pl-ic{width:52px;height:52px;border-radius:.9rem;margin-bottom:1.5rem;background:linear-gradient(135deg,var(--forest),var(--jade));display:flex;align-items:center;justify-content:center;font-size:1.35rem;box-shadow:0 8px 20px rgba(27,77,62,.45)}
-.pl-card h3{font-family:'Playfair Display',serif;font-size:1.38rem;font-weight:700;margin-bottom:.6rem}
-.pl-card p{color:rgba(255,255,255,.53);font-size:.86rem;line-height:1.72;margin-bottom:1.3rem}
-.st-chip{display:inline-flex;align-items:center;gap:.38rem;background:rgba(201,150,58,.1);border:1px solid rgba(201,150,58,.22);color:var(--amber);font-size:.7rem;font-weight:700;letter-spacing:.07em;padding:.3rem .82rem;border-radius:100px}
-.pl-more{position:absolute;bottom:2.7rem;right:2.7rem;color:rgba(255,255,255,.18);font-size:.72rem;font-weight:600;letter-spacing:.06em;transition:color .25s;display:flex;align-items:center;gap:.3rem}
-.pl-card:hover .pl-more{color:var(--amber)}
+/*── HYGIENE / WASH CROSSOVER ──*/
+.hyg-sec{background:var(--forest);padding:7rem 3.5rem;position:relative;overflow:hidden}
+.hyg-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 80% 50%,rgba(11,31,24,.55),transparent)}
+.hyg-in{max-width:1280px;margin:0 auto;position:relative}
+.hyg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;margin-top:4rem}
+.hyg-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:var(--r2);padding:2.3rem;transition:transform .35s var(--ease),background .3s}
+.hyg-card:hover{transform:translateY(-6px);background:rgba(255,255,255,.14)}
+.hyg-ic{font-size:2rem;margin-bottom:1.1rem;display:block;animation:fl 4s ease-in-out infinite}
+.hyg-card:nth-child(2) .hyg-ic{animation-delay:.6s}
+.hyg-card:nth-child(3) .hyg-ic{animation-delay:1.2s}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.hyg-card h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:.6rem}
+.hyg-card p{color:rgba(255,255,255,.65);font-size:.86rem;line-height:1.72}
+.hyg-stat{display:inline-flex;align-items:center;gap:.38rem;background:rgba(201,150,58,.12);border:1px solid rgba(201,150,58,.22);color:var(--amber);font-size:.7rem;font-weight:700;letter-spacing:.07em;padding:.3rem .82rem;border-radius:100px;margin-top:1rem}
 
-/* ── PROGRAMS ── */
-.pr-sec{background:var(--parch);color:var(--ink);padding:7rem 3.5rem}
-.pr-in{max-width:1280px;margin:0 auto}
-.pr-hd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;gap:1rem}
-.pr-hd h2{font-family:'Playfair Display',serif;font-size:clamp(1.85rem,3.8vw,3.1rem);font-weight:900;line-height:1.1;max-width:440px}
-.pr-hd h2 em{color:var(--forest);font-style:italic}
-.pr-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.7rem}
-.pr-card{border-radius:var(--r2);overflow:hidden;position:relative;cursor:pointer;transition:transform .4s var(--ease),box-shadow .4s;box-shadow:0 4px 22px rgba(11,31,24,.1)}
-.pr-card:hover{transform:translateY(-10px);box-shadow:0 32px 64px rgba(11,31,24,.22)}
-.pr-img{width:100%;height:330px;object-fit:cover;display:block;transition:transform .7s var(--ease2)}
-.pr-card:hover .pr-img{transform:scale(1.07)}
-.pr-card::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(11,31,24,.88) 0%,rgba(11,31,24,.08) 55%,transparent 100%)}
-.pr-body{position:absolute;bottom:0;left:0;right:0;padding:2.1rem;z-index:2}
-.pr-tag{display:inline-block;background:var(--amber);color:var(--ink);font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:.26rem .72rem;border-radius:100px;margin-bottom:.65rem}
-.pr-body h3{font-family:'Playfair Display',serif;color:#fff;font-size:1.6rem;font-weight:700;margin-bottom:.42rem}
-.pr-body p{color:rgba(255,255,255,.68);font-size:.83rem;line-height:1.65;margin-bottom:1rem}
-.pr-lnk{display:inline-flex;align-items:center;gap:.42rem;color:var(--amber);font-weight:700;font-size:.77rem;letter-spacing:.06em;transition:gap .2s}
-.pr-lnk:hover{gap:.82rem}
-
-/* ── TESTIMONIALS ── */
-.te-sec{background:var(--forest);padding:7rem 3.5rem;overflow:hidden;position:relative}
-.te-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 80% 50%,rgba(11,31,24,.55),transparent)}
-.te-in{max-width:1280px;margin:0 auto;position:relative}
-.te-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;margin-top:4rem}
-.te-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:var(--r2);padding:2.1rem;transition:transform .35s var(--ease),background .3s}
-.te-card:hover{transform:translateY(-6px);background:rgba(255,255,255,.13)}
+/*── TESTIMONIALS ──*/
+.te-sec{background:var(--ink);padding:7rem 3.5rem}
+.te-in{max-width:1280px;margin:0 auto}
+.te-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;margin-top:1rem}
+.te-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--r2);padding:2.1rem;transition:transform .35s var(--ease),border-color .3s,background .3s}
+.te-card:hover{transform:translateY(-6px);border-color:rgba(201,150,58,.25);background:rgba(255,255,255,.07)}
 .te-stars{color:var(--amber);font-size:.82rem;margin-bottom:1rem;letter-spacing:.1em}
 .te-q{font-size:.93rem;line-height:1.78;color:rgba(255,255,255,.78);margin-bottom:1.5rem;font-style:italic}
 .te-q::before{content:'\201C';font-family:'Playfair Display',serif;font-size:2.8rem;color:var(--amber);line-height:0;vertical-align:-.55rem;margin-right:.18rem}
@@ -215,28 +219,10 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opa
 .te-nm{font-weight:600;font-size:.86rem}
 .te-rl{font-size:.7rem;color:rgba(255,255,255,.42);margin-top:.1rem}
 
-/* ── STORIES ── */
-.st-sec{background:var(--ink);padding:7rem 3.5rem}
-.st-in{max-width:1280px;margin:0 auto}
-.st-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem}
-.st-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--r2);overflow:hidden;transition:transform .38s var(--ease),border-color .3s}
-.st-card:hover{transform:translateY(-8px);border-color:rgba(201,150,58,.28)}
-.st-iw{overflow:hidden}
-.st-img{width:100%;height:195px;object-fit:cover;display:block;transition:transform .6s var(--ease2)}
-.st-card:hover .st-img{transform:scale(1.07)}
-.st-body{padding:1.55rem}
-.st-meta{display:flex;align-items:center;gap:.7rem;margin-bottom:.8rem}
-.st-cat{background:var(--ap);color:var(--amber);font-size:.59rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.23rem .62rem;border-radius:100px}
-.st-dt{font-size:.66rem;color:rgba(255,255,255,.33);letter-spacing:.06em}
-.st-body h3{font-family:'Playfair Display',serif;font-size:1.12rem;font-weight:700;line-height:1.3;margin-bottom:.65rem}
-.st-body p{color:rgba(255,255,255,.52);font-size:.82rem;line-height:1.7;margin-bottom:1rem}
-.st-lnk{color:var(--amber);font-weight:700;font-size:.75rem;letter-spacing:.07em;display:inline-flex;align-items:center;gap:.32rem;transition:gap .2s}
-.st-lnk:hover{gap:.65rem}
-
-/* ── GALLERY ── */
+/*── GALLERY STRIP ──*/
 .gl-sec{background:var(--cream);color:var(--ink);padding:7rem 0 7rem 3.5rem;overflow:hidden}
 .gl-hd{max-width:1280px;padding-right:3.5rem;margin:0 auto 2.7rem;display:flex;justify-content:space-between;align-items:flex-end;gap:1rem}
-.gl-hd h2{font-family:'Playfair Display',serif;font-size:clamp(1.85rem,3.8vw,3.1rem);font-weight:900}
+.gl-hd h2{font-family:'Playfair Display',serif;font-size:clamp(1.85rem,3.8vw,3.1rem);font-weight:900;color:var(--ink)}
 .gl-scr{display:flex;gap:1.1rem;overflow-x:auto;padding-bottom:.5rem;padding-right:3.5rem;scroll-snap-type:x mandatory;scrollbar-width:none}
 .gl-scr::-webkit-scrollbar{display:none}
 .g-it{flex:none;width:270px;height:210px;border-radius:var(--r);overflow:hidden;cursor:pointer;position:relative;scroll-snap-align:start;transition:transform .3s var(--ease)}
@@ -250,7 +236,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opa
 .sh-row i{animation:nd 1.8s ease-in-out infinite}
 @keyframes nd{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
 
-/* ── DONATE ── */
+/*── DONATE ──*/
 .do-sec{position:relative;padding:7rem 3.5rem;overflow:hidden;background:linear-gradient(145deg,#061510 0%,var(--forest) 55%,#0B2D20 100%)}
 .do-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 100% 0%,rgba(201,150,58,.11),transparent 65%),radial-gradient(ellipse 50% 60% at 0% 100%,rgba(27,77,62,.4),transparent 70%)}
 .d-ring{position:absolute;border-radius:50%;border:1px solid rgba(201,150,58,.08);pointer-events:none}
@@ -261,11 +247,6 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opa
 .do-in h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.7rem);font-weight:900;line-height:1.08;margin-bottom:1.1rem}
 .do-in h2 em{color:var(--amber);font-style:italic}
 .do-in>p{color:rgba(255,255,255,.58);font-size:.98rem;line-height:1.8;margin-bottom:2.8rem;max-width:570px;margin-left:auto;margin-right:auto}
-.ca-wrap{display:flex;align-items:center;gap:.9rem;margin-bottom:1.4rem;justify-content:center;flex-wrap:wrap}
-.ca-wrap label{font-size:.7rem;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.42);text-transform:uppercase}
-.ca-inp{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);color:#fff;font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;padding:.58rem 1.1rem;border-radius:100px;width:175px;text-align:center;outline:none;transition:border-color .25s,box-shadow .25s}
-.ca-inp:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(201,150,58,.18)}
-.ca-inp::placeholder{color:rgba(255,255,255,.22);font-size:.82rem;font-family:'DM Sans',sans-serif}
 .do-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin-bottom:1.9rem}
 .d-card{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.1);border-radius:var(--r);padding:1.55rem .85rem;cursor:pointer;transition:all .3s var(--ease);text-align:center}
 .d-card:hover{background:rgba(255,255,255,.12);border-color:rgba(201,150,58,.35);transform:translateY(-4px)}
@@ -282,7 +263,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opa
 .tr-b{display:flex;align-items:center;gap:.45rem;color:rgba(255,255,255,.32);font-size:.7rem;font-weight:500}
 .tr-b i{color:var(--amber);font-size:.85rem}
 
-/* ── CONTACT STRIP ── */
+/*── CONTACT STRIP ──*/
 .co-strip{background:var(--ink);border-top:1px solid rgba(255,255,255,.06);padding:3.8rem 3.5rem}
 .co-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;text-align:center}
 .co-bl i{font-size:1.55rem;color:var(--amber);margin-bottom:.7rem}
@@ -290,7 +271,7 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opa
 .co-bl p,.co-bl a{font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.6;transition:color .2s}
 .co-bl a:hover{color:var(--amber)}
 
-/* ── FOOTER ── */
+/*── FOOTER ──*/
 footer{background:#040D09;padding:5rem 3.5rem 2.3rem;color:rgba(255,255,255,.48)}
 .f-in{max-width:1280px;margin:0 auto}
 .f-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.6fr;gap:3rem;margin-bottom:3.5rem}
@@ -318,7 +299,7 @@ footer{background:#040D09;padding:5rem 3.5rem 2.3rem;color:rgba(255,255,255,.48)
 .socs a{width:33px;height:33px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.38);font-size:.76rem;transition:all .22s}
 .socs a:hover{background:var(--gold);border-color:var(--gold);color:var(--ink);transform:translateY(-2px)}
 
-/* ── MODAL ── */
+/*── MODAL ──*/
 #modal{position:fixed;inset:0;z-index:10000;background:rgba(4,13,9,.88);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity .35s}
 #modal.op{opacity:1;pointer-events:all}
 #mbox{background:var(--ink);border:1px solid rgba(255,255,255,.1);border-radius:var(--r2);max-width:550px;width:100%;overflow:hidden;position:relative;transform:scale(.93) translateY(18px);transition:transform .4s var(--ease),opacity .4s;opacity:0}
@@ -330,19 +311,18 @@ footer{background:#040D09;padding:5rem 3.5rem 2.3rem;color:rgba(255,255,255,.48)
 .mcl{position:absolute;top:1rem;right:1rem;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.12);border:none;color:#fff;font-size:.95rem;display:flex;align-items:center;justify-content:center;transition:background .2s}
 .mcl:hover{background:rgba(255,255,255,.22)}
 
-/* ── TOAST ── */
+/*── TOAST & BTT ──*/
 #toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(70px);z-index:11000;background:var(--forest);color:#fff;padding:.8rem 1.9rem;border-radius:100px;font-size:.83rem;font-weight:600;box-shadow:0 12px 38px rgba(27,77,62,.4);transition:transform .4s var(--ease),opacity .4s;opacity:0;border:1px solid rgba(255,255,255,.1);white-space:nowrap;pointer-events:none}
 #toast.sh{transform:translateX(-50%) translateY(0);opacity:1}
-
-/* ── BTT ── */
 #btt{position:fixed;bottom:2rem;right:1.5rem;z-index:500;width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--amber));color:var(--ink);border:none;font-size:.9rem;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(201,150,58,.35);opacity:0;transform:translateY(18px);pointer-events:none;transition:opacity .35s,transform .35s var(--ease)}
 #btt.sh{opacity:1;transform:none;pointer-events:all}
 #btt:hover{transform:translateY(-3px)!important;box-shadow:0 14px 30px rgba(201,150,58,.5)}
 
-/* ── RESPONSIVE ── */
+/*── RESPONSIVE ──*/
 @media(max-width:1100px){
-  .pl-grid,.pr-grid{grid-template-columns:1fr}
-  .st-grid,.te-grid{grid-template-columns:repeat(2,1fr)}
+  .mis-grid{grid-template-columns:repeat(2,1fr)}
+  .kp-grid{grid-template-columns:repeat(2,1fr)}
+  .te-grid{grid-template-columns:repeat(2,1fr)}
   .f-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:860px){
@@ -350,40 +330,37 @@ footer{background:#040D09;padding:5rem 3.5rem 2.3rem;color:rgba(255,255,255,.48)
   #nav,#nav.sc{padding:.85rem 1.4rem}
   .n-links{display:none}
   #hb{display:flex}
-  .h-inner{padding:calc(var(--nh) + 2rem) 1.2rem 4.5rem}
-  .h-title{font-size:clamp(2.3rem,9vw,3.8rem)}
-  .s-rail,.sc-cue{display:none}
-  .s-ctr{right:1.2rem;bottom:1.5rem;font-size:1.5rem}
+  .ph-inner{padding:calc(var(--nh) + 2rem) 1.2rem 4.5rem}
+  .ph-title{font-size:clamp(2.3rem,9vw,3.8rem)}
+  .bc{padding:.6rem 1.4rem}
   .imp-bar{grid-template-columns:repeat(2,1fr)}
   .imp-it:nth-child(2)::before{display:none}
   .imp-it{padding:1.9rem 1rem}
-  .ab-sec{padding:4.5rem 1.4rem}
-  .ab-in{grid-template-columns:1fr;gap:3.2rem}
-  .img-a{width:44%;right:-1rem;bottom:-1rem}
-  .yr-b{top:-.9rem;left:-.9rem;padding:1rem 1.2rem}
-  .pl-sec,.pr-sec,.te-sec,.st-sec,.do-sec,.gl-sec{padding:4.5rem 1.4rem}
+  .mis-sec,.kp-sec,.feat-sec,.hyg-sec,.te-sec,.gl-sec,.do-sec{padding:4.5rem 1.4rem}
   .gl-sec{padding-left:1.4rem}
-  .st-grid,.te-grid{grid-template-columns:1fr}
-  .pr-hd{flex-direction:column;align-items:flex-start}
-  .pr-grid{grid-template-columns:1fr}
+  .mis-grid{grid-template-columns:1fr 1fr}
+  .kp-grid,.te-grid{grid-template-columns:1fr}
+  .hyg-grid{grid-template-columns:1fr}
+  .feat-sec{padding:4.5rem 1.4rem}
+  .feat-in{grid-template-columns:1fr;gap:3.2rem}
+  .feat-img-accent{width:44%;right:-1rem;bottom:-1rem}
+  .feat-badge{top:-.9rem;left:-.9rem;padding:1rem 1.2rem}
   .do-grid{grid-template-columns:repeat(2,1fr)}
-  .ca-wrap{flex-direction:column;gap:.55rem}
   .co-strip{padding:3rem 1.4rem}
   .co-in{grid-template-columns:1fr;gap:2rem}
   .gl-hd{padding-right:1.4rem;flex-direction:column;align-items:flex-start;gap:.65rem}
   .gl-scr{padding-right:1.4rem}
-  .f-grid{grid-template-columns:1fr}
   footer{padding:3.8rem 1.4rem 2rem}
+  .f-grid{grid-template-columns:1fr}
   .f-bot{flex-direction:column;text-align:center;gap:1rem}
 }
 @media(max-width:480px){
-  .h-title{font-size:clamp(1.95rem,10vw,2.7rem)}
-  .h-ctas{flex-direction:column;align-items:center}
-  .bg,.bgh{width:100%;max-width:310px;justify-content:center}
-  .imp-bar{grid-template-columns:1fr 1fr}
+  .ph-title{font-size:clamp(1.9rem,10vw,2.7rem)}
+  .ph-ctas{flex-direction:column;align-items:center}
+  .bg,.bgh{width:100%;max-width:300px;justify-content:center}
+  .mis-grid{grid-template-columns:1fr}
   .do-grid{grid-template-columns:1fr 1fr}
-  .tr-badges{flex-direction:column;align-items:center;gap:.85rem}
-  .pl-card{padding:1.9rem}
+  .tr-badges{flex-direction:column;align-items:center}
   .nl-rw{flex-direction:column}
   .nl-rw input{border-right:1px solid rgba(255,255,255,.1);border-bottom:none;border-radius:var(--r) var(--r) 0 0}
   .nl-rw button{border-radius:0 0 var(--r) var(--r);padding:.72rem}
@@ -407,7 +384,7 @@ footer{background:#040D09;padding:5rem 3.5rem 2.3rem;color:rgba(255,255,255,.48)
   <div class="n-links">
     <a href="index.html">Home</a>
     <a href="about.html">About</a>
-    <a href="education.html">Education</a>
+    <a href="education.html" class="act">Education</a>
     <a href="water-sanitation.html">WASH</a>
     <a href="gallery.html">Gallery</a>
     <a href="blog.html">Blog</a>
@@ -426,6 +403,7 @@ footer{background:#040D09;padding:5rem 3.5rem 2.3rem;color:rgba(255,255,255,.48)
     <a href="water-sanitation.html">WASH <i class="fas fa-arrow-right"></i></a>
     <a href="gallery.html">Gallery <i class="fas fa-arrow-right"></i></a>
     <a href="blog.html">Blog <i class="fas fa-arrow-right"></i></a>
+    <a href="contact.html">Contact <i class="fas fa-arrow-right"></i></a>
     <a href="services.html">Services <i class="fas fa-arrow-right"></i></a>
   </div>
   <div class="mm-soc">
@@ -437,155 +415,211 @@ footer{background:#040D09;padding:5rem 3.5rem 2.3rem;color:rgba(255,255,255,.48)
   <button class="mm-btn" onclick="location.href='donate.html'"><i class="fas fa-heart"></i> Donate Now</button>
 </div>
 
-<!-- ═══ HERO ═══ -->
-<section class="hero" id="home">
-  <div class="h-img" id="hi"></div>
-  <div class="h-bg"></div>
+<!-- ═══ PAGE HERO ═══ -->
+<section class="ph">
+  <div class="ph-img"></div>
+  <div class="ph-bg"></div>
   <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
-  <div class="h-grid"></div>
+  <div class="ph-grid"></div>
   <div id="pts"></div>
-
-  <div class="h-inner">
-    <div class="h-badge"><span class="pdot"></span>TRANSFORMING LIVES SINCE 2018</div>
-    <h1 class="h-title">
-      <span class="bl" id="hl1">CLEAN WATER.</span>
-      <span class="it" id="hl2">HEALTHY</span>
-      <span class="bl" id="hl3">COMMUNITIES.</span>
+  <div class="ph-inner">
+    <div class="ph-badge"><span class="pdot"></span>EDUCATION PROGRAMS</div>
+    <h1 class="ph-title">
+      Quality Education.<br>
+      <span class="it">Brighter Futures.</span>
     </h1>
-    <p class="h-sub" id="hsub">Sustainable water solutions that prevent disease and improve livelihoods in Namayingo District, Uganda.</p>
-    <div class="h-ctas" id="hctas">
-      <a href="donate.html" class="bg"><i class="fas fa-heart"></i> Donate Today</a>
-      <a href="water-sanitation.html" class="bgh"><i class="fas fa-play-circle"></i> Learn More</a>
+    <p class="ph-sub">Empowering underserved communities through quality schooling, vocational training, and community education initiatives across Namayingo District.</p>
+    <div class="ph-ctas">
+      <a href="#mission" class="bg"><i class="fas fa-arrow-down"></i> Our Programs</a>
+      <a href="donate.html" class="bgh"><i class="fas fa-heart"></i> Support Education</a>
     </div>
   </div>
-
-  <div class="s-rail">
-    <button class="s-pip on" data-s="0" aria-label="Slide 1"></button>
-    <button class="s-pip" data-s="1" aria-label="Slide 2"></button>
-    <button class="s-pip" data-s="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="s-ctr"><span id="scn">01</span> / 03</div>
-  <div class="sc-cue"><div class="tr"></div><span>SCROLL</span></div>
 </section>
+
+<!-- Breadcrumb -->
+<div class="bc">
+  <a href="index.html">Home</a>
+  <i class="fas fa-chevron-right"></i>
+  <a href="#">Programs</a>
+  <i class="fas fa-chevron-right"></i>
+  <span style="color:var(--amber)">Education</span>
+</div>
 
 <!-- ═══ IMPACT BAR ═══ -->
 <div class="imp-bar">
-  <div class="imp-it reveal"><div class="imp-ic">💧</div><div class="imp-n" data-t="5000" id="n1">0</div><div class="imp-l">People Reached</div></div>
-  <div class="imp-it reveal" style="transition-delay:.12s"><div class="imp-ic">🎓</div><div class="imp-n" data-t="1200" id="n2">0</div><div class="imp-l">Students Educated</div></div>
+  <div class="imp-it reveal"><div class="imp-ic">🎓</div><div class="imp-n" data-t="1200" id="n1">0</div><div class="imp-l">Students Reached</div></div>
+  <div class="imp-it reveal" style="transition-delay:.12s"><div class="imp-ic">💼</div><div class="imp-n" data-t="300" id="n2">0</div><div class="imp-l">Youth Trained</div></div>
   <div class="imp-it reveal" style="transition-delay:.22s"><div class="imp-ic">🏫</div><div class="imp-n" data-t="20" id="n3">0</div><div class="imp-l">Schools Supported</div></div>
-  <div class="imp-it reveal" style="transition-delay:.32s"><div class="imp-ic">✅</div><div class="imp-n" id="n4">58%</div><div class="imp-l">Success Rate</div></div>
+  <div class="imp-it reveal" style="transition-delay:.32s"><div class="imp-ic">📖</div><div class="imp-n" data-t="150" id="n4">0</div><div class="imp-l">Teachers Empowered</div></div>
 </div>
 
 <!-- ═══ MARQUEE ═══ -->
 <div class="mq-sec" aria-hidden="true">
   <div class="mq-track">
-    <span class="mq-it"><i class="fas fa-circle"></i>CLEAN WATER FOR ALL</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>EDUCATION CHANGES LIVES</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>QUALITY EDUCATION FOR ALL</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>SCHOOL PARTNERSHIP INITIATIVE</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>VOCATIONAL TRAINING</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>TEACHER EMPOWERMENT</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>DIGITAL LITERACY</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>COMMUNITY LEARNING CENTERS</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>EARLY CHILDHOOD DEVELOPMENT</span>
     <span class="mq-it"><i class="fas fa-circle"></i>NAMAYINGO · UGANDA</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>COMMUNITY EMPOWERMENT</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>CHARITY BAS/CS/4067</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>SUSTAINABLE DEVELOPMENT</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>WASH PROGRAMS</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>SINCE 2018 · BUSUMA VILLAGE</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>CLEAN WATER FOR ALL</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>EDUCATION CHANGES LIVES</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>QUALITY EDUCATION FOR ALL</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>SCHOOL PARTNERSHIP INITIATIVE</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>VOCATIONAL TRAINING</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>TEACHER EMPOWERMENT</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>DIGITAL LITERACY</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>COMMUNITY LEARNING CENTERS</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>EARLY CHILDHOOD DEVELOPMENT</span>
     <span class="mq-it"><i class="fas fa-circle"></i>NAMAYINGO · UGANDA</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>COMMUNITY EMPOWERMENT</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>CHARITY BAS/CS/4067</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>SUSTAINABLE DEVELOPMENT</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>WASH PROGRAMS</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>SINCE 2018 · BUSUMA VILLAGE</span>
   </div>
 </div>
 
-<!-- ═══ ABOUT ═══ -->
-<section class="ab-sec">
-  <div class="ab-in">
-    <div class="img-st rl">
-      <img src="images/community%20meeting.jpeg" alt="Community meeting" class="img-m">
-      <img src="images/school%20feeding%20program.jpeg" alt="School program" class="img-a">
-      <div class="yr-b"><strong>2018</strong><span>Founded</span></div>
+<!-- ═══ MISSION OVERVIEW ═══ -->
+<section class="mis-sec" id="mission">
+  <div class="mis-in">
+    <div class="sec-hd dk reveal">
+      <div class="lbl dk" style="justify-content:center">Our Education Mission</div>
+      <h2 style="color:var(--ink)">Four pillars of <em style="color:var(--forest)">educational empowerment</em></h2>
+      <div class="mis-intro" style="margin-top:1.5rem;margin-bottom:0">
+        <p>New Grace JS believes quality education is the foundation for breaking the cycle of poverty. We provide formal education, vocational training, and community education programmes designed to empower individuals and strengthen communities across Namayingo.</p>
+      </div>
+    </div>
+    <div style="height:3.5rem"></div>
+    <div class="mis-grid">
+      <div class="mis-card reveal" style="transition-delay:.05s">
+        <div class="mis-icon">🎓</div>
+        <h3>Formal Education Support</h3>
+        <p>We support quality formal education for marginalised children through school partnerships, teacher training, and provision of educational materials and infrastructure.</p>
+      </div>
+      <div class="mis-card reveal" style="transition-delay:.12s">
+        <div class="mis-icon">🔧</div>
+        <h3>Vocational Training</h3>
+        <p>Practical skills training in trades and crafts to help youth and adults gain sustainable livelihoods and economic independence in their communities.</p>
+      </div>
+      <div class="mis-card reveal" style="transition-delay:.19s">
+        <div class="mis-icon">👥</div>
+        <h3>Community Education</h3>
+        <p>Adult literacy programmes, health education, WASH training and community awareness initiatives that strengthen social fabric and empower communities.</p>
+      </div>
+      <div class="mis-card reveal" style="transition-delay:.26s">
+        <div class="mis-icon">📚</div>
+        <h3>Resource Provision</h3>
+        <p>Supplying schools with libraries, learning materials, digital resources and technology access to improve educational quality and measurable outcomes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ KEY PROGRAMS ═══ -->
+<section class="kp-sec">
+  <div class="kp-in">
+    <div class="sec-hd reveal">
+      <div class="lbl" style="justify-content:center">What We Do</div>
+      <h2>Six flagship <em>education programs</em></h2>
+      <p>Each programme is designed around a specific gap in the educational landscape of Namayingo District.</p>
+    </div>
+    <div style="height:3rem"></div>
+    <div class="kp-grid">
+      <div class="kp-card reveal" style="transition-delay:.05s">
+        <div class="kp-glow"></div><div class="kp-n">01</div>
+        <div class="kp-icon">🏫</div>
+        <h3>School Partnership Initiative</h3>
+        <p>Partner with 20+ local schools to improve infrastructure, teacher capacity and educational outcomes for over 1,200 learners across Namayingo District.</p>
+        <span class="kp-tag">1,200+ students</span>
+      </div>
+      <div class="kp-card reveal" style="transition-delay:.1s">
+        <div class="kp-glow"></div><div class="kp-n">02</div>
+        <div class="kp-icon">📝</div>
+        <h3>Teacher Empowerment</h3>
+        <p>Professional development for teachers — pedagogy training, digital skill enhancement and community engagement methods to improve classroom quality.</p>
+        <span class="kp-tag">150+ teachers</span>
+      </div>
+      <div class="kp-card reveal" style="transition-delay:.15s">
+        <div class="kp-glow"></div><div class="kp-n">03</div>
+        <div class="kp-icon">💻</div>
+        <h3>Digital Literacy</h3>
+        <p>Introducing digital learning tools and basic computer skills to students and community members to bridge the digital divide in rural Namayingo.</p>
+        <span class="kp-tag">500+ persons</span>
+      </div>
+      <div class="kp-card reveal" style="transition-delay:.2s">
+        <div class="kp-glow"></div><div class="kp-n">04</div>
+        <div class="kp-icon">💼</div>
+        <h3>Youth Skills Development</h3>
+        <p>Vocational training in tailoring, carpentry, agriculture and business skills for youth aged 15–25 to ensure gainful employment and economic dignity.</p>
+        <span class="kp-tag">300+ youth</span>
+      </div>
+      <div class="kp-card reveal" style="transition-delay:.25s">
+        <div class="kp-glow"></div><div class="kp-n">05</div>
+        <div class="kp-icon">🏛️</div>
+        <h3>Community Learning Centres</h3>
+        <p>Safe learning spaces for adult literacy, financial literacy, health education and community dialogue — meeting communities where they are.</p>
+        <span class="kp-tag">5+ active centres</span>
+      </div>
+      <div class="kp-card reveal" style="transition-delay:.3s">
+        <div class="kp-glow"></div><div class="kp-n">06</div>
+        <div class="kp-icon">🧒</div>
+        <h3>Early Childhood Development</h3>
+        <p>Supporting preschool education programmes with trained teachers, learning materials and nutrition support for children aged 3–6 years old.</p>
+        <span class="kp-tag">200+ children</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURED STORY ═══ -->
+<section class="feat-sec">
+  <div class="feat-in">
+    <div class="feat-img-wrap rl">
+      <img src="images/hygiene%20education%20in%20schools.jpg" alt="Children learning at school" class="feat-img-main">
+      <img src="images/pupils%20trying%20to%20write.jpeg" alt="Students writing" class="feat-img-accent">
+      <div class="feat-badge"><strong>85K+</strong><span>Children</span></div>
     </div>
     <div class="rr">
-      <div class="lbl dk">Our Story</div>
-      <h2 class="ab-txt h2-stub">Clean water &amp; education for every child in <em>Namayingo</em>.</h2>
-      <div class="ab-txt">
-        <p>New Grace JS is a community-led charity working in Busuma Village, Banda Subcounty. Since 2018 we have delivered clean water, sanitation, hygiene education and school support to thousands of families.</p>
-        <p>We believe sustainable change comes from within — training local leaders, building community ownership, and designing solutions that last generations.</p>
+      <div class="lbl dk">Featured Impact</div>
+      <div class="feat-txt">
+        <h2>School hygiene clubs changing behaviour — <em>for life</em>.</h2>
+        <p>In 2021, New Grace JS launched hygiene education clubs across 10 primary schools in Namayingo District. Within two terms, headteachers reported that absenteeism due to diarrhoeal illness had dropped by more than half.</p>
+        <p>Children are now handwashing ambassadors in their own homes — carrying health knowledge back to their families and villages. The clubs now run independently, led by trained pupil health leaders.</p>
         <div class="chips">
-          <span class="chip">WASH Programs</span><span class="chip">School Support</span>
-          <span class="chip">Women Empowerment</span><span class="chip">Hygiene Education</span>
-          <span class="chip">Community Leadership</span>
+          <span class="chip">Hygiene Clubs</span>
+          <span class="chip">10 Schools</span>
+          <span class="chip">3,000 Children</span>
+          <span class="chip">Behaviour Change</span>
+          <span class="chip">Pupil-Led</span>
         </div>
-        <a href="about.html" class="bf">Learn More <i class="fas fa-arrow-right"></i></a>
+        <a href="gallery.html" class="bf">See Our Gallery <i class="fas fa-arrow-right"></i></a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ PILLARS ═══ -->
-<section class="pl-sec">
-  <div class="pl-in">
+<!-- ═══ HYGIENE / WASH IN SCHOOLS ═══ -->
+<section class="hyg-sec">
+  <div class="hyg-in">
     <div class="sec-hd reveal">
-      <div class="lbl" style="justify-content:center">Our Mission</div>
-      <h2>Four pillars of <em>lasting change</em></h2>
-      <p>Every programme we run is designed for maximum community impact and long-term sustainability.</p>
+      <div class="lbl" style="justify-content:center;color:rgba(255,255,255,.5)"><span style="background:rgba(255,255,255,.3);width:26px;height:1px;display:inline-block"></span> Education + WASH</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.5rem);font-weight:900;line-height:1.1;color:#fff">Where education meets <em style="color:var(--amber);font-style:italic">clean water</em></h2>
+      <p style="color:rgba(255,255,255,.55);max-width:500px;margin:.85rem auto 0;line-height:1.72;font-size:.93rem">WASH and education go hand in hand. Clean facilities, healthy children, better learning outcomes — every time.</p>
     </div>
-    <div class="pl-grid">
-      <div class="pl-card reveal" onclick="openM('Improved Health','Since 2020, we installed 8 boreholes and 45 handwashing stations. Diarrheal diseases among children under 5 dropped by 62%.','images/clean.jpeg')">
-        <div class="pl-glow"></div><div class="pl-n">01</div>
-        <div class="pl-ic">💧</div>
-        <h3>Improved Health</h3>
-        <p>Clean water access eliminates waterborne disease at the source. Every borehole we install protects an entire community for years.</p>
-        <span class="st-chip">↓ 62% fewer waterborne diseases</span>
-        <div class="pl-more">READ MORE <i class="fas fa-arrow-right"></i></div>
+    <div class="hyg-grid">
+      <div class="hyg-card reveal" style="transition-delay:.06s">
+        <span class="hyg-ic">🚰</span>
+        <h3>Clean Water in Schools</h3>
+        <p>Every partner school receives a safe water point — reducing class time lost to water collection and illness, keeping children present and focused.</p>
+        <span class="hyg-stat">↑ 40% school attendance</span>
       </div>
-      <div class="pl-card reveal" style="transition-delay:.12s" onclick="openM('Community Empowerment','We trained 120 community health workers and 15 water committees. Villagers now manage and maintain their own water points independently.','images/community%20empowermwnt.jpeg')">
-        <div class="pl-glow"></div><div class="pl-n">02</div>
-        <div class="pl-ic">🤝</div>
-        <h3>Community Empowerment</h3>
-        <p>We train local leaders and water committees so communities own, operate and sustain their infrastructure indefinitely.</p>
-        <span class="st-chip">120 local leaders trained</span>
-        <div class="pl-more">READ MORE <i class="fas fa-arrow-right"></i></div>
+      <div class="hyg-card reveal" style="transition-delay:.16s">
+        <span class="hyg-ic">🚻</span>
+        <h3>Girl-Friendly Sanitation</h3>
+        <p>Separate, lockable latrines and menstrual hygiene kits keep adolescent girls in school every day of the month — not just three weeks out of four.</p>
+        <span class="hyg-stat">90 girls sponsored</span>
       </div>
-      <div class="pl-card reveal" style="transition-delay:.22s" onclick="openM('Quality Education','School attendance increased 40% after we built latrines and provided menstrual hygiene kits. We also sponsor 90 orphans in secondary school.','images/school%20feeding%20program.jpeg')">
-        <div class="pl-glow"></div><div class="pl-n">03</div>
-        <div class="pl-ic">📚</div>
-        <h3>Quality Education</h3>
-        <p>Latrines, hygiene clubs and menstrual health kits keep girls in school. Knowledge is the most durable infrastructure of all.</p>
-        <span class="st-chip">↑ 40% higher attendance</span>
-        <div class="pl-more">READ MORE <i class="fas fa-arrow-right"></i></div>
-      </div>
-      <div class="pl-card reveal" style="transition-delay:.32s" onclick="openM('Sustainability','All projects use locally sourced materials designed for low maintenance. 90% of water points are still fully functional after 5 years.','images/waterpurifier.jpeg')">
-        <div class="pl-glow"></div><div class="pl-n">04</div>
-        <div class="pl-ic">🌿</div>
-        <h3>Sustainability</h3>
-        <p>Every installation uses locally sourced materials designed for low maintenance — communities thrive long after we leave.</p>
-        <span class="st-chip">90% functional after 5 years</span>
-        <div class="pl-more">READ MORE <i class="fas fa-arrow-right"></i></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ PROGRAMS ═══ -->
-<section class="pr-sec">
-  <div class="pr-in">
-    <div class="pr-hd reveal">
-      <div>
-        <div class="lbl dk">Our Programs</div>
-        <h2>Two programs, one <em>shared mission</em></h2>
-      </div>
-      <a href="services.html" class="bf">View All <i class="fas fa-arrow-right"></i></a>
-    </div>
-    <div class="pr-grid">
-      <div class="pr-card reveal" onclick="location.href='education.html'">
-        <img src="images/hygiene%20education%20in%20schools.jpg" alt="Education" class="pr-img">
-        <div class="pr-body"><span class="pr-tag">EDUCATION</span><h3>School Programs</h3><p>Hygiene workshops, teacher training and support reaching 85,000+ children across the district.</p><a href="education.html" class="pr-lnk">Explore Education <i class="fas fa-arrow-right"></i></a></div>
-      </div>
-      <div class="pr-card reveal" style="transition-delay:.15s" onclick="location.href='water-sanitation.html'">
-        <img src="images/waterpurifier.jpeg" alt="WASH" class="pr-img">
-        <div class="pr-body"><span class="pr-tag">WASH</span><h3>Water & Sanitation</h3><p>Clean water boreholes, sanitation facilities and hygiene training for entire communities in Namayingo.</p><a href="water-sanitation.html" class="pr-lnk">Explore WASH <i class="fas fa-arrow-right"></i></a></div>
+      <div class="hyg-card reveal" style="transition-delay:.26s">
+        <span class="hyg-ic">🧼</span>
+        <h3>Handwashing Stations</h3>
+        <p>We installed 45 handwashing stations across supported schools, backed by hygiene education training for both teachers and students.</p>
+        <span class="hyg-stat">45 stations installed</span>
       </div>
     </div>
   </div>
@@ -594,88 +628,53 @@ footer{background:#040D09;padding:5rem 3.5rem 2.3rem;color:rgba(255,255,255,.48)
 <!-- ═══ TESTIMONIALS ═══ -->
 <section class="te-sec">
   <div class="te-in">
-    <div class="sec-hd reveal">
-      <div class="lbl" style="justify-content:center">Community Voices</div>
-      <h2>Heard from the <em>people we serve</em></h2>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;flex-wrap:wrap;gap:1rem" class="reveal">
+      <div>
+        <div class="lbl">Student Voices</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;line-height:1.1">
+          Stories of <em style="color:var(--amber);font-style:italic">change</em>
+        </h2>
+      </div>
     </div>
     <div class="te-grid">
       <div class="te-card reveal" style="transition-delay:.06s">
         <div class="te-stars">★★★★★</div>
-        <p class="te-q">Before New Grace JS came, my children walked 4 km every morning for water. Now they drink clean water from our village borehole and arrive at school on time.</p>
-        <div class="te-auth"><div class="te-av">A</div><div><div class="te-nm">Auma Christine</div><div class="te-rl">Mother of 4 · Busuma Village</div></div></div>
+        <p class="te-q">I was almost dropping out because my family could not afford school fees. New Grace JS sponsored me and now I am sitting my PLE exams. Education is the one thing no one can take from you.</p>
+        <div class="te-auth"><div class="te-av">K</div><div><div class="te-nm">Kiconco Brenda</div><div class="te-rl">Primary 7 Scholar · Banda Primary</div></div></div>
       </div>
       <div class="te-card reveal" style="transition-delay:.16s">
         <div class="te-stars">★★★★★</div>
-        <p class="te-q">The hygiene clubs they set up transformed behaviour completely. Absenteeism due to diarrhoeal illness dropped by half within two terms of the programme starting.</p>
+        <p class="te-q">The hygiene clubs they set up transformed our school. Our children stopped missing classes due to illness and our teachers can now focus on teaching, not managing health problems.</p>
         <div class="te-auth"><div class="te-av">O</div><div><div class="te-nm">Okello James</div><div class="te-rl">Headteacher · Banda Primary School</div></div></div>
       </div>
       <div class="te-card reveal" style="transition-delay:.26s">
         <div class="te-stars">★★★★★</div>
-        <p class="te-q">I was the first girl in my family to sit national exams. The scholarship paid my fees and the school latrine meant I never missed days every month anymore.</p>
-        <div class="te-auth"><div class="te-av">N</div><div><div class="te-nm">Nabirye Fatuma</div><div class="te-rl">Secondary Scholar · Class of 2024</div></div></div>
+        <p class="te-q">I completed their vocational tailoring programme and now run my own small shop in Busuma market. My children eat because of the skills New Grace JS gave me — for free.</p>
+        <div class="te-auth"><div class="te-av">N</div><div><div class="te-nm">Namukasa Lydia</div><div class="te-rl">Vocational Graduate · 2023</div></div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ STORIES ═══ -->
-<section class="st-sec">
-  <div class="st-in">
-    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1rem" class="reveal">
-      <div>
-        <div class="lbl">Latest Stories</div>
-        <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.85rem,4vw,3rem);font-weight:900">Change you can <em style="color:var(--amber);font-style:italic">see</em></h2>
-      </div>
-      <a href="blog.html" class="bgh" style="padding:.65rem 1.5rem;font-size:.78rem">All Stories <i class="fas fa-arrow-right"></i></a>
-    </div>
-    <div class="st-grid">
-      <div class="st-card reveal" style="transition-delay:.06s">
-        <div class="st-iw"><img src="images/clean.jpeg" alt="Borehole" class="st-img"></div>
-        <div class="st-body">
-          <div class="st-meta"><span class="st-cat">WASH</span><span class="st-dt">MARCH 2025</span></div>
-          <h3>New Borehole Now Serves 500 Families in Busuma</h3>
-          <p>A solar-powered borehole provides clean water around the clock, cutting waterborne diseases by 70%.</p>
-          <a href="#" class="st-lnk">Read More <i class="fas fa-arrow-right"></i></a>
-        </div>
-      </div>
-      <div class="st-card reveal" style="transition-delay:.16s">
-        <div class="st-iw"><img src="images/school%20feeding%20program.jpeg" alt="Hygiene clubs" class="st-img"></div>
-        <div class="st-body">
-          <div class="st-meta"><span class="st-cat">EDUCATION</span><span class="st-dt">JAN 2025</span></div>
-          <h3>Hygiene Clubs Launched in 10 Primary Schools</h3>
-          <p>3,000 children now practise daily handwashing after our school hygiene club programme rolled out.</p>
-          <a href="#" class="st-lnk">Read More <i class="fas fa-arrow-right"></i></a>
-        </div>
-      </div>
-      <div class="st-card reveal" style="transition-delay:.26s">
-        <div class="st-iw"><img src="images/women%20empowerment.jpg" alt="Women" class="st-img"></div>
-        <div class="st-body">
-          <div class="st-meta"><span class="st-cat">COMMUNITY</span><span class="st-dt">NOV 2024</span></div>
-          <h3>Women's Group Launches Soap-Making Cooperative</h3>
-          <p>30 women used seed funding to start a soap-making cooperative — clean hands and clean income.</p>
-          <a href="#" class="st-lnk">Read More <i class="fas fa-arrow-right"></i></a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ GALLERY ═══ -->
+<!-- ═══ GALLERY STRIP ═══ -->
 <section class="gl-sec">
   <div class="gl-hd reveal">
-    <div><div class="lbl dk">Our Impact</div><h2>In Pictures</h2></div>
+    <div>
+      <div class="lbl dk">Our Education Impact</div>
+      <h2>In Pictures</h2>
+    </div>
     <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
       <span class="sh-row">Swipe to explore <i class="fas fa-arrow-right"></i></span>
       <a href="gallery.html" class="bf" style="font-size:.76rem;padding:.6rem 1.3rem">Full Gallery <i class="fas fa-arrow-right"></i></a>
     </div>
   </div>
   <div class="gl-scr" id="gscr">
-    <div class="g-it reveal" onclick="openM('Water Purifier','Clean water solutions installed across Namayingo District.','images/waterpurifier.jpeg')"><img src="images/waterpurifier.jpeg" alt="Water purifier"><div class="g-ov"><span>WATER PURIFIER</span></div></div>
-    <div class="g-it reveal" style="transition-delay:.08s" onclick="openM('Hygiene Training','Community hygiene training in Banda Subcounty.','images/hygiene education.jpg')"><img src="images/hygiene education.jpg" alt="Hygiene education"><div class="g-ov"><span>HYGIENE TRAINING</span></div></div>
-    <div class="g-it reveal" style="transition-delay:.16s" onclick="openM('Students at Work','Students working on water science projects.','images/pupils trying to write.jpeg')"><img src="images/pupils trying to write.jpeg" alt="Students"><div class="g-ov"><span>STUDENTS AT WORK</span></div></div>
-    <div class="g-it reveal" style="transition-delay:.24s" onclick="openM('Clean Water Access','A child drinking clean water from a newly installed tap.','images/clean.jpeg')"><img src="images/clean.jpeg" alt="Clean water"><div class="g-ov"><span>CLEAN WATER ACCESS</span></div></div>
-    <div class="g-it reveal" style="transition-delay:.32s" onclick="openM('Community Gathering','Community WASH project planning meeting.','images/gathering.jpeg')"><img src="images/gathering.jpeg" alt="Community"><div class="g-ov"><span>COMMUNITY GATHERING</span></div></div>
-    <div class="g-it reveal" style="transition-delay:.40s" onclick="openM('Sanitation Facility','New school latrine block serving 300 pupils.','images/sanitation-facility.jpg')"><img src="images/sanitation-facility.jpg" alt="Sanitation"><div class="g-ov"><span>SANITATION FACILITY</span></div></div>
+    <div class="g-it reveal" onclick="openM('Education For All','Quality education reaching every child in Namayingo District.','images/education%20for%20all.jpeg')"><img src="images/education%20for%20all.jpeg" alt="Education for all"><div class="g-ov"><span>EDUCATION FOR ALL</span></div></div>
+    <div class="g-it reveal" style="transition-delay:.08s" onclick="openM('Hygiene Education','School hygiene education sessions in Banda Subcounty.','images/hygiene%20education%20in%20schools.jpg')"><img src="images/hygiene%20education%20in%20schools.jpg" alt="Hygiene education"><div class="g-ov"><span>HYGIENE EDUCATION</span></div></div>
+    <div class="g-it reveal" style="transition-delay:.16s" onclick="openM('Students at Work','Students practising writing skills during a lesson.','images/pupils%20trying%20to%20write.jpeg')"><img src="images/pupils%20trying%20to%20write.jpeg" alt="Students writing"><div class="g-ov"><span>STUDENTS AT WORK</span></div></div>
+    <div class="g-it reveal" style="transition-delay:.24s" onclick="openM('School Feeding Program','Children receiving nutritional support during the school feeding programme.','images/school%20feeding%20program.jpeg')"><img src="images/school%20feeding%20program.jpeg" alt="School feeding"><div class="g-ov"><span>SCHOOL FEEDING</span></div></div>
+    <div class="g-it reveal" style="transition-delay:.32s" onclick="openM('Community Gathering','Community meeting discussing education priorities.','images/gathering.jpeg')"><img src="images/gathering.jpeg" alt="Community gathering"><div class="g-ov"><span>COMMUNITY MEETING</span></div></div>
+    <div class="g-it reveal" style="transition-delay:.40s" onclick="openM('Women Empowerment','Women\u2019s skills training and vocational programme in action.','images/women%20empowerment.jpg')"><img src="images/women%20empowerment.jpg" alt="Women empowerment"><div class="g-ov"><span>WOMEN'S TRAINING</span></div></div>
   </div>
 </section>
 
@@ -683,26 +682,18 @@ footer{background:#040D09;padding:5rem 3.5rem 2.3rem;color:rgba(255,255,255,.48)
 <section class="do-sec" id="donate">
   <div class="d-ring dr1"></div><div class="d-ring dr2"></div>
   <div class="do-in">
-    <div class="lbl" style="justify-content:center">Make a Difference</div>
-    <h2 class="reveal">Give the gift of <em>clean water</em></h2>
-    <p class="reveal" style="transition-delay:.1s">Your support brings safe water and quality education to families in Namayingo. Every shilling makes a real difference in a child's life.</p>
-
-    <div class="ca-wrap reveal" style="transition-delay:.15s">
-      <label for="cai">Custom amount (UGX):</label>
-      <input type="number" class="ca-inp" id="cai" placeholder="Enter amount" min="1000">
-    </div>
-
+    <div class="lbl" style="justify-content:center">Make Education Accessible</div>
+    <h2 class="reveal">Invest in a child's <em>future</em></h2>
+    <p class="reveal" style="transition-delay:.1s">Your donation directly impacts education quality and opportunity for underserved children and youth across Namayingo District.</p>
     <div class="do-grid reveal" id="dgrid" style="transition-delay:.2s">
-      <div class="d-card sel" data-a="25000"><div class="d-amt">UGX 25,000</div><div class="d-dsc">Hygiene kits for 5 children</div></div>
-      <div class="d-card" data-a="50000"><div class="d-amt">UGX 50,000</div><div class="d-dsc">Clean water for a family</div></div>
-      <div class="d-card" data-a="100000"><div class="d-amt">UGX 100,000</div><div class="d-dsc">Sanitation facility</div></div>
-      <div class="d-card" data-a="250000"><div class="d-amt">UGX 250,000</div><div class="d-dsc">Water system training</div></div>
+      <div class="d-card sel" data-a="25000"><div class="d-amt">UGX 25,000</div><div class="d-dsc">School supplies for 5 pupils</div></div>
+      <div class="d-card" data-a="50000"><div class="d-amt">UGX 50,000</div><div class="d-dsc">Menstrual health kits for girls</div></div>
+      <div class="d-card" data-a="100000"><div class="d-amt">UGX 100,000</div><div class="d-dsc">Vocational training session</div></div>
+      <div class="d-card" data-a="250000"><div class="d-amt">UGX 250,000</div><div class="d-dsc">Sponsor a pupil for one term</div></div>
     </div>
-
     <button class="do-btn reveal" id="dbtn" style="transition-delay:.28s" onclick="location.href='donate.html?amount=25000'">
-      <i class="fas fa-heart"></i> DONATE UGX <span id="ddisp">25,000</span> NOW
+      <i class="fas fa-graduation-cap"></i> DONATE UGX <span id="ddisp">25,000</span> NOW
     </button>
-
     <div class="tr-badges reveal" style="transition-delay:.36s">
       <span class="tr-b"><i class="fas fa-shield-halved"></i> Secure Payment</span>
       <span class="tr-b"><i class="fas fa-certificate"></i> Registered Charity</span>
@@ -731,14 +722,22 @@ footer{background:#040D09;padding:5rem 3.5rem 2.3rem;color:rgba(255,255,255,.48)
         <p>Transforming communities through clean water, sanitation and quality education in Namayingo District, Uganda. Registered Charity BAS/CS/4067.</p>
       </div>
       <div class="f-col"><h5>Navigate</h5><ul>
-        <li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li>
-        <li><a href="services.html">Services</a></li><li><a href="education.html">Education</a></li><li><a href="water-sanitation.html">WASH</a></li>
-        <li><a href="gallery.html">Gallery</a></li><li><a href="blog.html">Blog</a></li>
-        <li><a href="volunteer.html">Volunteer</a></li><li><a href="contact.html">Contact</a></li><li><a href="donate.html">Donate</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="water-sanitation.html">WASH</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="volunteer.html">Volunteer</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="donate.html">Donate</a></li>
       </ul></div>
       <div class="f-col"><h5>Programs</h5><ul>
-        <li><a href="education.html">School Programs</a></li><li><a href="water-sanitation.html">Clean Water</a></li>
-        <li><a href="services.html">All Services</a></li><li><a href="donate.html">Donate</a></li>
+        <li><a href="education.html">School Programs</a></li>
+        <li><a href="water-sanitation.html">Clean Water</a></li>
+        <li><a href="services.html">All Services</a></li>
+        <li><a href="donate.html">Donate</a></li>
       </ul></div>
       <div class="f-nl">
         <h5>Stay Updated</h5>
@@ -778,7 +777,7 @@ footer{background:#040D09;padding:5rem 3.5rem 2.3rem;color:rgba(255,255,255,.48)
 
 <script>
 'use strict';
-/* ── Cursor (desktop) ── */
+/* ── Cursor ── */
 const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
 let mx=0,my=0,rx=0,ry=0;
 if(matchMedia('(pointer:fine)').matches){
@@ -795,7 +794,7 @@ addEventListener('scroll',()=>{
   scrollY>500?btt.classList.add('sh'):btt.classList.remove('sh');
 },{passive:true});
 
-/* ── Hamburger / Mobile menu ── */
+/* ── Hamburger ── */
 const hb=document.getElementById('hb'),mm=document.getElementById('mm');
 const toggleMM=()=>{
   const op=mm.classList.toggle('op');
@@ -811,48 +810,12 @@ addEventListener('keydown',e=>{if(e.key==='Escape'&&mm.classList.contains('op'))
 
 /* ── Particles ── */
 const pts=document.getElementById('pts');
-for(let i=0;i<50;i++){
+for(let i=0;i<45;i++){
   const p=document.createElement('div');p.className='pt';
-  const s=1+Math.random()*2.2;
-  Object.assign(p.style,{left:Math.random()*100+'vw',width:s+'px',height:s+'px',animationDuration:(8+Math.random()*16)+'s',animationDelay:(-Math.random()*24)+'s',opacity:.22+Math.random()*.5});
+  const s=1+Math.random()*2;
+  Object.assign(p.style,{left:Math.random()*100+'vw',width:s+'px',height:s+'px',animationDuration:(8+Math.random()*16)+'s',animationDelay:(-Math.random()*24)+'s',opacity:.2+Math.random()*.5});
   pts.appendChild(p);
 }
-
-/* ── Hero slideshow ── */
-const SD=[
-  {bg:'images/waterpurifier.jpeg',l1:'CLEAN WATER.',l2:'HEALTHY',l3:'COMMUNITIES.',sub:'Sustainable water solutions that prevent disease and improve livelihoods in Namayingo District.',c1:'Donate Today',c2:'Learn More',h2:'water-sanitation.html'},
-  {bg:'images/education for all.jpeg',l1:'EDUCATION.',l2:'OPPORTUNITY.',l3:'FUTURE.',sub:'Empowering children through quality schooling, teacher training and community school support.',c1:'Support Education',c2:'Our Programs',h2:'education.html'},
-  {bg:'images/gathering.jpeg',l1:'STRONG',l2:'COMMUNITIES.',l3:'LASTING CHANGE.',sub:'Building local leadership, skills and sustainable livelihoods for generations to come.',c1:'Get Involved',c2:'Our Work',h2:'community-leadership.html'},
-];
-let cs=0,ht;
-const hi=document.getElementById('hi');
-hi.style.transition='opacity .55s ease';
-const hl1=document.getElementById('hl1'),hl2=document.getElementById('hl2'),hl3=document.getElementById('hl3');
-const hsub=document.getElementById('hsub'),hctas=document.getElementById('hctas');
-const pips=document.querySelectorAll('.s-pip'),scn=document.getElementById('scn');
-
-function goSlide(i){
-  cs=i;const s=SD[i];
-  hi.style.opacity=0;
-  setTimeout(()=>{hi.style.backgroundImage=`url('${s.bg}')`;hi.style.opacity=.22},480);
-  hl1.textContent=s.l1;hl2.textContent=s.l2;hl3.textContent=s.l3;
-  hsub.textContent=s.sub;
-  hctas.innerHTML=`<a href="donate.html" class="bg"><i class="fas fa-heart"></i> ${s.c1}</a><a href="${s.h2}" class="bgh"><i class="fas fa-play-circle"></i> ${s.c2}</a>`;
-  pips.forEach((p,j)=>p.classList.toggle('on',j===i));
-  scn.textContent=String(i+1).padStart(2,'0');
-}
-function nextS(){goSlide((cs+1)%SD.length);resetHT()}
-function resetHT(){clearInterval(ht);ht=setInterval(nextS,6200)}
-pips.forEach(p=>p.addEventListener('click',()=>{goSlide(+p.dataset.s);resetHT()}));
-goSlide(0);resetHT();
-
-// Touch swipe on hero
-let tx0=0;
-document.querySelector('.hero').addEventListener('touchstart',e=>tx0=e.touches[0].clientX,{passive:true});
-document.querySelector('.hero').addEventListener('touchend',e=>{
-  const dx=e.changedTouches[0].clientX-tx0;
-  if(Math.abs(dx)>55){dx<0?goSlide((cs+1)%SD.length):goSlide((cs+SD.length-1)%SD.length);resetHT()}
-},{passive:true});
 
 /* ── Counters ── */
 function animN(el,target){
@@ -861,15 +824,16 @@ function animN(el,target){
     if(!start)start=ts;
     const pr=Math.min((ts-start)/dur,1),ease=1-Math.pow(1-pr,4);
     el.textContent=Math.floor(ease*target).toLocaleString();
-    if(pr<1)requestAnimationFrame(step);else el.textContent=target.toLocaleString();
+    if(pr<1)requestAnimationFrame(step);else el.textContent=target.toLocaleString()+'+';
   }
   requestAnimationFrame(step);
 }
 const cObs=new IntersectionObserver(en=>{
   if(en[0].isIntersecting){
-    animN(document.getElementById('n1'),5000);
-    animN(document.getElementById('n2'),1200);
+    animN(document.getElementById('n1'),1200);
+    animN(document.getElementById('n2'),300);
     animN(document.getElementById('n3'),20);
+    animN(document.getElementById('n4'),150);
     cObs.disconnect();
   }
 },{threshold:.5});
@@ -878,20 +842,8 @@ const n1el=document.getElementById('n1');if(n1el)cObs.observe(n1el);
 /* ── Reveal ── */
 const rObs=new IntersectionObserver(en=>{
   en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');rObs.unobserve(e.target)}});
-},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
+},{threshold:.08,rootMargin:'0px 0px -36px 0px'});
 document.querySelectorAll('.reveal,.rl,.rr').forEach(el=>rObs.observe(el));
-
-/* ── 3D tilt (desktop only) ── */
-if(matchMedia('(pointer:fine)').matches){
-  document.querySelectorAll('.pl-card').forEach(c=>{
-    c.addEventListener('mousemove',e=>{
-      const r=c.getBoundingClientRect();
-      const x=((e.clientX-r.left)/r.width-.5)*16,y=((e.clientY-r.top)/r.height-.5)*-16;
-      c.style.transform=`translateY(-8px) scale(1.01) rotateX(${y}deg) rotateY(${x}deg)`;
-    });
-    c.addEventListener('mouseleave',()=>{c.style.transform=''});
-  });
-}
 
 /* ── Donate ── */
 let selA=25000;
@@ -901,14 +853,6 @@ document.getElementById('dgrid').addEventListener('click',e=>{
   card.classList.add('sel');selA=+card.dataset.a;
   document.getElementById('ddisp').textContent=selA.toLocaleString();
   document.getElementById('dbtn').onclick=()=>location.href=`donate.html?amount=${selA}`;
-  document.getElementById('cai').value='';
-});
-document.getElementById('cai').addEventListener('input',function(){
-  const v=+this.value;if(v>0){
-    selA=v;document.querySelectorAll('.d-card').forEach(c=>c.classList.remove('sel'));
-    document.getElementById('ddisp').textContent=v.toLocaleString();
-    document.getElementById('dbtn').onclick=()=>location.href=`donate.html?amount=${v}`;
-  }
 });
 
 /* ── Gallery drag ── */

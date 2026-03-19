@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events & Calendar - New Grace JS</title>
+    <script src="https://cdn.tailwindcss.com"></script> rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    
+</head>
+<body>
+<!-- NAVBAR -->
+<nav class="bg-white/95 backdrop-blur-2xl border-b sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+        <a href="index.html" class="flex items-center gap-3" aria-label="New Grace JS home">
+            <img src="images/LOGO.JPG" alt="New Grace JS logo" class="w-14 h-14 rounded-2xl shadow">
+            <div>
+                <span class="heading-font text-3xl font-bold tracking-tighter text-[#1B4D3E]">New Grace JS</span>
+                <p class="text-xs text-neutral-500 -mt-1">Since 2018 • Namayingo, Uganda</p>
+            </div>
+        </a>
+        
+        <div class="hidden md:flex items-center gap-9 text-sm font-medium">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="services.html" class="nav-link">Services</a>
+            <a href="education.html" class="nav-link">Education</a>
+            <a href="gallery.html" class="nav-link">Gallery</a>
+            <a href="blog.html" class="nav-link">Blog</a>
+            <a href="events.html" class="nav-link active" aria-current="page">Events</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+            <a href="donate.html" class="nav-link">Donate</a>
+        </div>
+        
+        <button onclick="document.getElementById('donate').scrollIntoView({behavior:'smooth'})" 
+                class="btn-primary bg-[#1B4D3E] hover:bg-[#0F3A2E] text-white px-8 py-4 rounded-3xl font-semibold flex items-center gap-2 shadow transition-all"
+                aria-label="Donate now">
+            <i class="fas fa-heart" aria-hidden="true"></i> Donate
+        </button>
+    </div>
+</nav>
+
+    <section class="hero reveal">
+      <div class="container hero-content">
+        <div class="row justify-content-center text-center">
+          <div class="col-lg-8">
+            <h1 class="display-4 fw-bold mb-4" data-aos="fade-down">Events & Calendar</h1>
+            <p class="lead mb-4" data-aos="fade-up" data-aos-delay="200">Upcoming events, workshops, and fundraisers where you can engage and support our mission.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-white reveal reveal">
+      <div class="container">
+        <div class="text-center mb-5" data-aos="fade-up">
+          <h2 class="fw-bold section-title">Upcoming Events</h2>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
+            <div class="event-card">
+              <div class="row align-items-center">
+                <div class="col-md-2">
+                  <div class="event-date">
+                    <div class="day">28</div>
+                    <div class="month">Mar</div>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <h3 class="event-title">Community Water Project Inauguration</h3>
+                  <div class="event-details">
+                    <i class="fas fa-map-marker-alt"></i> Busia District<br>
+                    <i class="fas fa-info-circle"></i> Join us as we launch a new water system serving 500+ community members. Celebrate this milestone with beneficiaries and project partners.
+                  </div>
+                  <a href="#" class="event-btn">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="event-card" data-aos="fade-up" data-aos-delay="200">
+              <div class="row align-items-center">
+                <div class="col-md-2">
+                  <div class="event-date">
+                    <div class="day">15</div>
+                    <div class="month">Apr</div>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <h3 class="event-title">Teacher Training Workshop</h3>
+                  <div class="event-details">
+                    <i class="fas fa-map-marker-alt"></i> Namayingo District<br>
+                    <i class="fas fa-info-circle"></i> Professional development program for 50+ educators on WASH curriculum integration and modern teaching methods.
+                  </div>
+                  <a href="#" class="event-btn">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="event-card" data-aos="fade-up" data-aos-delay="300">
+              <div class="row align-items-center">
+                <div class="col-md-2">
+                  <div class="event-date">
+                    <div class="day">1</div>
+                    <div class="month">May</div>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <h3 class="event-title">Global Volunteer Day</h3>
+                  <div class="event-details">
+                    <i class="fas fa-map-marker-alt"></i> Multiple Locations<br>
+                    <i class="fas fa-info-circle"></i> International day of giving and volunteering. Join volunteers worldwide in community service activities.
+                  </div>
+                  <a href="#" class="event-btn">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="event-card" data-aos="fade-up" data-aos-delay="400">
+              <div class="row align-items-center">
+                <div class="col-md-2">
+                  <div class="event-date">
+                    <div class="day">20</div>
+                    <div class="month">May</div>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <h3 class="event-title">Education Forum: Leadership & Change</h3>
+                  <div class="event-details">
+                    <i class="fas fa-map-marker-alt"></i> Online & Busia<br>
+                    <i class="fas fa-info-circle"></i> Interactive forum discussing education innovation, community leadership, and sustainable development.
+                  </div>
+                  <a href="#" class="event-btn">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="event-card" data-aos="fade-up" data-aos-delay="500">
+              <div class="row align-items-center">
+                <div class="col-md-2">
+                  <div class="event-date">
+                    <div class="day">10</div>
+                    <div class="month">Jun</div>
+                  </div>
+                </div>
+                <div class="col-md-10">
+                  <h3 class="event-title">Annual Fundraising Gala</h3>
+                  <div class="event-details">
+                    <i class="fas fa-map-marker-alt"></i> Kampala Convention Center<br>
+                    <i class="fas fa-info-circle"></i> Elegant evening celebrating our impact with keynote speakers, silent auction, and entertainment. All proceeds support programs.
+                  </div>
+                  <a href="#" class="event-btn">Register →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="card" style="box-shadow: 0 4px 12px rgba(46, 139, 87, 0.1);" data-aos="fade-up" data-aos-delay="100">
+              <div class="card-body">
+                <h5 class="card-title mb-3">Event Categories</h5>
+                <div class="mb-3">
+                  <button class="btn btn-sm" style="background: var(--primary-green); color: white; border: none; width: 100%; text-align: left; margin-bottom: 0.5rem;"><i class="fas fa-graduation-cap"></i> Education (2)</button>
+                  <button class="btn btn-sm" style="background: #e8e8e8; color: var(--dark); border: none; width: 100%; text-align: left; margin-bottom: 0.5rem;"><i class="fas fa-tint"></i> Water Projects (1)</button>
+                  <button class="btn btn-sm" style="background: #e8e8e8; color: var(--dark); border: none; width: 100%; text-align: left; margin-bottom: 0.5rem;"><i class="fas fa-heart"></i> Fundraising (1)</button>
+                  <button class="btn btn-sm" style="background: #e8e8e8; color: var(--dark); border: none; width: 100%; text-align: left; margin-bottom: 0.5rem;"><i class="fas fa-users"></i> Volunteering (1)</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card mt-3" style="box-shadow: 0 4px 12px rgba(46, 139, 87, 0.1);">
+              <div class="card-body">
+                <h5 class="card-title mb-3">Newsletter</h5>
+                <p style="font-size: 0.9rem;">Subscribe to get event updates and program news.</p>
+                <input type="email" class="form-control form-control-sm mb-2" placeholder="Your email">
+                <button class="btn btn-sm w-100" style="background: var(--primary-green); color: white; border: none;">Subscribe</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <!-- Footer Top Section -->
+            <div class="footer-top">
+                <div class="row gy-5">
+                    <!-- Brand Column -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-brand">
+                            <img src="images/LOGO.JPG" alt="New Grace JS Logo">
+                            <h3>New Grace JS</h3>
+                            <p>Transforming communities through clean water, sanitation, hygiene, and quality education. Building sustainable solutions for a healthier future.</p>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links Column -->
+                    <div class="col-lg-2 col-md-6">
+                        <div class="footer-section">
+                            <h4>Quick Links</h4>
+                            <ul>
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="about.html">About Us</a></li>
+                                <li><a href="services.html">Services</a></li>
+                                <li><a href="donate.html">Donate Now</a></li>
+                                <li><a href="volunteer.html">Volunteer</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Programs Column -->
+                    <div class="col-lg-2 col-md-6">
+                        <div class="footer-section">
+                            <h4>Programs</h4>
+                            <ul>
+                                <li><a href="education.html">Education</a></li>
+                                <li><a href="water-sanitation.html">Water & Sanitation</a></li>
+                                <li><a href="health-hygiene.html">Health</a></li>
+                                <li><a href="community-leadership.html">Community Leadership</a></li>
+                                <li><a href="projects.html">Projects</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Resources Column -->
+                    <div class="col-lg-2 col-md-6">
+                        <div class="footer-section">
+                            <h4>Resources</h4>
+                            <ul>
+                                <li><a href="blog.html">Blog & News</a></li>
+                                <li><a href="resources.html">Reports & Docs</a></li>
+                                <li><a href="gallery.html">Gallery</a></li>
+                                <li><a href="faq.html">FAQs</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Contact Column -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-section">
+                            <h4>Get In Touch</h4>
+                            <div class="footer-contact">
+                                <div class="footer-contact-item">
+                                    <div class="footer-contact-icon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div class="footer-contact-info">
+                                        <h5>Location</h5>
+                                        <p>Banda Sub County<br>Busia District, Uganda</p>
+                                    </div>
+                                </div>
+                                <div class="footer-contact-item">
+                                    <div class="footer-contact-icon">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div class="footer-contact-info">
+                                        <h5>Phone</h5>
+                                        <p>+256 709 251 412<br>+256 785 950 405</p>
+                                    </div>
+                                </div>
+                                <div class="footer-contact-item">
+                                    <div class="footer-contact-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="footer-contact-info">
+                                        <h5>Email</h5>
+                                        <p>newgracejs@gmail.com</p>
+                                    </div>
+                                </div>
+                                <div class="footer-social-group">
+                                    <h5>Follow Us</h5>
+                                    <div class="footer-social-icons">
+                                        <a href="#" class="footer-social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                        <a href="#" class="footer-social-icon" title="Twitter"><i class="fab fa-twitter"></i></a>
+                                        <a href="#" class="footer-social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
+                                        <a href="#" class="footer-social-icon" title="YouTube"><i class="fab fa-youtube"></i></a>
+                                        <a href="#" class="footer-social-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Newsletter Section Inside Footer -->
+            <div class="bg-light py-4 py-md-5 border-top">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-8 col-lg-6 text-center">
+                            <h3 class="mb-2">Stay Connected</h3>
+                            <p class="text-muted mb-4">Get updates on our latest projects, impact stories, and ways you can help make a difference.</p>
+                            <form class="d-flex gap-2 flex-column flex-sm-row">
+                                <input type="email" class="form-control" placeholder="Enter your email address" required>
+                                <button type="submit" class="btn btn-primary btn-sm">Subscribe</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="footer-bottom-item">
+                        <h6>People Reached</h6>
+                        <p>5,000+</p>
+                    </div>
+                    <div class="footer-bottom-item">
+                        <h6>Students Supported</h6>
+                        <p>1,200+</p>
+                    </div>
+                    <div class="footer-bottom-item">
+                        <h6>Schools Partnered</h6>
+                        <p>20+</p>
+                    </div>
+                    <div class="footer-bottom-item">
+                        <h6>Success Rate</h6>
+                        <p>58%</p>
+                    </div>
+                </div>
+
+                <div class="footer-copyright">
+                    <div class="footer-copyright-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Code of Conduct</a>
+                        <a href="#">Transparency Report</a>
+                    </div>
+                    <p>&copy; 2025 New Grace JS. All rights reserved. | Transforming Lives Through Education & WASH</p>
+                    <p>Registration: BAS/CS/4067 | Founded: 2018</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init({ once: true, duration: 900, offset: 80 });
+      document.addEventListener('DOMContentLoaded', function() {
+        const menuToggle = document.getElementById('menuToggle');
+        const nav = document.getElementById('nav');
+        if (menuToggle && nav) {
+          menuToggle.addEventListener('click', function() {
+            nav.classList.toggle('active');
+            menuToggle.querySelector('i').classList.toggle('fa-bars');
+            menuToggle.querySelector('i').classList.toggle('fa-times');
+          });
+          nav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+              if(window.innerWidth <= 900 && nav.classList.contains('active')) {
+                nav.classList.remove('active');
+                menuToggle.querySelector('i').classList.remove('fa-times');
+                menuToggle.querySelector('i').classList.add('fa-bars');
+              }
+            });
+          });
+        }
+      });
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>

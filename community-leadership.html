@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Community leadership and empowerment programs by New Grace JS, building sustainable livelihoods and strengthening local communities in Uganda.">
+    <title>Community Leadership | New Grace JS</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    
+    <!-- AOS (Animate on Scroll) -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap');
+        
+        :root { --primary: #1B4D3E; }
+        
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .heading-font { font-family: 'Montserrat', sans-serif; }
+        
+        /* Water drops background (subtle) */
+        .water-drops-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .water-drop {
+            position: absolute;
+            top: -100px;
+            width: 40px;
+            height: 40px;
+            background: rgba(27, 77, 62, 0.03);
+            border-radius: 50% 50% 0 50%;
+            transform: rotate(45deg);
+            animation: fall 20s linear infinite;
+        }
+        .water-drop::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 20px;
+            height: 20px;
+            background: rgba(27, 77, 62, 0.02);
+            border-radius: 50%;
+        }
+        @keyframes fall {
+            0% { top: -100px; opacity: 0; transform: rotate(45deg) scale(0.5); }
+            50% { opacity: 0.8; transform: rotate(45deg) scale(1.2); }
+            100% { top: 100vh; opacity: 0; transform: rotate(45deg) scale(0.5); }
+        }
+        
+        /* Navbar underline effect */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover:after,
+        .nav-link.active:after { width: 100%; }
+        
+        /* Hero background */
+        .hero-bg {
+            background: linear-gradient(rgba(27,77,62,0.75), rgba(10,47,36,0.85)), 
+                        url('images/community%20meeting.jpeg') center/cover no-repeat fixed;
+        }
+        @media (max-width: 768px) {
+            .hero-bg { background-attachment: scroll; }
+        }
+        
+        .glass { background: rgba(255,255,255,0.12); backdrop-filter: blur(20px); }
+        
+        /* Card hover */
+        .card-hover {
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px -12px rgb(27 77 62 / 0.25);
+        }
+        
+        /* Stat numbers */
+        .stat-number { font-variant-numeric: tabular-nums; }
+        
+        /* Fade-in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Donation card active state */
+        .donate-card.active {
+            background: rgba(255,255,255,0.25);
+            border: 2px solid white;
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3);
+        }
+        
+        /* Modal animation */
+        #modal {
+            animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        @keyframes modalPop {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        
+        /* Focus outline */
+        *:focus-visible {
+            outline: 3px solid #C6A15B;
+            outline-offset: 2px;
+        }
+        
+        /* Button hover */
+        .btn-primary {
+            transition: all 0.2s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0F3A2E;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(27,77,62,0.4);
+        }
+        
+        /* Wave separator (optional, but we keep hero as is) */
+    </style>
+</head>
+<body class="bg-white text-neutral-800 overflow-x-hidden">
+
+<!-- Floating Water Drops (subtle background) -->
+<div class="water-drops-container">
+    <div class="water-drop" style="left: 5%; animation-delay: 0s;"></div>
+    <div class="water-drop" style="left: 15%; animation-delay: 2s;"></div>
+    <div class="water-drop" style="left: 25%; animation-delay: 4s;"></div>
+    <div class="water-drop" style="left: 35%; animation-delay: 6s;"></div>
+    <div class="water-drop" style="left: 45%; animation-delay: 8s;"></div>
+    <div class="water-drop" style="left: 55%; animation-delay: 10s;"></div>
+    <div class="water-drop" style="left: 65%; animation-delay: 12s;"></div>
+    <div class="water-drop" style="left: 75%; animation-delay: 14s;"></div>
+    <div class="water-drop" style="left: 85%; animation-delay: 16s;"></div>
+    <div class="water-drop" style="left: 95%; animation-delay: 18s;"></div>
+</div>
+
+<!-- NAVBAR (same as all other pages) -->
+<nav class="bg-white/95 backdrop-blur-2xl border-b sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+        <a href="index.html" class="flex items-center gap-3" aria-label="New Grace JS home">
+            <img src="images/LOGO.JPG" alt="New Grace JS logo" class="w-14 h-14 rounded-2xl shadow">
+            <div>
+                <span class="heading-font text-3xl font-bold tracking-tighter text-[#1B4D3E]">New Grace JS</span>
+                <p class="text-xs text-neutral-500 -mt-1">Since 2018 • Namayingo, Uganda</p>
+            </div>
+        </a>
+        
+        <div class="hidden md:flex items-center gap-9 text-sm font-medium">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="services.html" class="nav-link">Services</a>
+            <a href="education.html" class="nav-link">Education</a>
+            <a href="water-sanitation.html" class="nav-link">WASH</a>
+            <a href="gallery.html" class="nav-link">Gallery</a>
+            <a href="blog.html" class="nav-link">Blog</a>
+            <a href="community-leadership.html" class="nav-link active" aria-current="page">Community</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+            <a href="donate.html" class="nav-link">Donate</a>
+        </div>
+        
+        <button onclick="document.getElementById('donate').scrollIntoView({behavior:'smooth'})" 
+                class="btn-primary bg-[#1B4D3E] hover:bg-[#0F3A2E] text-white px-8 py-4 rounded-3xl font-semibold flex items-center gap-2 shadow"
+                aria-label="Donate now">
+            <i class="fas fa-heart" aria-hidden="true"></i> Donate
+        </button>
+    </div>
+</nav>
+
+<!-- HERO (matching homepage style) -->
+<section class="hero-bg h-screen flex items-center text-white relative">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+        <div class="inline-flex bg-white/20 px-8 py-3 rounded-3xl glass mb-8" data-aos="fade-down">
+            <span class="text-sm font-medium tracking-widest">COMMUNITY EMPOWERMENT</span>
+        </div>
+        
+        <h1 class="heading-font text-6xl md:text-7xl font-bold leading-none tracking-tighter mb-8" data-aos="fade-up" data-aos-delay="200">
+            COMMUNITY<br>EMPOWERMENT
+        </h1>
+        
+        <p class="max-w-xl mx-auto text-xl opacity-95 mb-10" data-aos="fade-up" data-aos-delay="400">
+            Strengthening communities through livelihood skills, leadership, and sustainable economic opportunities.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-5 justify-center" data-aos="fade-up" data-aos-delay="600">
+            <a href="#programs" class="bg-white text-[#1B4D3E] px-12 py-5 rounded-3xl font-semibold text-lg shadow-xl hover:bg-amber-100 transition">
+                Our Programs
+            </a>
+        </div>
+    </div>
+    
+    <div class="absolute bottom-10 left-1/2 flex flex-col items-center text-white/70 text-xs tracking-widest">
+        SCROLL TO EXPLORE <i class="fas fa-chevron-down text-3xl animate-bounce mt-2" aria-hidden="true"></i>
+    </div>
+</section>
+
+<!-- OVERVIEW SECTION -->
+<section class="py-20 bg-neutral-50">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="heading-font text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">Building Strong Communities</h2>
+            <div class="w-24 h-1 bg-[#1B4D3E] mx-auto rounded-full"></div>
+            <p class="text-lg text-neutral-600 max-w-3xl mx-auto mt-6" data-aos="fade-up" data-aos-delay="200">
+                We empower communities to take ownership of their development through skills training, leadership programs, and economic initiatives that create lasting change.
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Livelihood Skills -->
+            <div class="bg-white rounded-3xl p-8 text-center card-hover fade-in border border-neutral-100 shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-briefcase text-5xl text-[#1B4D3E] mb-6"></i>
+                <h3 class="heading-font text-xl font-bold mb-3">Livelihood Skills</h3>
+                <p class="text-neutral-600 text-sm">Vocational training in tailoring, carpentry, agriculture, business, and trade skills.</p>
+            </div>
+            <!-- Women's Groups -->
+            <div class="bg-white rounded-3xl p-8 text-center card-hover fade-in border border-neutral-100 shadow-sm" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-users text-5xl text-[#1B4D3E] mb-6"></i>
+                <h3 class="heading-font text-xl font-bold mb-3">Women's Groups</h3>
+                <p class="text-neutral-600 text-sm">Women's empowerment through savings groups, cooperatives, and economic activities.</p>
+            </div>
+            <!-- Leadership Training -->
+            <div class="bg-white rounded-3xl p-8 text-center card-hover fade-in border border-neutral-100 shadow-sm" data-aos="fade-up" data-aos-delay="300">
+                <i class="fas fa-user-tie text-5xl text-[#1B4D3E] mb-6"></i>
+                <h3 class="heading-font text-xl font-bold mb-3">Leadership Training</h3>
+                <p class="text-neutral-600 text-sm">Community leadership development and governance for sustainable projects.</p>
+            </div>
+            <!-- Financial Literacy -->
+            <div class="bg-white rounded-3xl p-8 text-center card-hover fade-in border border-neutral-100 shadow-sm" data-aos="fade-up" data-aos-delay="400">
+                <i class="fas fa-chart-line text-5xl text-[#1B4D3E] mb-6"></i>
+                <h3 class="heading-font text-xl font-bold mb-3">Financial Literacy</h3>
+                <p class="text-neutral-600 text-sm">Financial management, budgeting, and savings habits for economic independence.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DETAILED PROGRAMS GRID -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="heading-font text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">Our Community Initiatives</h2>
+            <div class="w-24 h-1 bg-[#1B4D3E] mx-auto rounded-full"></div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Women's Empowerment -->
+            <div class="bg-neutral-50 rounded-3xl p-8 card-hover fade-in border border-neutral-200 shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                <i class="fas fa-female text-4xl text-[#1B4D3E] mb-4"></i>
+                <h3 class="heading-font text-xl font-bold mb-2">Women's Empowerment</h3>
+                <p class="text-neutral-600 mb-3">Savings groups, small business training, and cooperative formation for economic independence.</p>
+                <span class="text-sm font-semibold text-[#1B4D3E]">Active groups: 15+</span>
+            </div>
+            <!-- Youth Leadership -->
+            <div class="bg-neutral-50 rounded-3xl p-8 card-hover fade-in border border-neutral-200 shadow-sm" data-aos="fade-up" data-aos-delay="200">
+                <i class="fas fa-child text-4xl text-[#1B4D3E] mb-4"></i>
+                <h3 class="heading-font text-xl font-bold mb-2">Youth Leadership</h3>
+                <p class="text-neutral-600 mb-3">Mentorship programs, life skills training, and civic engagement for young leaders.</p>
+                <span class="text-sm font-semibold text-[#1B4D3E]">Youth trained: 300+</span>
+            </div>
+            <!-- Agricultural Cooperatives -->
+            <div class="bg-neutral-50 rounded-3xl p-8 card-hover fade-in border border-neutral-200 shadow-sm" data-aos="fade-up" data-aos-delay="300">
+                <i class="fas fa-seedling text-4xl text-[#1B4D3E] mb-4"></i>
+                <h3 class="heading-font text-xl font-bold mb-2">Agricultural Cooperatives</h3>
+                <p class="text-neutral-600 mb-3">Farmer groups, training in sustainable practices, and market access support.</p>
+                <span class="text-sm font-semibold text-[#1B4D3E]">Farmers reached: 200+</span>
+            </div>
+            <!-- Small Business Development -->
+            <div class="bg-neutral-50 rounded-3xl p-8 card-hover fade-in border border-neutral-200 shadow-sm" data-aos="fade-up" data-aos-delay="400">
+                <i class="fas fa-store text-4xl text-[#1B4D3E] mb-4"></i>
+                <h3 class="heading-font text-xl font-bold mb-2">Small Business Development</h3>
+                <p class="text-neutral-600 mb-3">Startup grants, business mentoring, and access to micro-credit for entrepreneurs.</p>
+                <span class="text-sm font-semibold text-[#1B4D3E]">Businesses started: 50+</span>
+            </div>
+            <!-- Community Health Volunteers -->
+            <div class="bg-neutral-50 rounded-3xl p-8 card-hover fade-in border border-neutral-200 shadow-sm" data-aos="fade-up" data-aos-delay="500">
+                <i class="fas fa-heartbeat text-4xl text-[#1B4D3E] mb-4"></i>
+                <h3 class="heading-font text-xl font-bold mb-2">Health Volunteers</h3>
+                <p class="text-neutral-600 mb-3">Training community health workers to promote hygiene, nutrition, and disease prevention.</p>
+                <span class="text-sm font-semibold text-[#1B4D3E]">Volunteers: 40+</span>
+            </div>
+            <!-- Water Committees -->
+            <div class="bg-neutral-50 rounded-3xl p-8 card-hover fade-in border border-neutral-200 shadow-sm" data-aos="fade-up" data-aos-delay="600">
+                <i class="fas fa-tint text-4xl text-[#1B4D3E] mb-4"></i>
+                <h3 class="heading-font text-xl font-bold mb-2">Water Committees</h3>
+                <p class="text-neutral-600 mb-3">Forming and training committees to manage community water points sustainably.</p>
+                <span class="text-sm font-semibold text-[#1B4D3E]">Active committees: 15+</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- IMPACT STATS (animated counters) -->
+<section class="py-20 bg-neutral-50">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="heading-font text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">Our Impact</h2>
+            <div class="w-24 h-1 bg-[#1B4D3E] mx-auto rounded-full"></div>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div class="fade-in" data-aos="zoom-in" data-aos-delay="100">
+                <i class="fas fa-users text-5xl text-[#1B4D3E] mb-4" aria-hidden="true"></i>
+                <div id="stat1" class="stat-number text-5xl font-bold heading-font text-[#1B4D3E]">500+</div>
+                <p class="text-neutral-600">Trained Leaders</p>
+            </div>
+            <div class="fade-in" data-aos="zoom-in" data-aos-delay="200">
+                <i class="fas fa-hand-holding-heart text-5xl text-[#1B4D3E] mb-4" aria-hidden="true"></i>
+                <div id="stat2" class="stat-number text-5xl font-bold heading-font text-[#1B4D3E]">30+</div>
+                <p class="text-neutral-600">Community Groups</p>
+            </div>
+            <div class="fade-in" data-aos="zoom-in" data-aos-delay="300">
+                <i class="fas fa-chart-line text-5xl text-[#1B4D3E] mb-4" aria-hidden="true"></i>
+                <div id="stat3" class="stat-number text-5xl font-bold heading-font text-[#1B4D3E]">1,200+</div>
+                <p class="text-neutral-600">Lives Impacted</p>
+            </div>
+            <div class="fade-in" data-aos="zoom-in" data-aos-delay="400">
+                <i class="fas fa-star text-5xl text-[#1B4D3E] mb-4" aria-hidden="true"></i>
+                <div id="stat4" class="stat-number text-5xl font-bold heading-font text-[#1B4D3E]">80%</div>
+                <p class="text-neutral-600">Success Rate</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- DONATE CTA (same as all other pages) -->
+<section id="donate" class="py-24 bg-[#1B4D3E] text-white">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+        <h2 class="heading-font text-5xl font-bold mb-4" data-aos="fade-up">Support Community Leadership</h2>
+        <p class="text-2xl opacity-90 mb-12" data-aos="fade-up" data-aos-delay="200">Your donation helps us train leaders, empower women, and build sustainable communities.</p>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12" data-aos="fade-up" data-aos-delay="300">
+            <div onclick="selectAmount(this)" data-amount="25000" class="donate-card active bg-white/20 rounded-3xl p-8 cursor-pointer transition-all hover:bg-white/30" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' ') selectAmount(this)">
+                <div class="text-3xl font-bold">UGX 25,000</div>
+                <small class="opacity-90">Training materials for 10 leaders</small>
+            </div>
+            <div onclick="selectAmount(this)" data-amount="50000" class="donate-card bg-white/20 rounded-3xl p-8 cursor-pointer transition-all hover:bg-white/30" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' ') selectAmount(this)">
+                <div class="text-3xl font-bold">UGX 50,000</div>
+                <small class="opacity-90">Seed funding for a women's group</small>
+            </div>
+            <div onclick="selectAmount(this)" data-amount="100000" class="donate-card bg-white/20 rounded-3xl p-8 cursor-pointer transition-all hover:bg-white/30" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' ') selectAmount(this)">
+                <div class="text-3xl font-bold">UGX 100,000</div>
+                <small class="opacity-90">Start a community cooperative</small>
+            </div>
+            <div onclick="selectAmount(this)" data-amount="250000" class="donate-card bg-white/20 rounded-3xl p-8 cursor-pointer transition-all hover:bg-white/30" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' ') selectAmount(this)">
+                <div class="text-3xl font-bold">UGX 250,000</div>
+                <small class="opacity-90">Leadership program for 30 youth</small>
+            </div>
+        </div>
+        
+        <form action="donate.html" method="get">
+            <input type="hidden" id="selected-amount" name="amount" value="25000">
+            <button type="submit" class="btn-primary bg-white text-[#1B4D3E] w-full max-w-md mx-auto py-7 rounded-3xl text-2xl font-semibold shadow-2xl hover:bg-amber-100 transition">
+                DONATE UGX <span id="selected-amount-display">25,000</span> NOW
+            </button>
+        </form>
+    </div>
+</section>
+
+<!-- FOOTER (exact same as all other pages) -->
+<footer class="bg-neutral-950 text-white py-20">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-5 gap-12">
+            <div>
+                <img src="images/LOGO.JPG" alt="New Grace JS logo" class="w-16 h-16 rounded-2xl mb-6">
+                <h5 class="font-semibold">New Grace JS</h5>
+                <p class="text-neutral-400 text-sm mt-2">Transforming communities through clean water and education.</p>
+            </div>
+            
+            <div>
+                <h6 class="uppercase font-medium mb-6">Quick Links</h6>
+                <ul class="space-y-3 text-neutral-400">
+                    <li><a href="index.html" class="hover:text-white focus:outline-none focus:underline">Home</a></li>
+                    <li><a href="about.html" class="hover:text-white focus:outline-none focus:underline">About</a></li>
+                    <li><a href="education.html" class="hover:text-white focus:outline-none focus:underline">Education</a></li>
+                    <li><a href="water-sanitation.html" class="hover:text-white focus:outline-none focus:underline">WASH</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h6 class="uppercase font-medium mb-6">Programs</h6>
+                <ul class="space-y-3 text-neutral-400">
+                    <li><a href="education.html" class="hover:text-white focus:outline-none focus:underline">School Programs</a></li>
+                    <li><a href="water-sanitation.html" class="hover:text-white focus:outline-none focus:underline">Clean Water</a></li>
+                    <li><a href="gallery.html" class="hover:text-white focus:outline-none focus:underline">Our Impact</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h6 class="uppercase font-medium mb-6">Contact</h6>
+                <p class="text-neutral-400">Busuma Village, Buchumba Parish<br>Banda Subcounty, Namayingo District, Uganda</p>
+                <p class="mt-4 text-neutral-400">0709 251 412 • 0785 950 405<br>newgracejs@gmail.com</p>
+            </div>
+            
+            <!-- Newsletter with label and inline feedback -->
+            <div>
+                <h6 class="uppercase font-medium mb-6">Stay Updated</h6>
+                <p class="text-neutral-400 text-sm mb-4">Monthly impact stories straight to your inbox.</p>
+                <form id="newsletter" class="flex flex-col">
+                    <div class="flex">
+                        <label for="newsletter-email" class="sr-only">Email address</label>
+                        <input type="email" id="newsletter-email" placeholder="your@email.com" 
+                               class="bg-neutral-900 border border-neutral-700 rounded-l-3xl px-6 py-4 text-white flex-1 focus:outline-none focus:ring-2 focus:ring-amber-600">
+                        <button type="submit" class="bg-[#C6A15B] hover:bg-amber-400 text-neutral-900 font-semibold px-8 rounded-r-3xl transition">Subscribe</button>
+                    </div>
+                    <div id="newsletter-feedback" class="text-sm mt-2 text-amber-300 hidden"></div>
+                </form>
+            </div>
+        </div>
+        
+        <hr class="border-neutral-800 my-12">
+        
+        <div class="text-center text-neutral-500 text-sm">
+            © 2026 New Grace JS • All Rights Reserved • Registered Charity BAS/CS/4067
+        </div>
+    </div>
+</footer>
+
+<!-- MODAL with close button and X -->
+<div id="modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-[9999] p-4" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto relative">
+        <button onclick="closeModal()" class="absolute top-4 right-4 text-neutral-500 hover:text-neutral-800 text-3xl w-10 h-10 flex items-center justify-center rounded-full bg-white/80 backdrop-blur z-10" aria-label="Close modal">&times;</button>
+        <img id="modal-image" class="w-full h-72 object-cover" alt="">
+        <div class="p-8">
+            <h3 id="modal-title" class="heading-font text-3xl font-bold"></h3>
+            <div id="modal-text" class="mt-6 text-neutral-700"></div>
+            <button onclick="closeModal()" class="mt-10 w-full py-4 bg-[#1B4D3E] text-white rounded-3xl font-medium hover:bg-[#0F3A2E] transition">Close</button>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init({ once: true, duration: 900, offset: 80 });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // Counter animation
+    function animateCounter(elementId, target, suffix = '') {
+        const el = document.getElementById(elementId);
+        if (!el) return;
+        let current = 0;
+        const step = (timestamp) => {
+            if (current < target) {
+                current += Math.ceil(target / 40);
+                if (current > target) current = target;
+                el.textContent = current + suffix;
+                requestAnimationFrame(step);
+            }
+        };
+        requestAnimationFrame(step);
+    }
+
+    // Intersection Observer for stats
+    const statsObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+            animateCounter("stat1", 500, '+');
+            animateCounter("stat2", 30, '+');
+            animateCounter("stat3", 1200, '+');
+            animateCounter("stat4", 80, '%');
+            statsObserver.disconnect();
+        }
+    }, { threshold: 0.5 });
+    const stat1 = document.getElementById("stat1");
+    if (stat1) statsObserver.observe(stat1);
+
+    // Donation selector
+    function selectAmount(el) {
+        document.querySelectorAll('.donate-card').forEach(c => {
+            c.classList.remove('active');
+            c.setAttribute('aria-selected', 'false');
+        });
+        el.classList.add('active');
+        el.setAttribute('aria-selected', 'true');
+        const amount = el.dataset.amount;
+        document.getElementById('selected-amount').value = amount;
+        document.getElementById('selected-amount-display').textContent = Number(amount).toLocaleString();
+    }
+
+    // Modal functions
+    function openModal(title, text, img) {
+        document.getElementById('modal-title').textContent = title;
+        document.getElementById('modal-text').innerHTML = text;
+        document.getElementById('modal-image').src = img;
+        document.getElementById('modal-image').alt = title + ' image';
+        document.getElementById('modal').classList.remove('hidden');
+        document.getElementById('modal').classList.add('flex');
+        document.querySelector('#modal button:last-child').focus();
+    }
+    function closeModal() {
+        document.getElementById('modal').classList.add('hidden');
+        document.getElementById('modal').classList.remove('flex');
+    }
+
+    // Newsletter with inline feedback
+    document.getElementById('newsletter').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('newsletter-email').value.trim();
+        const feedback = document.getElementById('newsletter-feedback');
+        if (email && email.includes('@')) {
+            feedback.textContent = '✅ Thank you! You are now subscribed.';
+            feedback.classList.remove('hidden');
+            this.reset();
+        } else {
+            feedback.textContent = '❌ Please enter a valid email address.';
+            feedback.classList.remove('hidden');
+        }
+        setTimeout(() => feedback.classList.add('hidden'), 5000);
+    });
+
+    // Fade-in observer
+    const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+
+    // Set first donate card active on load
+    window.addEventListener('load', function() {
+        document.querySelectorAll('.donate-card').forEach((c, i) => {
+            if (i === 0) {
+                c.classList.add('active');
+                c.setAttribute('aria-selected', 'true');
+            } else {
+                c.setAttribute('aria-selected', 'false');
+            }
+        });
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !document.getElementById('modal').classList.contains('hidden')) {
+            closeModal();
+        }
+    });
+</script>
+</body>
+</html>

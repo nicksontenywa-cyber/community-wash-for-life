@@ -3,1080 +3,701 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Programs - New Grace JS</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Explore our comprehensive programs – water access, sanitation, hygiene education, community leadership, mental health, climate adaptation, and school WASH.">
+    <title>Our Programs | New Grace JS</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    
+    <!-- AOS (Animate on Scroll) -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    
     <style>
-        /* Color variables are provided in styles.css (centralized) */
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Open Sans', sans-serif;
-            color: var(--dark);
-            background-color: var(--light-bg);
-            line-height: 1.6;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            color: var(--primary-dark);
-        }
-
-        header {
-            background: var(--light);
-            box-shadow: var(--shadow);
-            position: sticky;
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap');
+        
+        :root { --primary: #1B4D3E; }
+        
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .heading-font { font-family: 'Montserrat', sans-serif; }
+        
+        /* Water drops background (subtle) */
+        .water-drops-container {
+            position: fixed;
             top: 0;
-            z-index: 1000;
-            padding: 15px 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
         }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        .water-drop {
+            position: absolute;
+            top: -100px;
+            width: 40px;
+            height: 40px;
+            background: rgba(27, 77, 62, 0.03);
+            border-radius: 50% 50% 0 50%;
+            transform: rotate(45deg);
+            animation: fall 20s linear infinite;
         }
-
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .logo i {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-right: 15px;
-        }
-
-        .logo-text h1 {
-            font-size: 1rem;
-            margin-bottom: 0;
-            line-height: 1.2;
-        }
-
-        .logo-text p {
-            font-size: 0.9rem;
-            margin-bottom: 0;
-            color: var(--gray);
-        }
-
-        .menu-toggle {
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--dark);
-            margin-left: 8px;
-            display: none; /* Hide by default, show only on mobile */
-        }
-
-        nav {
-            display: flex;
-            gap: 25px;
-        }
-
-        nav a {
-            font-weight: 600;
-            text-decoration: none;
-            font-size: 1rem;
-            position: relative;
-            color: var(--primary-dark);
-            background: none !important;
-            border-radius: 0;
-            transition: color 0.3s;
-        }
-
-        nav a::after {
+        .water-drop::before {
             content: '';
             position: absolute;
-            bottom: -5px;
-            left: 0;
+            top: -10px;
+            left: -10px;
+            width: 20px;
+            height: 20px;
+            background: rgba(27, 77, 62, 0.02);
+            border-radius: 50%;
+        }
+        @keyframes fall {
+            0% { top: -100px; opacity: 0; transform: rotate(45deg) scale(0.5); }
+            50% { opacity: 0.8; transform: rotate(45deg) scale(1.2); }
+            100% { top: 100vh; opacity: 0; transform: rotate(45deg) scale(0.5); }
+        }
+        
+        /* Navbar underline effect */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link:after {
+            content: '';
+            position: absolute;
             width: 0;
             height: 2px;
+            bottom: -2px;
+            left: 0;
             background: var(--primary);
-            transition: var(--transition);
+            transition: width 0.3s ease;
         }
-
-        nav a:hover::after, nav a.active::after {
-            width: 100%;
+        .nav-link:hover:after,
+        .nav-link.active:after { width: 100%; }
+        
+        /* Card hover */
+        .card-hover {
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-
-        nav a.active, nav a:hover {
-            color: var(--primary);
-            background: none !important;
+        .card-hover:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px -12px rgb(27 77 62 / 0.25);
         }
-
-        /* Hero Section */
-        .hero-slider {
-            height: 320px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .slides {
-            width: 100%;
-            height: 100%;
-        }
-
-        .slide {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
+        
+        /* Stat numbers */
+        .stat-number { font-variant-numeric: tabular-nums; }
+        
+        /* Fade-in animation */
+        .fade-in {
             opacity: 0;
-            transition: opacity 1s ease;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            transform: translateY(30px);
+            transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-
-        .slide::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-        }
-
-        .slide.active {
+        .fade-in.visible {
             opacity: 1;
-        }
-
-        .slide-content {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            color: var(--light);
-            max-width: 800px;
-            padding: 0 20px;
-            animation: fadeInUp 1s ease;
-        }
-
-        .slide-content h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--light);
-        }
-
-        .slide-content p {
-            font-size: 1.2rem;
-            margin-bottom: 0;
-        }
-
-        /* Programs Section */
-        .programs {
-            background: var(--light);
-        }
-
-        .program-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .program-card {
-            background: var(--light);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            transform: translateY(50px);
-            opacity: 0;
-        }
-
-        .program-card.animate {
             transform: translateY(0);
-            opacity: 1;
         }
-
-        .program-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        
+        /* Donation card active state */
+        .donate-card.active {
+            background: rgba(255,255,255,0.25);
+            border: 2px solid white;
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3);
         }
-
+        
+        /* Modal animation */
+        #modal {
+            animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+        @keyframes modalPop {
+            0% { opacity: 0; transform: scale(0.95); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        
+        /* Focus outline */
+        *:focus-visible {
+            outline: 3px solid #C6A15B;
+            outline-offset: 2px;
+        }
+        
+        /* Button hover */
+        .btn-primary {
+            transition: all 0.2s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0F3A2E;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(27,77,62,0.4);
+        }
+        
+        /* Wave separator (for hero) */
+        .custom-shape-divider-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+        .custom-shape-divider-bottom svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 80px;
+        }
+        .custom-shape-divider-bottom .shape-fill {
+            fill: #FFFFFF;
+        }
+        
+        /* Program card image */
         .program-img {
             height: 200px;
             background-size: cover;
             background-position: center;
-            transition: var(--transition);
         }
-
-        .program-card:hover .program-img {
+        
+        /* Partner logo */
+        .partner-logo {
+            transition: all 0.3s;
+            filter: grayscale(100%);
+            opacity: 0.7;
+        }
+        .partner-logo:hover {
+            filter: grayscale(0);
+            opacity: 1;
             transform: scale(1.05);
         }
-
-        .program-info {
-            padding: 25px;
-        }
-
-        .program-info h3 {
-            font-size: 1.5rem;
-            color: var(--primary-dark);
-            margin-bottom: 15px;
-        }
-
-        /* Impact Section */
-        .impact {
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/impact-bg.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: var(--light);
-            text-align: center;
-        }
-
-        .impact .section-title h2 {
-            color: var(--light);
-        }
-
-        .impact .section-title h2::after {
-            background: var(--light);
-        }
-
-        .impact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .impact-item {
-            padding: 30px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            backdrop-filter: blur(5px);
-            transition: var(--transition);
-            transform: translateY(50px);
+        
+        /* Testimonial slider */
+        .testimonial-slide {
+            display: none;
             opacity: 0;
+            transition: opacity 0.5s ease;
         }
-
-        .impact-item.animate {
-            transform: translateY(0);
+        .testimonial-slide.active {
+            display: block;
             opacity: 1;
         }
-
-        .impact-item:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .impact-item i {
-            font-size: 3rem;
-            color: var(--primary-light);
-            margin-bottom: 20px;
-        }
-
-        .impact-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--light);
-        }
-
-        .impact-text {
-            font-size: 1.2rem;
-        }
-
-        /* Testimonials */
-        .testimonials {
-            background: var(--secondary);
-        }
-
-        .testimonial-slider {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .testimonial {
-            background: var(--light);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            text-align: center;
-            display: none;
-        }
-
-        .testimonial.active {
-            display: block;
-            animation: fadeIn 1s ease;
-        }
-
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 20px;
-            position: relative;
-            padding: 0 30px;
-        }
-
-        .testimonial-text::before,
-        .testimonial-text::after {
-            content: '"';
-            font-size: 3rem;
-            color: var(--primary-light);
-            position: absolute;
-            opacity: 0.3;
-        }
-
-        .testimonial-text::before {
-            top: -20px;
-            left: 0;
-        }
-
-        .testimonial-text::after {
-            bottom: -40px;
-            right: 0;
-        }
-
-        .testimonial-author {
-            font-weight: 600;
-            color: var(--primary-dark);
-        }
-
-        .testimonial-role {
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-
-        .testimonial-controls {
-            display: flex;
-            justify-content: center;
-            margin-top: 30px;
-            gap: 10px;
-        }
-
-        .testimonial-control {
+        .testimonial-dot {
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: var(--gray);
+            background: #d1d5db;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.3s;
         }
-
-        .testimonial-control.active {
-            background: var(--primary);
-            transform: scale(1.3);
-        }
-
-        /* Partners Section */
-        .partners {
-            text-align: center;
-        }
-
-        .partner-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 30px;
-            align-items: center;
-        }
-
-        .partner-item {
-            padding: 20px;
-            filter: grayscale(100%);
-            opacity: 0.7;
-            transition: var(--transition);
-        }
-
-        .partner-item:hover {
-            filter: grayscale(0);
-            opacity: 1;
-        }
-
-        .partner-item img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        /* Donate Section */
-        .donate-section {
-            padding: 80px 0;
-            text-align: center;
-            background: var(--light);
-        }
-
-        .donate-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .donate-container h2 {
-            color: var(--primary-dark);
-            margin-bottom: 20px;
-        }
-
-        .donate-container p {
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: var(--light);
-            padding: 60px 0 0;
-        }
-
-        .footer-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .footer-col h3 {
-            color: var(--light);
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-col h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background: var(--primary);
-        }
-
-        .footer-col a {
-            display: block;
-            margin-bottom: 10px;
-            transition: var(--transition);
-        }
-
-        .footer-col a:hover {
-            color: var(--primary-light);
-            padding-left: 5px;
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .footer-social a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            transition: var(--transition);
-        }
-
-        .footer-social a:hover {
-            background: var(--primary);
-            transform: translateY(-5px);
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px 15px;
-            border: none;
-            border-radius: 5px;
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--light);
-        }
-
-        .form-group input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .copyright {
-            text-align: center;
-            padding: 20px 0;
-            margin-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .btn {
-            display: inline-block;
-            background: var(--primary);
-            color: var(--light);
-            padding: 10px 28px;
-            border: none;
-            border-radius: 5px;
-            font-weight: 600;
-            font-size: 1rem;
-            text-decoration: none;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-            cursor: pointer;
-        }
-        .btn:hover, .btn:focus {
-            background: var(--primary-dark);
-            color: var(--light);
-            outline: none;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        /* Responsive Styles */
-        @media (max-width: 992px) {
-            nav {
-                gap: 15px;
-            }
-            
-            .slide-content h2 {
-                font-size: 2rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-            }
-            
-            nav {
-                position: fixed;
-                top: 80px;
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 80px);
-                background: var(--light);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                transition: var(--transition);
-                gap: 30px;
-            }
-            
-            nav.active {
-                left: 0;
-            }
-            
-            .header-container {
-                padding: 0 20px;
-            }
-            
-            .slide-content h2 {
-                font-size: 1.8rem;
-            }
-            
-            .slide-content p {
-                font-size: 1rem;
-            }
-            
-            .section-title h2 {
-                font-size: 2rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .logo-text h1 {
-                font-size: 1.2rem;
-            }
-            
-            .program-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .impact-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .slide-content h2 {
-                font-size: 1.5rem;
-            }
+        .testimonial-dot.active,
+        .testimonial-dot:hover {
+            background: #1B4D3E;
+            transform: scale(1.2);
         }
     </style>
 </head>
-<body>
-    <!-- Header with Custom Navbar -->
-    <header>
-        <div class="header-container">
-            <div class="logo">
-                <img src="images/LOGO.JPG" alt="New Grace JS Logo" height="50" width="50" class="me-2 rounded-circle">
-                <div class="logo-text">
-                    <h1>New Grace JS</h1>
-                    <p>Education for All</p>
-                </div>
-            </div>
-            <div class="menu-toggle" id="menuToggle">
-                <i class="fas fa-bars"></i>
-            </div>
-            <nav id="nav">
-                <a href="index.html#home">Home</a>
-                <a href="about.html">About</a>
-                <a href="index.html#mission">Mission</a>
-                <a href="programes.html" class="active">Programs</a>
-                <a href="index.html#education">Education</a>
-                <a href="index.html#team">Team</a>
-                <a href="gallery.html">Gallery</a>
-                <a href="donate.html">Donate</a>
-                <a href="index.html#contact">Contact</a>
-            </nav>
-        </div>
-    </header>
+<body class="bg-white text-neutral-800 overflow-x-hidden">
 
-    <!-- Page Hero -->
-    <section class="hero-slider" style="height: 320px;">
-        <div class="slides">
-            <div class="slide active" style="background-image: url('https://source.unsplash.com/random/1600x900/?water,charity');">
-                <div class="slide-content">
-                    <h2>Our Programs</h2>
-                    <p>Empowering communities through clean water, sanitation, hygiene, and more.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- Floating Water Drops (subtle background) -->
+<div class="water-drops-container">
+    <div class="water-drop" style="left: 5%; animation-delay: 0s;"></div>
+    <div class="water-drop" style="left: 15%; animation-delay: 2s;"></div>
+    <div class="water-drop" style="left: 25%; animation-delay: 4s;"></div>
+    <div class="water-drop" style="left: 35%; animation-delay: 6s;"></div>
+    <div class="water-drop" style="left: 45%; animation-delay: 8s;"></div>
+    <div class="water-drop" style="left: 55%; animation-delay: 10s;"></div>
+    <div class="water-drop" style="left: 65%; animation-delay: 12s;"></div>
+    <div class="water-drop" style="left: 75%; animation-delay: 14s;"></div>
+    <div class="water-drop" style="left: 85%; animation-delay: 16s;"></div>
+    <div class="water-drop" style="left: 95%; animation-delay: 18s;"></div>
+</div>
 
-        <!-- Program Details Modal -->
-        <div class="modal fade" id="programModal" tabindex="-1" aria-labelledby="programModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="programModalLabel">Program</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p id="programModalDesc"></p>
-                        <ul id="programModalFeatures" class="list-unstyled"></ul>
-                    </div>
-                </div>
+<!-- NAVBAR (same as all pages) -->
+<nav class="bg-white/95 backdrop-blur-2xl border-b sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+        <a href="index.html" class="flex items-center gap-3" aria-label="New Grace JS home">
+            <img src="images/LOGO.JPG" alt="New Grace JS logo" class="w-14 h-14 rounded-2xl shadow">
+            <div>
+                <span class="heading-font text-3xl font-bold tracking-tighter text-[#1B4D3E]">New Grace JS</span>
+                <p class="text-xs text-neutral-500 -mt-1">Since 2018 • Namayingo, Uganda</p>
             </div>
+        </a>
+        
+        <div class="hidden md:flex items-center gap-9 text-sm font-medium">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="services.html" class="nav-link active" aria-current="page">Services</a>
+            <a href="education.html" class="nav-link">Education</a>
+            <a href="water-sanitation.html" class="nav-link">WASH</a>
+            <a href="gallery.html" class="nav-link">Gallery</a>
+            <a href="blog.html" class="nav-link">Blog</a>
+            <a href="volunteer.html" class="nav-link">Volunteer</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+            <a href="donate.html" class="nav-link">Donate</a>
         </div>
+        
+        <button onclick="document.getElementById('donate').scrollIntoView({behavior:'smooth'})" 
+                class="btn-primary bg-[#1B4D3E] hover:bg-[#0F3A2E] text-white px-8 py-4 rounded-3xl font-semibold flex items-center gap-2 shadow"
+                aria-label="Donate now">
+            <i class="fas fa-heart" aria-hidden="true"></i> Donate
+        </button>
+    </div>
+</nav>
 
-    <!-- Programs Section -->
-    <section class="section programs" id="programs">
-        <div class="container">
-            <div class="section-title">
-                <h2>What We Do</h2>
-                <p>Our comprehensive programs address the multifaceted challenges of water access, sanitation, and community health</p>
-            </div>
-            <div class="program-grid">
-                <div class="program-card">
-                    <div class="program-img" style="background-image: url('https://source.unsplash.com/random/600x400/?clean-water');"></div>
-                    <div class="program-info">
-                        <h3>Water Access Projects</h3>
-                        <p>Building wells, rainwater harvesting systems, and water purification facilities in communities without access to clean water.</p>
-                        <a href="#" class="btn learn-more" data-title="Water Access Projects" data-desc="Building wells, rainwater harvesting systems, and purification facilities tailored to local needs." data-features="Well construction,Rainwater harvesting,Water purification,Community training,Maintenance plans">Learn More</a>
-                    </div>
-                </div>
-                <div class="program-card">
-                    <div class="program-img" style="background-image: url('https://source.unsplash.com/random/600x400/?toilet');"></div>
-                    <div class="program-info">
-                        <h3>Sanitation Facilities</h3>
-                        <p>Constructing community toilets, waste management systems, and promoting proper sanitation practices.</p>
-                        <a href="#" class="btn learn-more" data-title="Sanitation Facilities" data-desc="Constructing toilets, waste management, and sanitation infrastructure with local engagement." data-features="Community toilets,Waste management,Handwashing stations,Local training,Gender-segregated facilities">Learn More</a>
-                    </div>
-                </div>
-                <div class="program-card">
-                    <div class="program-img" style="background-image: url('https://source.unsplash.com/random/600x400/?handwash');"></div>
-                    <div class="program-info">
-                        <h3>Hygiene Education</h3>
-                        <p>Training community health workers and conducting workshops on handwashing, menstrual hygiene, and disease prevention.</p>
-                        <a href="#" class="btn learn-more" data-title="Hygiene Education" data-desc="Workshops and training on handwashing, menstrual hygiene, and disease prevention." data-features="School workshops,Community outreach,Materials & curriculum,Trainer training,Monitoring">Learn More</a>
-                    </div>
-                </div>
-                <div class="program-card">
-                    <div class="program-img" style="background-image: url('https://source.unsplash.com/random/600x400/?community');"></div>
-                    <div class="program-info">
-                        <h3>Community Leadership</h3>
-                        <p>Developing local water committees and training technicians to maintain water systems and promote WASH practices.</p>
-                        <a href="#" class="btn learn-more" data-title="Community Leadership" data-desc="Developing local water committees and technician training to ensure ownership and sustainability." data-features="Water committees,Technical training,Leadership workshops,Sustainability plans,Monitoring">Learn More</a>
-                    </div>
-                </div>
-                <div class="program-card">
-                    <div class="program-img" style="background-image: url('https://source.unsplash.com/random/600x400/?mental-health');"></div>
-                    <div class="program-info">
-                        <h3>Mental Health</h3>
-                        <p>Supporting mental health through resources, community programs, and compassionate care. We help break the silence around depression and provide hope and guidance.</p>
-                        <a href="#" class="btn learn-more" data-title="Mental Health" data-desc="Support community mental health with resources, counseling, and resilience programs." data-features="Counseling,Support groups,Training for volunteers,Referral pathways,Community awareness">Learn More</a>
-                    </div>
-                </div>
-                <div class="program-card">
-                    <div class="program-img" style="background-image: url('https://source.unsplash.com/random/600x400/?climate');"></div>
-                    <div class="program-info">
-                        <h3>Climate Adaptation</h3>
-                        <p>Helping communities adapt to climate change by promoting water conservation, sustainable agriculture, and disaster preparedness.</p>
-                        <a href="#" class="btn learn-more" data-title="Climate Adaptation" data-desc="Promote water conservation, sustainable agriculture, and disaster preparedness for vulnerable communities." data-features="Water conservation,Sustainable agriculture,Disaster prep,Climate-resilient tech,Training">Learn More</a>
-                    </div>
-                </div>
-                <div class="program-card">
-                    <div class="program-img" style="background-image: url('https://source.unsplash.com/random/600x400/?education,school');"></div>
-                    <div class="program-info">
-                        <h3>Education & School WASH</h3>
-                        <p>Support schools with WASH facilities, scholarships, teacher training, and learning materials so children stay healthy and in class.</p>
-                        <a href="#" class="btn learn-more" data-title="Education & School WASH" data-desc="Support schools with WASH facilities, scholarships, teacher training, and learning materials." data-features="School WASH facilities,Scholarships,Teacher training,Curriculum materials,Student projects">Learn More</a>
-                    </div>
-                </div>
-            </div>
+<!-- HERO (gradient + wave) -->
+<section class="relative bg-gradient-to-b from-[#0A2F24] to-[#1B4D3E] text-white py-24 md:py-32 overflow-hidden">
+    <div class="custom-shape-divider-bottom">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none" class="w-full h-auto">
+            <path d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z" fill="white"></path>
+        </svg>
+    </div>
+    <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
+        <h1 class="heading-font text-5xl md:text-6xl font-bold mb-6" data-aos="fade-down">Our Programs</h1>
+        <p class="text-xl md:text-2xl max-w-3xl mx-auto opacity-90 mb-10" data-aos="fade-up" data-aos-delay="200">
+            Empowering communities through clean water, sanitation, hygiene, education, and more.
+        </p>
+    </div>
+</section>
+
+<!-- PROGRAMS GRID -->
+<section class="py-20 bg-neutral-50">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="heading-font text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">What We Do</h2>
+            <div class="w-24 h-1 bg-[#1B4D3E] mx-auto rounded-full"></div>
+            <p class="text-lg text-neutral-600 max-w-3xl mx-auto mt-6" data-aos="fade-up" data-aos-delay="200">
+                Our comprehensive programs address the multifaceted challenges of water access, sanitation, and community health.
+            </p>
         </div>
-    </section>
-
-    <!-- Impact Section -->
-    <section class="section impact">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Impact</h2>
-                <p>Through our programs, we've made a significant difference in communities around the world</p>
-            </div>
-            <div class="impact-grid">
-                <div class="impact-item">
-                    <i class="fas fa-users"></i>
-                    <div class="impact-number" data-count="250000">0</div>
-                    <div class="impact-text">People Provided with Clean Water</div>
-                </div>
-                <div class="impact-item">
-                    <i class="fas fa-hand-holding-water"></i>
-                    <div class="impact-number" data-count="150">0</div>
-                    <div class="impact-text">Water Wells Installed</div>
-                </div>
-                <div class="impact-item">
-                    <i class="fas fa-toilet"></i>
-                    <div class="impact-number" data-count="75">0</div>
-                    <div class="impact-text">Sanitation Facilities Built</div>
-                </div>
-                <div class="impact-item">
-                    <i class="fas fa-graduation-cap"></i>
-                    <div class="impact-number" data-count="50000">0</div>
-                    <div class="impact-text">People Trained in Hygiene Practices</div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Water Access Projects -->
+            <div class="bg-white rounded-3xl overflow-hidden card-hover fade-in border border-neutral-100 shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                <div class="program-img" style="background-image: url('images/waterpurifier.jpeg');"></div>
+                <div class="p-6">
+                    <h3 class="heading-font text-xl font-bold mb-2">Water Access Projects</h3>
+                    <p class="text-neutral-600 mb-4">Building wells, rainwater harvesting systems, and water purification facilities in communities without access to clean water.</p>
+                    <button onclick="openProgramModal('Water Access Projects', 'Building wells, rainwater harvesting systems, and purification facilities tailored to local needs.', ['Well construction','Rainwater harvesting','Water purification','Community training','Maintenance plans'])" 
+                            class="text-[#1B4D3E] font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-[#C6A15B] rounded">
+                        Learn More →
+                    </button>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="section testimonials">
-        <div class="container">
-            <div class="section-title">
-                <h2>What People Say</h2>
-                <p>Stories from communities we've worked with</p>
+            
+            <!-- Sanitation Facilities -->
+            <div class="bg-white rounded-3xl overflow-hidden card-hover fade-in border border-neutral-100 shadow-sm" data-aos="fade-up" data-aos-delay="200">
+                <div class="program-img" style="background-image: url('images/sanitaion%20improvement.jpg');"></div>
+                <div class="p-6">
+                    <h3 class="heading-font text-xl font-bold mb-2">Sanitation Facilities</h3>
+                    <p class="text-neutral-600 mb-4">Constructing community toilets, waste management systems, and promoting proper sanitation practices.</p>
+                    <button onclick="openProgramModal('Sanitation Facilities', 'Constructing toilets, waste management, and sanitation infrastructure with local engagement.', ['Community toilets','Waste management','Handwashing stations','Local training','Gender-segregated facilities'])" 
+                            class="text-[#1B4D3E] font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-[#C6A15B] rounded">
+                        Learn More →
+                    </button>
+                </div>
             </div>
-            <div class="testimonial-slider">
-                <div class="testimonial active">
-                    <p class="testimonial-text">Before New Grace JS came to our village, we had to walk miles to fetch water that wasn't even clean. Now we have a well right in our community, and our children are healthier.</p>
-                    <div class="testimonial-author">Maria Santos</div>
-                    <div class="testimonial-role">Community Leader, Guatemala</div>
+            
+            <!-- Hygiene Education -->
+            <div class="bg-white rounded-3xl overflow-hidden card-hover fade-in border border-neutral-100 shadow-sm" data-aos="fade-up" data-aos-delay="300">
+                <div class="program-img" style="background-image: url('images/hygiene%20education%20in%20schools.jpg');"></div>
+                <div class="p-6">
+                    <h3 class="heading-font text-xl font-bold mb-2">Hygiene Education</h3>
+                    <p class="text-neutral-600 mb-4">Training community health workers and conducting workshops on handwashing, menstrual hygiene, and disease prevention.</p>
+                    <button onclick="openProgramModal('Hygiene Education', 'Workshops and training on handwashing, menstrual hygiene, and disease prevention.', ['School workshops','Community outreach','Materials & curriculum','Trainer training','Monitoring'])" 
+                            class="text-[#1B4D3E] font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-[#C6A15B] rounded">
+                        Learn More →
+                    </button>
                 </div>
-                <div class="testimonial">
-                    <p class="testimonial-text">The hygiene education program has transformed our school. Children are now practicing handwashing regularly, and we've seen a significant decrease in waterborne diseases.</p>
-                    <div class="testimonial-author">James Ochieng</div>
-                    <div class="testimonial-role">School Principal, Kenya</div>
+            </div>
+            
+            <!-- Community Leadership -->
+            <div class="bg-white rounded-3xl overflow-hidden card-hover fade-in border border-neutral-100 shadow-sm" data-aos="fade-up" data-aos-delay="400">
+                <div class="program-img" style="background-image: url('images/community%20meeting.jpeg');"></div>
+                <div class="p-6">
+                    <h3 class="heading-font text-xl font-bold mb-2">Community Leadership</h3>
+                    <p class="text-neutral-600 mb-4">Developing local water committees and training technicians to maintain water systems and promote WASH practices.</p>
+                    <button onclick="openProgramModal('Community Leadership', 'Developing local water committees and technician training to ensure ownership and sustainability.', ['Water committees','Technical training','Leadership workshops','Sustainability plans','Monitoring'])" 
+                            class="text-[#1B4D3E] font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-[#C6A15B] rounded">
+                        Learn More →
+                    </button>
                 </div>
-                <div class="testimonial">
-                    <p class="testimonial-text">The mental health support program helped our community address trauma and build resilience. It's not just about water - it's about overall wellbeing.</p>
-                    <div class="testimonial-author">Amina Jallow</div>
-                    <div class="testimonial-role">Community Health Worker, Senegal</div>
+            </div>
+            
+            <!-- Mental Health -->
+            <div class="bg-white rounded-3xl overflow-hidden card-hover fade-in border border-neutral-100 shadow-sm" data-aos="fade-up" data-aos-delay="500">
+                <div class="program-img" style="background-image: url('images/mentalhealth.jpg');"></div>
+                <div class="p-6">
+                    <h3 class="heading-font text-xl font-bold mb-2">Mental Health</h3>
+                    <p class="text-neutral-600 mb-4">Supporting community mental health with resources, counseling, and resilience programs. We help break the silence around depression and provide hope.</p>
+                    <button onclick="openProgramModal('Mental Health', 'Support community mental health with resources, counseling, and resilience programs.', ['Counseling','Support groups','Training for volunteers','Referral pathways','Community awareness'])" 
+                            class="text-[#1B4D3E] font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-[#C6A15B] rounded">
+                        Learn More →
+                    </button>
                 </div>
-                <div class="testimonial-controls">
-                    <div class="testimonial-control active" data-index="0"></div>
-                    <div class="testimonial-control" data-index="1"></div>
-                    <div class="testimonial-control" data-index="2"></div>
+            </div>
+            
+            <!-- Climate Adaptation -->
+            <div class="bg-white rounded-3xl overflow-hidden card-hover fade-in border border-neutral-100 shadow-sm" data-aos="fade-up" data-aos-delay="600">
+                <div class="program-img" style="background-image: url('images/climateadaptation.jpg');"></div>
+                <div class="p-6">
+                    <h3 class="heading-font text-xl font-bold mb-2">Climate Adaptation</h3>
+                    <p class="text-neutral-600 mb-4">Helping communities adapt to climate change by promoting water conservation, sustainable agriculture, and disaster preparedness.</p>
+                    <button onclick="openProgramModal('Climate Adaptation', 'Promote water conservation, sustainable agriculture, and disaster preparedness for vulnerable communities.', ['Water conservation','Sustainable agriculture','Disaster prep','Climate-resilient tech','Training'])" 
+                            class="text-[#1B4D3E] font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-[#C6A15B] rounded">
+                        Learn More →
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Education & School WASH -->
+            <div class="bg-white rounded-3xl overflow-hidden card-hover fade-in border border-neutral-100 shadow-sm" data-aos="fade-up" data-aos-delay="700">
+                <div class="program-img" style="background-image: url('images/school%20feeding%20program.jpeg');"></div>
+                <div class="p-6">
+                    <h3 class="heading-font text-xl font-bold mb-2">Education & School WASH</h3>
+                    <p class="text-neutral-600 mb-4">Support schools with WASH facilities, scholarships, teacher training, and learning materials so children stay healthy and in class.</p>
+                    <button onclick="openProgramModal('Education & School WASH', 'Support schools with WASH facilities, scholarships, teacher training, and learning materials.', ['School WASH facilities','Scholarships','Teacher training','Curriculum materials','Student projects'])" 
+                            class="text-[#1B4D3E] font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-[#C6A15B] rounded">
+                        Learn More →
+                    </button>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Partners Section -->
-    <section class="section partners">
-        <div class="container">
-            <div class="section-title">
-                <h2>Our Partners</h2>
-                <p>We collaborate with organizations that share our vision</p>
+<!-- IMPACT STATS (animated counters) -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="heading-font text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">Our Impact</h2>
+            <div class="w-24 h-1 bg-[#1B4D3E] mx-auto rounded-full"></div>
+            <p class="text-lg text-neutral-600 max-w-3xl mx-auto mt-6" data-aos="fade-up" data-aos-delay="200">
+                Through our programs, we've made a significant difference in communities around the world.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div class="fade-in" data-aos="zoom-in" data-aos-delay="100">
+                <i class="fas fa-users text-5xl text-[#1B4D3E] mb-4" aria-hidden="true"></i>
+                <div id="stat1" class="stat-number text-5xl font-bold heading-font text-[#1B4D3E]">0</div>
+                <p class="text-neutral-600">People with Clean Water</p>
             </div>
-            <div class="partner-grid">
-                <div class="partner-item">
-                    <h4 class="partner-title">BUSIA TOWN DEVELOPMENT CENTER</h4>
-                    <img src="https://via.placeholder.com/150x80/2E8B57/FFFFFF?text=Partner+1" alt="">
-                </div>
-                <div class="partner-item">
-                    <h4 class="partner-title">CN TECH FIRM UG</h4>
-                    <img src="https://via.placeholder.com/150x80/2E8B57/FFFFFF?text=Partner+2" alt="Partner 2">
-                </div>
-                <div class="partner-item">
-                    <img src="https://via.placeholder.com/150x80/2E8B57/FFFFFF?text=Partner+3" alt="Partner 3">
-                </div>
-                <div class="partner-item">
-                    <img src="https://via.placeholder.com/150x80/2E8B57/FFFFFF?text=Partner+4" alt="Partner 4">
-                </div>
-                <div class="partner-item">
-                    <img src="https://via.placeholder.com/150x80/2E8B57/FFFFFF?text=Partner+5" alt="Partner 5">
-                </div>
+            <div class="fade-in" data-aos="zoom-in" data-aos-delay="200">
+                <i class="fas fa-hand-holding-water text-5xl text-[#1B4D3E] mb-4" aria-hidden="true"></i>
+                <div id="stat2" class="stat-number text-5xl font-bold heading-font text-[#1B4D3E]">0</div>
+                <p class="text-neutral-600">Water Wells Installed</p>
+            </div>
+            <div class="fade-in" data-aos="zoom-in" data-aos-delay="300">
+                <i class="fas fa-toilet text-5xl text-[#1B4D3E] mb-4" aria-hidden="true"></i>
+                <div id="stat3" class="stat-number text-5xl font-bold heading-font text-[#1B4D3E]">0</div>
+                <p class="text-neutral-600">Sanitation Facilities</p>
+            </div>
+            <div class="fade-in" data-aos="zoom-in" data-aos-delay="400">
+                <i class="fas fa-graduation-cap text-5xl text-[#1B4D3E] mb-4" aria-hidden="true"></i>
+                <div id="stat4" class="stat-number text-5xl font-bold heading-font text-[#1B4D3E]">0</div>
+                <p class="text-neutral-600">People Trained in Hygiene</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Call to Action -->
-    <section class="donate-section">
-        <div class="donate-container">
-            <h2>Support Our Programs</h2>
-            <p>Your contribution helps us expand our impact and reach more communities in need. Together, we can create a world where everyone has access to clean water, sanitation, and hygiene.</p>
-            <a href="donate.html" class="btn">Donate Now</a>
+<!-- TESTIMONIALS SLIDER -->
+<section class="py-20 bg-neutral-50">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+        <h2 class="heading-font text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">What People Say</h2>
+        <div class="w-24 h-1 bg-[#1B4D3E] mx-auto rounded-full mb-12"></div>
+        
+        <div class="relative">
+            <!-- Testimonial slides -->
+            <div class="testimonial-slide active" data-index="0">
+                <p class="text-xl italic text-neutral-700 mb-6">"Before New Grace JS came to our village, we had to walk miles to fetch water that wasn't even clean. Now we have a well right in our community, and our children are healthier."</p>
+                <div class="font-bold text-[#1B4D3E]">Maria Santos</div>
+                <div class="text-sm text-neutral-500">Community Leader, Guatemala</div>
+            </div>
+            <div class="testimonial-slide" data-index="1">
+                <p class="text-xl italic text-neutral-700 mb-6">"The hygiene education program has transformed our school. Children are now practicing handwashing regularly, and we've seen a significant decrease in waterborne diseases."</p>
+                <div class="font-bold text-[#1B4D3E]">James Ochieng</div>
+                <div class="text-sm text-neutral-500">School Principal, Kenya</div>
+            </div>
+            <div class="testimonial-slide" data-index="2">
+                <p class="text-xl italic text-neutral-700 mb-6">"The mental health support program helped our community address trauma and build resilience. It's not just about water - it's about overall wellbeing."</p>
+                <div class="font-bold text-[#1B4D3E]">Amina Jallow</div>
+                <div class="text-sm text-neutral-500">Community Health Worker, Senegal</div>
+            </div>
+            
+            <!-- Dots -->
+            <div class="flex justify-center gap-3 mt-8">
+                <span class="testimonial-dot active" onclick="goToTestimonial(0)"></span>
+                <span class="testimonial-dot" onclick="goToTestimonial(1)"></span>
+                <span class="testimonial-dot" onclick="goToTestimonial(2)"></span>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
 
-        <!-- Program Details Modal -->
-        <div class="modal fade" id="programModal" tabindex="-1" aria-labelledby="programModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="programModalLabel">Program</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p id="programModalDesc"></p>
-                        <ul id="programModalFeatures" class="list-unstyled"></ul>
-                    </div>
-                </div>
+<!-- PARTNERS SECTION -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+        <h2 class="heading-font text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">Our Partners</h2>
+        <div class="w-24 h-1 bg-[#1B4D3E] mx-auto rounded-full mb-12"></div>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 items-center justify-items-center">
+            <div class="partner-logo">
+                <h4 class="font-bold text-lg mb-2">BUSIA TOWN</h4>
+                <img src="https://via.placeholder.com/150x80/2E8B57/FFFFFF?text=Partner+1" alt="Partner 1" class="max-h-16">
+            </div>
+            <div class="partner-logo">
+                <h4 class="font-bold text-lg mb-2">CN TECH</h4>
+                <img src="https://via.placeholder.com/150x80/2E8B57/FFFFFF?text=Partner+2" alt="Partner 2" class="max-h-16">
+            </div>
+            <div class="partner-logo">
+                <img src="https://via.placeholder.com/150x80/2E8B57/FFFFFF?text=Partner+3" alt="Partner 3" class="max-h-16">
+            </div>
+            <div class="partner-logo">
+                <img src="https://via.placeholder.com/150x80/2E8B57/FFFFFF?text=Partner+4" alt="Partner 4" class="max-h-16">
+            </div>
+            <div class="partner-logo">
+                <img src="https://via.placeholder.com/150x80/2E8B57/FFFFFF?text=Partner+5" alt="Partner 5" class="max-h-16">
             </div>
         </div>
+    </div>
+</section>
 
-        <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-col">
-                <h3>New Grace JS</h3>
-                <p>Improving access to clean water, sanitation, and hygiene in underserved communities to promote health, education, and sustainability.</p>
-                <div class="footer-social">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                </div>
-                <div class="mt-3">
-                    <h5>Core Objectives</h5>
-                    <ul class="ps-3 mb-0">
-                        <li>Strengthen caregivers with livelihood skills to reduce poverty.</li>
-                        <li>Provide quality formal education to the needy and most marginalized groups.</li>
-                        <li>Carry out health training focused on preventive measures.</li>
-                    </ul>
-                </div>
+<!-- DONATE CTA (same as all pages) -->
+<section id="donate" class="py-24 bg-[#1B4D3E] text-white">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+        <h2 class="heading-font text-5xl font-bold mb-4" data-aos="fade-up">Support Our Programs</h2>
+        <p class="text-2xl opacity-90 mb-12" data-aos="fade-up" data-aos-delay="200">Your contribution helps us expand our impact and reach more communities in need.</p>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12" data-aos="fade-up" data-aos-delay="300">
+            <div onclick="selectAmount(this)" data-amount="25000" class="donate-card active bg-white/20 rounded-3xl p-8 cursor-pointer transition-all hover:bg-white/30" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' ') selectAmount(this)">
+                <div class="text-3xl font-bold">UGX 25,000</div>
+                <small class="opacity-90">Hygiene kits for 5 children</small>
             </div>
-            <div class="footer-col">
-                <h3>Quick Links</h3>
-                <a href="index.html#home">Home</a>
-                <a href="index.html#about">About Us</a>
-                <a href="programes.html">Programs</a>
-                <a href="index.html#donate">Donate</a>
+            <div onclick="selectAmount(this)" data-amount="50000" class="donate-card bg-white/20 rounded-3xl p-8 cursor-pointer transition-all hover:bg-white/30" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' ') selectAmount(this)">
+                <div class="text-3xl font-bold">UGX 50,000</div>
+                <small class="opacity-90">Clean water for a family (1 month)</small>
             </div>
-            <div class="footer-col">
-                <h3>Our Programs</h3>
-                <a href="#">Water Access Projects</a>
-                <a href="#">Sanitation Facilities</a>
-                <a href="#">Hygiene Education</a>
-                <a href="#">Community Leadership</a>
-                <a href="#">Mental Health</a>
-                <a href="#">Climate Adaptation</a>
+            <div onclick="selectAmount(this)" data-amount="100000" class="donate-card bg-white/20 rounded-3xl p-8 cursor-pointer transition-all hover:bg-white/30" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' ') selectAmount(this)">
+                <div class="text-3xl font-bold">UGX 100,000</div>
+                <small class="opacity-90">Sanitation facility</small>
             </div>
-            <div class="footer-col">
-                <h3>Newsletter</h3>
-                <p>Subscribe to our newsletter for updates on our projects and impact.</p>
-                <form>
-                    <div class="form-group">
-                        <input type="email" placeholder="Your Email" required>
+            <div onclick="selectAmount(this)" data-amount="250000" class="donate-card bg-white/20 rounded-3xl p-8 cursor-pointer transition-all hover:bg-white/30" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' ') selectAmount(this)">
+                <div class="text-3xl font-bold">UGX 250,000</div>
+                <small class="opacity-90">Water system training</small>
+            </div>
+        </div>
+        
+        <form action="donate.html" method="get">
+            <input type="hidden" id="selected-amount" name="amount" value="25000">
+            <button type="submit" class="btn-primary bg-white text-[#1B4D3E] w-full max-w-md mx-auto py-7 rounded-3xl text-2xl font-semibold shadow-2xl hover:bg-amber-100 transition">
+                DONATE UGX <span id="selected-amount-display">25,000</span> NOW
+            </button>
+        </form>
+    </div>
+</section>
+
+<!-- FOOTER (exact same as all pages) -->
+<footer class="bg-neutral-950 text-white py-20">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-5 gap-12">
+            <div>
+                <img src="images/LOGO.JPG" alt="New Grace JS logo" class="w-16 h-16 rounded-2xl mb-6">
+                <h5 class="font-semibold">New Grace JS</h5>
+                <p class="text-neutral-400 text-sm mt-2">Transforming communities through clean water and education.</p>
+            </div>
+            
+            <div>
+                <h6 class="uppercase font-medium mb-6">Quick Links</h6>
+                <ul class="space-y-3 text-neutral-400">
+                    <li><a href="index.html" class="hover:text-white focus:outline-none focus:underline">Home</a></li>
+                    <li><a href="about.html" class="hover:text-white focus:outline-none focus:underline">About</a></li>
+                    <li><a href="education.html" class="hover:text-white focus:outline-none focus:underline">Education</a></li>
+                    <li><a href="water-sanitation.html" class="hover:text-white focus:outline-none focus:underline">WASH</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h6 class="uppercase font-medium mb-6">Programs</h6>
+                <ul class="space-y-3 text-neutral-400">
+                    <li><a href="education.html" class="hover:text-white focus:outline-none focus:underline">School Programs</a></li>
+                    <li><a href="water-sanitation.html" class="hover:text-white focus:outline-none focus:underline">Clean Water</a></li>
+                    <li><a href="gallery.html" class="hover:text-white focus:outline-none focus:underline">Our Impact</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h6 class="uppercase font-medium mb-6">Contact</h6>
+                <p class="text-neutral-400">Busuma Village, Buchumba Parish<br>Banda Subcounty, Namayingo District, Uganda</p>
+                <p class="mt-4 text-neutral-400">0709 251 412 • 0785 950 405<br>newgracejs@gmail.com</p>
+            </div>
+            
+            <!-- Newsletter with label and inline feedback -->
+            <div>
+                <h6 class="uppercase font-medium mb-6">Stay Updated</h6>
+                <p class="text-neutral-400 text-sm mb-4">Monthly impact stories straight to your inbox.</p>
+                <form id="newsletter" class="flex flex-col">
+                    <div class="flex">
+                        <label for="newsletter-email" class="sr-only">Email address</label>
+                        <input type="email" id="newsletter-email" placeholder="your@email.com" 
+                               class="bg-neutral-900 border border-neutral-700 rounded-l-3xl px-6 py-4 text-white flex-1 focus:outline-none focus:ring-2 focus:ring-amber-600">
+                        <button type="submit" class="bg-[#C6A15B] hover:bg-amber-400 text-neutral-900 font-semibold px-8 rounded-r-3xl transition">Subscribe</button>
                     </div>
-                    <button type="submit" class="btn">Subscribe</button>
+                    <div id="newsletter-feedback" class="text-sm mt-2 text-amber-300 hidden"></div>
                 </form>
             </div>
         </div>
-        <div class="copyright">
-            <p>&copy; 2025 New Grace JS. All rights reserved. | designed by n-tech.com</p>
+        
+        <hr class="border-neutral-800 my-12">
+        
+        <div class="text-center text-neutral-500 text-sm">
+            © 2026 New Grace JS • All Rights Reserved • Registered Charity BAS/CS/4067
         </div>
-    </footer>
+    </div>
+</footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Navbar scroll effect
-            window.addEventListener('scroll', function() {
-                const navbar = document.querySelector('header');
-                if (navbar) {
-                    if (window.scrollY > 50) {
-                        navbar.classList.add('scrolled');
-                    } else {
-                        navbar.classList.remove('scrolled');
-                    }
-                }
-            });
-            // Custom Navbar JS
-            const menuToggle = document.getElementById('menuToggle');
-            const nav = document.getElementById('nav');
-            if (menuToggle && nav) {
-                menuToggle.addEventListener('click', function() {
-                    nav.classList.toggle('active');
-                    menuToggle.querySelector('i').classList.toggle('fa-bars');
-                    menuToggle.querySelector('i').classList.toggle('fa-times');
-                });
-                nav.querySelectorAll('a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        if(window.innerWidth <= 900 && nav.classList.contains('active')) {
-                            nav.classList.remove('active');
-                            menuToggle.querySelector('i').classList.remove('fa-times');
-                            menuToggle.querySelector('i').classList.add('fa-bars');
-                        }
-                    });
-                });
+<!-- MODAL with close button and X (reused for program details) -->
+<div id="modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-[9999] p-4" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto relative">
+        <button onclick="closeModal()" class="absolute top-4 right-4 text-neutral-500 hover:text-neutral-800 text-3xl w-10 h-10 flex items-center justify-center rounded-full bg-white/80 backdrop-blur z-10" aria-label="Close modal">&times;</button>
+        <img id="modal-image" class="w-full h-72 object-cover hidden" alt="">
+        <div class="p-8">
+            <h3 id="modal-title" class="heading-font text-3xl font-bold"></h3>
+            <div id="modal-text" class="mt-6 text-neutral-700"></div>
+            <button onclick="closeModal()" class="mt-10 w-full py-4 bg-[#1B4D3E] text-white rounded-3xl font-medium hover:bg-[#0F3A2E] transition">Close</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init({ once: true, duration: 900, offset: 80 });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // Counter animation
+    function animateCounter(elementId, target, suffix = '') {
+        const el = document.getElementById(elementId);
+        if (!el) return;
+        let current = 0;
+        const step = () => {
+            if (current < target) {
+                current += Math.ceil(target / 40);
+                if (current > target) current = target;
+                el.textContent = current.toLocaleString() + suffix;
+                requestAnimationFrame(step);
+            }
+        };
+        requestAnimationFrame(step);
+    }
+
+    // Intersection Observer for stats
+    const statsObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+            animateCounter("stat1", 250000);
+            animateCounter("stat2", 150);
+            animateCounter("stat3", 75);
+            animateCounter("stat4", 50000);
+            statsObserver.disconnect();
+        }
+    }, { threshold: 0.5 });
+    const stat1 = document.getElementById("stat1");
+    if (stat1) statsObserver.observe(stat1);
+
+    // Donation selector
+    function selectAmount(el) {
+        document.querySelectorAll('.donate-card').forEach(c => {
+            c.classList.remove('active');
+            c.setAttribute('aria-selected', 'false');
+        });
+        el.classList.add('active');
+        el.setAttribute('aria-selected', 'true');
+        const amount = el.dataset.amount;
+        document.getElementById('selected-amount').value = amount;
+        document.getElementById('selected-amount-display').textContent = Number(amount).toLocaleString();
+    }
+
+    // Modal functions (reused for program details)
+    function openModal(title, html) {
+        document.getElementById('modal-title').textContent = title;
+        document.getElementById('modal-text').innerHTML = html;
+        document.getElementById('modal-image').classList.add('hidden');
+        document.getElementById('modal').classList.remove('hidden');
+        document.getElementById('modal').classList.add('flex');
+        document.querySelector('#modal button:last-child').focus();
+    }
+
+    function closeModal() {
+        document.getElementById('modal').classList.add('hidden');
+        document.getElementById('modal').classList.remove('flex');
+    }
+
+    // Program modal opener
+    function openProgramModal(title, description, features) {
+        let html = `<p class="mb-4">${description}</p>`;
+        if (features && features.length) {
+            html += '<ul class="list-disc pl-5 space-y-1">';
+            features.forEach(f => { html += `<li>${f}</li>`; });
+            html += '</ul>';
+        }
+        openModal(title, html);
+    }
+
+    // Testimonial slider
+    function goToTestimonial(index) {
+        document.querySelectorAll('.testimonial-slide').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.testimonial-dot').forEach(d => d.classList.remove('active'));
+        document.querySelector(`.testimonial-slide[data-index="${index}"]`).classList.add('active');
+        document.querySelectorAll('.testimonial-dot')[index].classList.add('active');
+    }
+
+    // Newsletter with inline feedback
+    document.getElementById('newsletter').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = document.getElementById('newsletter-email').value.trim();
+        const feedback = document.getElementById('newsletter-feedback');
+        if (email && email.includes('@')) {
+            feedback.textContent = '✅ Thank you! You are now subscribed.';
+            feedback.classList.remove('hidden');
+            this.reset();
+        } else {
+            feedback.textContent = '❌ Please enter a valid email address.';
+            feedback.classList.remove('hidden');
+        }
+        setTimeout(() => feedback.classList.add('hidden'), 5000);
+    });
+
+    // Fade-in observer
+    const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+
+    // Set first donate card active on load
+    window.addEventListener('load', function() {
+        document.querySelectorAll('.donate-card').forEach((c, i) => {
+            if (i === 0) {
+                c.classList.add('active');
+                c.setAttribute('aria-selected', 'true');
+            } else {
+                c.setAttribute('aria-selected', 'false');
             }
         });
+    });
 
-        // Scroll Animation
-        function checkScroll() {
-            const programCards = document.querySelectorAll('.program-card');
-            const impactItems = document.querySelectorAll('.impact-item');
-            
-            programCards.forEach(card => {
-                const cardPosition = card.getBoundingClientRect().top;
-                const screenPosition = window.innerHeight / 1.3;
-                
-                if (cardPosition < screenPosition) {
-                    card.classList.add('animate');
-                }
-            });
-            
-            impactItems.forEach(item => {
-                const itemPosition = item.getBoundingClientRect().top;
-                const screenPosition = window.innerHeight / 1.3;
-                
-                if (itemPosition < screenPosition) {
-                    item.classList.add('animate');
-                }
-            });
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !document.getElementById('modal').classList.contains('hidden')) {
+            closeModal();
         }
-        
-        window.addEventListener('scroll', checkScroll);
-        window.addEventListener('load', checkScroll);
-
-        // Testimonial Slider
-        const testimonialControls = document.querySelectorAll('.testimonial-control');
-        const testimonials = document.querySelectorAll('.testimonial');
-        
-        testimonialControls.forEach(control => {
-            control.addEventListener('click', () => {
-                const index = control.getAttribute('data-index');
-                
-                // Update active testimonial
-                testimonials.forEach(testimonial => testimonial.classList.remove('active'));
-                testimonials[index].classList.add('active');
-                
-                // Update active control
-                testimonialControls.forEach(c => c.classList.remove('active'));
-                control.classList.add('active');
-            });
-        });
-
-        // Counter Animation
-        function animateCounter() {
-            const counters = document.querySelectorAll('.impact-number');
-            const speed = 200;
-            
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-count');
-                const count = +counter.innerText;
-                const increment = Math.ceil(target / speed);
-                
-                if (count < target) {
-                    counter.innerText = Math.min(count + increment, target);
-                    setTimeout(animateCounter, 1);
-                }
-            });
-        }
-        
-        // Start counter when impact section is in view
-        const impactSection = document.querySelector('.impact');
-        let counterAnimated = false;
-        
-        function checkCounter() {
-            const impactPosition = impactSection.getBoundingClientRect().top;
-            const screenPosition = window.innerHeight / 1.3;
-            
-            if (impactPosition < screenPosition && !counterAnimated) {
-                animateCounter();
-                counterAnimated = true;
-            }
-        }
-        
-        window.addEventListener('scroll', checkCounter);
-        window.addEventListener('load', checkCounter);
-
-        // Program modal: populate and show when 'Learn More' is clicked
-        document.addEventListener('DOMContentLoaded', function () {
-            const learnBtns = document.querySelectorAll('.learn-more');
-            const modalEl = document.getElementById('programModal');
-            const modalTitle = document.getElementById('programModalLabel');
-            const modalDesc = document.getElementById('programModalDesc');
-            const modalFeatures = document.getElementById('programModalFeatures');
-
-            if (!modalEl) return;
-
-            learnBtns.forEach(btn => {
-                btn.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const title = btn.getAttribute('data-title') || 'Program';
-                    const desc = btn.getAttribute('data-desc') || '';
-                    const features = (btn.getAttribute('data-features') || '').split(',').map(s => s.trim()).filter(Boolean);
-
-                    if (modalTitle) modalTitle.textContent = title;
-                    if (modalDesc) modalDesc.textContent = desc;
-                    if (modalFeatures) {
-                        modalFeatures.innerHTML = '';
-                        features.forEach(f => {
-                            const li = document.createElement('li');
-                            li.textContent = '• ' + f;
-                            modalFeatures.appendChild(li);
-                        });
-                    }
-
-                    // Show Bootstrap modal
-                    try {
-                        const bsModal = new bootstrap.Modal(modalEl);
-                        bsModal.show();
-                    } catch (err) {
-                        console.error('Bootstrap modal show failed:', err);
-                    }
-                });
-            });
-        });
-    </script>
+    });
+</script>
 </body>
 </html>

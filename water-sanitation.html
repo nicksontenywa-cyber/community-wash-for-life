@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Water, Sanitation & Hygiene (WASH) programs by New Grace JS — bringing clean water and safe sanitation to communities in Namayingo District, Uganda.">
+<title>Water & Sanitation (WASH) | New Grace JS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/*──────────────── DESIGN TOKENS ────────────────*/
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0B1F18;--forest:#1B4D3E;--jade:#2A7A5F;
+  --gold:#C9963A;--amber:#E8B855;--ap:rgba(232,184,85,.12);
+  --cream:#F6F0E4;--parch:#EDE5D4;--white:#fff;
+  --ease:cubic-bezier(.34,1.56,.64,1);
+  --ease2:cubic-bezier(.16,1,.3,1);
+  --r:1.5rem;--r2:2rem;--nh:76px;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--ink);color:var(--white);overflow-x:hidden;cursor:none;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer}
+
+/*── CURSOR ──*/
+#cur,#cur-r{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%)}
+#cur{width:10px;height:10px;background:var(--amber);z-index:9999;transition:width .2s var(--ease),height .2s var(--ease),background .2s}
+#cur-r{width:36px;height:36px;border:1.5px solid rgba(232,184,85,.42);z-index:9998;transition:left .12s var(--ease2),top .12s var(--ease2),width .35s var(--ease),height .35s var(--ease)}
+body:has(a:hover) #cur,body:has(button:hover) #cur{width:18px;height:18px;background:var(--gold)}
+body:has(a:hover) #cur-r,body:has(button:hover) #cur-r{width:52px;height:52px}
+@media(pointer:coarse){#cur,#cur-r{display:none}body{cursor:auto}}
+
+/*── SCROLL PROGRESS ──*/
+#prog{position:fixed;top:0;left:0;height:3px;width:0;z-index:10001;background:linear-gradient(90deg,var(--forest),var(--gold),var(--amber));box-shadow:0 0 10px rgba(232,184,85,.55);transition:width .08s linear}
+
+/*── NOISE ──*/
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.45;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E")}
+
+/*── NAV ──*/
+#nav{position:fixed;inset:0 0 auto;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:1.3rem 3.5rem;transition:padding .4s var(--ease2),background .4s,border-color .4s}
+#nav.sc{background:rgba(11,31,24,.94);backdrop-filter:blur(28px) saturate(1.5);border-bottom:1px solid rgba(201,150,58,.18);padding:.85rem 3.5rem}
+.n-logo{display:flex;align-items:center;gap:.7rem;flex-shrink:0}
+.n-logo img{width:44px;height:44px;border-radius:12px;border:2px solid rgba(201,150,58,.4);object-fit:cover;transition:transform .3s var(--ease)}
+.n-logo:hover img{transform:scale(1.08) rotate(-2deg)}
+.n-logo strong{display:block;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;background:linear-gradient(130deg,#fff,var(--amber));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.n-logo span{font-size:.58rem;color:rgba(255,255,255,.42);letter-spacing:.1em}
+.n-links{display:flex;gap:2rem;align-items:center}
+.n-links a{color:rgba(255,255,255,.62);font-size:.79rem;font-weight:500;letter-spacing:.04em;position:relative;transition:color .25s;padding-bottom:2px}
+.n-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--amber);transition:width .3s var(--ease2)}
+.n-links a:hover,.n-links a.act{color:#fff}
+.n-links a:hover::after,.n-links a.act::after{width:100%}
+.n-cta{background:linear-gradient(135deg,var(--gold),var(--amber));color:var(--ink)!important;font-weight:700!important;padding:.52rem 1.35rem;border-radius:100px;font-size:.77rem!important;letter-spacing:.04em;transition:transform .2s var(--ease),box-shadow .2s;box-shadow:0 4px 16px rgba(201,150,58,.25)}
+.n-cta:hover{transform:translateY(-2px)!important;box-shadow:0 10px 28px rgba(201,150,58,.4)!important}
+.n-cta::after{display:none!important}
+
+/*── HAMBURGER ──*/
+#hb{display:none;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;padding:9px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;transition:background .2s}
+#hb:hover{background:rgba(255,255,255,.15)}
+#hb span{display:block;height:1.5px;border-radius:2px;background:#fff;transition:transform .35s var(--ease2),opacity .25s,width .3s;transform-origin:center}
+#hb span:nth-child(2){width:70%}
+#hb.op span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+#hb.op span:nth-child(2){opacity:0;transform:scaleX(0)}
+#hb.op span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/*── MOBILE DRAWER ──*/
+#mm{position:fixed;inset:0;z-index:999;background:rgba(11,31,24,.98);backdrop-filter:blur(32px);display:flex;flex-direction:column;padding:calc(var(--nh) + 1.5rem) 2rem 2.5rem;opacity:0;pointer-events:none;transform:translateX(102%);transition:opacity .4s var(--ease2),transform .4s var(--ease2)}
+#mm.op{opacity:1;pointer-events:all;transform:none}
+.mm-links{display:flex;flex-direction:column;gap:.35rem;flex:1}
+.mm-links a{color:rgba(255,255,255,.78);font-size:1.45rem;font-weight:600;font-family:'Playfair Display',serif;padding:.8rem 0;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;transition:color .2s,padding-left .25s}
+.mm-links a:hover{color:var(--amber);padding-left:.4rem}
+.mm-links a i{font-size:.85rem;opacity:.35}
+.mm-soc{display:flex;gap:.75rem;margin-top:1.8rem}
+.mm-soc a{width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:.9rem;transition:all .2s}
+.mm-soc a:hover{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.mm-btn{margin-top:1.25rem;background:linear-gradient(135deg,var(--gold),var(--amber));color:var(--ink);font-weight:800;font-size:.95rem;padding:1rem;border-radius:var(--r);border:none;width:100%;letter-spacing:.05em}
+
+/*── PAGE HERO ──*/
+.ph{min-height:80vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.ph-img{position:absolute;inset:0;z-index:0;background-image:url('images/waterpurifier.jpeg');background-size:cover;background-position:center;opacity:.2;animation:kz 24s ease infinite alternate}
+@keyframes kz{from{transform:scale(1)}to{transform:scale(1.08)}}
+.ph-bg{position:absolute;inset:0;z-index:1;background:linear-gradient(150deg,rgba(11,31,24,.97) 0%,rgba(11,77,62,.8) 55%,rgba(5,45,32,.97) 100%)}
+.ph-grid{position:absolute;inset:0;z-index:2;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:72px 72px}
+.orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(90px)}
+.o1{width:500px;height:500px;background:rgba(11,100,95,.25);top:-100px;right:-120px;animation:of 9s ease-in-out infinite alternate}
+.o2{width:340px;height:340px;background:rgba(201,150,58,.1);bottom:0;left:-80px;animation:of 11s ease-in-out infinite alternate-reverse}
+.o3{width:220px;height:220px;background:rgba(27,77,62,.3);top:30%;right:14%;animation:of 7s ease-in-out infinite alternate}
+@keyframes of{from{transform:translate(0,0) scale(1)}to{transform:translate(38px,-48px) scale(1.12)}}
+#pts{position:absolute;inset:0;z-index:2;overflow:hidden;pointer-events:none}
+.pt{position:absolute;border-radius:50%;background:rgba(100,200,220,.45);animation:rise linear infinite}
+@keyframes rise{0%{transform:translateY(100vh) scale(0);opacity:0}8%{opacity:1}92%{opacity:.35}100%{transform:translateY(-20px) scale(1);opacity:0}}
+
+/* Water ripple animation on hero */
+.water-rings{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;pointer-events:none;overflow:hidden}
+.ring{position:absolute;border-radius:50%;border:1px solid rgba(100,200,220,.12);animation:ripple 6s ease-out infinite}
+.ring:nth-child(1){width:300px;height:300px;animation-delay:0s}
+.ring:nth-child(2){width:500px;height:500px;animation-delay:1.5s}
+.ring:nth-child(3){width:700px;height:700px;animation-delay:3s}
+.ring:nth-child(4){width:900px;height:900px;animation-delay:4.5s}
+@keyframes ripple{0%{transform:scale(.5);opacity:.5}100%{transform:scale(1.5);opacity:0}}
+
+.ph-inner{position:relative;z-index:5;text-align:center;max-width:820px;width:100%;padding:calc(var(--nh) + 2.5rem) 1.5rem 5rem}
+.ph-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(100,200,220,.1);border:1px solid rgba(100,200,220,.25);color:#7dd3fc;font-size:.67rem;font-weight:700;letter-spacing:.2em;padding:.42rem 1.05rem;border-radius:100px;margin-bottom:2rem;animation:fu .8s var(--ease2) .2s both}
+.pdot{width:7px;height:7px;border-radius:50%;background:#7dd3fc;animation:pd 2.2s ease-in-out infinite;flex-shrink:0}
+@keyframes pd{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
+.ph-title{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,7.5vw,6.5rem);font-weight:900;line-height:.92;letter-spacing:-.03em;margin-bottom:1.6rem;animation:fu .9s var(--ease2) .35s both}
+.ph-title .it{display:block;font-style:italic;background:linear-gradient(135deg,#38bdf8,#7dd3fc,#bae6fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ph-sub{font-size:clamp(.9rem,2.2vw,1.1rem);color:rgba(255,255,255,.65);max-width:540px;margin:0 auto 2.6rem;line-height:1.82;font-weight:300;animation:fu .9s var(--ease2) .5s both}
+.ph-ctas{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;animation:fu .9s var(--ease2) .65s both}
+@keyframes fu{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:none}}
+.bc{background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.07);padding:.65rem 3.5rem;display:flex;align-items:center;gap:.5rem;font-size:.72rem;color:rgba(255,255,255,.38);position:relative;z-index:10}
+.bc a{color:rgba(255,255,255,.45);transition:color .2s}
+.bc a:hover{color:var(--amber)}
+.bc i{font-size:.55rem}
+
+/*── SHARED UTILITIES ──*/
+.lbl{display:inline-flex;align-items:center;gap:.65rem;font-size:.64rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:1rem}
+.lbl::before{content:'';width:26px;height:1px;background:var(--amber);flex-shrink:0}
+.lbl.dk{color:var(--forest)}.lbl.dk::before{background:var(--forest)}
+.lbl.bl{color:#38bdf8}.lbl.bl::before{background:#38bdf8}
+.reveal{opacity:0;transform:translateY(46px);transition:opacity .9s var(--ease2),transform .9s var(--ease2)}
+.rl{opacity:0;transform:translateX(-50px);transition:opacity .9s var(--ease2),transform .9s var(--ease2)}
+.rr{opacity:0;transform:translateX(50px);transition:opacity .9s var(--ease2),transform .9s var(--ease2)}
+.reveal.v,.rl.v,.rr.v{opacity:1;transform:none}
+.sec-hd{text-align:center;margin-bottom:4.5rem}
+.sec-hd h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.5rem);font-weight:900;line-height:1.1}
+.sec-hd h2 em{font-style:italic}
+
+/*── BUTTONS ──*/
+.bg{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--gold),var(--amber));color:var(--ink);font-weight:700;font-size:.87rem;letter-spacing:.04em;padding:.88rem 2.1rem;border-radius:100px;border:none;transition:transform .25s var(--ease),box-shadow .25s;white-space:nowrap}
+.bg:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(201,150,58,.45)}
+.bw{display:inline-flex;align-items:center;gap:.5rem;background:rgba(100,200,220,.12);border:1.5px solid rgba(100,200,220,.3);color:#bae6fd;font-weight:500;font-size:.87rem;padding:.88rem 2.1rem;border-radius:100px;transition:background .25s,border-color .25s;backdrop-filter:blur(8px);white-space:nowrap}
+.bw:hover{background:rgba(100,200,220,.2);border-color:rgba(100,200,220,.55)}
+.bgh{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.22);color:#fff;font-weight:500;font-size:.87rem;padding:.88rem 2.1rem;border-radius:100px;transition:background .25s,border-color .25s;backdrop-filter:blur(8px);white-space:nowrap}
+.bgh:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.45)}
+.bf{display:inline-flex;align-items:center;gap:.5rem;background:var(--forest);color:#fff;font-weight:600;font-size:.83rem;padding:.82rem 1.9rem;border-radius:100px;border:none;letter-spacing:.03em;transition:transform .2s var(--ease),box-shadow .2s}
+.bf:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(27,77,62,.4)}
+
+/*── IMPACT BAR ──*/
+.imp-bar{display:grid;grid-template-columns:repeat(4,1fr);background:linear-gradient(135deg,#0e4d6e 0%,#0369a1 50%,#0284c7 100%);position:relative;overflow:hidden}
+.imp-bar::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")}
+.imp-it{padding:2.6rem 1.2rem;text-align:center;position:relative}
+.imp-it+.imp-it::before{content:'';position:absolute;left:0;top:20%;bottom:20%;width:1px;background:rgba(255,255,255,.15)}
+.imp-ic{font-size:1.5rem;margin-bottom:.5rem;opacity:.75}
+.imp-n{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,3.8vw,3rem);font-weight:900;color:#fff;line-height:1;margin-bottom:.28rem}
+.imp-l{font-size:.72rem;font-weight:700;color:rgba(255,255,255,.65);letter-spacing:.07em;text-transform:uppercase}
+
+/*── MARQUEE ──*/
+.mq-sec{background:rgba(11,31,24,.95);border-top:1px solid rgba(100,200,220,.1);padding:1.8rem 0;overflow:hidden}
+.mq-track{display:flex;gap:3.5rem;align-items:center;animation:mq 22s linear infinite;width:max-content}
+.mq-track:hover{animation-play-state:paused}
+.mq-it{white-space:nowrap;font-size:.72rem;font-weight:700;letter-spacing:.18em;color:rgba(255,255,255,.22);text-transform:uppercase;display:flex;align-items:center;gap:.6rem;transition:color .3s}
+.mq-it:hover{color:rgba(100,200,220,.6)}
+.mq-it i{color:#7dd3fc;font-size:.55rem}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/*── WASH OVERVIEW ──*/
+.ov-sec{background:var(--cream);color:var(--ink);padding:7rem 3.5rem}
+.ov-in{max-width:1280px;margin:0 auto}
+.ov-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.3rem;margin-top:1rem}
+.ov-card{background:rgba(255,255,255,.7);backdrop-filter:blur(12px);border:1px solid rgba(14,116,144,.12);border-radius:var(--r2);padding:2.2rem 1.6rem;text-align:center;transition:transform .4s var(--ease),box-shadow .4s,background .3s;position:relative;overflow:hidden}
+.ov-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(14,116,144,.06),transparent 70%);opacity:0;transition:opacity .4s}
+.ov-card:hover{transform:translateY(-8px);box-shadow:0 28px 56px rgba(14,116,144,.15);background:rgba(255,255,255,.9)}
+.ov-card:hover::before{opacity:1}
+.ov-icon{width:60px;height:60px;border-radius:1rem;background:linear-gradient(135deg,#0369a1,#0ea5e9);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 1.4rem;box-shadow:0 8px 20px rgba(14,116,144,.3)}
+.ov-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:.65rem;color:var(--ink)}
+.ov-card p{color:rgba(11,31,24,.62);font-size:.83rem;line-height:1.72}
+
+/*── KEY INITIATIVES ──*/
+.ki-sec{background:var(--ink);padding:7rem 3.5rem}
+.ki-in{max-width:1280px;margin:0 auto}
+.ki-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.ki-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--r2);padding:2.5rem;position:relative;overflow:hidden;transition:transform .4s var(--ease),border-color .4s,background .3s}
+.ki-glow{position:absolute;inset:0;opacity:0;background:radial-gradient(ellipse at 30% 30%,rgba(14,116,144,.18),transparent 70%);transition:opacity .5s}
+.ki-card:hover{transform:translateY(-7px);border-color:rgba(100,200,220,.25);background:rgba(255,255,255,.07)}
+.ki-card:hover .ki-glow{opacity:1}
+.ki-n{font-family:'Playfair Display',serif;font-size:4.5rem;font-weight:900;color:rgba(255,255,255,.04);position:absolute;top:.3rem;right:1.2rem;line-height:1;pointer-events:none}
+.ki-icon{width:50px;height:50px;border-radius:.85rem;background:linear-gradient(135deg,#0369a1,#0ea5e9);display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1.5rem;box-shadow:0 8px 20px rgba(14,116,144,.4)}
+.ki-card h3{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;margin-bottom:.6rem}
+.ki-card p{color:rgba(255,255,255,.55);font-size:.86rem;line-height:1.72;margin-bottom:1.2rem}
+.ki-tag{display:inline-flex;align-items:center;gap:.38rem;background:rgba(100,200,220,.1);border:1px solid rgba(100,200,220,.2);color:#7dd3fc;font-size:.7rem;font-weight:700;letter-spacing:.07em;padding:.3rem .82rem;border-radius:100px}
+
+/*── FEATURED PROJECT ──*/
+.fp-sec{background:var(--parch);color:var(--ink);padding:7rem 3.5rem;overflow:hidden}
+.fp-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5.5rem;align-items:center}
+.fp-img-wrap{position:relative}
+.fp-img-m{width:100%;border-radius:var(--r2);box-shadow:0 40px 80px rgba(11,31,24,.17)}
+.fp-img-a{position:absolute;width:52%;border-radius:var(--r);bottom:-2.2rem;right:-2.2rem;box-shadow:0 20px 55px rgba(11,31,24,.22);border:4px solid var(--parch)}
+.fp-badge{position:absolute;top:-1.4rem;left:-1.4rem;background:#0369a1;color:#fff;border-radius:var(--r);padding:1.3rem 1.6rem;text-align:center;box-shadow:0 16px 40px rgba(14,116,144,.4);border:3px solid var(--parch)}
+.fp-badge strong{display:block;font-family:'Playfair Display',serif;font-size:2rem;color:#bae6fd;line-height:1}
+.fp-badge span{font-size:.62rem;letter-spacing:.12em;opacity:.8;text-transform:uppercase}
+.fp-txt h2{font-family:'Playfair Display',serif;font-size:clamp(1.85rem,3.5vw,3rem);font-weight:900;line-height:1.12;margin-bottom:1.3rem;color:var(--ink)}
+.fp-txt h2 em{color:#0369a1;font-style:italic}
+.fp-txt p{font-size:.97rem;line-height:1.82;color:rgba(11,31,24,.67);margin-bottom:1.15rem}
+.chips{display:flex;flex-wrap:wrap;gap:.55rem;margin:1.7rem 0}
+.chip{background:rgba(14,116,144,.1);color:#0369a1;border:1px solid rgba(14,116,144,.2);font-size:.7rem;font-weight:600;letter-spacing:.04em;padding:.38rem .9rem;border-radius:100px;transition:background .2s,color .2s}
+.chip:hover{background:#0369a1;color:#fff}
+
+/*── HOW IT WORKS (process) ──*/
+.hw-sec{background:var(--ink);padding:7rem 3.5rem}
+.hw-in{max-width:1100px;margin:0 auto}
+.hw-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:4rem;position:relative}
+.hw-steps::before{content:'';position:absolute;top:38px;left:12.5%;right:12.5%;height:1px;background:linear-gradient(90deg,transparent,rgba(100,200,220,.3) 20%,rgba(100,200,220,.3) 80%,transparent)}
+.hw-step{text-align:center;padding:0 1rem;position:relative}
+.hw-dot{width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,#0369a1,#0ea5e9);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 1.3rem;box-shadow:0 8px 24px rgba(14,116,144,.4);transition:transform .3s var(--ease)}
+.hw-step:hover .hw-dot{transform:scale(1.12)}
+.hw-step-n{position:absolute;top:-8px;right:calc(50% - 38px);width:22px;height:22px;border-radius:50%;background:var(--amber);color:var(--ink);font-size:.65rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+.hw-step h3{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;margin-bottom:.5rem}
+.hw-step p{color:rgba(255,255,255,.5);font-size:.8rem;line-height:1.7}
+
+/*── WATER QUALITY ──*/
+.wq-sec{background:linear-gradient(150deg,#041d2e 0%,#0c3a52 55%,#0e4d6e 100%);padding:7rem 3.5rem;position:relative;overflow:hidden}
+.wq-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 80% 50%,rgba(14,116,144,.35),transparent)}
+/* animated water waves */
+.waves{position:absolute;bottom:0;left:0;right:0;overflow:hidden;height:80px}
+.wave{position:absolute;bottom:0;left:0;width:200%;height:100%;background:rgba(255,255,255,.04);border-radius:50%/20px;animation:wv 8s linear infinite}
+.wave2{animation-duration:12s;animation-direction:reverse;opacity:.5}
+@keyframes wv{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.wq-in{max-width:1280px;margin:0 auto;position:relative}
+.wq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;margin-top:4rem}
+.wq-card{background:rgba(255,255,255,.07);border:1px solid rgba(100,200,220,.12);border-radius:var(--r2);padding:2.3rem;transition:transform .35s var(--ease),background .3s,border-color .3s}
+.wq-card:hover{transform:translateY(-6px);background:rgba(255,255,255,.12);border-color:rgba(100,200,220,.3)}
+.wq-ic{font-size:2rem;margin-bottom:1.1rem;display:block;animation:fl 4s ease-in-out infinite}
+.wq-card:nth-child(2) .wq-ic{animation-delay:.6s}
+.wq-card:nth-child(3) .wq-ic{animation-delay:1.2s}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.wq-card h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:.6rem}
+.wq-card p{color:rgba(255,255,255,.62);font-size:.86rem;line-height:1.72}
+.wq-stat{display:inline-flex;align-items:center;gap:.38rem;background:rgba(100,200,220,.1);border:1px solid rgba(100,200,220,.22);color:#7dd3fc;font-size:.7rem;font-weight:700;letter-spacing:.07em;padding:.3rem .82rem;border-radius:100px;margin-top:1rem}
+
+/*── TESTIMONIALS ──*/
+.te-sec{background:var(--ink);padding:7rem 3.5rem}
+.te-in{max-width:1280px;margin:0 auto}
+.te-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem}
+.te-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--r2);padding:2.1rem;transition:transform .35s var(--ease),border-color .3s,background .3s}
+.te-card:hover{transform:translateY(-6px);border-color:rgba(100,200,220,.2);background:rgba(255,255,255,.07)}
+.te-stars{color:#fbbf24;font-size:.82rem;margin-bottom:1rem;letter-spacing:.1em}
+.te-q{font-size:.93rem;line-height:1.78;color:rgba(255,255,255,.78);margin-bottom:1.5rem;font-style:italic}
+.te-q::before{content:'\201C';font-family:'Playfair Display',serif;font-size:2.8rem;color:#7dd3fc;line-height:0;vertical-align:-.55rem;margin-right:.18rem}
+.te-auth{display:flex;align-items:center;gap:.8rem}
+.te-av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#0369a1,#0ea5e9);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;color:#fff;font-size:1rem;flex-shrink:0}
+.te-nm{font-weight:600;font-size:.86rem}
+.te-rl{font-size:.7rem;color:rgba(255,255,255,.42);margin-top:.1rem}
+
+/*── GALLERY STRIP ──*/
+.gl-sec{background:var(--cream);color:var(--ink);padding:7rem 0 7rem 3.5rem;overflow:hidden}
+.gl-hd{max-width:1280px;padding-right:3.5rem;margin:0 auto 2.7rem;display:flex;justify-content:space-between;align-items:flex-end;gap:1rem}
+.gl-hd h2{font-family:'Playfair Display',serif;font-size:clamp(1.85rem,3.8vw,3.1rem);font-weight:900;color:var(--ink)}
+.gl-scr{display:flex;gap:1.1rem;overflow-x:auto;padding-bottom:.5rem;padding-right:3.5rem;scroll-snap-type:x mandatory;scrollbar-width:none}
+.gl-scr::-webkit-scrollbar{display:none}
+.g-it{flex:none;width:270px;height:210px;border-radius:var(--r);overflow:hidden;cursor:pointer;position:relative;scroll-snap-align:start;transition:transform .3s var(--ease)}
+.g-it:hover{transform:scale(1.03)}
+.g-it img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease2)}
+.g-it:hover img{transform:scale(1.1)}
+.g-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,116,144,.75),transparent 50%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:1rem}
+.g-it:hover .g-ov{opacity:1}
+.g-ov span{color:#bae6fd;font-size:.7rem;font-weight:700;letter-spacing:.08em}
+.sh-row{display:flex;align-items:center;gap:.45rem;color:rgba(11,31,24,.38);font-size:.7rem;letter-spacing:.08em}
+.sh-row i{animation:nd 1.8s ease-in-out infinite}
+@keyframes nd{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
+
+/*── DONATE ──*/
+.do-sec{position:relative;padding:7rem 3.5rem;overflow:hidden;background:linear-gradient(145deg,#041d2e 0%,#0c3a52 55%,#0e4d6e 100%)}
+.do-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 100% 0%,rgba(100,200,220,.1),transparent 65%),radial-gradient(ellipse 50% 60% at 0% 100%,rgba(14,116,144,.3),transparent 70%)}
+.d-ring{position:absolute;border-radius:50%;border:1px solid rgba(100,200,220,.08);pointer-events:none}
+.dr1{width:600px;height:600px;top:-200px;right:-200px;animation:rs 30s linear infinite}
+.dr2{width:400px;height:400px;bottom:-150px;left:-100px;animation:rs 20s linear infinite reverse}
+@keyframes rs{to{transform:rotate(360deg)}}
+.do-in{max-width:900px;margin:0 auto;text-align:center;position:relative}
+.do-in h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.7rem);font-weight:900;line-height:1.08;margin-bottom:1.1rem}
+.do-in h2 em{color:#7dd3fc;font-style:italic}
+.do-in>p{color:rgba(255,255,255,.58);font-size:.98rem;line-height:1.8;margin-bottom:2.8rem;max-width:570px;margin-left:auto;margin-right:auto}
+.do-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin-bottom:1.9rem}
+.d-card{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.1);border-radius:var(--r);padding:1.55rem .85rem;cursor:pointer;transition:all .3s var(--ease);text-align:center}
+.d-card:hover{background:rgba(255,255,255,.12);border-color:rgba(100,200,220,.35);transform:translateY(-4px)}
+.d-card.sel{background:rgba(100,200,220,.14);border-color:#7dd3fc;box-shadow:0 0 0 3px rgba(100,200,220,.15)}
+.d-amt{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;margin-bottom:.28rem}
+.d-card.sel .d-amt{color:#7dd3fc}
+.d-dsc{font-size:.67rem;color:rgba(255,255,255,.42);line-height:1.45}
+.d-card.sel .d-dsc{color:rgba(186,230,253,.6)}
+.do-btn{display:flex;align-items:center;justify-content:center;gap:.55rem;width:100%;max-width:450px;margin:0 auto;background:linear-gradient(135deg,#0369a1,#0ea5e9);color:#fff;font-weight:800;font-size:.98rem;letter-spacing:.06em;padding:1.1rem 2rem;border-radius:100px;border:none;position:relative;overflow:hidden;transition:transform .25s var(--ease),box-shadow .25s}
+.do-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.2),transparent 60%);opacity:0;transition:opacity .3s}
+.do-btn:hover{transform:translateY(-3px);box-shadow:0 18px 46px rgba(14,116,144,.5)}
+.do-btn:hover::before{opacity:1}
+.tr-badges{display:flex;gap:1.8rem;justify-content:center;flex-wrap:wrap;margin-top:2.4rem}
+.tr-b{display:flex;align-items:center;gap:.45rem;color:rgba(255,255,255,.32);font-size:.7rem;font-weight:500}
+.tr-b i{color:#7dd3fc;font-size:.85rem}
+
+/*── CONTACT STRIP ──*/
+.co-strip{background:var(--ink);border-top:1px solid rgba(255,255,255,.06);padding:3.8rem 3.5rem}
+.co-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;text-align:center}
+.co-bl i{font-size:1.55rem;color:var(--amber);margin-bottom:.7rem}
+.co-bl h4{font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-bottom:.45rem}
+.co-bl p,.co-bl a{font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.6;transition:color .2s}
+.co-bl a:hover{color:var(--amber)}
+
+/*── FOOTER ──*/
+footer{background:#040D09;padding:5rem 3.5rem 2.3rem;color:rgba(255,255,255,.48)}
+.f-in{max-width:1280px;margin:0 auto}
+.f-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.6fr;gap:3rem;margin-bottom:3.5rem}
+.f-br img{width:46px;height:46px;border-radius:12px;margin-bottom:.95rem;border:2px solid rgba(201,150,58,.28);object-fit:cover}
+.f-br h4{font-family:'Playfair Display',serif;color:#fff;font-size:1.05rem;margin-bottom:.45rem}
+.f-br p{font-size:.82rem;line-height:1.72}
+.f-col h5{color:#fff;font-size:.63rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.1rem}
+.f-col ul{list-style:none}
+.f-col li{margin-bottom:.52rem}
+.f-col a{color:rgba(255,255,255,.42);font-size:.83rem;transition:color .22s}
+.f-col a:hover{color:var(--amber)}
+.f-nl h5{color:#fff;font-size:.63rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.1rem}
+.f-nl p{font-size:.82rem;line-height:1.7;margin-bottom:.9rem}
+.nl-rw{display:flex}
+.nl-rw input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-right:none;border-radius:100px 0 0 100px;padding:.68rem 1.15rem;color:#fff;font-size:.8rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .3s}
+.nl-rw input:focus{border-color:var(--amber)}
+.nl-rw input::placeholder{color:rgba(255,255,255,.26)}
+.nl-rw button{background:linear-gradient(135deg,var(--gold),var(--amber));color:var(--ink);font-weight:700;font-size:.73rem;letter-spacing:.06em;padding:.68rem 1.05rem;border-radius:0 100px 100px 0;border:none;cursor:pointer;transition:opacity .2s}
+.nl-rw button:hover{opacity:.9}
+#nl-m{font-size:.72rem;margin-top:.4rem}
+.f-div{border:none;border-top:1px solid rgba(255,255,255,.06);margin:0 0 1.7rem}
+.f-bot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.f-bot p{font-size:.72rem}
+.socs{display:flex;gap:.7rem}
+.socs a{width:33px;height:33px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.38);font-size:.76rem;transition:all .22s}
+.socs a:hover{background:var(--gold);border-color:var(--gold);color:var(--ink);transform:translateY(-2px)}
+
+/*── MODAL ──*/
+#modal{position:fixed;inset:0;z-index:10000;background:rgba(4,13,9,.88);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity .35s}
+#modal.op{opacity:1;pointer-events:all}
+#mbox{background:var(--ink);border:1px solid rgba(255,255,255,.1);border-radius:var(--r2);max-width:550px;width:100%;overflow:hidden;position:relative;transform:scale(.93) translateY(18px);transition:transform .4s var(--ease),opacity .4s;opacity:0}
+#modal.op #mbox{transform:none;opacity:1}
+#m-img{width:100%;height:230px;object-fit:cover}
+#m-body{padding:2.1rem}
+#m-title{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:700;margin-bottom:.75rem}
+#m-text{color:rgba(255,255,255,.6);font-size:.9rem;line-height:1.78;margin-bottom:1.7rem}
+.mcl{position:absolute;top:1rem;right:1rem;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.12);border:none;color:#fff;font-size:.95rem;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.mcl:hover{background:rgba(255,255,255,.22)}
+
+/*── TOAST & BTT ──*/
+#toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(70px);z-index:11000;background:#0369a1;color:#fff;padding:.8rem 1.9rem;border-radius:100px;font-size:.83rem;font-weight:600;box-shadow:0 12px 38px rgba(14,116,144,.4);transition:transform .4s var(--ease),opacity .4s;opacity:0;border:1px solid rgba(255,255,255,.1);white-space:nowrap;pointer-events:none}
+#toast.sh{transform:translateX(-50%) translateY(0);opacity:1}
+#btt{position:fixed;bottom:2rem;right:1.5rem;z-index:500;width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#0369a1,#0ea5e9);color:#fff;border:none;font-size:.9rem;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(14,116,144,.4);opacity:0;transform:translateY(18px);pointer-events:none;transition:opacity .35s,transform .35s var(--ease)}
+#btt.sh{opacity:1;transform:none;pointer-events:all}
+#btt:hover{transform:translateY(-3px)!important;box-shadow:0 14px 30px rgba(14,116,144,.55)}
+
+/*── RESPONSIVE ──*/
+@media(max-width:1100px){
+  .ov-grid{grid-template-columns:repeat(2,1fr)}
+  .ki-grid{grid-template-columns:repeat(2,1fr)}
+  .te-grid{grid-template-columns:repeat(2,1fr)}
+  .hw-steps{grid-template-columns:repeat(2,1fr);gap:2.5rem}
+  .hw-steps::before{display:none}
+  .f-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:860px){
+  :root{--nh:65px}
+  #nav,#nav.sc{padding:.85rem 1.4rem}
+  .n-links{display:none}
+  #hb{display:flex}
+  .ph-inner{padding:calc(var(--nh) + 2rem) 1.2rem 4.5rem}
+  .ph-title{font-size:clamp(2.2rem,9vw,3.8rem)}
+  .bc{padding:.6rem 1.4rem}
+  .imp-bar{grid-template-columns:repeat(2,1fr)}
+  .imp-it:nth-child(2)::before{display:none}
+  .imp-it{padding:1.9rem 1rem}
+  .ov-sec,.ki-sec,.fp-sec,.hw-sec,.wq-sec,.te-sec,.gl-sec,.do-sec{padding:4.5rem 1.4rem}
+  .gl-sec{padding-left:1.4rem}
+  .ov-grid{grid-template-columns:1fr 1fr}
+  .ki-grid,.te-grid,.wq-grid{grid-template-columns:1fr}
+  .hw-steps{grid-template-columns:1fr 1fr;gap:2rem}
+  .fp-sec{padding:4.5rem 1.4rem}
+  .fp-in{grid-template-columns:1fr;gap:3.2rem}
+  .fp-img-a{width:44%;right:-1rem;bottom:-1rem}
+  .fp-badge{top:-.9rem;left:-.9rem;padding:1rem 1.2rem}
+  .do-grid{grid-template-columns:repeat(2,1fr)}
+  .co-strip{padding:3rem 1.4rem}
+  .co-in{grid-template-columns:1fr;gap:2rem}
+  .gl-hd{padding-right:1.4rem;flex-direction:column;align-items:flex-start;gap:.65rem}
+  .gl-scr{padding-right:1.4rem}
+  footer{padding:3.8rem 1.4rem 2rem}
+  .f-grid{grid-template-columns:1fr}
+  .f-bot{flex-direction:column;text-align:center;gap:1rem}
+}
+@media(max-width:480px){
+  .ph-title{font-size:clamp(1.9rem,10vw,2.6rem)}
+  .ph-ctas{flex-direction:column;align-items:center}
+  .bg,.bgh,.bw{width:100%;max-width:300px;justify-content:center}
+  .ov-grid{grid-template-columns:1fr}
+  .hw-steps{grid-template-columns:1fr}
+  .do-grid{grid-template-columns:1fr 1fr}
+  .tr-badges{flex-direction:column;align-items:center}
+  .nl-rw{flex-direction:column}
+  .nl-rw input{border-right:1px solid rgba(255,255,255,.1);border-bottom:none;border-radius:var(--r) var(--r) 0 0}
+  .nl-rw button{border-radius:0 0 var(--r) var(--r);padding:.72rem}
+  .mm-links a{font-size:1.25rem}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"></div><div id="cur-r"></div>
+<div id="prog"></div>
+<div id="toast"><i class="fas fa-check-circle"></i> <span id="t-msg"></span></div>
+<button id="btt" onclick="scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+<!-- ═══ NAV ═══ -->
+<nav id="nav">
+  <a href="index.html" class="n-logo">
+    <img src="images/LOGO.JPG" alt="New Grace JS">
+    <div><strong>New Grace JS</strong><span>NAMAYINGO · UGANDA · EST. 2018</span></div>
+  </a>
+  <div class="n-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="education.html">Education</a>
+    <a href="water-sanitation.html" class="act">WASH</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="blog.html">Blog</a>
+    <a href="contact.html">Contact</a>
+    <a href="donate.html" class="n-cta">Donate Now</a>
+  </div>
+  <button id="hb" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- Mobile drawer -->
+<div id="mm" role="dialog" aria-label="Site navigation">
+  <div class="mm-links">
+    <a href="index.html">Home <i class="fas fa-arrow-right"></i></a>
+    <a href="about.html">About <i class="fas fa-arrow-right"></i></a>
+    <a href="education.html">Education <i class="fas fa-arrow-right"></i></a>
+    <a href="water-sanitation.html">WASH <i class="fas fa-arrow-right"></i></a>
+    <a href="gallery.html">Gallery <i class="fas fa-arrow-right"></i></a>
+    <a href="blog.html">Blog <i class="fas fa-arrow-right"></i></a>
+    <a href="contact.html">Contact <i class="fas fa-arrow-right"></i></a>
+    <a href="services.html">Services <i class="fas fa-arrow-right"></i></a>
+  </div>
+  <div class="mm-soc">
+    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+  </div>
+  <button class="mm-btn" onclick="location.href='donate.html'"><i class="fas fa-heart"></i> Donate Now</button>
+</div>
+
+<!-- ═══ PAGE HERO ═══ -->
+<section class="ph">
+  <div class="ph-img"></div>
+  <div class="ph-bg"></div>
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+  <div class="ph-grid"></div>
+  <!-- Water ripple rings -->
+  <div class="water-rings">
+    <div class="ring"></div><div class="ring"></div><div class="ring"></div><div class="ring"></div>
+  </div>
+  <div id="pts"></div>
+
+  <div class="ph-inner">
+    <div class="ph-badge"><span class="pdot"></span>WATER · SANITATION · HYGIENE</div>
+    <h1 class="ph-title">
+      Clean Water.<br>
+      <span class="it">Healthy Lives.</span>
+    </h1>
+    <p class="ph-sub">Providing access to safe water and hygienic sanitation facilities that improve health, dignity and community wellbeing across Namayingo District, Uganda.</p>
+    <div class="ph-ctas">
+      <a href="#overview" class="bg"><i class="fas fa-arrow-down"></i> Our Programs</a>
+      <a href="donate.html" class="bw"><i class="fas fa-tint"></i> Fund Water Projects</a>
+    </div>
+  </div>
+</section>
+
+<!-- Breadcrumb -->
+<div class="bc">
+  <a href="index.html">Home</a>
+  <i class="fas fa-chevron-right"></i>
+  <a href="#">Programs</a>
+  <i class="fas fa-chevron-right"></i>
+  <span style="color:#7dd3fc">WASH</span>
+</div>
+
+<!-- ═══ IMPACT BAR ═══ -->
+<div class="imp-bar">
+  <div class="imp-it reveal"><div class="imp-ic">👥</div><div class="imp-n" data-t="5000" id="n1">0</div><div class="imp-l">People Reached</div></div>
+  <div class="imp-it reveal" style="transition-delay:.12s"><div class="imp-ic">💧</div><div class="imp-n" data-t="15" id="n2">0</div><div class="imp-l">Water Points</div></div>
+  <div class="imp-it reveal" style="transition-delay:.22s"><div class="imp-ic">🚻</div><div class="imp-n" data-t="50" id="n3">0</div><div class="imp-l">Sanitation Units</div></div>
+  <div class="imp-it reveal" style="transition-delay:.32s"><div class="imp-ic">🏫</div><div class="imp-n" data-t="20" id="n4">0</div><div class="imp-l">Schools with WASH</div></div>
+</div>
+
+<!-- ═══ MARQUEE ═══ -->
+<div class="mq-sec" aria-hidden="true">
+  <div class="mq-track">
+    <span class="mq-it"><i class="fas fa-circle"></i>CLEAN WATER FOR ALL</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>BOREHOLE INSTALLATION</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>SOLAR WATER PUMPING</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>HYGIENE EDUCATION</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>SANITATION FACILITIES</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>WATER QUALITY TESTING</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>COMMUNITY COMMITTEES</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>NAMAYINGO · UGANDA</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>CLEAN WATER FOR ALL</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>BOREHOLE INSTALLATION</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>SOLAR WATER PUMPING</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>HYGIENE EDUCATION</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>SANITATION FACILITIES</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>WATER QUALITY TESTING</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>COMMUNITY COMMITTEES</span>
+    <span class="mq-it"><i class="fas fa-circle"></i>NAMAYINGO · UGANDA</span>
+  </div>
+</div>
+
+<!-- ═══ WASH OVERVIEW ═══ -->
+<section class="ov-sec" id="overview">
+  <div class="ov-in">
+    <div class="sec-hd reveal">
+      <div class="lbl dk" style="justify-content:center">Water, Sanitation & Hygiene</div>
+      <h2 style="color:var(--ink)">Four pillars of <em style="color:#0369a1">community health</em></h2>
+      <p style="color:rgba(11,31,24,.62);max-width:680px;margin:.85rem auto 0;line-height:1.72;font-size:.93rem">Access to clean water, functional sanitation and good hygiene practices are foundational to health and development. Our WASH programmes ensure communities have sustainable solutions that prevent disease, improve nutrition and enable thriving.</p>
+    </div>
+    <div style="height:3.5rem"></div>
+    <div class="ov-grid">
+      <div class="ov-card reveal" style="transition-delay:.05s">
+        <div class="ov-icon">💧</div>
+        <h3>Water Access Projects</h3>
+        <p>Constructing and rehabilitating water sources — boreholes, hand pumps, piping systems and rainwater harvesting — that serve entire communities year-round.</p>
+      </div>
+      <div class="ov-card reveal" style="transition-delay:.12s">
+        <div class="ov-icon">🚻</div>
+        <h3>Sanitation Facilities</h3>
+        <p>Building improved pit latrines, VIP toilet facilities and community sanitation blocks with maintenance support and community ownership models.</p>
+      </div>
+      <div class="ov-card reveal" style="transition-delay:.19s">
+        <div class="ov-icon">🧼</div>
+        <h3>Hygiene Education</h3>
+        <p>Comprehensive campaigns and training on handwashing, menstrual hygiene, food safety, illness prevention and personal health practices for all ages.</p>
+      </div>
+      <div class="ov-card reveal" style="transition-delay:.26s">
+        <div class="ov-icon">⚙️</div>
+        <h3>Infrastructure Sustainability</h3>
+        <p>Training community water committees and maintenance teams to ensure long-term functionality and independent management of all WASH infrastructure.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ KEY INITIATIVES ═══ -->
+<section class="ki-sec">
+  <div class="ki-in">
+    <div class="sec-hd reveal">
+      <div class="lbl bl" style="justify-content:center">Our WASH Initiatives</div>
+      <h2>Six active <em style="color:#7dd3fc">WASH programmes</em></h2>
+      <p style="color:rgba(255,255,255,.52)">Each initiative is tailored to a specific WASH need — from household water access to health facility support.</p>
+    </div>
+    <div style="height:3rem"></div>
+    <div class="ki-grid">
+      <div class="ki-card reveal" style="transition-delay:.05s">
+        <div class="ki-glow"></div><div class="ki-n">01</div>
+        <div class="ki-icon">🌊</div>
+        <h3>Community Water Systems</h3>
+        <p>Designing and installing sustainable water supply systems — from solar boreholes to gravity-fed pipelines — serving 50–500 households per installation.</p>
+        <span class="ki-tag">15+ water points completed</span>
+      </div>
+      <div class="ki-card reveal" style="transition-delay:.1s">
+        <div class="ki-glow"></div><div class="ki-n">02</div>
+        <div class="ki-icon">🏫</div>
+        <h3>School WASH Programs</h3>
+        <p>Establishing water points, functional latrines and handwashing stations in schools — with menstrual hygiene management programmes for adolescent girls.</p>
+        <span class="ki-tag">20+ schools supported</span>
+      </div>
+      <div class="ki-card reveal" style="transition-delay:.15s">
+        <div class="ki-glow"></div><div class="ki-n">03</div>
+        <div class="ki-icon">🏥</div>
+        <h3>Health Facility Support</h3>
+        <p>Improving WASH standards in health clinics and health posts — ensuring patient safety, infection control and healthcare quality in every facility.</p>
+        <span class="ki-tag">8+ facilities upgraded</span>
+      </div>
+      <div class="ki-card reveal" style="transition-delay:.2s">
+        <div class="ki-glow"></div><div class="ki-n">04</div>
+        <div class="ki-icon">📊</div>
+        <h3>Monitoring & Evaluation</h3>
+        <p>Tracking water quality, sustainability metrics and health outcomes through regular field assessments to ensure every project delivers lasting real-world impact.</p>
+        <span class="ki-tag">5,000+ beneficiaries tracked</span>
+      </div>
+      <div class="ki-card reveal" style="transition-delay:.25s">
+        <div class="ki-glow"></div><div class="ki-n">05</div>
+        <div class="ki-icon">👥</div>
+        <h3>Community Committees</h3>
+        <p>Forming and training dedicated water and sanitation committees for project management, fee collection, maintenance coordination and long-term sustainability.</p>
+        <span class="ki-tag">20+ active committees</span>
+      </div>
+      <div class="ki-card reveal" style="transition-delay:.3s">
+        <div class="ki-glow"></div><div class="ki-n">06</div>
+        <div class="ki-icon">🌿</div>
+        <h3>Environmental Protection</h3>
+        <p>Implementing source protection, waste management practices and environmental conservation to safeguard water quality for generations to come.</p>
+        <span class="ki-tag">Community-wide coverage</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURED PROJECT ═══ -->
+<section class="fp-sec">
+  <div class="fp-in">
+    <div class="fp-img-wrap rl">
+      <img src="images/waterpurifier.jpeg" alt="Solar borehole installation" class="fp-img-m">
+      <img src="images/clean.jpeg" alt="Clean water access" class="fp-img-a">
+      <div class="fp-badge"><strong>70%</strong><span>Disease Drop</span></div>
+    </div>
+    <div class="rr">
+      <div class="lbl" style="color:#0369a1"><span style="background:#0369a1;width:26px;height:1px;display:inline-block"></span> &nbsp;Featured Project</div>
+      <div class="fp-txt">
+        <h2>Solar borehole transforms <em>500 families</em> in Busuma.</h2>
+        <p>In early 2022, New Grace JS installed our first solar-powered borehole in Busuma Village. Within six months of commissioning, diarrheal disease rates among children under five had dropped by 70% — the most dramatic single-project health impact we have ever measured.</p>
+        <p>The borehole serves 500 families around the clock, requires no fuel, and is maintained by a trained local water committee that collects a small monthly contribution to fund repairs. Ninety percent of our boreholes remain fully functional five years after installation.</p>
+        <div class="chips">
+          <span class="chip">Solar Powered</span>
+          <span class="chip">500 Families</span>
+          <span class="chip">Zero Running Cost</span>
+          <span class="chip">Community Owned</span>
+          <span class="chip">90% Uptime After 5 Years</span>
+        </div>
+        <a href="gallery.html" class="bf">See More Projects <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="hw-sec">
+  <div class="hw-in">
+    <div class="sec-hd reveal">
+      <div class="lbl bl" style="justify-content:center">Our Process</div>
+      <h2>How a water project <em style="color:#7dd3fc">comes to life</em></h2>
+      <p style="color:rgba(255,255,255,.52)">Every WASH installation follows a rigorous four-step process to ensure community ownership and lasting results.</p>
+    </div>
+    <div class="hw-steps">
+      <div class="hw-step reveal" style="transition-delay:.06s">
+        <div style="position:relative;display:inline-block">
+          <div class="hw-dot">🔍</div>
+          <div class="hw-step-n">01</div>
+        </div>
+        <h3>Community Assessment</h3>
+        <p>We assess water sources, sanitation gaps and community needs through participatory surveys and water quality testing.</p>
+      </div>
+      <div class="hw-step reveal" style="transition-delay:.16s">
+        <div style="position:relative;display:inline-block">
+          <div class="hw-dot">📐</div>
+          <div class="hw-step-n">02</div>
+        </div>
+        <h3>Design & Planning</h3>
+        <p>Engineers and community leaders co-design solutions, select sites, and form the local water committee before any digging begins.</p>
+      </div>
+      <div class="hw-step reveal" style="transition-delay:.26s">
+        <div style="position:relative;display:inline-block">
+          <div class="hw-dot">🔧</div>
+          <div class="hw-step-n">03</div>
+        </div>
+        <h3>Installation & Training</h3>
+        <p>Local workers install the infrastructure while committee members receive hands-on training in operation and basic maintenance.</p>
+      </div>
+      <div class="hw-step reveal" style="transition-delay:.36s">
+        <div style="position:relative;display:inline-block">
+          <div class="hw-dot">📈</div>
+          <div class="hw-step-n">04</div>
+        </div>
+        <h3>Monitor & Support</h3>
+        <p>Field staff conduct quarterly visits, water quality checks and committee audits — supporting communities for years after completion.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WATER QUALITY & HYGIENE ═══ -->
+<section class="wq-sec">
+  <div class="waves"><div class="wave"></div><div class="wave wave2"></div></div>
+  <div class="wq-in">
+    <div class="sec-hd reveal">
+      <div class="lbl bl" style="justify-content:center;color:rgba(186,230,253,.6)"><span style="background:rgba(186,230,253,.4);width:26px;height:1px;display:inline-block"></span>&nbsp;Water Quality</div>
+      <h2 style="color:#fff">Beyond the tap — <em style="color:#7dd3fc">hygiene that sticks</em></h2>
+      <p style="color:rgba(255,255,255,.52)">Clean water alone is not enough. Behaviour change is the final — and hardest — step in breaking the cycle of waterborne disease.</p>
+    </div>
+    <div class="wq-grid">
+      <div class="wq-card reveal" style="transition-delay:.06s">
+        <span class="wq-ic">🧪</span>
+        <h3>Water Quality Testing</h3>
+        <p>Every water point receives quarterly bacteriological and chemical testing. Communities receive plain-language reports on the safety of their water — in their own language.</p>
+        <span class="wq-stat">Quarterly testing cycle</span>
+      </div>
+      <div class="wq-card reveal" style="transition-delay:.16s">
+        <span class="wq-ic">🧼</span>
+        <h3>Handwashing Campaigns</h3>
+        <p>We installed 45 handwashing stations across the district, backed by demonstration sessions for children and caregivers that have measurably changed daily behaviour.</p>
+        <span class="wq-stat">↓ 62% waterborne disease</span>
+      </div>
+      <div class="wq-card reveal" style="transition-delay:.26s">
+        <span class="wq-ic">🌸</span>
+        <h3>Menstrual Hygiene Management</h3>
+        <p>Girls receive hygiene kits, private latrine access and MHM education — keeping them in school every day and eliminating a major driver of female dropout.</p>
+        <span class="wq-stat">90 girls supported</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section class="te-sec">
+  <div class="te-in">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;flex-wrap:wrap;gap:1rem" class="reveal">
+      <div>
+        <div class="lbl">Community Voices</div>
+        <h2 style="font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;line-height:1.1">
+          Life before and <em style="color:#7dd3fc;font-style:italic">after</em> clean water
+        </h2>
+      </div>
+    </div>
+    <div class="te-grid">
+      <div class="te-card reveal" style="transition-delay:.06s">
+        <div class="te-stars">★★★★★</div>
+        <p class="te-q">Before the borehole my children walked 4 kilometres every morning and arrived at school late and tired. Now they wake up, wash, drink and walk five minutes. Their grades have gone up too.</p>
+        <div class="te-auth"><div class="te-av">A</div><div><div class="te-nm">Auma Christine</div><div class="te-rl">Mother of 4 · Busuma Village</div></div></div>
+      </div>
+      <div class="te-card reveal" style="transition-delay:.16s">
+        <div class="te-stars">★★★★★</div>
+        <p class="te-q">Our clinic used to run out of clean water for handwashing. Since New Grace JS upgraded our facility, patient infections have dropped significantly and our nurses feel safe at work.</p>
+        <div class="te-auth"><div class="te-av">D</div><div><div class="te-nm">Dr. Dorcas Namukasa</div><div class="te-rl">Nurse-in-Charge · Banda Health Centre</div></div></div>
+      </div>
+      <div class="te-card reveal" style="transition-delay:.26s">
+        <div class="te-stars">★★★★★</div>
+        <p class="te-q">I am on the water committee. We collect fees, track repairs and run the system ourselves. New Grace JS trained us and now we are the ones teaching the next village how to do it.</p>
+        <div class="te-auth"><div class="te-av">M</div><div><div class="te-nm">Mulindwa Godfrey</div><div class="te-rl">Water Committee Chair · Buchumba</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GALLERY ═══ -->
+<section class="gl-sec">
+  <div class="gl-hd reveal">
+    <div>
+      <div class="lbl dk">Our WASH Impact</div>
+      <h2>Water in Pictures</h2>
+    </div>
+    <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+      <span class="sh-row">Swipe to explore <i class="fas fa-arrow-right"></i></span>
+      <a href="gallery.html" class="bf" style="font-size:.76rem;padding:.6rem 1.3rem">Full Gallery <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+  <div class="gl-scr" id="gscr">
+    <div class="g-it reveal" onclick="openM('Water Purifier','Solar-powered water purification unit installed in Busuma Village.','images/waterpurifier.jpeg')"><img src="images/waterpurifier.jpeg" alt="Water purifier"><div class="g-ov"><span>WATER PURIFIER</span></div></div>
+    <div class="g-it reveal" style="transition-delay:.08s" onclick="openM('Clean Water Access','A child enjoying safe clean water from a newly installed borehole.','images/clean.jpeg')"><img src="images/clean.jpeg" alt="Clean water"><div class="g-ov"><span>CLEAN WATER ACCESS</span></div></div>
+    <div class="g-it reveal" style="transition-delay:.16s" onclick="openM('Hygiene Training','Community hygiene education session in Banda Subcounty.','images/hygiene education.jpg')"><img src="images/hygiene education.jpg" alt="Hygiene training"><div class="g-ov"><span>HYGIENE TRAINING</span></div></div>
+    <div class="g-it reveal" style="transition-delay:.24s" onclick="openM('Community Meeting','WASH project planning meeting with community leaders.','images/community%20meeting.jpeg')"><img src="images/community%20meeting.jpeg" alt="Community meeting"><div class="g-ov"><span>COMMUNITY PLANNING</span></div></div>
+    <div class="g-it reveal" style="transition-delay:.32s" onclick="openM('Community Gathering','Villagers gathering to discuss water project progress.','images/gathering.jpeg')"><img src="images/gathering.jpeg" alt="Community gathering"><div class="g-ov"><span>COMMUNITY GATHERING</span></div></div>
+    <div class="g-it reveal" style="transition-delay:.40s" onclick="openM('School Feeding','Children benefiting from school nutrition alongside WASH support.','images/school%20feeding%20program.jpeg')"><img src="images/school%20feeding%20program.jpeg" alt="School program"><div class="g-ov"><span>SCHOOL WASH</span></div></div>
+  </div>
+</section>
+
+<!-- ═══ DONATE ═══ -->
+<section class="do-sec" id="donate">
+  <div class="d-ring dr1"></div><div class="d-ring dr2"></div>
+  <div class="do-in">
+    <div class="lbl bl" style="justify-content:center">Invest in Clean Water</div>
+    <h2 class="reveal">Fund a life-changing <em>water project</em></h2>
+    <p class="reveal" style="transition-delay:.1s">Support sustainable water and sanitation projects that save lives and transform communities across Namayingo District — one borehole at a time.</p>
+    <div class="do-grid reveal" id="dgrid" style="transition-delay:.2s">
+      <div class="d-card sel" data-a="25000"><div class="d-amt">UGX 25,000</div><div class="d-dsc">Hygiene kits for 5 families</div></div>
+      <div class="d-card" data-a="50000"><div class="d-amt">UGX 50,000</div><div class="d-dsc">Clean water for a family (1 month)</div></div>
+      <div class="d-card" data-a="100000"><div class="d-amt">UGX 100,000</div><div class="d-dsc">Sanitation facility contribution</div></div>
+      <div class="d-card" data-a="250000"><div class="d-amt">UGX 250,000</div><div class="d-dsc">Water system training</div></div>
+    </div>
+    <button class="do-btn reveal" id="dbtn" style="transition-delay:.28s" onclick="location.href='donate.html?amount=25000'">
+      <i class="fas fa-tint"></i> DONATE UGX <span id="ddisp">25,000</span> NOW
+    </button>
+    <div class="tr-badges reveal" style="transition-delay:.36s">
+      <span class="tr-b"><i class="fas fa-shield-halved"></i> Secure Payment</span>
+      <span class="tr-b"><i class="fas fa-certificate"></i> Registered Charity</span>
+      <span class="tr-b"><i class="fas fa-receipt"></i> Receipt Provided</span>
+      <span class="tr-b"><i class="fas fa-hand-holding-heart"></i> 100% to Programs</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT STRIP ═══ -->
+<div class="co-strip">
+  <div class="co-in">
+    <div class="co-bl reveal"><i class="fas fa-location-dot"></i><h4>Location</h4><p>Busuma Village, Buchumba Parish<br>Banda Subcounty, Namayingo, Uganda</p></div>
+    <div class="co-bl reveal" style="transition-delay:.12s"><i class="fas fa-phone"></i><h4>Phone</h4><a href="tel:+256709251412">0709 251 412</a><br><a href="tel:+256785950405">0785 950 405</a></div>
+    <div class="co-bl reveal" style="transition-delay:.22s"><i class="fas fa-envelope"></i><h4>Email</h4><a href="mailto:newgracejs@gmail.com">newgracejs@gmail.com</a></div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="f-in">
+    <div class="f-grid">
+      <div class="f-br">
+        <img src="images/LOGO.JPG" alt="New Grace JS">
+        <h4>New Grace JS</h4>
+        <p>Transforming communities through clean water, sanitation and quality education in Namayingo District, Uganda. Registered Charity BAS/CS/4067.</p>
+      </div>
+      <div class="f-col"><h5>Navigate</h5><ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="water-sanitation.html">WASH</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="volunteer.html">Volunteer</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="donate.html">Donate</a></li>
+      </ul></div>
+      <div class="f-col"><h5>Programs</h5><ul>
+        <li><a href="education.html">School Programs</a></li>
+        <li><a href="water-sanitation.html">Clean Water</a></li>
+        <li><a href="services.html">All Services</a></li>
+        <li><a href="donate.html">Donate</a></li>
+      </ul></div>
+      <div class="f-nl">
+        <h5>Stay Updated</h5>
+        <p>Monthly impact stories direct to your inbox.</p>
+        <div class="nl-rw">
+          <input type="email" id="nle" placeholder="your@email.com" autocomplete="email">
+          <button onclick="subNL()">Go</button>
+        </div>
+        <p id="nl-m"></p>
+      </div>
+    </div>
+    <hr class="f-div">
+    <div class="f-bot">
+      <p>© 2026 New Grace JS · All Rights Reserved · Registered Charity BAS/CS/4067</p>
+      <div class="socs">
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══ MODAL ═══ -->
+<div id="modal" onclick="if(event.target===this)closeM()">
+  <div id="mbox">
+    <button class="mcl" onclick="closeM()"><i class="fas fa-times"></i></button>
+    <img id="m-img" src="" alt="">
+    <div id="m-body">
+      <h3 id="m-title"></h3>
+      <p id="m-text"></p>
+      <button onclick="closeM()" class="do-btn" style="margin-top:0;max-width:100%">Close</button>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+/* ── Cursor ── */
+const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+if(matchMedia('(pointer:fine)').matches){
+  addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+  (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(loop)})();
+}
+
+/* ── Progress + Nav + BTT ── */
+const pgEl=document.getElementById('prog'),btt=document.getElementById('btt'),nav=document.getElementById('nav');
+addEventListener('scroll',()=>{
+  const p=scrollY/(document.documentElement.scrollHeight-innerHeight)*100;
+  pgEl.style.width=p+'%';
+  scrollY>80?nav.classList.add('sc'):nav.classList.remove('sc');
+  scrollY>500?btt.classList.add('sh'):btt.classList.remove('sh');
+},{passive:true});
+
+/* ── Hamburger ── */
+const hb=document.getElementById('hb'),mm=document.getElementById('mm');
+const toggleMM=()=>{
+  const op=mm.classList.toggle('op');
+  hb.classList.toggle('op',op);hb.setAttribute('aria-expanded',op);
+  document.body.style.overflow=op?'hidden':'';
+};
+hb.addEventListener('click',toggleMM);
+mm.querySelectorAll('a,button').forEach(el=>el.addEventListener('click',()=>{
+  mm.classList.remove('op');hb.classList.remove('op');hb.setAttribute('aria-expanded','false');document.body.style.overflow='';
+}));
+addEventListener('keydown',e=>{if(e.key==='Escape'&&mm.classList.contains('op'))toggleMM()});
+
+/* ── Particles (water-blue tint) ── */
+const pts=document.getElementById('pts');
+for(let i=0;i<45;i++){
+  const p=document.createElement('div');p.className='pt';
+  const s=1+Math.random()*2;
+  Object.assign(p.style,{
+    left:Math.random()*100+'vw',width:s+'px',height:s+'px',
+    animationDuration:(8+Math.random()*16)+'s',
+    animationDelay:(-Math.random()*24)+'s',
+    opacity:.15+Math.random()*.45
+  });
+  pts.appendChild(p);
+}
+
+/* ── Counters ── */
+function animN(el,target,suf=''){
+  let start=null;const dur=1800;
+  function step(ts){
+    if(!start)start=ts;
+    const pr=Math.min((ts-start)/dur,1),ease=1-Math.pow(1-pr,4);
+    el.textContent=Math.floor(ease*target).toLocaleString();
+    if(pr<1)requestAnimationFrame(step);else el.textContent=target.toLocaleString()+suf;
+  }
+  requestAnimationFrame(step);
+}
+const cObs=new IntersectionObserver(en=>{
+  if(en[0].isIntersecting){
+    animN(document.getElementById('n1'),5000,'+');
+    animN(document.getElementById('n2'),15,'+');
+    animN(document.getElementById('n3'),50,'+');
+    animN(document.getElementById('n4'),20,'+');
+    cObs.disconnect();
+  }
+},{threshold:.5});
+const n1el=document.getElementById('n1');if(n1el)cObs.observe(n1el);
+
+/* ── Reveal ── */
+const rObs=new IntersectionObserver(en=>{
+  en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');rObs.unobserve(e.target)}});
+},{threshold:.08,rootMargin:'0px 0px -36px 0px'});
+document.querySelectorAll('.reveal,.rl,.rr').forEach(el=>rObs.observe(el));
+
+/* ── Donate ── */
+let selA=25000;
+document.getElementById('dgrid').addEventListener('click',e=>{
+  const card=e.target.closest('.d-card');if(!card)return;
+  document.querySelectorAll('.d-card').forEach(c=>c.classList.remove('sel'));
+  card.classList.add('sel');selA=+card.dataset.a;
+  document.getElementById('ddisp').textContent=selA.toLocaleString();
+  document.getElementById('dbtn').onclick=()=>location.href=`donate.html?amount=${selA}`;
+});
+
+/* ── Gallery drag ── */
+const gs=document.getElementById('gscr');
+let gd=false,gX,gSL;
+gs.addEventListener('mousedown',e=>{gd=true;gX=e.pageX-gs.offsetLeft;gSL=gs.scrollLeft;gs.style.cursor='grabbing'});
+gs.addEventListener('mouseleave',()=>{gd=false;gs.style.cursor=''});
+gs.addEventListener('mouseup',()=>{gd=false;gs.style.cursor=''});
+gs.addEventListener('mousemove',e=>{if(!gd)return;e.preventDefault();gs.scrollLeft=gSL-(e.pageX-gs.offsetLeft-gX)*1.5});
+
+/* ── Modal ── */
+function openM(title,text,img){
+  document.getElementById('m-title').textContent=title;
+  document.getElementById('m-text').textContent=text;
+  const mi=document.getElementById('m-img');
+  mi.src=img||'';mi.style.display=img?'block':'none';
+  document.getElementById('modal').classList.add('op');
+  document.body.style.overflow='hidden';
+}
+function closeM(){document.getElementById('modal').classList.remove('op');document.body.style.overflow=''}
+addEventListener('keydown',e=>{if(e.key==='Escape')closeM()});
+
+/* ── Toast ── */
+function toast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('t-msg').textContent=msg;
+  t.classList.add('sh');setTimeout(()=>t.classList.remove('sh'),3400);
+}
+
+/* ── Newsletter ── */
+function subNL(){
+  const v=document.getElementById('nle').value.trim();
+  const m=document.getElementById('nl-m');
+  if(v&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){
+    m.textContent='✓ Subscribed — thank you!';m.style.color='var(--amber)';
+    document.getElementById('nle').value='';
+    toast('🎉 Welcome! You are now subscribed.');
+  }else{m.textContent='✗ Please enter a valid email.';m.style.color='#ff6b6b'}
+  setTimeout(()=>m.textContent='',4200);
+}
+document.getElementById('nle').addEventListener('keydown',e=>{if(e.key==='Enter')subNL()});
+</script>
+</body>
+</html>

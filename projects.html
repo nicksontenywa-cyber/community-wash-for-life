@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore our completed projects – see the before and after transformation in communities through clean water, sanitation, education, and empowerment.">
+    <title>Project Showcase - New Grace JS</title>
+    <!-- Bootstrap 5 CSS -->
+    <script src="https://cdn.tailwindcss.com"></script> rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- AOS (Animate on Scroll) -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+    
+    <!-- ===== PREMIUM CUSTOM STYLES – PROJECTS PAGE (MATCHING HOMEPAGE) ===== -->
+    <style>
+        /* --------------------------------------------------------------------------
+           1. CSS VARIABLES – Refined palette with depth & sophistication
+           -------------------------------------------------------------------------- */
+        :root {
+            --primary: #1B4D3E;
+            --primary-light: #2E7D5E;
+            --primary-dark: #0A2F24;
+            --accent-gold: #C6A15B;
+            --accent-teal: #0F6F6B;
+            --text-dark: #1A1E24;
+            --text-light: #F9FBFD;
+            --gray-100: #F8FAFC;
+            --gray-200: #E9EEF2;
+            --gray-300: #D0D9E0;
+            --gray-400: #A0B3C2;
+            --gray-500: #6C7E8C;
+            --gradient-primary: linear-gradient(145deg, #1B4D3E, #0A2F24);
+            --gradient-gold: linear-gradient(135deg, #C6A15B, #DAA520);
+            --shadow-sm: 0 8px 20px rgba(0,20,10,0.06);
+            --shadow-md: 0 16px 32px -8px rgba(0,40,20,0.12);
+            --shadow-lg: 0 30px 60px -12px rgba(0,60,30,0.2);
+            --shadow-xl: 0 40px 80px -20px rgba(0,80,40,0.25);
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            background-color: white;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* --------------------------------------------------------------------------
+           2. FLOATING WATER DROPS BACKGROUND (subtle effect)
+           -------------------------------------------------------------------------- */
+        .water-drops-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .water-drop {
+            position: absolute;
+            top: -100px;
+            width: 40px;
+            height: 40px;
+            background: rgba(27, 77, 62, 0.03);
+            border-radius: 50% 50% 0 50%;
+            transform: rotate(45deg);
+            animation: fall 20s linear infinite;
+        }
+        .water-drop::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 20px;
+            height: 20px;
+            background: rgba(27, 77, 62, 0.02);
+            border-radius: 50%;
+        }
+        @keyframes fall {
+            0% { top: -100px; opacity: 0; transform: rotate(45deg) scale(0.5); }
+            50% { opacity: 0.8; transform: rotate(45deg) scale(1.2); }
+            100% { top: 100vh; opacity: 0; transform: rotate(45deg) scale(0.5); }
+        }
+
+        /* --------------------------------------------------------------------------
+           3. NAVIGATION – Premium glass morphism (matching homepage)
+           -------------------------------------------------------------------------- */
+        .navbar {
+            background: rgba(255, 255, 255, 0.85) !important;
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border-bottom: 1px solid rgba(27, 77, 62, 0.1);
+            transition: all 0.3s ease;
+            padding: 0.8rem 0;
+        }
+        .navbar.scrolled {
+            box-shadow: var(--shadow-md);
+            background: rgba(255, 255, 255, 0.95) !important;
+        }
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .navbar-brand img {
+            transition: transform 0.3s;
+            box-shadow: var(--shadow-sm);
+        }
+        .navbar-brand:hover img {
+            transform: scale(1.02);
+        }
+        .navbar-brand h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 0;
+        }
+        .navbar-brand p {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            margin: 0;
+        }
+        .nav-link {
+            font-weight: 600;
+            padding: 0.5rem 1rem !important;
+            color: var(--text-dark) !important;
+            position: relative;
+            transition: color 0.2s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            transition: width 0.3s;
+            border-radius: 4px;
+        }
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: calc(100% - 2rem);
+        }
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--primary) !important;
+        }
+
+        /* --------------------------------------------------------------------------
+           4. HERO SECTION – Premium gradient with wave
+           -------------------------------------------------------------------------- */
+        .hero {
+            position: relative;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, var(--primary-dark), var(--primary));
+            color: white;
+            overflow: hidden;
+            isolation: isolate;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,176C384,171,480,181,576,202.7C672,224,768,256,864,250.7C960,245,1056,203,1152,176C1248,149,1344,139,1392,133.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"/></svg>') no-repeat bottom;
+            background-size: cover;
+            z-index: 1;
+        }
+        .hero .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 4rem 1rem;
+        }
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .hero .lead {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+
+        /* --------------------------------------------------------------------------
+           5. SECTION TITLES
+           -------------------------------------------------------------------------- */
+        .section-title {
+            position: relative;
+            padding-bottom: 0.75rem;
+            margin-bottom: 0;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(27,77,62,0.3);
+        }
+
+        /* --------------------------------------------------------------------------
+           6. PROJECT CARDS – Premium with before/after images
+           -------------------------------------------------------------------------- */
+        .project-card {
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+            border: 1px solid rgba(27,77,62,0.1);
+            height: 100%;
+        }
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+        }
+        .project-images {
+            display: flex;
+            gap: 0.5rem;
+            border-radius: 24px;
+            overflow: hidden;
+        }
+        .project-image {
+            flex: 1;
+            aspect-ratio: 1/1;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+        .before-after-label {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: #e74c3c;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            border-radius: 40px;
+            z-index: 2;
+        }
+        .project-content {
+            padding: 2rem;
+        }
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        .project-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--gray-500);
+        }
+        .project-meta-item i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+        .project-description {
+            color: var(--gray-600);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        .project-impact {
+            background: var(--gray-100);
+            padding: 1.5rem;
+            border-radius: 20px;
+        }
+        .impact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .impact-item:last-child {
+            margin-bottom: 0;
+        }
+        .impact-item i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        /* --------------------------------------------------------------------------
+           7. CTA SECTION – Like homepage donate section
+           -------------------------------------------------------------------------- */
+        .cta-section {
+            background: var(--gradient-primary);
+            color: white;
+            position: relative;
+            isolation: isolate;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDQwIDQwIj48cGF0aCBkPSJNMjAgMEwyMCA0MEwwIDIweiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjAyKSIvPjwvc3ZnPg==');
+            opacity: 0.1;
+            z-index: -1;
+        }
+        .cta-section .btn {
+            background: white;
+            color: var(--primary-dark);
+            font-weight: 700;
+            border: none;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s;
+            padding: 1rem 2.5rem;
+            border-radius: 60px;
+        }
+        .cta-section .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* --------------------------------------------------------------------------
+           8. FOOTER – EXACTLY MATCHING HOMEPAGE
+           -------------------------------------------------------------------------- */
+        footer {
+            background: linear-gradient(180deg, #0F1A1F 0%, #0B1418 100%);
+            color: white;
+            padding: 4rem 0 0;
+            margin-top: 3rem;
+            position: relative;
+        }
+        .footer-top {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 3rem;
+            margin-bottom: 2rem;
+        }
+        .footer-brand img {
+            height: 70px;
+            width: 70px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow-md);
+        }
+        .footer-brand h3 {
+            font-size: 1.8rem;
+            background: var(--gradient-gold);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        .footer-brand p {
+            color: var(--gray-400);
+            max-width: 300px;
+            font-size: 0.95rem;
+        }
+        .footer-section h4 {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        .footer-section h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--gradient-gold);
+            border-radius: 4px;
+        }
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+        .footer-section ul li a {
+            color: var(--gray-400);
+            transition: all 0.3s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .footer-section ul li a:hover {
+            color: white;
+            transform: translateX(6px);
+        }
+        .footer-contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .footer-contact-icon {
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+            min-width: 1.8rem;
+        }
+        .footer-contact-info h5 {
+            color: white;
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+        .footer-contact-info p {
+            color: var(--gray-400);
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        .footer-social-group {
+            margin-top: 1.5rem;
+        }
+        .footer-social-group h5 {
+            color: white;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+        .footer-social-icons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .footer-social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+        .footer-social-icon:hover {
+            background: var(--gradient-gold);
+            transform: translateY(-6px);
+            border-color: transparent;
+            box-shadow: var(--shadow-lg);
+            color: #1a1a1a;
+        }
+        .footer-bottom {
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .footer-bottom-content {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .footer-bottom-item h6 {
+            color: white;
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .footer-bottom-item p {
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0;
+        }
+        .footer-copyright {
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+        }
+        .footer-copyright-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+        .footer-copyright-links a {
+            color: var(--gray-500);
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            text-decoration: none;
+        }
+        .footer-copyright-links a:hover {
+            color: var(--accent-gold);
+        }
+        .footer-copyright p {
+            color: var(--gray-500);
+            font-size: 0.9rem;
+            margin: 0.2rem 0;
+        }
+
+        /* --------------------------------------------------------------------------
+           9. NEWSLETTER SECTION (separate, matching homepage style)
+           -------------------------------------------------------------------------- */
+        .newsletter-section {
+            background: var(--gradient-gold);
+            color: #1a1a1a;
+            padding: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .newsletter-section::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            border-radius: 50%;
+        }
+        .newsletter-container {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        .newsletter-section h3 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            background: white;
+            padding: 0.3rem;
+            border-radius: 60px;
+            box-shadow: var(--shadow-lg);
+        }
+        .newsletter-form input {
+            flex: 1;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 60px;
+            background: transparent;
+        }
+        .newsletter-form input:focus {
+            outline: none;
+            box-shadow: none;
+        }
+        .newsletter-form button {
+            padding: 1rem 2.5rem;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 60px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .newsletter-form button:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* --------------------------------------------------------------------------
+           10. UTILITIES
+           -------------------------------------------------------------------------- */
+        .bg-soft {
+            background-color: var(--gray-100);
+        }
+        @media (max-width: 768px) {
+            .project-images {
+                flex-direction: column;
+            }
+            .newsletter-form {
+                flex-direction: column;
+                background: transparent;
+            }
+            .newsletter-form button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Water Drops Background -->
+    <div class="water-drops-container">
+        <div class="water-drop" style="left: 5%; animation-delay: 0s;"></div>
+        <div class="water-drop" style="left: 15%; animation-delay: 2s;"></div>
+        <div class="water-drop" style="left: 25%; animation-delay: 4s;"></div>
+        <div class="water-drop" style="left: 35%; animation-delay: 6s;"></div>
+        <div class="water-drop" style="left: 45%; animation-delay: 8s;"></div>
+        <div class="water-drop" style="left: 55%; animation-delay: 10s;"></div>
+        <div class="water-drop" style="left: 65%; animation-delay: 12s;"></div>
+        <div class="water-drop" style="left: 75%; animation-delay: 14s;"></div>
+        <div class="water-drop" style="left: 85%; animation-delay: 16s;"></div>
+        <div class="water-drop" style="left: 95%; animation-delay: 18s;"></div>
+    </div>
+
+    <!-- Navbar (Premium glass morphism) -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="images/LOGO.JPG" alt="New Grace JS Logo" height="50" width="50" class="rounded-circle">
+                <div>
+                    <h1>New Grace JS</h1>
+                    <p>Education for All</p>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="education.html">Education</a></li>
+                    <li class="nav-item"><a class="nav-link" href="water-sanitation.html">WASH</a></li>
+                    <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="volunteer.html">Volunteer</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="projects.html">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="donate.html">Donate</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Wave -->
+    <section class="hero">
+        <div class="container hero-content">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold mb-4" data-aos="fade-down">Project Showcase</h1>
+                    <p class="lead mb-4" data-aos="fade-up" data-aos-delay="200">See the before and after of our completed projects transforming communities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="py-5 bg-white">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold section-title">Case Studies</h2>
+            </div>
+
+            <div class="row g-4">
+                <!-- Project 1 -->
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="project-card">
+                        <div class="p-3">
+                            <div class="project-images">
+                                <div class="project-image" style="position: relative;">
+                                    <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?q=80&w=500&auto=format&fit=crop" alt="Before">
+                                    <span class="before-after-label">BEFORE</span>
+                                </div>
+                                <div class="project-image" style="position: relative;">
+                                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=500&auto=format&fit=crop" alt="After">
+                                    <span class="before-after-label" style="background: #4CAF4F;">AFTER</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-content">
+                            <h3 class="project-title">Buwala Water & Sanitation Project</h3>
+                            <div class="project-meta">
+                                <div class="project-meta-item"><i class="fas fa-map-marker-alt"></i> Busia District</div>
+                                <div class="project-meta-item"><i class="fas fa-calendar"></i> 2023-2024</div>
+                            </div>
+                            <div class="project-description">
+                                Installed a sustainable water system serving 800 community members. The project included borehole drilling, storage tank installation, and community training on operation and maintenance.
+                            </div>
+                            <div class="project-impact">
+                                <div class="impact-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>800+ people with safe water access</div>
+                                </div>
+                                <div class="impact-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>60% reduction in waterborne diseases</div>
+                                </div>
+                                <div class="impact-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>20 community members trained in water management</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="project-card">
+                        <div class="p-3">
+                            <div class="project-images">
+                                <div class="project-image" style="position: relative;">
+                                    <img src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?q=80&w=500&auto=format&fit=crop" alt="Before">
+                                    <span class="before-after-label">BEFORE</span>
+                                </div>
+                                <div class="project-image" style="position: relative;">
+                                    <img src="https://images.unsplash.com/photo-1427504494785-411a473e63c8?q=80&w=500&auto=format&fit=crop" alt="After">
+                                    <span class="before-after-label" style="background: #4CAF4F;">AFTER</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-content">
+                            <h3 class="project-title">Namayingo Primary School Education Upgrade</h3>
+                            <div class="project-meta">
+                                <div class="project-meta-item"><i class="fas fa-map-marker-alt"></i> Namayingo</div>
+                                <div class="project-meta-item"><i class="fas fa-calendar"></i> 2023-2024</div>
+                            </div>
+                            <div class="project-description">
+                                Comprehensive school improvement including water and sanitation facilities, library construction, and teacher professional development program.
+                            </div>
+                            <div class="project-impact">
+                                <div class="impact-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>600+ students with improved learning environment</div>
+                                </div>
+                                <div class="impact-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>35% increase in school enrollment</div>
+                                </div>
+                                <div class="impact-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>25 teachers trained in modern pedagogy</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="project-card">
+                        <div class="p-3">
+                            <div class="project-images">
+                                <div class="project-image" style="position: relative;">
+                                    <img src="https://images.unsplash.com/photo-1507537297725-24a1c029d3ca?q=80&w=500&auto=format&fit=crop" alt="Before">
+                                    <span class="before-after-label">BEFORE</span>
+                                </div>
+                                <div class="project-image" style="position: relative;">
+                                    <img src="https://images.unsplash.com/photo-1523987355523-c7b5b0dd90a7?q=80&w=500&auto=format&fit=crop" alt="After">
+                                    <span class="before-after-label" style="background: #4CAF4F;">AFTER</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-content">
+                            <h3 class="project-title">Women's Economic Empowerment Program</h3>
+                            <div class="project-meta">
+                                <div class="project-meta-item"><i class="fas fa-map-marker-alt"></i> Busia & Namayingo</div>
+                                <div class="project-meta-item"><i class="fas fa-calendar"></i> 2022-2024</div>
+                            </div>
+                            <div class="project-description">
+                                Vocational skills training and microfinance support for 150 women, enabling them to establish income-generating activities.
+                            </div>
+                            <div class="project-impact">
+                                <div class="impact-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>150 women with marketable skills</div>
+                                </div>
+                                <div class="impact-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>85% business survival rate after 1 year</div>
+                                </div>
+                                <div class="impact-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>Average 200% increase in household income</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="project-card">
+                        <div class="p-3">
+                            <div class="project-images">
+                                <div class="project-image" style="position: relative;">
+                                    <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?q=80&w=500&auto=format&fit=crop" alt="Before">
+                                    <span class="before-after-label">BEFORE</span>
+                                </div>
+                                <div class="project-image" style="position: relative;">
+                                    <img src="https://images.unsplash.com/photo-1631217314831-c6227db76b6e?q=80&w=500&auto=format&fit=crop" alt="After">
+                                    <span class="before-after-label" style="background: #4CAF4F;">AFTER</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-content">
+                            <h3 class="project-title">Community Health Worker Program</h3>
+                            <div class="project-meta">
+                                <div class="project-meta-item"><i class="fas fa-map-marker-alt"></i> Multi-District</div>
+                                <div class="project-meta-item"><i class="fas fa-calendar"></i> 2023-2024</div>
+                            </div>
+                            <div class="project-description">
+                                Training 80 community health workers to deliver health education, disease prevention, and basic healthcare services.
+                            </div>
+                            <div class="project-impact">
+                                <div class="impact-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>80 trained health workers serving 5,000+ people</div>
+                                </div>
+                                <div class="impact-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>45% improvement in health awareness</div>
+                                </div>
+                                <div class="impact-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <div>Sustainable local healthcare capacity</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="py-5 cta-section">
+        <div class="container text-center">
+            <h2 class="fw-bold mb-4" data-aos="fade-up">Be Part of Our Story</h2>
+            <p class="lead mb-4" data-aos="fade-up" data-aos-delay="200">Your support enables projects like these. Donate today and see your impact in action.</p>
+            <a href="donate.html" class="btn btn-lg" data-aos="fade-up" data-aos-delay="400">Donate Now</a>
+        </div>
+    </section>
+
+    <!-- NEWSLETTER SECTION (matches homepage) -->
+    <section class="newsletter-section">
+        <div class="container newsletter-container">
+            <div class="text-center">
+                <h3>Stay Connected</h3>
+                <p class="mb-4">Get updates on our latest projects, impact stories, and ways you can help make a difference.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER – EXACTLY MATCHING HOMEPAGE -->
+    <footer>
+        <div class="container">
+            <!-- Footer Top Section -->
+            <div class="footer-top">
+                <div class="row gy-5">
+                    <!-- Brand Column -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-brand">
+                            <img src="images/LOGO.JPG" alt="New Grace JS Logo">
+                            <h3>New Grace JS</h3>
+                            <p>Transforming communities through clean water, sanitation, hygiene, and quality education. Building sustainable solutions for a healthier future.</p>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links Column -->
+                    <div class="col-lg-2 col-md-6">
+                        <div class="footer-section">
+                            <h4>Quick Links</h4>
+                            <ul>
+                                <li><a href="index.html"><i class="fas fa-chevron-right fa-xs"></i> Home</a></li>
+                                <li><a href="about.html"><i class="fas fa-chevron-right fa-xs"></i> About Us</a></li>
+                                <li><a href="services.html"><i class="fas fa-chevron-right fa-xs"></i> Services</a></li>
+                                <li><a href="donate.html"><i class="fas fa-chevron-right fa-xs"></i> Donate Now</a></li>
+                                <li><a href="volunteer.html"><i class="fas fa-chevron-right fa-xs"></i> Volunteer</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Programs Column -->
+                    <div class="col-lg-2 col-md-6">
+                        <div class="footer-section">
+                            <h4>Programs</h4>
+                            <ul>
+                                <li><a href="education.html"><i class="fas fa-chevron-right fa-xs"></i> Education</a></li>
+                                <li><a href="water-sanitation.html"><i class="fas fa-chevron-right fa-xs"></i> Water & Sanitation</a></li>
+                                <li><a href="health-hygiene.html"><i class="fas fa-chevron-right fa-xs"></i> Health</a></li>
+                                <li><a href="community-leadership.html"><i class="fas fa-chevron-right fa-xs"></i> Leadership</a></li>
+                                <li><a href="projects.html"><i class="fas fa-chevron-right fa-xs"></i> Projects</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Resources Column -->
+                    <div class="col-lg-2 col-md-6">
+                        <div class="footer-section">
+                            <h4>Resources</h4>
+                            <ul>
+                                <li><a href="blog.html"><i class="fas fa-chevron-right fa-xs"></i> Blog & News</a></li>
+                                <li><a href="resources.html"><i class="fas fa-chevron-right fa-xs"></i> Reports & Docs</a></li>
+                                <li><a href="gallery.html"><i class="fas fa-chevron-right fa-xs"></i> Gallery</a></li>
+                                <li><a href="faq.html"><i class="fas fa-chevron-right fa-xs"></i> FAQs</a></li>
+                                <li><a href="contact.html"><i class="fas fa-chevron-right fa-xs"></i> Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Contact Column -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-section">
+                            <h4>Get In Touch</h4>
+                            <div class="footer-contact">
+                                <div class="footer-contact-item">
+                                    <div class="footer-contact-icon">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </div>
+                                    <div class="footer-contact-info">
+                                        <h5>Location</h5>
+                                        <p>Banda Sub County<br>Busia District, Uganda</p>
+                                    </div>
+                                </div>
+                                <div class="footer-contact-item">
+                                    <div class="footer-contact-icon">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                    <div class="footer-contact-info">
+                                        <h5>Phone</h5>
+                                        <p>+256 709 251 412<br>+256 785 950 405</p>
+                                    </div>
+                                </div>
+                                <div class="footer-contact-item">
+                                    <div class="footer-contact-icon">
+                                        <i class="fas fa-envelope"></i>
+                                    </div>
+                                    <div class="footer-contact-info">
+                                        <h5>Email</h5>
+                                        <p>newgracejs@gmail.com</p>
+                                    </div>
+                                </div>
+                                <div class="footer-social-group">
+                                    <h5>Follow Us</h5>
+                                    <div class="footer-social-icons">
+                                        <a href="#" class="footer-social-icon" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                        <a href="#" class="footer-social-icon" title="Twitter"><i class="fab fa-twitter"></i></a>
+                                        <a href="#" class="footer-social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
+                                        <a href="#" class="footer-social-icon" title="YouTube"><i class="fab fa-youtube"></i></a>
+                                        <a href="#" class="footer-social-icon" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom Stats -->
+            <div class="footer-bottom-content">
+                <div class="footer-bottom-item">
+                    <h6>People Reached</h6>
+                    <p>5,000+</p>
+                </div>
+                <div class="footer-bottom-item">
+                    <h6>Students Supported</h6>
+                    <p>1,200+</p>
+                </div>
+                <div class="footer-bottom-item">
+                    <h6>Schools Partnered</h6>
+                    <p>20+</p>
+                </div>
+                <div class="footer-bottom-item">
+                    <h6>Success Rate</h6>
+                    <p>58%</p>
+                </div>
+            </div>
+
+            <!-- Footer Copyright -->
+            <div class="footer-copyright">
+                <div class="footer-copyright-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Code of Conduct</a>
+                    <a href="#">Transparency Report</a>
+                </div>
+                <p>&copy; 2025 New Grace JS. All rights reserved. | Transforming Lives Through Education & WASH</p>
+                <p>Registration: BAS/CS/4067 | Founded: 2018</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({ once: true, duration: 900, offset: 80 });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
