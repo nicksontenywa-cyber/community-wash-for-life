@@ -11,6 +11,43 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" type="image/svg+xml" href="images/clc-badge.svg">
+  <style>
+    @media (max-width: 680px) {
+
+      /* Stack any explicit 2-column fr grids on mobile */
+      [style*="grid-template-columns: 1fr 1fr"],
+      [style*="grid-template-columns: 1.1fr 0.9fr"],
+      [style*="grid-template-columns: 1.2fr 0.8fr"],
+      [style*="grid-template-columns: 1.3fr 0.7fr"],
+      [style*="grid-template-columns: 0.9fr 1.1fr"] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1.2rem !important;
+      }
+      /* Reduce excess padding in content cards */
+      [style*="padding: 3rem"]   { padding: 1.4rem !important; }
+      [style*="padding: 2.6rem"] { padding: 1.3rem !important; }
+      [style*="padding: 2.5rem"] { padding: 1.3rem !important; }
+      [style*="padding: 2.4rem"] { padding: 1.2rem !important; }
+      [style*="padding: 2rem"]   { padding: 1.1rem !important; }
+      [style*="padding: 1.8rem"] { padding: 1rem !important; }
+      /* Full-width buttons */
+      .btn-lg { width: 100%; justify-content: center; text-align: center; }
+      /* Readable font sizes */
+      [style*="font-size: 1.6rem"] { font-size: 1.25rem !important; }
+      [style*="font-size: 1.5rem"] { font-size: 1.2rem !important; }
+      [style*="font-size: 1.15rem"] { font-size: 1rem !important; }
+      [style*="font-size: 1.12rem"] { font-size: 0.95rem !important; }
+      [style*="font-size: 1.1rem"] { font-size: 0.95rem !important; }
+
+      /* Volunteer form row grids — stack on mobile */
+      [style*="grid-template-columns: 1fr 1fr"][style*="gap: 1.2rem"] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0 !important;
+      }
+    }
+  </style>
 </head>
 <body>
 

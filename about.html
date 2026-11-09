@@ -11,6 +11,38 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" type="image/svg+xml" href="images/clc-badge.svg">
+  <style>
+    /* About page — mobile layout overrides */
+    @media (max-width: 700px) {
+      /* Overview section: stack text + identity table */
+      [style*="grid-template-columns: 1.2fr 0.8fr"] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1.4rem !important;
+      }
+      /* Vision & Mission: stack side by side cards */
+      [style*="grid-template-columns: 1fr 1fr"] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1.2rem !important;
+      }
+      /* Non-profit & Strategic Direction bottom cards */
+      [style*="grid-template-columns: 1fr 1fr"] + div,
+      .container > [style*="grid-template-columns: 1fr 1fr"] {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1.2rem !important;
+      }
+      /* Reduce card padding */
+      [style*="padding: 3rem"] { padding: 1.4rem !important; }
+      [style*="padding: 2.6rem"] { padding: 1.3rem !important; }
+      [style*="padding: 2.4rem"] { padding: 1.2rem !important; }
+      [style*="padding: 2rem"] { padding: 1.1rem !important; }
+      /* Vision/Mission heading */
+      [style*="font-size: 1.6rem"] { font-size: 1.25rem !important; }
+      [style*="font-size: 1.12rem"], [style*="font-size: 1.05rem"] { font-size: 0.95rem !important; }
+    }
+  </style>
 </head>
 <body>
 

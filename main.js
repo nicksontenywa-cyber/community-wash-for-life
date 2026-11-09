@@ -9,16 +9,22 @@ document.addEventListener('DOMContentLoaded', function () {
   'use strict';
 
   // --- 1. Sticky Navbar & Header Scroll ---
+  // Uses passive listener + rAF debounce to keep scroll silky-smooth on mobile
   const navbar = document.querySelector('.clc-navbar');
+  let navbarScrollRaf = null;
   window.addEventListener('scroll', function () {
-    if (navbar) {
-      if (window.scrollY > 30) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
+    if (navbarScrollRaf) return;
+    navbarScrollRaf = requestAnimationFrame(function () {
+      if (navbar) {
+        if (window.scrollY > 30) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
       }
-    }
-  });
+      navbarScrollRaf = null;
+    });
+  }, { passive: true });
 
   // --- 2. Mobile Drawer Navigation ---
   const mobileToggle = document.querySelector('.mobile-nav-toggle');
@@ -263,6 +269,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // --- 10. Filterable Tab Controls (Programs & Gallery) ---
+  // Uses CSS class toggling instead of inline style mutation for better GPU performance
   const filterButtons = document.querySelectorAll('[data-filter]');
   const filterItems = document.querySelectorAll('[data-category]');
 
@@ -275,22 +282,13 @@ document.addEventListener('DOMContentLoaded', function () {
       filterItems.forEach(item => {
         const itemCategory = item.getAttribute('data-category');
         if (filterValue === 'all' || itemCategory === filterValue) {
-          item.style.display = '';
-          setTimeout(() => {
-            item.style.opacity = '1';
-            item.style.transform = 'scale(1)';
-          }, 50);
+          item.classList.remove('filter-hidden');
         } else {
-          item.style.opacity = '0';
-          item.style.transform = 'scale(0.95)';
-          setTimeout(() => {
-            item.style.display = 'none';
-          }, 200);
+          item.classList.add('filter-hidden');
         }
       });
     });
   });
-
   // --- 11. Keyboard Esc Handler & Dynamic Year ---
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') {
