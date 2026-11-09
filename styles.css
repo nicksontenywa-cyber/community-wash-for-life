@@ -1815,14 +1815,18 @@ img {
 }
 .form-control, .form-select, textarea.form-control {
   width: 100%;
-  padding: 0.72rem 1rem;
+  box-sizing: border-box; /* Prevents inputs from overflowing their container on mobile */
+  padding: 0.72rem 0.9rem;
   border-radius: var(--radius-sm);
   border: 1.5px solid var(--clc-border-subtle);
   background: var(--clc-parchment-subtle);
   font-family: inherit;
-  font-size: 0.95rem; /* 16px font-size to prevent iOS Safari auto-zoom on focus! */
+  font-size: 1rem; /* ≥16px prevents iOS Safari auto-zoom on tap */
   color: var(--clc-slate-text);
-  transition: all var(--transition-fast);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  -webkit-appearance: none; /* Normalize across iOS/Android */
+  appearance: none;
+  max-width: 100%;
 }
 .form-control:focus, .form-select:focus, textarea.form-control:focus {
   outline: none;
@@ -1833,6 +1837,17 @@ img {
 textarea.form-control {
   resize: vertical;
   min-height: 100px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+/* Restore native dropdown arrow for <select> elements */
+.form-select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%230F284E' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  background-size: 10px 7px;
+  padding-right: 2.4rem;
+  cursor: pointer;
 }
 .form-check {
   display: flex;

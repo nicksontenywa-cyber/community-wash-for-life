@@ -5,12 +5,178 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Contact Community Listeners for Christ (CLC) — Nahayima Road, Busia District, Uganda. Request a listening visit, prayer, or submit confidential feedback under Section 20.">
   <title>Contact Us | Community Listeners for Christ (CLC) · Busia, Uganda</title>
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" type="image/svg+xml" href="images/clc-badge.svg">
+
+  <style>
+    /* ======================================================
+       CONTACT PAGE — MOBILE-FIRST STYLES
+       All layouts default to single column, expand on larger screens
+    ====================================================== */
+
+    /* ---- Contact Info Cards Row ---- */
+    .contact-info-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+      margin-bottom: 3rem;
+    }
+    @media (min-width: 600px) {
+      .contact-info-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+    }
+
+    .contact-info-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      border-top: 4px solid var(--clc-forest);
+      box-shadow: var(--clc-shadow-sm);
+    }
+    .contact-info-card.card-cobalt { border-top-color: var(--clc-leaf); }
+    .contact-info-card.card-gold   { border-top-color: var(--clc-gold-warm); }
+
+    .contact-info-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.7rem;
+      color: var(--clc-forest);
+    }
+    .contact-info-card.card-cobalt .contact-info-icon { color: var(--clc-leaf); }
+    .contact-info-card.card-gold   .contact-info-icon { color: var(--clc-gold-warm); }
+
+    .contact-info-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .contact-info-card p {
+      font-size: 0.88rem;
+      color: var(--clc-slate-text);
+      line-height: 1.65;
+      margin-bottom: 0.5rem;
+    }
+    .contact-info-card small {
+      font-size: 0.8rem;
+      color: var(--clc-slate-muted);
+    }
+    .contact-info-card a {
+      color: var(--clc-forest);
+      font-weight: 700;
+      word-break: break-all;
+    }
+
+    /* ---- Forms Stack ---- */
+    .contact-forms-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* ---- Form Card ---- */
+    .contact-form-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      padding: 1.6rem;
+      border: 1px solid var(--clc-border-card);
+      box-shadow: var(--clc-shadow-sm);
+    }
+    .contact-form-card.card-alt {
+      background: var(--clc-parchment-subtle);
+      border: 1.5px solid var(--clc-border-subtle);
+    }
+    @media (min-width: 768px) {
+      .contact-form-card {
+        padding: 2.5rem;
+      }
+    }
+
+    /* ---- Two-column form row (single col on mobile) ---- */
+    .form-row-2col {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+    @media (min-width: 560px) {
+      .form-row-2col {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.2rem;
+      }
+    }
+
+    /* ---- Form elements ---- */
+    .contact-form-card .form-group {
+      margin-bottom: 1.1rem;
+    }
+    .contact-form-card .form-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.4rem;
+      color: var(--clc-navy);
+    }
+    .contact-form-card .form-control,
+    .contact-form-card .form-select {
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 0.9rem;
+      padding: 0.65rem 0.9rem;
+    }
+    .contact-form-card textarea.form-control {
+      resize: vertical;
+    }
+
+    /* Submit button — full width on mobile */
+    .contact-form-card .btn-submit {
+      width: 100%;
+      justify-content: center;
+      margin-top: 0.4rem;
+    }
+    @media (min-width: 480px) {
+      .contact-form-card .btn-submit {
+        width: auto;
+      }
+    }
+
+    /* ---- Form check alignment ---- */
+    .contact-form-card .form-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      margin-bottom: 1.1rem;
+    }
+    .contact-form-card .form-check input[type="checkbox"] {
+      flex-shrink: 0;
+      margin-top: 0.18rem;
+    }
+    .contact-form-card .form-check span {
+      font-size: 0.82rem;
+      line-height: 1.55;
+      color: var(--clc-slate-text);
+    }
+
+    /* ---- Section header inside card ---- */
+    .contact-form-card h2 {
+      font-size: 1.3rem;
+      margin: 0.5rem 0 0.6rem 0;
+      line-height: 1.3;
+    }
+    @media (min-width: 768px) {
+      .contact-form-card h2 {
+        font-size: 1.55rem;
+      }
+    }
+    .contact-form-card .form-intro {
+      font-size: 0.9rem;
+      color: var(--clc-slate-muted);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+  </style>
 </head>
 <body>
 
@@ -22,8 +188,8 @@
       <span><i class="fa-solid fa-envelope"></i> info@clcuganda.org</span>
     </div>
     <div class="bar-right">
-      <span class="tagline-pill">“Listening with Love, Sharing Christ’s Hope”</span>
-      <span><i class="fa-solid fa-handshake-angle"></i> Partners: Resolution & Busia Town Baptist Church</span>
+      <span class="tagline-pill">"Listening with Love, Sharing Christ's Hope"</span>
+      <span><i class="fa-solid fa-handshake-angle"></i> Partners: Resolution &amp; Busia Town Baptist Church</span>
     </div>
   </aside>
 
@@ -36,7 +202,7 @@
       <nav class="nav-menu" role="navigation">
         <a href="index.html" class="nav-link">Home</a>
         <a href="about.html" class="nav-link">About CLC</a>
-        <a href="services.html" class="nav-link">Our Model & Programs</a>
+        <a href="services.html" class="nav-link">Our Model &amp; Programs</a>
         <a href="community-leadership.html" class="nav-link">Governance</a>
         <a href="safeguarding.html" class="nav-link">Safeguarding</a>
         <a href="partnerships.html" class="nav-link">Partners</a>
@@ -68,9 +234,9 @@
     <ul class="mobile-drawer-menu">
       <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
       <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About CLC</a></li>
-      <li><a href="services.html"><i class="fa-solid fa-hands-holding"></i> Programs & Model</a></li>
-      <li><a href="community-leadership.html"><i class="fa-solid fa-users-gear"></i> Governance & Leadership</a></li>
-      <li><a href="safeguarding.html"><i class="fa-solid fa-shield-halved"></i> Safeguarding & Referrals</a></li>
+      <li><a href="services.html"><i class="fa-solid fa-hands-holding"></i> Programs &amp; Model</a></li>
+      <li><a href="community-leadership.html"><i class="fa-solid fa-users-gear"></i> Governance &amp; Leadership</a></li>
+      <li><a href="safeguarding.html"><i class="fa-solid fa-shield-halved"></i> Safeguarding &amp; Referrals</a></li>
       <li><a href="partnerships.html"><i class="fa-solid fa-handshake"></i> Partners</a></li>
       <li><a href="volunteer.html"><i class="fa-solid fa-user-plus"></i> Volunteer as a Listener</a></li>
       <li><a href="impact.html"><i class="fa-solid fa-chart-line"></i> Community Impact</a></li>
@@ -80,14 +246,14 @@
     </ul>
   </aside>
 
-  <!-- Header -->
+  <!-- Page Header -->
   <section class="section-padding-sm bg-forest" style="position: relative; overflow: hidden;">
     <div class="container text-center">
-      <span class="section-tag" style="background: rgba(255, 255, 255, 0.08); color: var(--clc-gold-bright); border-color: rgba(242, 201, 76, 0.3);">
+      <span class="section-tag" style="background: rgba(255,255,255,0.08); color: var(--clc-gold-bright); border-color: rgba(242,201,76,0.3);">
         <i class="fa-solid fa-location-dot"></i> Nahayima Road · Busia District
       </span>
       <h1 style="color: #FFFFFF; margin-top: 0.8rem; margin-bottom: 0.8rem;">Get in Touch With Us</h1>
-      <p style="color: rgba(255, 255, 255, 0.82); font-size: 1.15rem; max-width: 720px; margin: 0 auto;">
+      <p style="color: rgba(255,255,255,0.82); font-size: 1.05rem; max-width: 680px; margin: 0 auto; line-height: 1.65;">
         We are here to listen with love, pray with you, and connect you with compassionate support across Busia District.
       </p>
     </div>
@@ -96,60 +262,61 @@
   <!-- MAIN CONTACT CONTENT -->
   <main class="section-padding bg-parchment">
     <div class="container">
-      
-      <!-- CONTACT DETAILS 3 COLUMNS -->
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-bottom: 3.5rem;">
-        
+
+      <!-- CONTACT INFO CARDS — 3 columns on desktop, 1 on mobile -->
+      <div class="contact-info-grid">
+
         <!-- Address -->
-        <div style="background: #FFFFFF; border-radius: var(--radius-md); padding: 2rem; border-top: 4px solid var(--clc-forest); box-shadow: var(--clc-shadow-sm);">
-          <div style="color: var(--clc-forest); font-size: 1.6rem; margin-bottom: 0.8rem;"><i class="fa-solid fa-map-location-dot"></i></div>
-          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Physical Office</h3>
-          <p style="font-size: 0.9rem; color: var(--clc-slate-text); line-height: 1.65; margin-bottom: 0.6rem;">
+        <div class="contact-info-card">
+          <div class="contact-info-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+          <h3>Physical Office</h3>
+          <p>
             <strong>Nahayima Road</strong><br>
             Busia District, Uganda<br>
-            Operating across sub-counties & rural zones.
+            Serving sub-counties &amp; rural zones.
           </p>
-          <small style="color: var(--clc-slate-muted);">Office hours: Mon – Sat (8:30 AM – 5:00 PM)</small>
+          <small>Office hours: Mon – Sat (8:30 AM – 5:00 PM)</small>
         </div>
 
         <!-- Phone Lines -->
-        <div style="background: #FFFFFF; border-radius: var(--radius-md); padding: 2rem; border-top: 4px solid var(--clc-leaf); box-shadow: var(--clc-shadow-sm);">
-          <div style="color: var(--clc-leaf); font-size: 1.6rem; margin-bottom: 0.8rem;"><i class="fa-solid fa-phone-volume"></i></div>
-          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Direct Helplines</h3>
-          <p style="font-size: 0.9rem; color: var(--clc-slate-text); line-height: 1.65; margin-bottom: 0.6rem;">
-            <a href="tel:+256709251412" style="color: var(--clc-forest); font-weight: 700;">+256 709 251 412</a><br>
-            <a href="tel:+256785950405" style="color: var(--clc-forest); font-weight: 700;">+256 785 950 405</a>
+        <div class="contact-info-card card-cobalt">
+          <div class="contact-info-icon"><i class="fa-solid fa-phone-volume"></i></div>
+          <h3>Direct Helplines</h3>
+          <p>
+            <a href="tel:+256709251412">+256 709 251 412</a><br>
+            <a href="tel:+256785950405">+256 785 950 405</a>
           </p>
-          <small style="color: var(--clc-slate-muted);">Available for prayer requests & emergency visits</small>
+          <small>Available for prayer requests &amp; emergency visits</small>
         </div>
 
         <!-- Email Channels -->
-        <div style="background: #FFFFFF; border-radius: var(--radius-md); padding: 2rem; border-top: 4px solid var(--clc-gold-warm); box-shadow: var(--clc-shadow-sm);">
-          <div style="color: var(--clc-gold-warm); font-size: 1.6rem; margin-bottom: 0.8rem;"><i class="fa-solid fa-envelope-open-text"></i></div>
-          <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Email Channels</h3>
-          <p style="font-size: 0.9rem; color: var(--clc-slate-text); line-height: 1.65; margin-bottom: 0.6rem;">
+        <div class="contact-info-card card-gold">
+          <div class="contact-info-icon"><i class="fa-solid fa-envelope-open-text"></i></div>
+          <h3>Email Channels</h3>
+          <p>
             General: <a href="mailto:info@clcuganda.org">info@clcuganda.org</a><br>
             Listening: <a href="mailto:listening@clcuganda.org">listening@clcuganda.org</a><br>
             Safeguarding: <a href="mailto:safeguarding@clcuganda.org">safeguarding@clcuganda.org</a>
           </p>
-          <small style="color: var(--clc-slate-muted);">Replies within 24 to 48 hours</small>
+          <small>Replies within 24 to 48 hours</small>
         </div>
 
-      </div>
+      </div><!-- /.contact-info-grid -->
 
-      <!-- TWO INTERACTIVE FORMS -->
-      <div style="display: grid; grid-template-columns: 1fr; gap: 3rem;">
-        
-        <!-- Form 1: Request a Listener or General Message -->
-        <div style="background: #FFFFFF; border-radius: var(--radius-lg); padding: 3rem; border: 1px solid var(--clc-border-card); box-shadow: var(--clc-shadow-sm);" id="request">
+      <!-- FORMS STACK -->
+      <div class="contact-forms-stack">
+
+        <!-- Form 1: Request a Listener -->
+        <div class="contact-form-card" id="request">
           <span class="section-tag"><i class="fa-solid fa-ear-listen"></i> Confidential Support</span>
-          <h2 style="margin: 0.6rem 0 0.8rem 0;">Request a Listening Visit or Send a Message</h2>
-          <p style="font-size: 0.94rem; color: var(--clc-slate-muted); margin-bottom: 2rem;">
+          <h2>Request a Listening Visit or Send a Message</h2>
+          <p class="form-intro">
             Whether you need a confidential visit to your household in Busia, prayer for your family, or have questions about our programs:
           </p>
 
-          <form data-clc-form="prayer-request">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem;">
+          <form data-clc-form="prayer-request" novalidate>
+
+            <div class="form-row-2col">
               <div class="form-group">
                 <label class="form-label">Full Name or Preferred Name *</label>
                 <input type="text" class="form-control" required placeholder="Your name">
@@ -160,10 +327,10 @@
               </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem;">
+            <div class="form-row-2col">
               <div class="form-group">
-                <label class="form-label">Sub-County & Parish in Busia *</label>
-                <input type="text" class="form-control" required placeholder="e.g. Nahayima / Banda / Town / Dabani">
+                <label class="form-label">Sub-County &amp; Parish in Busia *</label>
+                <input type="text" class="form-control" required placeholder="e.g. Nahayima / Banda / Dabani">
               </div>
               <div class="form-group">
                 <label class="form-label">Nature of Inquiry *</label>
@@ -183,38 +350,37 @@
               <textarea class="form-control" rows="5" required placeholder="Please describe how we can stand alongside you or what is on your heart..."></textarea>
             </div>
 
-            <div class="form-group">
-              <label class="form-check">
-                <input type="checkbox" required checked>
-                <span>I understand that CLC services are completely free, offered respectfully without coercion, and held in strict Christian confidentiality.</span>
-              </label>
+            <div class="form-check">
+              <input type="checkbox" required checked>
+              <span>I understand that CLC services are completely free, offered respectfully without coercion, and held in strict Christian confidentiality.</span>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-lg">
+            <button type="submit" class="btn btn-primary btn-lg btn-submit">
               <i class="fa-solid fa-paper-plane"></i> Send Request
             </button>
           </form>
-        </div>
+        </div><!-- /.contact-form-card #request -->
 
-        <!-- Form 2: Section 20 Independent Complaints & Safeguarding Feedback -->
-        <div style="background: var(--clc-parchment-subtle); border-radius: var(--radius-lg); padding: 3rem; border: 1.5px solid var(--clc-border-subtle); box-shadow: var(--clc-shadow-sm);" id="feedback">
-          <span class="section-tag" style="background: rgba(212, 160, 23, 0.15); color: var(--clc-gold-warm); border-color: rgba(212, 160, 23, 0.35);">
+        <!-- Form 2: Section 20 Accountability -->
+        <div class="contact-form-card card-alt" id="feedback">
+          <span class="section-tag" style="background: rgba(212,160,23,0.15); color: var(--clc-gold-warm); border-color: rgba(212,160,23,0.35);">
             <i class="fa-solid fa-shield-halved"></i> Constitution Section 20
           </span>
-          <h2 style="margin: 0.6rem 0 0.8rem 0;">Accountability, Feedback & Complaints Mechanism</h2>
-          <p style="font-size: 0.94rem; color: var(--clc-slate-muted); line-height: 1.7; margin-bottom: 2rem;">
+          <h2>Accountability, Feedback &amp; Complaints Mechanism</h2>
+          <p class="form-intro">
             CLC is committed to lawful, transparent, and non-retaliatory governance. If you have observed a breach of our Safeguarding Policy, ethical conduct violations, or wish to submit feedback to the independent Safeguarding Sub-Committee, you may submit your report here (anonymously if desired):
           </p>
 
-          <form data-clc-form="complaint-feedback">
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem;">
+          <form data-clc-form="complaint-feedback" novalidate>
+
+            <div class="form-row-2col">
               <div class="form-group">
-                <label class="form-label">Your Name (Optional - You May Leave Blank for Anonymous Reporting)</label>
+                <label class="form-label">Your Name <small style="font-weight:400; color:var(--clc-slate-muted);">(Optional — anonymous reporting allowed)</small></label>
                 <input type="text" class="form-control" placeholder="Optional name">
               </div>
               <div class="form-group">
-                <label class="form-label">Confidential Contact Phone or Email (Optional)</label>
-                <input type="text" class="form-control" placeholder="Optional contact for follow-up">
+                <label class="form-label">Confidential Contact <small style="font-weight:400; color:var(--clc-slate-muted);">(Optional)</small></label>
+                <input type="text" class="form-control" placeholder="Phone or email for follow-up">
               </div>
             </div>
 
@@ -231,17 +397,17 @@
 
             <div class="form-group">
               <label class="form-label">Detailed Description of Concern *</label>
-              <textarea class="form-control" rows="4" required placeholder="Please provide specific details: dates, locations in Busia, names involved, and any observations so the review committee can investigate thoroughly."></textarea>
+              <textarea class="form-control" rows="5" required placeholder="Please provide specific details: dates, locations in Busia, names involved, and any observations so the review committee can investigate thoroughly."></textarea>
             </div>
 
-            <button type="submit" class="btn btn-gold btn-lg">
-              <i class="fa-solid fa-lock"></i> Submit Confidential Governance Report
+            <button type="submit" class="btn btn-gold btn-lg btn-submit">
+              <i class="fa-solid fa-lock"></i> Submit Confidential Report
             </button>
           </form>
-        </div>
+        </div><!-- /.contact-form-card #feedback -->
 
-      </div>
-    </div>
+      </div><!-- /.contact-forms-stack -->
+    </div><!-- /.container -->
   </main>
 
   <!-- Footer -->
@@ -274,7 +440,7 @@
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Office & Contact</h4>
+          <h4>Office &amp; Contact</h4>
           <ul class="footer-contact-list">
             <li class="footer-contact-item">
               <i class="fa-solid fa-map-location-dot"></i>
@@ -292,7 +458,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <div>&copy; 2026 Community Listeners for Christ (CLC). “Listening with Love, Sharing Christ’s Hope.”</div>
+        <div>&copy; 2026 Community Listeners for Christ (CLC). "Listening with Love, Sharing Christ's Hope."</div>
         <div class="footer-bottom-links">
           <a href="safeguarding.html">Safeguarding</a>
           <a href="resources.html">Constitution</a>
@@ -302,7 +468,7 @@
     </div>
   </footer>
 
-  <!-- Modal -->
+  <!-- Modal: Request a Listener -->
   <div class="clc-modal-backdrop" id="modalPrayer">
     <div class="clc-modal">
       <div class="clc-modal-header">
