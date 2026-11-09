@@ -1,7 +1,7 @@
 {
-  "name": "new-grace-js-donation",
-  "version": "1.0.0",
-  "description": "Donation website for New Grace JS with Pesapal integration",
+  "name": "community-listeners-for-christ",
+  "version": "2.0.0",
+  "description": "Official website for Community Listeners for Christ (CLC) — Christian Community-Based Organization in Busia District, Uganda. Listening with Love, Sharing Christ's Hope.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -12,7 +12,15 @@
     "axios": "^1.6.0",
     "cors": "^2.8.5"
   },
-  "keywords": ["donation", "pesapal", "ngo"],
-  "author": "New Grace JS",
+  "keywords": [
+    "community-listeners-for-christ",
+    "clc",
+    "busia-uganda",
+    "christian-cbo",
+    "listening-ministry",
+    "family-strengthening",
+    "youth-mentorship"
+  ],
+  "author": "Community Listeners for Christ (CLC)",
   "license": "MIT"
 }

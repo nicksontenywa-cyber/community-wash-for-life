@@ -64,7 +64,7 @@ app.post('/api/donate', async (req, res) => {
       id: `DON-${Date.now()}`,
       currency: 'UGX',
       amount: parseFloat(amount),
-      description: `Donation to New Grace JS${message ? ' - ' + message : ''}`,
+      description: `Donation to Community Listeners for Christ (CLC)${message ? ' - ' + message : ''}`,
       callback_url: `${req.protocol}://${req.get('host')}/api/callback`,
       notification_id: `NOT-${Date.now()}`,
       billing_address: {

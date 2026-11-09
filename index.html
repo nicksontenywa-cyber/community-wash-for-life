@@ -1,955 +1,1014 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="New Grace JS provides clean water, sanitation, hygiene (WASH) and quality education to underserved communities in Namayingo District, Uganda.">
-<title>New Grace JS | Clean Water & Education · Namayingo, Uganda</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --ink:#0B1F18;--forest:#1B4D3E;--jade:#2A7A5F;
-  --gold:#C9963A;--amber:#E8B855;--ap:rgba(232,184,85,.12);
-  --cream:#F6F0E4;--parch:#EDE5D4;--white:#fff;
-  --ease:cubic-bezier(.34,1.56,.64,1);
-  --ease2:cubic-bezier(.16,1,.3,1);
-  --r:1.5rem;--r2:2rem;--nh:76px;
-}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{font-family:'DM Sans',system-ui,sans-serif;background:var(--ink);color:var(--white);overflow-x:hidden;cursor:none;-webkit-font-smoothing:antialiased}
-img{display:block;max-width:100%}
-a{text-decoration:none;color:inherit}
-button{font-family:inherit;cursor:pointer}
-
-/* ── CURSOR ── */
-#cur,#cur-r{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%)}
-#cur{width:10px;height:10px;background:var(--amber);z-index:9999;transition:width .2s var(--ease),height .2s var(--ease),background .2s}
-#cur-r{width:36px;height:36px;border:1.5px solid rgba(232,184,85,.42);z-index:9998;transition:left .12s var(--ease2),top .12s var(--ease2),width .35s var(--ease),height .35s var(--ease)}
-body:has(a:hover) #cur,body:has(button:hover) #cur{width:18px;height:18px;background:var(--gold)}
-body:has(a:hover) #cur-r,body:has(button:hover) #cur-r{width:52px;height:52px}
-@media(pointer:coarse){#cur,#cur-r{display:none}body{cursor:auto}}
-
-/* ── SCROLL PROGRESS ── */
-#prog{position:fixed;top:0;left:0;height:3px;width:0;z-index:10001;background:linear-gradient(90deg,var(--forest),var(--gold),var(--amber));box-shadow:0 0 10px rgba(232,184,85,.55);transition:width .08s linear}
-
-/* ── NOISE ── */
-body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.45;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E")}
-
-/* ── NAV ── */
-#nav{position:fixed;inset:0 0 auto;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:1.3rem 3.5rem;transition:padding .4s var(--ease2),background .4s,border-color .4s}
-#nav.sc{background:rgba(11,31,24,.94);backdrop-filter:blur(28px) saturate(1.5);border-bottom:1px solid rgba(201,150,58,.18);padding:.85rem 3.5rem}
-.n-logo{display:flex;align-items:center;gap:.7rem;flex-shrink:0}
-.n-logo img{width:44px;height:44px;border-radius:12px;border:2px solid rgba(201,150,58,.4);object-fit:cover;transition:transform .3s var(--ease)}
-.n-logo:hover img{transform:scale(1.08) rotate(-2deg)}
-.n-logo strong{display:block;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;background:linear-gradient(130deg,#fff,var(--amber));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.n-logo span{font-size:.58rem;color:rgba(255,255,255,.42);letter-spacing:.1em}
-.n-links{display:flex;gap:2rem;align-items:center}
-.n-links a{color:rgba(255,255,255,.62);font-size:.79rem;font-weight:500;letter-spacing:.04em;position:relative;transition:color .25s;padding-bottom:2px}
-.n-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--amber);transition:width .3s var(--ease2)}
-.n-links a:hover{color:#fff}.n-links a:hover::after{width:100%}
-.n-cta{background:linear-gradient(135deg,var(--gold),var(--amber));color:var(--ink)!important;font-weight:700!important;padding:.52rem 1.35rem;border-radius:100px;font-size:.77rem!important;letter-spacing:.04em;transition:transform .2s var(--ease),box-shadow .2s;box-shadow:0 4px 16px rgba(201,150,58,.25)}
-.n-cta:hover{transform:translateY(-2px)!important;box-shadow:0 10px 28px rgba(201,150,58,.4)!important}
-.n-cta::after{display:none!important}
-
-/* Hamburger */
-#hb{display:none;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;padding:9px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:10px;transition:background .2s}
-#hb:hover{background:rgba(255,255,255,.15)}
-#hb span{display:block;height:1.5px;border-radius:2px;background:#fff;transition:transform .35s var(--ease2),opacity .25s,width .3s;transform-origin:center}
-#hb span:nth-child(2){width:70%}
-#hb.op span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
-#hb.op span:nth-child(2){opacity:0;transform:scaleX(0)}
-#hb.op span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-
-/* Mobile drawer */
-#mm{position:fixed;inset:0;z-index:999;background:rgba(11,31,24,.98);backdrop-filter:blur(32px);display:flex;flex-direction:column;padding:calc(var(--nh) + 1.5rem) 2rem 2.5rem;opacity:0;pointer-events:none;transform:translateX(102%);transition:opacity .4s var(--ease2),transform .4s var(--ease2)}
-#mm.op{opacity:1;pointer-events:all;transform:none}
-.mm-links{display:flex;flex-direction:column;gap:.35rem;flex:1}
-.mm-links a{color:rgba(255,255,255,.78);font-size:1.45rem;font-weight:600;font-family:'Playfair Display',serif;padding:.8rem 0;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:space-between;transition:color .2s,padding-left .25s}
-.mm-links a:hover{color:var(--amber);padding-left:.4rem}
-.mm-links a i{font-size:.85rem;opacity:.35}
-.mm-soc{display:flex;gap:.75rem;margin-top:1.8rem}
-.mm-soc a{width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:.9rem;transition:all .2s}
-.mm-soc a:hover{background:var(--gold);color:var(--ink);border-color:var(--gold)}
-.mm-btn{margin-top:1.25rem;background:linear-gradient(135deg,var(--gold),var(--amber));color:var(--ink);font-weight:800;font-size:.95rem;padding:1rem;border-radius:var(--r);border:none;width:100%;letter-spacing:.05em}
-
-/* ── HERO ── */
-.hero{min-height:100svh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.h-img{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;opacity:.22;transition:opacity .55s ease;animation:kz 22s ease infinite alternate}
-@keyframes kz{from{transform:scale(1)}to{transform:scale(1.1)}}
-.h-bg{position:absolute;inset:0;z-index:1;background:linear-gradient(160deg,rgba(11,31,24,.96) 0%,rgba(27,77,62,.8) 55%,rgba(11,45,32,.96) 100%)}
-.orb{position:absolute;border-radius:50%;pointer-events:none;filter:blur(90px)}
-.o1{width:520px;height:520px;background:rgba(42,122,95,.2);top:-120px;right:-140px;animation:of 9s ease-in-out infinite alternate}
-.o2{width:360px;height:360px;background:rgba(201,150,58,.12);bottom:20px;left:-90px;animation:of 11s ease-in-out infinite alternate-reverse}
-.o3{width:260px;height:260px;background:rgba(27,77,62,.28);top:35%;right:16%;animation:of 7s ease-in-out infinite alternate}
-@keyframes of{from{transform:translate(0,0) scale(1)}to{transform:translate(38px,-48px) scale(1.12)}}
-.h-grid{position:absolute;inset:0;z-index:2;background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);background-size:72px 72px}
-#pts{position:absolute;inset:0;z-index:2;overflow:hidden;pointer-events:none}
-.pt{position:absolute;border-radius:50%;background:rgba(232,184,85,.5);animation:rise linear infinite}
-@keyframes rise{0%{transform:translateY(100vh) scale(0);opacity:0}8%{opacity:1}92%{opacity:.35}100%{transform:translateY(-20px) scale(1);opacity:0}}
-
-.h-inner{position:relative;z-index:5;text-align:center;max-width:980px;width:100%;padding:calc(var(--nh) + 2.5rem) 1.5rem 6rem}
-.h-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--ap);border:1px solid rgba(232,184,85,.3);color:var(--amber);font-size:.67rem;font-weight:700;letter-spacing:.2em;padding:.42rem 1.05rem;border-radius:100px;margin-bottom:2rem;animation:fu .8s var(--ease2) .2s both}
-.pdot{width:7px;height:7px;border-radius:50%;background:var(--amber);animation:pd 2.2s ease-in-out infinite;flex-shrink:0}
-@keyframes pd{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.6)}}
-.h-title{font-family:'Playfair Display',serif;font-size:clamp(2.6rem,8.5vw,7.5rem);font-weight:900;line-height:.92;letter-spacing:-.03em;margin-bottom:1.7rem;animation:fu .9s var(--ease2) .35s both}
-.h-title .it{display:block;font-style:italic;background:linear-gradient(135deg,var(--gold),var(--amber),#f5d08a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.h-title .bl{display:block}
-.h-sub{font-size:clamp(.9rem,2.4vw,1.12rem);color:rgba(255,255,255,.68);max-width:540px;margin:0 auto 2.6rem;line-height:1.82;font-weight:300;animation:fu .9s var(--ease2) .5s both}
-.h-ctas{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;animation:fu .9s var(--ease2) .65s both}
-@keyframes fu{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:none}}
-
-.s-rail{position:absolute;left:2rem;top:50%;transform:translateY(-50%);z-index:6;display:flex;flex-direction:column;gap:.55rem}
-.s-pip{width:3px;border-radius:2px;background:rgba(255,255,255,.22);border:none;cursor:pointer;transition:height .4s var(--ease),background .3s;height:18px}
-.s-pip.on{height:42px;background:var(--amber)}
-.s-ctr{position:absolute;bottom:2rem;right:2.5rem;z-index:6;font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;color:rgba(255,255,255,.15);letter-spacing:-.04em;user-select:none}
-.s-ctr span{font-size:.95rem;color:var(--amber);opacity:.75}
-.sc-cue{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:6;display:flex;flex-direction:column;align-items:center;gap:.4rem;color:rgba(255,255,255,.32);font-size:.6rem;letter-spacing:.16em;animation:fu 1s var(--ease2) 1.2s both}
-.sc-cue .tr{width:1px;height:48px;background:linear-gradient(to bottom,var(--amber),transparent);animation:st 2.2s ease-in-out infinite}
-@keyframes st{0%,100%{transform:scaleY(1);opacity:1}50%{transform:scaleY(.4);opacity:.25}}
-
-/* ── SHARED ── */
-.lbl{display:inline-flex;align-items:center;gap:.65rem;font-size:.64rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:1rem}
-.lbl::before{content:'';width:26px;height:1px;background:var(--amber);flex-shrink:0}
-.lbl.dk{color:var(--forest)}.lbl.dk::before{background:var(--forest)}
-.reveal{opacity:0;transform:translateY(46px);transition:opacity .9s var(--ease2),transform .9s var(--ease2)}
-.rl{opacity:0;transform:translateX(-50px);transition:opacity .9s var(--ease2),transform .9s var(--ease2)}
-.rr{opacity:0;transform:translateX(50px);transition:opacity .9s var(--ease2),transform .9s var(--ease2)}
-.reveal.v,.rl.v,.rr.v{opacity:1;transform:none}
-
-/* ── BUTTONS ── */
-.bg{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--gold),var(--amber));color:var(--ink);font-weight:700;font-size:.87rem;letter-spacing:.04em;padding:.88rem 2.1rem;border-radius:100px;border:none;transition:transform .25s var(--ease),box-shadow .25s;white-space:nowrap}
-.bg:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(201,150,58,.45)}
-.bgh{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.22);color:#fff;font-weight:500;font-size:.87rem;padding:.88rem 2.1rem;border-radius:100px;transition:background .25s,border-color .25s;backdrop-filter:blur(8px);white-space:nowrap}
-.bgh:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.45)}
-.bf{display:inline-flex;align-items:center;gap:.5rem;background:var(--forest);color:#fff;font-weight:600;font-size:.83rem;padding:.82rem 1.9rem;border-radius:100px;border:none;letter-spacing:.03em;transition:transform .2s var(--ease),box-shadow .2s}
-.bf:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(27,77,62,.4)}
-
-/* ── IMPACT BAR ── */
-.imp-bar{display:grid;grid-template-columns:repeat(4,1fr);background:linear-gradient(135deg,var(--gold) 0%,#d4a843 40%,var(--amber) 100%);position:relative;overflow:hidden}
-.imp-bar::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000' fill-opacity='.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E")}
-.imp-it{padding:2.6rem 1.2rem;text-align:center;position:relative}
-.imp-it+.imp-it::before{content:'';position:absolute;left:0;top:20%;bottom:20%;width:1px;background:rgba(11,31,24,.14)}
-.imp-ic{font-size:1.5rem;margin-bottom:.5rem;opacity:.65}
-.imp-n{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,3.8vw,3rem);font-weight:900;color:var(--ink);line-height:1;margin-bottom:.28rem}
-.imp-l{font-size:.72rem;font-weight:700;color:rgba(11,31,24,.58);letter-spacing:.07em;text-transform:uppercase}
-
-/* ── MARQUEE ── */
-.mq-sec{background:var(--ink);border-top:1px solid rgba(255,255,255,.06);padding:1.8rem 0;overflow:hidden}
-.mq-track{display:flex;gap:3.5rem;align-items:center;animation:mq 22s linear infinite;width:max-content}
-.mq-track:hover{animation-play-state:paused}
-.mq-it{white-space:nowrap;font-size:.72rem;font-weight:700;letter-spacing:.18em;color:rgba(255,255,255,.22);text-transform:uppercase;display:flex;align-items:center;gap:.6rem;transition:color .3s}
-.mq-it:hover{color:rgba(255,255,255,.5)}
-.mq-it i{color:var(--amber);font-size:.55rem}
-@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-/* ── ABOUT ── */
-.ab-sec{background:var(--cream);color:var(--ink);padding:7rem 3.5rem;overflow:hidden}
-.ab-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5.5rem;align-items:center}
-.img-st{position:relative}
-.img-m{width:100%;border-radius:var(--r2);box-shadow:0 40px 80px rgba(11,31,24,.17)}
-.img-a{position:absolute;width:52%;border-radius:var(--r);bottom:-2.2rem;right:-2.2rem;box-shadow:0 20px 55px rgba(11,31,24,.22);border:4px solid var(--cream)}
-.yr-b{position:absolute;top:-1.4rem;left:-1.4rem;background:var(--forest);color:#fff;border-radius:var(--r);padding:1.3rem 1.6rem;text-align:center;box-shadow:0 16px 40px rgba(27,77,62,.35);border:3px solid var(--cream)}
-.yr-b strong{display:block;font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--amber);line-height:1}
-.yr-b span{font-size:.62rem;letter-spacing:.12em;opacity:.75;text-transform:uppercase}
-.ab-txt h2{font-family:'Playfair Display',serif;font-size:clamp(1.85rem,3.8vw,3.1rem);font-weight:900;line-height:1.12;margin-bottom:1.3rem}
-.ab-txt h2 em{color:var(--forest);font-style:italic}
-.ab-txt p{font-size:.98rem;line-height:1.82;color:rgba(11,31,24,.67);margin-bottom:1.2rem}
-.chips{display:flex;flex-wrap:wrap;gap:.55rem;margin:1.7rem 0}
-.chip{background:rgba(27,77,62,.1);color:var(--forest);border:1px solid rgba(27,77,62,.2);font-size:.7rem;font-weight:600;letter-spacing:.04em;padding:.38rem .9rem;border-radius:100px;transition:background .2s,color .2s}
-.chip:hover{background:var(--forest);color:#fff}
-
-/* ── PILLARS ── */
-.pl-sec{background:var(--ink);padding:7rem 3.5rem}
-.pl-in{max-width:1280px;margin:0 auto}
-.sec-hd{text-align:center;margin-bottom:4.5rem}
-.sec-hd h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.5rem);font-weight:900;line-height:1.1}
-.sec-hd h2 em{color:var(--amber);font-style:italic}
-.sec-hd p{color:rgba(255,255,255,.52);max-width:500px;margin:.85rem auto 0;line-height:1.72;font-size:.93rem}
-.pl-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.3rem}
-.pl-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--r2);padding:2.7rem;cursor:pointer;position:relative;overflow:hidden;transition:transform .4s var(--ease),border-color .4s,background .35s;transform-style:preserve-3d}
-.pl-glow{position:absolute;inset:0;opacity:0;background:radial-gradient(ellipse at 30% 40%,rgba(42,122,95,.22),transparent 70%);transition:opacity .5s}
-.pl-card:hover{transform:translateY(-8px);border-color:rgba(201,150,58,.28);background:rgba(255,255,255,.07)}
-.pl-card:hover .pl-glow{opacity:1}
-.pl-n{font-family:'Playfair Display',serif;font-size:5rem;font-weight:900;color:rgba(255,255,255,.04);position:absolute;top:.4rem;right:1.4rem;line-height:1;pointer-events:none}
-.pl-ic{width:52px;height:52px;border-radius:.9rem;margin-bottom:1.5rem;background:linear-gradient(135deg,var(--forest),var(--jade));display:flex;align-items:center;justify-content:center;font-size:1.35rem;box-shadow:0 8px 20px rgba(27,77,62,.45)}
-.pl-card h3{font-family:'Playfair Display',serif;font-size:1.38rem;font-weight:700;margin-bottom:.6rem}
-.pl-card p{color:rgba(255,255,255,.53);font-size:.86rem;line-height:1.72;margin-bottom:1.3rem}
-.st-chip{display:inline-flex;align-items:center;gap:.38rem;background:rgba(201,150,58,.1);border:1px solid rgba(201,150,58,.22);color:var(--amber);font-size:.7rem;font-weight:700;letter-spacing:.07em;padding:.3rem .82rem;border-radius:100px}
-.pl-more{position:absolute;bottom:2.7rem;right:2.7rem;color:rgba(255,255,255,.18);font-size:.72rem;font-weight:600;letter-spacing:.06em;transition:color .25s;display:flex;align-items:center;gap:.3rem}
-.pl-card:hover .pl-more{color:var(--amber)}
-
-/* ── PROGRAMS ── */
-.pr-sec{background:var(--parch);color:var(--ink);padding:7rem 3.5rem}
-.pr-in{max-width:1280px;margin:0 auto}
-.pr-hd{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;gap:1rem}
-.pr-hd h2{font-family:'Playfair Display',serif;font-size:clamp(1.85rem,3.8vw,3.1rem);font-weight:900;line-height:1.1;max-width:440px}
-.pr-hd h2 em{color:var(--forest);font-style:italic}
-.pr-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.7rem}
-.pr-card{border-radius:var(--r2);overflow:hidden;position:relative;cursor:pointer;transition:transform .4s var(--ease),box-shadow .4s;box-shadow:0 4px 22px rgba(11,31,24,.1)}
-.pr-card:hover{transform:translateY(-10px);box-shadow:0 32px 64px rgba(11,31,24,.22)}
-.pr-img{width:100%;height:330px;object-fit:cover;display:block;transition:transform .7s var(--ease2)}
-.pr-card:hover .pr-img{transform:scale(1.07)}
-.pr-card::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(11,31,24,.88) 0%,rgba(11,31,24,.08) 55%,transparent 100%)}
-.pr-body{position:absolute;bottom:0;left:0;right:0;padding:2.1rem;z-index:2}
-.pr-tag{display:inline-block;background:var(--amber);color:var(--ink);font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:.26rem .72rem;border-radius:100px;margin-bottom:.65rem}
-.pr-body h3{font-family:'Playfair Display',serif;color:#fff;font-size:1.6rem;font-weight:700;margin-bottom:.42rem}
-.pr-body p{color:rgba(255,255,255,.68);font-size:.83rem;line-height:1.65;margin-bottom:1rem}
-.pr-lnk{display:inline-flex;align-items:center;gap:.42rem;color:var(--amber);font-weight:700;font-size:.77rem;letter-spacing:.06em;transition:gap .2s}
-.pr-lnk:hover{gap:.82rem}
-
-/* ── TESTIMONIALS ── */
-.te-sec{background:var(--forest);padding:7rem 3.5rem;overflow:hidden;position:relative}
-.te-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 80% 50%,rgba(11,31,24,.55),transparent)}
-.te-in{max-width:1280px;margin:0 auto;position:relative}
-.te-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem;margin-top:4rem}
-.te-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);border-radius:var(--r2);padding:2.1rem;transition:transform .35s var(--ease),background .3s}
-.te-card:hover{transform:translateY(-6px);background:rgba(255,255,255,.13)}
-.te-stars{color:var(--amber);font-size:.82rem;margin-bottom:1rem;letter-spacing:.1em}
-.te-q{font-size:.93rem;line-height:1.78;color:rgba(255,255,255,.78);margin-bottom:1.5rem;font-style:italic}
-.te-q::before{content:'\201C';font-family:'Playfair Display',serif;font-size:2.8rem;color:var(--amber);line-height:0;vertical-align:-.55rem;margin-right:.18rem}
-.te-auth{display:flex;align-items:center;gap:.8rem}
-.te-av{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--amber));display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;color:var(--ink);font-size:1rem;flex-shrink:0}
-.te-nm{font-weight:600;font-size:.86rem}
-.te-rl{font-size:.7rem;color:rgba(255,255,255,.42);margin-top:.1rem}
-
-/* ── STORIES ── */
-.st-sec{background:var(--ink);padding:7rem 3.5rem}
-.st-in{max-width:1280px;margin:0 auto}
-.st-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem}
-.st-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--r2);overflow:hidden;transition:transform .38s var(--ease),border-color .3s}
-.st-card:hover{transform:translateY(-8px);border-color:rgba(201,150,58,.28)}
-.st-iw{overflow:hidden}
-.st-img{width:100%;height:195px;object-fit:cover;display:block;transition:transform .6s var(--ease2)}
-.st-card:hover .st-img{transform:scale(1.07)}
-.st-body{padding:1.55rem}
-.st-meta{display:flex;align-items:center;gap:.7rem;margin-bottom:.8rem}
-.st-cat{background:var(--ap);color:var(--amber);font-size:.59rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.23rem .62rem;border-radius:100px}
-.st-dt{font-size:.66rem;color:rgba(255,255,255,.33);letter-spacing:.06em}
-.st-body h3{font-family:'Playfair Display',serif;font-size:1.12rem;font-weight:700;line-height:1.3;margin-bottom:.65rem}
-.st-body p{color:rgba(255,255,255,.52);font-size:.82rem;line-height:1.7;margin-bottom:1rem}
-.st-lnk{color:var(--amber);font-weight:700;font-size:.75rem;letter-spacing:.07em;display:inline-flex;align-items:center;gap:.32rem;transition:gap .2s}
-.st-lnk:hover{gap:.65rem}
-
-/* ── GALLERY ── */
-.gl-sec{background:var(--cream);color:var(--ink);padding:7rem 0 7rem 3.5rem;overflow:hidden}
-.gl-hd{max-width:1280px;padding-right:3.5rem;margin:0 auto 2.7rem;display:flex;justify-content:space-between;align-items:flex-end;gap:1rem}
-.gl-hd h2{font-family:'Playfair Display',serif;font-size:clamp(1.85rem,3.8vw,3.1rem);font-weight:900}
-.gl-scr{display:flex;gap:1.1rem;overflow-x:auto;padding-bottom:.5rem;padding-right:3.5rem;scroll-snap-type:x mandatory;scrollbar-width:none}
-.gl-scr::-webkit-scrollbar{display:none}
-.g-it{flex:none;width:270px;height:210px;border-radius:var(--r);overflow:hidden;cursor:pointer;position:relative;scroll-snap-align:start;transition:transform .3s var(--ease)}
-.g-it:hover{transform:scale(1.03)}
-.g-it img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease2)}
-.g-it:hover img{transform:scale(1.1)}
-.g-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(11,31,24,.72),transparent 50%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:1rem}
-.g-it:hover .g-ov{opacity:1}
-.g-ov span{color:var(--amber);font-size:.7rem;font-weight:700;letter-spacing:.08em}
-.sh-row{display:flex;align-items:center;gap:.45rem;color:rgba(11,31,24,.38);font-size:.7rem;letter-spacing:.08em}
-.sh-row i{animation:nd 1.8s ease-in-out infinite}
-@keyframes nd{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
-
-/* ── DONATE ── */
-.do-sec{position:relative;padding:7rem 3.5rem;overflow:hidden;background:linear-gradient(145deg,#061510 0%,var(--forest) 55%,#0B2D20 100%)}
-.do-sec::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 100% 0%,rgba(201,150,58,.11),transparent 65%),radial-gradient(ellipse 50% 60% at 0% 100%,rgba(27,77,62,.4),transparent 70%)}
-.d-ring{position:absolute;border-radius:50%;border:1px solid rgba(201,150,58,.08);pointer-events:none}
-.dr1{width:600px;height:600px;top:-200px;right:-200px;animation:rs 30s linear infinite}
-.dr2{width:400px;height:400px;bottom:-150px;left:-100px;animation:rs 20s linear infinite reverse}
-@keyframes rs{to{transform:rotate(360deg)}}
-.do-in{max-width:900px;margin:0 auto;text-align:center;position:relative}
-.do-in h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.7rem);font-weight:900;line-height:1.08;margin-bottom:1.1rem}
-.do-in h2 em{color:var(--amber);font-style:italic}
-.do-in>p{color:rgba(255,255,255,.58);font-size:.98rem;line-height:1.8;margin-bottom:2.8rem;max-width:570px;margin-left:auto;margin-right:auto}
-.ca-wrap{display:flex;align-items:center;gap:.9rem;margin-bottom:1.4rem;justify-content:center;flex-wrap:wrap}
-.ca-wrap label{font-size:.7rem;font-weight:700;letter-spacing:.12em;color:rgba(255,255,255,.42);text-transform:uppercase}
-.ca-inp{background:rgba(255,255,255,.08);border:1.5px solid rgba(255,255,255,.15);color:#fff;font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;padding:.58rem 1.1rem;border-radius:100px;width:175px;text-align:center;outline:none;transition:border-color .25s,box-shadow .25s}
-.ca-inp:focus{border-color:var(--amber);box-shadow:0 0 0 3px rgba(201,150,58,.18)}
-.ca-inp::placeholder{color:rgba(255,255,255,.22);font-size:.82rem;font-family:'DM Sans',sans-serif}
-.do-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin-bottom:1.9rem}
-.d-card{background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.1);border-radius:var(--r);padding:1.55rem .85rem;cursor:pointer;transition:all .3s var(--ease);text-align:center}
-.d-card:hover{background:rgba(255,255,255,.12);border-color:rgba(201,150,58,.35);transform:translateY(-4px)}
-.d-card.sel{background:rgba(201,150,58,.15);border-color:var(--amber);box-shadow:0 0 0 3px rgba(201,150,58,.17)}
-.d-amt{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;margin-bottom:.28rem}
-.d-card.sel .d-amt{color:var(--amber)}
-.d-dsc{font-size:.67rem;color:rgba(255,255,255,.42);line-height:1.45}
-.d-card.sel .d-dsc{color:rgba(232,184,85,.58)}
-.do-btn{display:flex;align-items:center;justify-content:center;gap:.55rem;width:100%;max-width:450px;margin:0 auto;background:linear-gradient(135deg,var(--gold),var(--amber));color:var(--ink);font-weight:800;font-size:.98rem;letter-spacing:.06em;padding:1.1rem 2rem;border-radius:100px;border:none;position:relative;overflow:hidden;transition:transform .25s var(--ease),box-shadow .25s}
-.do-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.25),transparent 60%);opacity:0;transition:opacity .3s}
-.do-btn:hover{transform:translateY(-3px);box-shadow:0 18px 46px rgba(201,150,58,.5)}
-.do-btn:hover::before{opacity:1}
-.tr-badges{display:flex;gap:1.8rem;justify-content:center;flex-wrap:wrap;margin-top:2.4rem}
-.tr-b{display:flex;align-items:center;gap:.45rem;color:rgba(255,255,255,.32);font-size:.7rem;font-weight:500}
-.tr-b i{color:var(--amber);font-size:.85rem}
-
-/* ── CONTACT STRIP ── */
-.co-strip{background:var(--ink);border-top:1px solid rgba(255,255,255,.06);padding:3.8rem 3.5rem}
-.co-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;text-align:center}
-.co-bl i{font-size:1.55rem;color:var(--amber);margin-bottom:.7rem}
-.co-bl h4{font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-bottom:.45rem}
-.co-bl p,.co-bl a{font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.6;transition:color .2s}
-.co-bl a:hover{color:var(--amber)}
-
-/* ── FOOTER ── */
-footer{background:#040D09;padding:5rem 3.5rem 2.3rem;color:rgba(255,255,255,.48)}
-.f-in{max-width:1280px;margin:0 auto}
-.f-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.6fr;gap:3rem;margin-bottom:3.5rem}
-.f-br img{width:46px;height:46px;border-radius:12px;margin-bottom:.95rem;border:2px solid rgba(201,150,58,.28);object-fit:cover}
-.f-br h4{font-family:'Playfair Display',serif;color:#fff;font-size:1.05rem;margin-bottom:.45rem}
-.f-br p{font-size:.82rem;line-height:1.72}
-.f-col h5{color:#fff;font-size:.63rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.1rem}
-.f-col ul{list-style:none}
-.f-col li{margin-bottom:.52rem}
-.f-col a{color:rgba(255,255,255,.42);font-size:.83rem;transition:color .22s}
-.f-col a:hover{color:var(--amber)}
-.f-nl h5{color:#fff;font-size:.63rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.1rem}
-.f-nl p{font-size:.82rem;line-height:1.7;margin-bottom:.9rem}
-.nl-rw{display:flex}
-.nl-rw input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-right:none;border-radius:100px 0 0 100px;padding:.68rem 1.15rem;color:#fff;font-size:.8rem;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .3s}
-.nl-rw input:focus{border-color:var(--amber)}
-.nl-rw input::placeholder{color:rgba(255,255,255,.26)}
-.nl-rw button{background:linear-gradient(135deg,var(--gold),var(--amber));color:var(--ink);font-weight:700;font-size:.73rem;letter-spacing:.06em;padding:.68rem 1.05rem;border-radius:0 100px 100px 0;border:none;cursor:pointer;transition:opacity .2s}
-.nl-rw button:hover{opacity:.9}
-#nl-m{font-size:.72rem;margin-top:.4rem}
-.f-div{border:none;border-top:1px solid rgba(255,255,255,.06);margin:0 0 1.7rem}
-.f-bot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
-.f-bot p{font-size:.72rem}
-.socs{display:flex;gap:.7rem}
-.socs a{width:33px;height:33px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.38);font-size:.76rem;transition:all .22s}
-.socs a:hover{background:var(--gold);border-color:var(--gold);color:var(--ink);transform:translateY(-2px)}
-
-/* ── MODAL ── */
-#modal{position:fixed;inset:0;z-index:10000;background:rgba(4,13,9,.88);backdrop-filter:blur(20px);display:flex;align-items:center;justify-content:center;padding:1.5rem;opacity:0;pointer-events:none;transition:opacity .35s}
-#modal.op{opacity:1;pointer-events:all}
-#mbox{background:var(--ink);border:1px solid rgba(255,255,255,.1);border-radius:var(--r2);max-width:550px;width:100%;overflow:hidden;position:relative;transform:scale(.93) translateY(18px);transition:transform .4s var(--ease),opacity .4s;opacity:0}
-#modal.op #mbox{transform:none;opacity:1}
-#m-img{width:100%;height:230px;object-fit:cover}
-#m-body{padding:2.1rem}
-#m-title{font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:700;margin-bottom:.75rem}
-#m-text{color:rgba(255,255,255,.6);font-size:.9rem;line-height:1.78;margin-bottom:1.7rem}
-.mcl{position:absolute;top:1rem;right:1rem;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.12);border:none;color:#fff;font-size:.95rem;display:flex;align-items:center;justify-content:center;transition:background .2s}
-.mcl:hover{background:rgba(255,255,255,.22)}
-
-/* ── TOAST ── */
-#toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(70px);z-index:11000;background:var(--forest);color:#fff;padding:.8rem 1.9rem;border-radius:100px;font-size:.83rem;font-weight:600;box-shadow:0 12px 38px rgba(27,77,62,.4);transition:transform .4s var(--ease),opacity .4s;opacity:0;border:1px solid rgba(255,255,255,.1);white-space:nowrap;pointer-events:none}
-#toast.sh{transform:translateX(-50%) translateY(0);opacity:1}
-
-/* ── BTT ── */
-#btt{position:fixed;bottom:2rem;right:1.5rem;z-index:500;width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--amber));color:var(--ink);border:none;font-size:.9rem;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(201,150,58,.35);opacity:0;transform:translateY(18px);pointer-events:none;transition:opacity .35s,transform .35s var(--ease)}
-#btt.sh{opacity:1;transform:none;pointer-events:all}
-#btt:hover{transform:translateY(-3px)!important;box-shadow:0 14px 30px rgba(201,150,58,.5)}
-
-/* ── RESPONSIVE ── */
-@media(max-width:1100px){
-  .pl-grid,.pr-grid{grid-template-columns:1fr}
-  .st-grid,.te-grid{grid-template-columns:repeat(2,1fr)}
-  .f-grid{grid-template-columns:1fr 1fr}
-}
-@media(max-width:860px){
-  :root{--nh:65px}
-  #nav,#nav.sc{padding:.85rem 1.4rem}
-  .n-links{display:none}
-  #hb{display:flex}
-  .h-inner{padding:calc(var(--nh) + 2rem) 1.2rem 4.5rem}
-  .h-title{font-size:clamp(2.3rem,9vw,3.8rem)}
-  .s-rail,.sc-cue{display:none}
-  .s-ctr{right:1.2rem;bottom:1.5rem;font-size:1.5rem}
-  .imp-bar{grid-template-columns:repeat(2,1fr)}
-  .imp-it:nth-child(2)::before{display:none}
-  .imp-it{padding:1.9rem 1rem}
-  .ab-sec{padding:4.5rem 1.4rem}
-  .ab-in{grid-template-columns:1fr;gap:3.2rem}
-  .img-a{width:44%;right:-1rem;bottom:-1rem}
-  .yr-b{top:-.9rem;left:-.9rem;padding:1rem 1.2rem}
-  .pl-sec,.pr-sec,.te-sec,.st-sec,.do-sec,.gl-sec{padding:4.5rem 1.4rem}
-  .gl-sec{padding-left:1.4rem}
-  .st-grid,.te-grid{grid-template-columns:1fr}
-  .pr-hd{flex-direction:column;align-items:flex-start}
-  .pr-grid{grid-template-columns:1fr}
-  .do-grid{grid-template-columns:repeat(2,1fr)}
-  .ca-wrap{flex-direction:column;gap:.55rem}
-  .co-strip{padding:3rem 1.4rem}
-  .co-in{grid-template-columns:1fr;gap:2rem}
-  .gl-hd{padding-right:1.4rem;flex-direction:column;align-items:flex-start;gap:.65rem}
-  .gl-scr{padding-right:1.4rem}
-  .f-grid{grid-template-columns:1fr}
-  footer{padding:3.8rem 1.4rem 2rem}
-  .f-bot{flex-direction:column;text-align:center;gap:1rem}
-}
-@media(max-width:480px){
-  .h-title{font-size:clamp(1.95rem,10vw,2.7rem)}
-  .h-ctas{flex-direction:column;align-items:center}
-  .bg,.bgh{width:100%;max-width:310px;justify-content:center}
-  .imp-bar{grid-template-columns:1fr 1fr}
-  .do-grid{grid-template-columns:1fr 1fr}
-  .tr-badges{flex-direction:column;align-items:center;gap:.85rem}
-  .pl-card{padding:1.9rem}
-  .nl-rw{flex-direction:column}
-  .nl-rw input{border-right:1px solid rgba(255,255,255,.1);border-bottom:none;border-radius:var(--r) var(--r) 0 0}
-  .nl-rw button{border-radius:0 0 var(--r) var(--r);padding:.72rem}
-  .mm-links a{font-size:1.25rem}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Community Listeners for Christ (CLC) is a Christian, non-profit Community-Based Organization in Busia District, Uganda. Listening with Love, Sharing Christ’s Hope.">
+  <meta name="keywords" content="Community Listeners for Christ, CLC, Busia District Uganda, Christian Community Listeners, Family Strengthening, Youth Mentorship, Compassionate Listening, Nahayima Road">
+  <title>Community Listeners for Christ (CLC) | Listening with Love, Sharing Christ’s Hope · Busia District, Uganda</title>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="images/clc-badge.svg">
 </head>
 <body>
 
-<div id="cur"></div><div id="cur-r"></div>
-<div id="prog"></div>
-<div id="toast"><i class="fas fa-check-circle"></i> <span id="t-msg"></span></div>
-<button id="btt" onclick="scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
-
-<!-- ═══ NAV ═══ -->
-<nav id="nav">
-  <a href="index.html" class="n-logo">
-    <img src="images/LOGO.JPG" alt="New Grace JS">
-    <div><strong>New Grace JS</strong><span>NAMAYINGO · UGANDA · EST. 2018</span></div>
-  </a>
-  <div class="n-links">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="education.html">Education</a>
-    <a href="water-sanitation.html">WASH</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="blog.html">Blog</a>
-    <a href="contact.html">Contact</a>
-    <a href="donate.html" class="n-cta">Donate Now</a>
-  </div>
-  <button id="hb" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
-</nav>
-
-<!-- Mobile drawer -->
-<div id="mm" role="dialog" aria-label="Site navigation">
-  <div class="mm-links">
-    <a href="index.html">Home <i class="fas fa-arrow-right"></i></a>
-    <a href="about.html">About <i class="fas fa-arrow-right"></i></a>
-    <a href="education.html">Education <i class="fas fa-arrow-right"></i></a>
-    <a href="water-sanitation.html">WASH <i class="fas fa-arrow-right"></i></a>
-    <a href="gallery.html">Gallery <i class="fas fa-arrow-right"></i></a>
-    <a href="blog.html">Blog <i class="fas fa-arrow-right"></i></a>
-    <a href="services.html">Services <i class="fas fa-arrow-right"></i></a>
-  </div>
-  <div class="mm-soc">
-    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-    <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
-    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-  </div>
-  <button class="mm-btn" onclick="location.href='donate.html'"><i class="fas fa-heart"></i> Donate Now</button>
-</div>
-
-<!-- ═══ HERO ═══ -->
-<section class="hero" id="home">
-  <div class="h-img" id="hi"></div>
-  <div class="h-bg"></div>
-  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
-  <div class="h-grid"></div>
-  <div id="pts"></div>
-
-  <div class="h-inner">
-    <div class="h-badge"><span class="pdot"></span>TRANSFORMING LIVES SINCE 2018</div>
-    <h1 class="h-title">
-      <span class="bl" id="hl1">CLEAN WATER.</span>
-      <span class="it" id="hl2">HEALTHY</span>
-      <span class="bl" id="hl3">COMMUNITIES.</span>
-    </h1>
-    <p class="h-sub" id="hsub">Sustainable water solutions that prevent disease and improve livelihoods in Namayingo District, Uganda.</p>
-    <div class="h-ctas" id="hctas">
-      <a href="donate.html" class="bg"><i class="fas fa-heart"></i> Donate Today</a>
-      <a href="water-sanitation.html" class="bgh"><i class="fas fa-play-circle"></i> Learn More</a>
+  <!-- Announcement Bar -->
+  <aside class="announcement-bar" aria-label="Quick contact and district notice">
+    <div class="bar-left">
+      <span><i class="fa-solid fa-location-dot"></i> Nahayima Road, Busia District, Uganda</span>
+      <span><i class="fa-solid fa-phone"></i> +256 709 251 412 / +256 785 950 405</span>
+      <span><i class="fa-solid fa-envelope"></i> info@clcuganda.org</span>
     </div>
-  </div>
-
-  <div class="s-rail">
-    <button class="s-pip on" data-s="0" aria-label="Slide 1"></button>
-    <button class="s-pip" data-s="1" aria-label="Slide 2"></button>
-    <button class="s-pip" data-s="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="s-ctr"><span id="scn">01</span> / 03</div>
-  <div class="sc-cue"><div class="tr"></div><span>SCROLL</span></div>
-</section>
-
-<!-- ═══ IMPACT BAR ═══ -->
-<div class="imp-bar">
-  <div class="imp-it reveal"><div class="imp-ic">💧</div><div class="imp-n" data-t="5000" id="n1">0</div><div class="imp-l">People Reached</div></div>
-  <div class="imp-it reveal" style="transition-delay:.12s"><div class="imp-ic">🎓</div><div class="imp-n" data-t="1200" id="n2">0</div><div class="imp-l">Students Educated</div></div>
-  <div class="imp-it reveal" style="transition-delay:.22s"><div class="imp-ic">🏫</div><div class="imp-n" data-t="20" id="n3">0</div><div class="imp-l">Schools Supported</div></div>
-  <div class="imp-it reveal" style="transition-delay:.32s"><div class="imp-ic">✅</div><div class="imp-n" id="n4">58%</div><div class="imp-l">Success Rate</div></div>
-</div>
-
-<!-- ═══ MARQUEE ═══ -->
-<div class="mq-sec" aria-hidden="true">
-  <div class="mq-track">
-    <span class="mq-it"><i class="fas fa-circle"></i>CLEAN WATER FOR ALL</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>EDUCATION CHANGES LIVES</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>NAMAYINGO · UGANDA</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>COMMUNITY EMPOWERMENT</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>CHARITY BAS/CS/4067</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>SUSTAINABLE DEVELOPMENT</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>WASH PROGRAMS</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>SINCE 2018 · BUSUMA VILLAGE</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>CLEAN WATER FOR ALL</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>EDUCATION CHANGES LIVES</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>NAMAYINGO · UGANDA</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>COMMUNITY EMPOWERMENT</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>CHARITY BAS/CS/4067</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>SUSTAINABLE DEVELOPMENT</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>WASH PROGRAMS</span>
-    <span class="mq-it"><i class="fas fa-circle"></i>SINCE 2018 · BUSUMA VILLAGE</span>
-  </div>
-</div>
-
-<!-- ═══ ABOUT ═══ -->
-<section class="ab-sec">
-  <div class="ab-in">
-    <div class="img-st rl">
-      <img src="images/community%20meeting.jpeg" alt="Community meeting" class="img-m">
-      <img src="images/school%20feeding%20program.jpeg" alt="School program" class="img-a">
-      <div class="yr-b"><strong>2018</strong><span>Founded</span></div>
+    <div class="bar-right">
+      <span class="tagline-pill">“Listening with Love, Sharing Christ’s Hope”</span>
+      <span><i class="fa-solid fa-handshake-angle"></i> Partners: Resolution & Busia Town Baptist Church</span>
     </div>
-    <div class="rr">
-      <div class="lbl dk">Our Story</div>
-      <h2 class="ab-txt h2-stub">Clean water &amp; education for every child in <em>Namayingo</em>.</h2>
-      <div class="ab-txt">
-        <p>New Grace JS is a community-led charity working in Busuma Village, Banda Subcounty. Since 2018 we have delivered clean water, sanitation, hygiene education and school support to thousands of families.</p>
-        <p>We believe sustainable change comes from within — training local leaders, building community ownership, and designing solutions that last generations.</p>
-        <div class="chips">
-          <span class="chip">WASH Programs</span><span class="chip">School Support</span>
-          <span class="chip">Women Empowerment</span><span class="chip">Hygiene Education</span>
-          <span class="chip">Community Leadership</span>
+  </aside>
+
+  <!-- Main Navbar -->
+  <header class="clc-navbar" role="banner">
+    <div class="navbar-inner">
+      <a href="index.html" class="clc-brand" aria-label="Community Listeners for Christ Homepage">
+        <img src="images/clc-logo.svg" alt="CLC Logo - Community Listeners for Christ" class="clc-brand-logo">
+      </a>
+
+      <!-- Desktop Nav Menu -->
+      <nav class="nav-menu" role="navigation" aria-label="Primary navigation">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="about.html" class="nav-link">About CLC</a>
+        <a href="services.html" class="nav-link">Our Model & Programs</a>
+        <a href="community-leadership.html" class="nav-link">Governance</a>
+        <a href="safeguarding.html" class="nav-link">Safeguarding</a>
+        <a href="partnerships.html" class="nav-link">Partners</a>
+        <a href="impact.html" class="nav-link">Impact</a>
+        <a href="gallery.html" class="nav-link">Gallery</a>
+        <div class="nav-item-dropdown">
+          <a href="#" class="nav-link">Get Involved <i class="fa-solid fa-chevron-down" style="font-size: 0.65rem; margin-left: 2px;"></i></a>
+          <ul class="nav-dropdown-menu">
+            <li><a href="volunteer.html" class="dropdown-link"><i class="fa-solid fa-user-plus"></i> Become a Listener</a></li>
+            <li><a href="#" class="dropdown-link" data-open-modal="modalPrayer"><i class="fa-solid fa-ear-listen"></i> Request a Visit</a></li>
+            <li><a href="donate.html" class="dropdown-link"><i class="fa-solid fa-hand-holding-dollar"></i> Support Our Work</a></li>
+            <li><a href="resources.html" class="dropdown-link"><i class="fa-solid fa-book-open"></i> Profile & Reports</a></li>
+            <li><a href="faq.html" class="dropdown-link"><i class="fa-solid fa-circle-question"></i> FAQs</a></li>
+          </ul>
         </div>
-        <a href="about.html" class="bf">Learn More <i class="fas fa-arrow-right"></i></a>
-      </div>
-    </div>
-  </div>
-</section>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
 
-<!-- ═══ PILLARS ═══ -->
-<section class="pl-sec">
-  <div class="pl-in">
-    <div class="sec-hd reveal">
-      <div class="lbl" style="justify-content:center">Our Mission</div>
-      <h2>Four pillars of <em>lasting change</em></h2>
-      <p>Every programme we run is designed for maximum community impact and long-term sustainability.</p>
-    </div>
-    <div class="pl-grid">
-      <div class="pl-card reveal" onclick="openM('Improved Health','Since 2020, we installed 8 boreholes and 45 handwashing stations. Diarrheal diseases among children under 5 dropped by 62%.','images/clean.jpeg')">
-        <div class="pl-glow"></div><div class="pl-n">01</div>
-        <div class="pl-ic">💧</div>
-        <h3>Improved Health</h3>
-        <p>Clean water access eliminates waterborne disease at the source. Every borehole we install protects an entire community for years.</p>
-        <span class="st-chip">↓ 62% fewer waterborne diseases</span>
-        <div class="pl-more">READ MORE <i class="fas fa-arrow-right"></i></div>
-      </div>
-      <div class="pl-card reveal" style="transition-delay:.12s" onclick="openM('Community Empowerment','We trained 120 community health workers and 15 water committees. Villagers now manage and maintain their own water points independently.','images/community%20empowermwnt.jpeg')">
-        <div class="pl-glow"></div><div class="pl-n">02</div>
-        <div class="pl-ic">🤝</div>
-        <h3>Community Empowerment</h3>
-        <p>We train local leaders and water committees so communities own, operate and sustain their infrastructure indefinitely.</p>
-        <span class="st-chip">120 local leaders trained</span>
-        <div class="pl-more">READ MORE <i class="fas fa-arrow-right"></i></div>
-      </div>
-      <div class="pl-card reveal" style="transition-delay:.22s" onclick="openM('Quality Education','School attendance increased 40% after we built latrines and provided menstrual hygiene kits. We also sponsor 90 orphans in secondary school.','images/school%20feeding%20program.jpeg')">
-        <div class="pl-glow"></div><div class="pl-n">03</div>
-        <div class="pl-ic">📚</div>
-        <h3>Quality Education</h3>
-        <p>Latrines, hygiene clubs and menstrual health kits keep girls in school. Knowledge is the most durable infrastructure of all.</p>
-        <span class="st-chip">↑ 40% higher attendance</span>
-        <div class="pl-more">READ MORE <i class="fas fa-arrow-right"></i></div>
-      </div>
-      <div class="pl-card reveal" style="transition-delay:.32s" onclick="openM('Sustainability','All projects use locally sourced materials designed for low maintenance. 90% of water points are still fully functional after 5 years.','images/waterpurifier.jpeg')">
-        <div class="pl-glow"></div><div class="pl-n">04</div>
-        <div class="pl-ic">🌿</div>
-        <h3>Sustainability</h3>
-        <p>Every installation uses locally sourced materials designed for low maintenance — communities thrive long after we leave.</p>
-        <span class="st-chip">90% functional after 5 years</span>
-        <div class="pl-more">READ MORE <i class="fas fa-arrow-right"></i></div>
+      <!-- Nav Actions -->
+      <div class="nav-actions">
+        <button type="button" class="btn btn-outline-forest btn-sm btn-prayer-modal" data-open-modal="modalPrayer">
+          <i class="fa-solid fa-heart"></i> Request a Listener
+        </button>
+        <a href="donate.html" class="btn btn-gold btn-sm">
+          <i class="fa-solid fa-hand-holding-heart"></i> Give
+        </a>
+        <button class="mobile-nav-toggle" aria-label="Toggle navigation drawer" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </div>
-  </div>
-</section>
+  </header>
 
-<!-- ═══ PROGRAMS ═══ -->
-<section class="pr-sec">
-  <div class="pr-in">
-    <div class="pr-hd reveal">
-      <div>
-        <div class="lbl dk">Our Programs</div>
-        <h2>Two programs, one <em>shared mission</em></h2>
-      </div>
-      <a href="services.html" class="bf">View All <i class="fas fa-arrow-right"></i></a>
+  <!-- Mobile Drawer Overlay & Menu -->
+  <div class="mobile-drawer-overlay"></div>
+  <aside class="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
+    <div class="mobile-drawer-header">
+      <img src="images/clc-logo-white.svg" alt="CLC Logo" style="height: 42px;">
+      <button class="mobile-drawer-close" aria-label="Close menu">&times;</button>
     </div>
-    <div class="pr-grid">
-      <div class="pr-card reveal" onclick="location.href='education.html'">
-        <img src="images/hygiene%20education%20in%20schools.jpg" alt="Education" class="pr-img">
-        <div class="pr-body"><span class="pr-tag">EDUCATION</span><h3>School Programs</h3><p>Hygiene workshops, teacher training and support reaching 85,000+ children across the district.</p><a href="education.html" class="pr-lnk">Explore Education <i class="fas fa-arrow-right"></i></a></div>
-      </div>
-      <div class="pr-card reveal" style="transition-delay:.15s" onclick="location.href='water-sanitation.html'">
-        <img src="images/waterpurifier.jpeg" alt="WASH" class="pr-img">
-        <div class="pr-body"><span class="pr-tag">WASH</span><h3>Water & Sanitation</h3><p>Clean water boreholes, sanitation facilities and hygiene training for entire communities in Namayingo.</p><a href="water-sanitation.html" class="pr-lnk">Explore WASH <i class="fas fa-arrow-right"></i></a></div>
-      </div>
+    <ul class="mobile-drawer-menu">
+      <li><a href="index.html" class="active"><i class="fa-solid fa-house"></i> Home</a></li>
+      <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About CLC</a></li>
+      <li><a href="services.html"><i class="fa-solid fa-hands-holding"></i> Programs & Model</a></li>
+      <li><a href="community-leadership.html"><i class="fa-solid fa-users-gear"></i> Governance & Leadership</a></li>
+      <li><a href="safeguarding.html"><i class="fa-solid fa-shield-halved"></i> Safeguarding & Referrals</a></li>
+      <li><a href="partnerships.html"><i class="fa-solid fa-handshake"></i> Partners (Resolution & Baptist)</a></li>
+      <li><a href="volunteer.html"><i class="fa-solid fa-user-plus"></i> Volunteer as a Listener</a></li>
+      <li><a href="impact.html"><i class="fa-solid fa-chart-line"></i> Community Impact</a></li>
+      <li><a href="gallery.html"><i class="fa-solid fa-images"></i> Photo Gallery</a></li>
+      <li><a href="donate.html"><i class="fa-solid fa-hand-holding-dollar"></i> Support Our Mission</a></li>
+      <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact Us</a></li>
+      <li><a href="faq.html"><i class="fa-solid fa-circle-question"></i> FAQs</a></li>
+    </ul>
+    <div class="mobile-drawer-footer">
+      <p><i class="fa-solid fa-location-dot"></i> Nahayima Road, Busia District, Uganda</p>
+      <button class="btn btn-gold btn-block btn-sm" data-open-modal="modalPrayer">
+        <i class="fa-solid fa-ear-listen"></i> Request a Listening Visit
+      </button>
     </div>
-  </div>
-</section>
+  </aside>
 
-<!-- ═══ TESTIMONIALS ═══ -->
-<section class="te-sec">
-  <div class="te-in">
-    <div class="sec-hd reveal">
-      <div class="lbl" style="justify-content:center">Community Voices</div>
-      <h2>Heard from the <em>people we serve</em></h2>
-    </div>
-    <div class="te-grid">
-      <div class="te-card reveal" style="transition-delay:.06s">
-        <div class="te-stars">★★★★★</div>
-        <p class="te-q">Before New Grace JS came, my children walked 4 km every morning for water. Now they drink clean water from our village borehole and arrive at school on time.</p>
-        <div class="te-auth"><div class="te-av">A</div><div><div class="te-nm">Auma Christine</div><div class="te-rl">Mother of 4 · Busuma Village</div></div></div>
-      </div>
-      <div class="te-card reveal" style="transition-delay:.16s">
-        <div class="te-stars">★★★★★</div>
-        <p class="te-q">The hygiene clubs they set up transformed behaviour completely. Absenteeism due to diarrhoeal illness dropped by half within two terms of the programme starting.</p>
-        <div class="te-auth"><div class="te-av">O</div><div><div class="te-nm">Okello James</div><div class="te-rl">Headteacher · Banda Primary School</div></div></div>
-      </div>
-      <div class="te-card reveal" style="transition-delay:.26s">
-        <div class="te-stars">★★★★★</div>
-        <p class="te-q">I was the first girl in my family to sit national exams. The scholarship paid my fees and the school latrine meant I never missed days every month anymore.</p>
-        <div class="te-auth"><div class="te-av">N</div><div><div class="te-nm">Nabirye Fatuma</div><div class="te-rl">Secondary Scholar · Class of 2024</div></div></div>
-      </div>
-    </div>
-  </div>
-</section>
+  <!-- Main Content -->
+  <main>
+    <!-- HERO SECTION -->
+    <section class="clc-hero" aria-label="Welcome to Community Listeners for Christ">
+      <div class="hero-glow-1"></div>
+      <div class="hero-glow-2"></div>
+      <div class="hero-grid-pattern"></div>
+      
+      <div class="container">
+        <div class="hero-layout">
+          <!-- Hero Left -->
+          <div class="hero-content">
+            <div class="hero-badge-pill">
+              <span class="pulse-dot"></span>
+              <span>Christian Community-Based Organization · Busia District, Uganda</span>
+            </div>
 
-<!-- ═══ STORIES ═══ -->
-<section class="st-sec">
-  <div class="st-in">
-    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;flex-wrap:wrap;gap:1rem" class="reveal">
-      <div>
-        <div class="lbl">Latest Stories</div>
-        <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.85rem,4vw,3rem);font-weight:900">Change you can <em style="color:var(--amber);font-style:italic">see</em></h2>
-      </div>
-      <a href="blog.html" class="bgh" style="padding:.65rem 1.5rem;font-size:.78rem">All Stories <i class="fas fa-arrow-right"></i></a>
-    </div>
-    <div class="st-grid">
-      <div class="st-card reveal" style="transition-delay:.06s">
-        <div class="st-iw"><img src="images/clean.jpeg" alt="Borehole" class="st-img"></div>
-        <div class="st-body">
-          <div class="st-meta"><span class="st-cat">WASH</span><span class="st-dt">MARCH 2025</span></div>
-          <h3>New Borehole Now Serves 500 Families in Busuma</h3>
-          <p>A solar-powered borehole provides clean water around the clock, cutting waterborne diseases by 70%.</p>
-          <a href="#" class="st-lnk">Read More <i class="fas fa-arrow-right"></i></a>
+            <h1 class="hero-title">
+              Listening with Love.
+              <span class="highlight-gold">Sharing Christ’s Hope.</span>
+            </h1>
+
+            <p class="hero-lead">
+              Community Listeners for Christ (CLC) equips and mobilizes trained Christian volunteers across Busia District to listen compassionately, offer prayer, strengthen families, mentor youth, and responsibly connect vulnerable individuals to essential community and specialized care.
+            </p>
+
+            <div class="hero-buttons">
+              <button class="btn btn-gold btn-lg" data-open-modal="modalPrayer">
+                <i class="fa-solid fa-ear-listen"></i> Request a Listening Visit
+              </button>
+              <a href="#listener-model" class="btn btn-outline-white btn-lg">
+                <i class="fa-solid fa-circle-nodes"></i> Explore Our 6-Step Model
+              </a>
+              <a href="volunteer.html" class="btn btn-primary btn-lg">
+                <i class="fa-solid fa-user-plus"></i> Become a Listener
+              </a>
+            </div>
+
+            <div class="hero-key-facts">
+              <div class="hero-fact-item">
+                <span class="hero-fact-number">6-Step</span>
+                <span class="hero-fact-label">Community Listener Model</span>
+              </div>
+              <div class="hero-fact-item">
+                <span class="hero-fact-number">7</span>
+                <span class="hero-fact-label">Holistic Program Areas</span>
+              </div>
+              <div class="hero-fact-item">
+                <span class="hero-fact-number">100%</span>
+                <span class="hero-fact-label">Free, Unconditional Care</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hero Right: Interactive Model Quick Preview & Address Badge -->
+          <div class="hero-card-display">
+            <div class="hero-main-card">
+              <h4>The Community Listener Approach</h4>
+              <p>
+                A Community Listener is a Christian volunteer equipped to provide respectful, unhurried community-level support through an ethical, safeguarding-centered framework:
+              </p>
+
+              <div class="hero-flow-preview">
+                <span class="flow-step-pill">1. Listen</span>
+                <i class="fa-solid fa-arrow-right flow-step-arrow"></i>
+                <span class="flow-step-pill">2. Understand</span>
+                <i class="fa-solid fa-arrow-right flow-step-arrow"></i>
+                <span class="flow-step-pill">3. Encourage</span>
+                <i class="fa-solid fa-arrow-right flow-step-arrow"></i>
+                <span class="flow-step-pill">4. Support</span>
+                <i class="fa-solid fa-arrow-right flow-step-arrow"></i>
+                <span class="flow-step-pill">5. Refer</span>
+                <i class="fa-solid fa-arrow-right flow-step-arrow"></i>
+                <span class="flow-step-pill">6. Follow Up</span>
+              </div>
+
+              <div class="hero-location-badge">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <div>
+                  <strong>Headquarters & Field Presence:</strong><br>
+                  Nahayima Road, Busia District, Uganda (Sub-county level and below)
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="st-card reveal" style="transition-delay:.16s">
-        <div class="st-iw"><img src="images/school%20feeding%20program.jpeg" alt="Hygiene clubs" class="st-img"></div>
-        <div class="st-body">
-          <div class="st-meta"><span class="st-cat">EDUCATION</span><span class="st-dt">JAN 2025</span></div>
-          <h3>Hygiene Clubs Launched in 10 Primary Schools</h3>
-          <p>3,000 children now practise daily handwashing after our school hygiene club programme rolled out.</p>
-          <a href="#" class="st-lnk">Read More <i class="fas fa-arrow-right"></i></a>
+    </section>
+
+    <!-- CORE VALUES & PRINCIPLES TICKER -->
+    <div class="clc-marquee" aria-label="Core values ticker">
+      <div class="marquee-track">
+        <div class="marquee-item"><i class="fa-solid fa-cross"></i> Christian Love</div>
+        <div class="marquee-item"><i class="fa-solid fa-ear-listen"></i> Compassionate Listening</div>
+        <div class="marquee-item"><i class="fa-solid fa-hands-praying"></i> Prayer & Spiritual Hope</div>
+        <div class="marquee-item"><i class="fa-solid fa-hand-holding-heart"></i> Human Dignity & Respect</div>
+        <div class="marquee-item"><i class="fa-solid fa-user-shield"></i> Strict Confidentiality</div>
+        <div class="marquee-item"><i class="fa-solid fa-shield-halved"></i> Child Safeguarding</div>
+        <div class="marquee-item"><i class="fa-solid fa-people-roof"></i> Family Strengthening</div>
+        <div class="marquee-item"><i class="fa-solid fa-dove"></i> Peace & Reconciliation</div>
+        <div class="marquee-item"><i class="fa-solid fa-route"></i> Responsible Referral</div>
+        <div class="marquee-item"><i class="fa-solid fa-scale-balanced"></i> Non-Profit & Non-Partisan CBO</div>
+        <div class="marquee-item"><i class="fa-solid fa-handshake"></i> Busia District, Uganda</div>
+        <!-- Duplicate for infinite marquee loop -->
+        <div class="marquee-item"><i class="fa-solid fa-cross"></i> Christian Love</div>
+        <div class="marquee-item"><i class="fa-solid fa-ear-listen"></i> Compassionate Listening</div>
+        <div class="marquee-item"><i class="fa-solid fa-hands-praying"></i> Prayer & Spiritual Hope</div>
+        <div class="marquee-item"><i class="fa-solid fa-hand-holding-heart"></i> Human Dignity & Respect</div>
+        <div class="marquee-item"><i class="fa-solid fa-user-shield"></i> Strict Confidentiality</div>
+        <div class="marquee-item"><i class="fa-solid fa-shield-halved"></i> Child Safeguarding</div>
+      </div>
+    </div>
+
+    <!-- OVERVIEW & CONSTITUTIONAL IDENTITY SECTION -->
+    <section class="section-padding bg-parchment" id="overview">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i class="fa-solid fa-compass"></i> Organizational Overview</span>
+          <h2>A Christ-Centered Heart for Busia’s Communities</h2>
+          <p>
+            Community Listeners for Christ (CLC) is a Christian, non-profit and non-partisan Community-Based Organization established to promote compassionate listening, spiritual encouragement, responsible referral, family strengthening and holistic support for individuals and families in Busia District.
+          </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+          <!-- Card 1: Vision -->
+          <div style="background: #FFFFFF; border-radius: var(--radius-md); padding: 2.2rem; border: 1.5px solid var(--clc-border-subtle); box-shadow: var(--clc-shadow-sm);">
+            <div style="width: 50px; height: 50px; border-radius: var(--radius-sm); background: var(--clc-mint-bg); color: var(--clc-forest); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 1.2rem; border: 1px solid rgba(37, 99, 235, 0.25);">
+              <i class="fa-solid fa-eye"></i>
+            </div>
+            <h3 style="font-size: 1.35rem; margin-bottom: 0.8rem; color: var(--clc-forest);">Our Vision</h3>
+            <p style="font-size: 0.95rem; color: var(--clc-slate-text); line-height: 1.7; font-style: italic;">
+              “Christ-centered communities where every person experiences compassionate listening, prayer, dignity, support and hope.”
+            </p>
+          </div>
+
+          <!-- Card 2: Mission -->
+          <div style="background: #FFFFFF; border-radius: var(--radius-md); padding: 2.2rem; border: 1.5px solid var(--clc-border-subtle); box-shadow: var(--clc-shadow-sm);">
+            <div style="width: 50px; height: 50px; border-radius: var(--radius-sm); background: var(--clc-mint-bg); color: var(--clc-forest); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 1.2rem; border: 1px solid rgba(37, 99, 235, 0.25);">
+              <i class="fa-solid fa-bullseye"></i>
+            </div>
+            <h3 style="font-size: 1.35rem; margin-bottom: 0.8rem; color: var(--clc-forest);">Our Mission</h3>
+            <p style="font-size: 0.95rem; color: var(--clc-slate-text); line-height: 1.7;">
+              “To equip and mobilize Christian volunteers to listen compassionately, provide appropriate spiritual encouragement, promote positive family and community relationships, support vulnerable people through responsible referral and partnership, and contribute to the holistic well-being of individuals and families.”
+            </p>
+          </div>
+
+          <!-- Card 3: Constitutional Inclusion Principle -->
+          <div style="background: var(--clc-forest); color: #FFFFFF; border-radius: var(--radius-md); padding: 2.2rem; border: 1.5px solid var(--clc-forest); box-shadow: var(--clc-shadow-md);">
+            <div style="width: 50px; height: 50px; border-radius: var(--radius-sm); background: rgba(255, 255, 255, 0.1); color: var(--clc-gold-bright); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; margin-bottom: 1.2rem; border: 1px solid rgba(242, 201, 76, 0.3);">
+              <i class="fa-solid fa-hands-holding-circle"></i>
+            </div>
+            <h3 style="font-size: 1.35rem; margin-bottom: 0.8rem; color: var(--clc-gold-bright);">Faith Identity & Inclusion</h3>
+            <p style="font-size: 0.92rem; color: rgba(255, 255, 255, 0.88); line-height: 1.65;">
+              CLC is proudly guided by Christian values while ensuring services are delivered respectfully and without coercion. Participation in CLC services is <strong>never conditional upon conversion or religious affiliation</strong>. We honor every person with love and dignity.
+            </p>
+          </div>
         </div>
       </div>
-      <div class="st-card reveal" style="transition-delay:.26s">
-        <div class="st-iw"><img src="images/women%20empowerment.jpg" alt="Women" class="st-img"></div>
-        <div class="st-body">
-          <div class="st-meta"><span class="st-cat">COMMUNITY</span><span class="st-dt">NOV 2024</span></div>
-          <h3>Women's Group Launches Soap-Making Cooperative</h3>
-          <p>30 women used seed funding to start a soap-making cooperative — clean hands and clean income.</p>
-          <a href="#" class="st-lnk">Read More <i class="fas fa-arrow-right"></i></a>
+    </section>
+
+    <!-- INTERACTIVE 6-STEP COMMUNITY LISTENER MODEL -->
+    <section class="section-padding bg-white" id="listener-model">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i class="fa-solid fa-diagram-project"></i> Core Methodology</span>
+          <h2>The Community Listener Model</h2>
+          <p>
+            The Community Listener is central to CLC’s approach. Our volunteers are equipped to provide safe, structured, community-level care while maintaining strict professional boundaries. Click any step below to explore its field practice:
+          </p>
+        </div>
+
+        <div class="clc-listener-model">
+          <!-- 6 Steps Grid -->
+          <div class="model-flow-grid">
+            <!-- Step 1 -->
+            <div class="model-step-card active" data-step="1">
+              <span class="model-step-number">1</span>
+              <div class="model-step-icon">
+                <i class="fa-solid fa-ear-listen"></i>
+              </div>
+              <h4>LISTEN</h4>
+              <p class="model-step-desc">Unhurried, compassionate, non-judgmental presence in households.</p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="model-step-card" data-step="2">
+              <span class="model-step-number">2</span>
+              <div class="model-step-icon">
+                <i class="fa-solid fa-heart-pulse"></i>
+              </div>
+              <h4>UNDERSTAND</h4>
+              <p class="model-step-desc">Discerning underlying emotional, family, or spiritual burdens.</p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="model-step-card" data-step="3">
+              <span class="model-step-number">3</span>
+              <div class="model-step-icon">
+                <i class="fa-solid fa-book-bible"></i>
+              </div>
+              <h4>ENCOURAGE</h4>
+              <p class="model-step-desc">Uplifting biblical encouragement & prayer where welcomed.</p>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="model-step-card" data-step="4">
+              <span class="model-step-number">4</span>
+              <div class="model-step-icon">
+                <i class="fa-solid fa-people-roof"></i>
+              </div>
+              <h4>SUPPORT</h4>
+              <p class="model-step-desc">Practical care, family dialogue & youth life skills accompaniment.</p>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="model-step-card" data-step="5">
+              <span class="model-step-number">5</span>
+              <div class="model-step-icon">
+                <i class="fa-solid fa-route"></i>
+              </div>
+              <h4>REFER</h4>
+              <p class="model-step-desc">Mandatory referral for specialized medical, legal, or child protection cases.</p>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="model-step-card" data-step="6">
+              <span class="model-step-number">6</span>
+              <div class="model-step-icon">
+                <i class="fa-solid fa-person-walking-arrow-loop-left"></i>
+              </div>
+              <h4>FOLLOW UP</h4>
+              <p class="model-step-desc">Continuous care continuity, family check-ins & walking alongside.</p>
+            </div>
+          </div>
+
+          <!-- Dynamic Detail Box -->
+          <div class="model-detail-box">
+            <div>
+              <h3 id="modelDetailTitle">Step 1: LISTEN (Compassionate & Non-Judgmental Presence)</h3>
+              <p id="modelDetailDesc">
+                Christian Community Listeners visit households and community members to offer patient, dignified, and active listening. We provide a safe, calm space for people to express grief, worry, marital tension, or life challenges without fear of judgment, criticism, or unwanted unsolicited advice.
+              </p>
+              <p id="modelDetailAction" style="font-weight: 600; color: var(--clc-gold-bright); margin-top: 0.6rem; font-size: 0.88rem;">
+                Field Action: Unhurried home visits, listening with deep empathy, active reflective listening, and unconditional positive regard.
+              </p>
+            </div>
+            <div class="model-boundary-warning">
+              <strong>Strict Boundary Rule (Section 9 & 13)</strong>
+              <span id="modelDetailBoundary">
+                Boundary: Listeners never diagnose, dispute, or force conversation; listening is confidential and completely voluntary. Specialized medical, legal, or child protection needs must be referred.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 CORE PROGRAM AREAS SECTION -->
+    <section class="section-padding bg-parchment" id="programs">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i class="fa-solid fa-layer-group"></i> Our 7 Program Areas</span>
+          <h2>Comprehensive Community Transformation</h2>
+          <p>
+            Alleviating hardship and building resilience across Busia District through 7 structured program departments aligned with our Constitution:
+          </p>
+        </div>
+
+        <div class="programs-grid">
+          <!-- Program 1 -->
+          <article class="program-card">
+            <div class="program-card-image">
+              <img src="images/community vist.jpeg" alt="Community visit and listening session in Busia">
+              <span class="program-pill-tag">Section 8.1</span>
+            </div>
+            <div class="program-card-body">
+              <div class="program-card-icon"><i class="fa-solid fa-ear-listen"></i></div>
+              <h3>Community Listening & Spiritual Encouragement</h3>
+              <p>Regular household visits and community listening sessions that provide compassionate attention, prayer where welcomed, and identification of vulnerable community needs.</p>
+              <ul class="program-bullets">
+                <li><i class="fa-solid fa-check"></i> Household visits & active listening</li>
+                <li><i class="fa-solid fa-check"></i> Prayer & spiritual encouragement</li>
+                <li><i class="fa-solid fa-check"></i> Follow-up and supportive care</li>
+              </ul>
+              <div class="program-card-footer">
+                <a href="services.html#listening" class="program-link">Read Details <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Program 2 -->
+          <article class="program-card">
+            <div class="program-card-image">
+              <img src="images/leadership.jpg" alt="Volunteer training workshop in active listening">
+              <span class="program-pill-tag">Section 8.2</span>
+            </div>
+            <div class="program-card-body">
+              <div class="program-card-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+              <h3>Volunteer Training & Capacity Building</h3>
+              <p>Equipping Christian volunteers in active listening, biblical counselling within appropriate limits, safeguarding protocols, confidentiality, and responsible referral systems.</p>
+              <ul class="program-bullets">
+                <li><i class="fa-solid fa-check"></i> Active listening & counselling limits</li>
+                <li><i class="fa-solid fa-check"></i> Safeguarding & confidentiality certification</li>
+                <li><i class="fa-solid fa-check"></i> Referral pathways coordination</li>
+              </ul>
+              <div class="program-card-footer">
+                <a href="services.html#training" class="program-link">Read Details <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Program 3 -->
+          <article class="program-card">
+            <div class="program-card-image">
+              <img src="images/women club.jpeg" alt="Family strengthening and women dialogue in Busia">
+              <span class="program-pill-tag">Section 8.3</span>
+            </div>
+            <div class="program-card-body">
+              <div class="program-card-icon"><i class="fa-solid fa-people-roof"></i></div>
+              <h3>Family Strengthening & Peacebuilding</h3>
+              <p>Fostering marital harmony, forgiveness, and positive household relationships through family dialogues, parental encouragement, and domestic dispute mitigation.</p>
+              <ul class="program-bullets">
+                <li><i class="fa-solid fa-check"></i> Marital and family encouragement</li>
+                <li><i class="fa-solid fa-check"></i> Peacebuilding, forgiveness & reconciliation</li>
+                <li><i class="fa-solid fa-check"></i> Community family dialogues</li>
+              </ul>
+              <div class="program-card-footer">
+                <a href="services.html#family" class="program-link">Read Details <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Program 4 -->
+          <article class="program-card">
+            <div class="program-card-image">
+              <img src="images/children program.jpg" alt="Children and youth mentorship program">
+              <span class="program-pill-tag">Section 8.4</span>
+            </div>
+            <div class="program-card-body">
+              <div class="program-card-icon"><i class="fa-solid fa-user-graduate"></i></div>
+              <h3>Children & Youth Mentorship</h3>
+              <p>Guiding the next generation through Christian values, practical life skills, responsible citizenship, academic hope, and leadership development.</p>
+              <ul class="program-bullets">
+                <li><i class="fa-solid fa-check"></i> Life skills & leadership mentorship</li>
+                <li><i class="fa-solid fa-check"></i> Christian character formation</li>
+                <li><i class="fa-solid fa-check"></i> School outreach & positive peer clubs</li>
+              </ul>
+              <div class="program-card-footer">
+                <a href="services.html#youth" class="program-link">Read Details <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Program 5 -->
+          <article class="program-card">
+            <div class="program-card-image">
+              <img src="images/community empowermwnt.jpeg" alt="Support to vulnerable individuals and families">
+              <span class="program-pill-tag">Section 8.5</span>
+            </div>
+            <div class="program-card-body">
+              <div class="program-card-icon"><i class="fa-solid fa-hand-holding-hand"></i></div>
+              <h3>Support to Vulnerable Individuals & Families</h3>
+              <p>Practical care, holistic accompaniment, and responsible referral for widows, the elderly, orphans, and persons with disabilities facing acute isolation or hardship.</p>
+              <ul class="program-bullets">
+                <li><i class="fa-solid fa-check"></i> Practical community care & prayer</li>
+                <li><i class="fa-solid fa-check"></i> Partnerships with local churches</li>
+                <li><i class="fa-solid fa-check"></i> Connection to government social welfare</li>
+              </ul>
+              <div class="program-card-footer">
+                <a href="services.html#vulnerable" class="program-link">Read Details <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Program 6 -->
+          <article class="program-card">
+            <div class="program-card-image">
+              <img src="images/community meeting.jpeg" alt="Peace and reconciliation gathering in Busia">
+              <span class="program-pill-tag">Section 8.6</span>
+            </div>
+            <div class="program-card-body">
+              <div class="program-card-icon"><i class="fa-solid fa-dove"></i></div>
+              <h3>Peace, Reconciliation & Community Unity</h3>
+              <p>Promoting peaceful coexistence, mutual forgiveness, restorative dialogue, and strong community unity across diverse sub-counties and neighborhoods.</p>
+              <ul class="program-bullets">
+                <li><i class="fa-solid fa-check"></i> Restorative community mediation</li>
+                <li><i class="fa-solid fa-check"></i> Forgiveness & reconciliation forums</li>
+                <li><i class="fa-solid fa-check"></i> Community cohesion promotion</li>
+              </ul>
+              <div class="program-card-footer">
+                <a href="services.html#peace" class="program-link">Read Details <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Program 7 -->
+          <article class="program-card" style="grid-column: 1 / -1; max-width: 820px; margin: 0 auto; width: 100%;">
+            <div class="program-card-body" style="padding: 2.2rem; text-align: center; align-items: center;">
+              <div class="program-card-icon" style="margin: 0 auto 1.2rem auto;"><i class="fa-solid fa-church"></i></div>
+              <span class="program-pill-tag" style="position: static; display: inline-block; margin-bottom: 0.8rem;">Section 8.7</span>
+              <h3>Church–Community Engagement</h3>
+              <p style="max-width: 680px;">Strengthening positive relationships between local Christian churches and their surrounding communities, mobilizing Christian volunteers for selfless service, and putting faith into compassionate action.</p>
+              <div class="program-card-footer" style="width: 100%; justify-content: center; border-top: none; padding-top: 0.5rem;">
+                <a href="services.html#church" class="btn btn-outline-forest btn-sm">Explore Church Partnerships <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- STRATEGIC PARTNERS SECTION (RESOLUTION & BUSIA TOWN BAPTIST CHURCH) -->
+    <section class="clc-partners-section" id="partners">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i class="fa-solid fa-handshake"></i> Strategic Alliances</span>
+          <h2>Our Trusted Partners in Service</h2>
+          <p>
+            Community transformation is built on collaboration. Community Listeners for Christ works hand-in-hand with dedicated organizations, local churches, and government stakeholders:
+          </p>
+        </div>
+
+        <div class="partners-showcase-grid">
+          <!-- Featured Partner 1: Resolution -->
+          <div class="partner-featured-card">
+            <div>
+              <span class="partner-badge-type">Strategic Community Partner</span>
+              <div class="partner-logo-container dark-bg">
+                <img src="images/partners/resolution.jpeg" alt="Resolution Partner Logo">
+              </div>
+              <h3>Resolution</h3>
+              <p>
+                Resolution stands with Community Listeners for Christ to support community-driven solutions, grassroots empowerment, and compassionate engagement across Busia District. Through mutual commitment to dignity and community resilience, Resolution helps strengthen our field outreach capacity.
+              </p>
+              <ul class="partner-impact-points">
+                <li><i class="fa-solid fa-circle-check"></i> Joint community engagement & field mobilization</li>
+                <li><i class="fa-solid fa-circle-check"></i> Promotion of human dignity and social well-being</li>
+                <li><i class="fa-solid fa-circle-check"></i> Sustainable support for grassroots volunteer initiatives</li>
+              </ul>
+            </div>
+            <div>
+              <a href="partnerships.html#resolution" class="btn btn-outline-forest btn-sm btn-block">
+                Learn About Our Partnership <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Featured Partner 2: Busia Town Baptist Church -->
+          <div class="partner-featured-card">
+            <div>
+              <span class="partner-badge-type">Faith & Ministry Partner</span>
+              <div class="partner-logo-container">
+                <img src="images/partners/busia-baptist.svg" alt="Busia Town Baptist Church Emblem">
+              </div>
+              <h3>Busia Town Baptist Church</h3>
+              <p>
+                Busia Town Baptist Church is a vital ministry partner in equipping Christian Community Listeners, hosting volunteer capacity building workshops, providing biblical discipleship mentorship, and serving as a trusted beacon of Christ’s love and prayer support in Busia Town and beyond.
+              </p>
+              <ul class="partner-impact-points">
+                <li><i class="fa-solid fa-circle-check"></i> Christian volunteer mobilization and discipleship</li>
+                <li><i class="fa-solid fa-circle-check"></i> Venue partner for volunteer listener training seminars</li>
+                <li><i class="fa-solid fa-circle-check"></i> Collaborative community prayer, pastoral care & family support</li>
+              </ul>
+            </div>
+            <div>
+              <a href="partnerships.html#baptist" class="btn btn-outline-forest btn-sm btn-block">
+                Learn About Our Partnership <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Institutional Stakeholder Strip -->
+        <div class="partner-strip">
+          <h5>Institutional Collaboration & Network Partners</h5>
+          <div class="partner-strip-logos">
+            <span class="partner-badge-pill"><i class="fa-solid fa-landmark"></i> Busia District Local Government</span>
+            <span class="partner-badge-pill"><i class="fa-solid fa-hospital"></i> Busia Health Center IV & District Hospitals</span>
+            <span class="partner-badge-pill"><i class="fa-solid fa-shield-heart"></i> Child & Family Protection Unit (CFPU)</span>
+            <span class="partner-badge-pill"><i class="fa-solid fa-church"></i> Busia Pastors & Christian Fellowship</span>
+            <span class="partner-badge-pill"><i class="fa-solid fa-school"></i> Local Community Schools</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REAL IMPACT STATS COUNTER -->
+    <section class="clc-stats-bar" aria-label="Community impact numbers">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-icon"><i class="fa-solid fa-house-chimney-user"></i></div>
+            <div class="stat-number" data-count="1850" data-suffix="+">1,850+</div>
+            <div class="stat-label">Household Visits Conducted</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+            <div class="stat-number" data-count="120" data-suffix="+">120+</div>
+            <div class="stat-label">Community Listeners Trained</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon"><i class="fa-solid fa-route"></i></div>
+            <div class="stat-number" data-count="340" data-suffix="+">340+</div>
+            <div class="stat-label">Safe Referrals Completed</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-icon"><i class="fa-solid fa-map"></i></div>
+            <div class="stat-number" data-count="7" data-prefix="" data-suffix=" Sub-Counties">7</div>
+            <div class="stat-label">Reached in Busia District</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SAFEGUARDING & STRICT CONFIDENTIALITY CALLOUT -->
+    <section class="section-padding bg-parchment" id="safeguarding">
+      <div class="container">
+        <div class="safeguarding-callout">
+          <div class="safeguarding-layout">
+            <div>
+              <span class="section-tag" style="background: rgba(37, 99, 235, 0.2);"><i class="fa-solid fa-shield-halved"></i> Constitution Sections 12 & 13</span>
+              <h3>Our Commitment to Safeguarding, Dignity & Confidentiality</h3>
+              <p>
+                Safeguarding is a fundamental, non-negotiable pillar of Community Listeners for Christ. We are fiercely committed to protecting children, young people, persons with disabilities, and vulnerable adults from abuse, exploitation, neglect, and harm.
+              </p>
+              <div class="safeguarding-features">
+                <div class="safeguarding-feature-item"><i class="fa-solid fa-circle-check"></i> Strict Code of Conduct for All Volunteers</div>
+                <div class="safeguarding-feature-item"><i class="fa-solid fa-circle-check"></i> Absolute Confidentiality of Disclosures</div>
+                <div class="safeguarding-feature-item"><i class="fa-solid fa-circle-check"></i> Immediate Reporting for Imminent Harm</div>
+                <div class="safeguarding-feature-item"><i class="fa-solid fa-circle-check"></i> Independent Complaint Channel (Sec. 20)</div>
+              </div>
+            </div>
+            <div style="text-align: center;">
+              <a href="safeguarding.html" class="btn btn-primary btn-lg" style="margin-bottom: 0.8rem; width: 100%;">
+                <i class="fa-solid fa-file-shield"></i> View Safeguarding Policy
+              </a>
+              <button class="btn btn-outline-forest btn-sm" data-open-modal="modalComplaint" style="width: 100%;">
+                <i class="fa-solid fa-bullhorn"></i> Submit Confidential Feedback
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REAL FIELD OUTREACH PHOTOS GALLERY PREVIEW -->
+    <section class="section-padding bg-white" id="gallery-preview">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i class="fa-solid fa-camera"></i> Authentic Field Work</span>
+          <h2>Moments of Listening, Care & Fellowship</h2>
+          <p>
+            Real community visits, youth training, school mentorship, and community dialogues captured across Busia District:
+          </p>
+        </div>
+
+        <div class="community-gallery-grid">
+          <!-- Photo 1 -->
+          <div class="gallery-photo-card">
+            <img src="images/community vist.jpeg" alt="Community visit by CLC volunteers">
+            <div class="gallery-photo-overlay">
+              <h4>Household Listening Outreach</h4>
+              <p>Visiting families with compassion and prayer</p>
+            </div>
+          </div>
+
+          <!-- Photo 2 -->
+          <div class="gallery-photo-card">
+            <img src="images/community meeting.jpeg" alt="Community dialogue and reconciliation">
+            <div class="gallery-photo-overlay">
+              <h4>Community Dialogue & Reconciliation</h4>
+              <p>Bringing neighbors together in mutual understanding</p>
+            </div>
+          </div>
+
+          <!-- Photo 3 -->
+          <div class="gallery-photo-card">
+            <img src="images/youth school program .jpg" alt="Youth school mentorship in Busia">
+            <div class="gallery-photo-overlay">
+              <h4>Youth Character & Life Skills</h4>
+              <p>Mentoring young minds in Christian values and leadership</p>
+            </div>
+          </div>
+
+          <!-- Photo 4 -->
+          <div class="gallery-photo-card">
+            <img src="images/women economic empowwerment.jpg" alt="Family strengthening and women group">
+            <div class="gallery-photo-overlay">
+              <h4>Family Strengthening</h4>
+              <p>Supporting mothers and households toward peace and resilience</p>
+            </div>
+          </div>
+
+          <!-- Photo 5 -->
+          <div class="gallery-photo-card">
+            <img src="images/gathering.jpeg" alt="Community gathering in Busia sub-county">
+            <div class="gallery-photo-overlay">
+              <h4>Community Unity & Fellowship</h4>
+              <p>Strengthening church-community bonds in rural villages</p>
+            </div>
+          </div>
+
+          <!-- Photo 6 -->
+          <div class="gallery-photo-card">
+            <img src="images/happy moments.jpeg" alt="Joyful community celebration">
+            <div class="gallery-photo-overlay">
+              <h4>Hope Restored</h4>
+              <p>Witnessing the transformative joy of Christ's love</p>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 2.8rem;">
+          <a href="gallery.html" class="btn btn-outline-forest btn-lg">
+            <i class="fa-solid fa-images"></i> Explore Full Photo Gallery
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS & VOICES OF HOPE -->
+    <section class="section-padding bg-parchment" id="testimonials">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag"><i class="fa-solid fa-comments"></i> Community Voices</span>
+          <h2>Stories of Hope, Healing & Reconciliation</h2>
+          <p>Real experiences shared by individuals and families supported by CLC volunteers in Busia District:</p>
+        </div>
+
+        <div class="testimonials-grid">
+          <!-- Testimonial 1 -->
+          <div class="testimonial-card">
+            <p class="testimonial-quote">
+              “When my family went through deep grief and marital conflict, the Community Listener who visited our home did not judge or spread our issues. She sat patiently, listened to our tears, and prayed with us. For the first time in years, my home feels peaceful again.”
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">FM</div>
+              <div class="author-info">
+                <h5>Florence M.</h5>
+                <span>Mother of Four · Busia Sub-County</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="testimonial-card">
+            <p class="testimonial-quote">
+              “CLC volunteers noticed my grandmother was bedridden and isolated without proper medical care. Instead of overstepping, they listened, comforted her with scripture, and immediately coordinated with the local health center for specialized care. That referral saved her life.”
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">JW</div>
+              <div class="author-info">
+                <h5>Julius W.</h5>
+                <span>Youth Leader · Nahayima Road Community</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="testimonial-card">
+            <p class="testimonial-quote">
+              “As local leaders, we welcome Community Listeners for Christ because they strictly respect boundaries and safeguard our children. They do not coerce people or get involved in politics; they simply bring genuine love, prayer, and reconciliation to our villages.”
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">LC</div>
+              <div class="author-info">
+                <h5>Local Council Executive</h5>
+                <span>Busia District Administration</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALL TO ACTION BANNER -->
+    <section class="section-padding-sm bg-white">
+      <div class="container">
+        <div class="clc-cta-banner">
+          <span class="section-tag" style="background: rgba(255, 255, 255, 0.1); color: var(--clc-gold-bright); border-color: rgba(242, 201, 76, 0.3);">
+            <i class="fa-solid fa-heart-pulse"></i> You Are Not Alone
+          </span>
+          <h2>Need Someone to Listen? We Are Here For You.</h2>
+          <p>
+            Whether you are walking through grief, family tension, youth challenges, or simply need unhurried compassionate prayer, our Christian Community Listeners are ready to visit you free of charge.
+          </p>
+          <div class="clc-cta-buttons">
+            <button class="btn btn-gold btn-lg" data-open-modal="modalPrayer">
+              <i class="fa-solid fa-ear-listen"></i> Request a Listening Visit
+            </button>
+            <a href="volunteer.html" class="btn btn-outline-white btn-lg">
+              <i class="fa-solid fa-user-plus"></i> Join as a Volunteer Listener
+            </a>
+            <a href="donate.html" class="btn btn-primary btn-lg">
+              <i class="fa-solid fa-hand-holding-dollar"></i> Support Our Work
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- COMPREHENSIVE FOOTER -->
+  <footer class="clc-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Col 1: Brand & Character -->
+        <div class="footer-col footer-brand-col">
+          <img src="images/clc-logo-white.svg" alt="CLC - Community Listeners for Christ" class="footer-logo">
+          <p>
+            Community Listeners for Christ (CLC) is a Christian faith-based, non-profit, non-partisan Community-Based Organization operating in Busia District, Uganda. We equip Christian volunteers to listen with love, share Christ's hope, strengthen families, mentor youth, and responsibly connect vulnerable neighbors to appropriate care.
+          </p>
+          <span class="footer-badge-law">
+            <i class="fa-solid fa-scale-balanced"></i> Non-Profit & Non-Partisan CBO · Uganda Laws Aligned
+          </span>
+        </div>
+
+        <!-- Col 2: Navigation Links -->
+        <div class="footer-col">
+          <h4>Organization</h4>
+          <ul class="footer-links">
+            <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About CLC</a></li>
+            <li><a href="about.html#values"><i class="fa-solid fa-chevron-right"></i> Core Values & Mission</a></li>
+            <li><a href="community-leadership.html"><i class="fa-solid fa-chevron-right"></i> Executive Governance</a></li>
+            <li><a href="safeguarding.html"><i class="fa-solid fa-chevron-right"></i> Safeguarding Policy</a></li>
+            <li><a href="partnerships.html"><i class="fa-solid fa-chevron-right"></i> Partners (Resolution & Baptist)</a></li>
+            <li><a href="resources.html"><i class="fa-solid fa-chevron-right"></i> Constitutional Profile</a></li>
+            <li><a href="faq.html"><i class="fa-solid fa-chevron-right"></i> Frequently Asked Questions</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Programs & Approach -->
+        <div class="footer-col">
+          <h4>Our 7 Program Areas</h4>
+          <ul class="footer-links">
+            <li><a href="services.html#listening"><i class="fa-solid fa-chevron-right"></i> Community Listening</a></li>
+            <li><a href="services.html#training"><i class="fa-solid fa-chevron-right"></i> Volunteer Capacity Building</a></li>
+            <li><a href="services.html#family"><i class="fa-solid fa-chevron-right"></i> Family Strengthening</a></li>
+            <li><a href="services.html#youth"><i class="fa-solid fa-chevron-right"></i> Youth Mentorship</a></li>
+            <li><a href="services.html#vulnerable"><i class="fa-solid fa-chevron-right"></i> Vulnerable Family Support</a></li>
+            <li><a href="services.html#peace"><i class="fa-solid fa-chevron-right"></i> Peace & Reconciliation</a></li>
+            <li><a href="services.html#church"><i class="fa-solid fa-chevron-right"></i> Church-Community Ties</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Contact & Location -->
+        <div class="footer-col">
+          <h4>Field Office & Contact</h4>
+          <ul class="footer-contact-list">
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-map-location-dot"></i>
+              <div>
+                <strong>Physical Address:</strong><br>
+                Nahayima Road, Busia District, Uganda<br>
+                <small style="opacity: 0.75;">Operating at sub-county level and below</small>
+              </div>
+            </li>
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-phone"></i>
+              <div>
+                <a href="tel:+256709251412">+256 709 251 412</a> / <br>
+                <a href="tel:+256785950405">+256 785 950 405</a>
+              </div>
+            </li>
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-envelope"></i>
+              <div>
+                <a href="mailto:info@clcuganda.org">info@clcuganda.org</a> / <br>
+                <a href="mailto:listening@clcuganda.org">listening@clcuganda.org</a>
+              </div>
+            </li>
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-shield-halved"></i>
+              <div>
+                <a href="#" data-open-modal="modalComplaint" style="color: var(--clc-gold-bright); font-weight: 600;">
+                  Confidential Safeguarding / Complaint Form (Sec. 20)
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="footer-bottom">
+        <div>
+          &copy; <span id="currentYear">2026</span> Community Listeners for Christ (CLC). All rights reserved.
+          “Listening with Love, Sharing Christ’s Hope.”
+        </div>
+        <div class="footer-bottom-links">
+          <a href="safeguarding.html">Safeguarding & Protection</a>
+          <a href="resources.html">Constitution & By-Laws</a>
+          <a href="contact.html#feedback">Feedback & Complaints</a>
+          <a href="volunteer.html">Volunteer Code of Conduct</a>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </footer>
 
-<!-- ═══ GALLERY ═══ -->
-<section class="gl-sec">
-  <div class="gl-hd reveal">
-    <div><div class="lbl dk">Our Impact</div><h2>In Pictures</h2></div>
-    <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
-      <span class="sh-row">Swipe to explore <i class="fas fa-arrow-right"></i></span>
-      <a href="gallery.html" class="bf" style="font-size:.76rem;padding:.6rem 1.3rem">Full Gallery <i class="fas fa-arrow-right"></i></a>
-    </div>
-  </div>
-  <div class="gl-scr" id="gscr">
-    <div class="g-it reveal" onclick="openM('Water Purifier','Clean water solutions installed across Namayingo District.','images/waterpurifier.jpeg')"><img src="images/waterpurifier.jpeg" alt="Water purifier"><div class="g-ov"><span>WATER PURIFIER</span></div></div>
-    <div class="g-it reveal" style="transition-delay:.08s" onclick="openM('Hygiene Training','Community hygiene training in Banda Subcounty.','images/hygiene education.jpg')"><img src="images/hygiene education.jpg" alt="Hygiene education"><div class="g-ov"><span>HYGIENE TRAINING</span></div></div>
-    <div class="g-it reveal" style="transition-delay:.16s" onclick="openM('Students at Work','Students working on water science projects.','images/pupils trying to write.jpeg')"><img src="images/pupils trying to write.jpeg" alt="Students"><div class="g-ov"><span>STUDENTS AT WORK</span></div></div>
-    <div class="g-it reveal" style="transition-delay:.24s" onclick="openM('Clean Water Access','A child drinking clean water from a newly installed tap.','images/clean.jpeg')"><img src="images/clean.jpeg" alt="Clean water"><div class="g-ov"><span>CLEAN WATER ACCESS</span></div></div>
-    <div class="g-it reveal" style="transition-delay:.32s" onclick="openM('Community Gathering','Community WASH project planning meeting.','images/gathering.jpeg')"><img src="images/gathering.jpeg" alt="Community"><div class="g-ov"><span>COMMUNITY GATHERING</span></div></div>
-    <div class="g-it reveal" style="transition-delay:.40s" onclick="openM('Sanitation Facility','New school latrine block serving 300 pupils.','images/sanitation-facility.jpg')"><img src="images/sanitation-facility.jpg" alt="Sanitation"><div class="g-ov"><span>SANITATION FACILITY</span></div></div>
-  </div>
-</section>
-
-<!-- ═══ DONATE ═══ -->
-<section class="do-sec" id="donate">
-  <div class="d-ring dr1"></div><div class="d-ring dr2"></div>
-  <div class="do-in">
-    <div class="lbl" style="justify-content:center">Make a Difference</div>
-    <h2 class="reveal">Give the gift of <em>clean water</em></h2>
-    <p class="reveal" style="transition-delay:.1s">Your support brings safe water and quality education to families in Namayingo. Every shilling makes a real difference in a child's life.</p>
-
-    <div class="ca-wrap reveal" style="transition-delay:.15s">
-      <label for="cai">Custom amount (UGX):</label>
-      <input type="number" class="ca-inp" id="cai" placeholder="Enter amount" min="1000">
-    </div>
-
-    <div class="do-grid reveal" id="dgrid" style="transition-delay:.2s">
-      <div class="d-card sel" data-a="25000"><div class="d-amt">UGX 25,000</div><div class="d-dsc">Hygiene kits for 5 children</div></div>
-      <div class="d-card" data-a="50000"><div class="d-amt">UGX 50,000</div><div class="d-dsc">Clean water for a family</div></div>
-      <div class="d-card" data-a="100000"><div class="d-amt">UGX 100,000</div><div class="d-dsc">Sanitation facility</div></div>
-      <div class="d-card" data-a="250000"><div class="d-amt">UGX 250,000</div><div class="d-dsc">Water system training</div></div>
-    </div>
-
-    <button class="do-btn reveal" id="dbtn" style="transition-delay:.28s" onclick="location.href='donate.html?amount=25000'">
-      <i class="fas fa-heart"></i> DONATE UGX <span id="ddisp">25,000</span> NOW
-    </button>
-
-    <div class="tr-badges reveal" style="transition-delay:.36s">
-      <span class="tr-b"><i class="fas fa-shield-halved"></i> Secure Payment</span>
-      <span class="tr-b"><i class="fas fa-certificate"></i> Registered Charity</span>
-      <span class="tr-b"><i class="fas fa-receipt"></i> Receipt Provided</span>
-      <span class="tr-b"><i class="fas fa-hand-holding-heart"></i> 100% to Programs</span>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ CONTACT STRIP ═══ -->
-<div class="co-strip">
-  <div class="co-in">
-    <div class="co-bl reveal"><i class="fas fa-location-dot"></i><h4>Location</h4><p>Busuma Village, Buchumba Parish<br>Banda Subcounty, Namayingo, Uganda</p></div>
-    <div class="co-bl reveal" style="transition-delay:.12s"><i class="fas fa-phone"></i><h4>Phone</h4><a href="tel:+256709251412">0709 251 412</a><br><a href="tel:+256785950405">0785 950 405</a></div>
-    <div class="co-bl reveal" style="transition-delay:.22s"><i class="fas fa-envelope"></i><h4>Email</h4><a href="mailto:newgracejs@gmail.com">newgracejs@gmail.com</a></div>
-  </div>
-</div>
-
-<!-- ═══ FOOTER ═══ -->
-<footer>
-  <div class="f-in">
-    <div class="f-grid">
-      <div class="f-br">
-        <img src="images/LOGO.JPG" alt="New Grace JS">
-        <h4>New Grace JS</h4>
-        <p>Transforming communities through clean water, sanitation and quality education in Namayingo District, Uganda. Registered Charity BAS/CS/4067.</p>
-      </div>
-      <div class="f-col"><h5>Navigate</h5><ul>
-        <li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li>
-        <li><a href="services.html">Services</a></li><li><a href="education.html">Education</a></li><li><a href="water-sanitation.html">WASH</a></li>
-        <li><a href="gallery.html">Gallery</a></li><li><a href="blog.html">Blog</a></li>
-        <li><a href="volunteer.html">Volunteer</a></li><li><a href="contact.html">Contact</a></li><li><a href="donate.html">Donate</a></li>
-      </ul></div>
-      <div class="f-col"><h5>Programs</h5><ul>
-        <li><a href="education.html">School Programs</a></li><li><a href="water-sanitation.html">Clean Water</a></li>
-        <li><a href="services.html">All Services</a></li><li><a href="donate.html">Donate</a></li>
-      </ul></div>
-      <div class="f-nl">
-        <h5>Stay Updated</h5>
-        <p>Monthly impact stories direct to your inbox.</p>
-        <div class="nl-rw">
-          <input type="email" id="nle" placeholder="your@email.com" autocomplete="email">
-          <button onclick="subNL()">Go</button>
+  <!-- ==========================================================================
+       MODAL 1: REQUEST A LISTENING VISIT OR PRAYER
+       ========================================================================== -->
+  <div class="clc-modal-backdrop" id="modalPrayer" role="dialog" aria-modal="true" aria-labelledby="prayerModalTitle">
+    <div class="clc-modal">
+      <div class="clc-modal-header">
+        <div>
+          <h3 id="prayerModalTitle"><i class="fa-solid fa-ear-listen" style="color: var(--clc-leaf);"></i> Request a Listening Visit</h3>
+          <p>Completely free, confidential, and unconditional support from our trained volunteers.</p>
         </div>
-        <p id="nl-m"></p>
+        <button class="clc-modal-close" aria-label="Close dialog">&times;</button>
       </div>
-    </div>
-    <hr class="f-div">
-    <div class="f-bot">
-      <p>© 2026 New Grace JS · All Rights Reserved · Registered Charity BAS/CS/4067</p>
-      <div class="socs">
-        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
-        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+      <div class="clc-modal-body">
+        <form data-clc-form="prayer-request">
+          <div class="form-group">
+            <label class="form-label">Full Name or Preferred Name *</label>
+            <input type="text" class="form-control" placeholder="e.g. Sarah or anonymous" required>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div class="form-group">
+              <label class="form-label">Phone Contact *</label>
+              <input type="tel" class="form-control" placeholder="+256 700 000 000" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Location / Sub-County in Busia *</label>
+              <input type="text" class="form-control" placeholder="e.g. Nahayima / Banda / Town" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Type of Support Requested</label>
+            <select class="form-select">
+              <option value="listening">Compassionate Home Listening Visit</option>
+              <option value="prayer">Prayer & Spiritual Encouragement</option>
+              <option value="family">Family Reconciliation & Dialogue</option>
+              <option value="youth">Children & Youth Mentorship</option>
+              <option value="referral">Guidance & Referral to Specialized Services</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Brief Note or Heart's Concern (Confidential)</label>
+            <textarea class="form-control" placeholder="Feel free to share what you are going through. All information is held in strict confidence."></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-check">
+              <input type="checkbox" required checked>
+              <span>I understand that CLC volunteers listen respectfully, offer prayer unconditionally, and follow strict safeguarding guidelines.</span>
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block btn-lg">
+            <i class="fa-solid fa-paper-plane"></i> Send Listening Request
+          </button>
+        </form>
       </div>
     </div>
   </div>
-</footer>
 
-<!-- ═══ MODAL ═══ -->
-<div id="modal" onclick="if(event.target===this)closeM()">
-  <div id="mbox">
-    <button class="mcl" onclick="closeM()"><i class="fas fa-times"></i></button>
-    <img id="m-img" src="" alt="">
-    <div id="m-body">
-      <h3 id="m-title"></h3>
-      <p id="m-text"></p>
-      <button onclick="closeM()" class="bg" style="border:none;width:100%;justify-content:center">Close</button>
+  <!-- ==========================================================================
+       MODAL 2: CONFIDENTIAL COMPLAINT & SAFEGUARDING REPORT (Section 20)
+       ========================================================================== -->
+  <div class="clc-modal-backdrop" id="modalComplaint" role="dialog" aria-modal="true" aria-labelledby="complaintModalTitle">
+    <div class="clc-modal">
+      <div class="clc-modal-header">
+        <div>
+          <h3 id="complaintModalTitle"><i class="fa-solid fa-shield-halved" style="color: var(--clc-gold-warm);"></i> Confidential Feedback / Report</h3>
+          <p>Constitution Section 20 independent and non-retaliatory reporting mechanism.</p>
+        </div>
+        <button class="clc-modal-close" aria-label="Close dialog">&times;</button>
+      </div>
+      <div class="clc-modal-body">
+        <form data-clc-form="complaint-feedback">
+          <p style="font-size: 0.84rem; color: var(--clc-slate-muted); margin-bottom: 1rem;">
+            Complaints and safeguarding reports are handled strictly confidentially and fairly. Where a concern involves an Executive Committee officer, that person is recused from review.
+          </p>
+          <div class="form-group">
+            <label class="form-label">Your Name (Optional - You May Submit Anonymously)</label>
+            <input type="text" class="form-control" placeholder="Optional name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone or Email for Follow-Up (Optional)</label>
+            <input type="text" class="form-control" placeholder="Optional contact details">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Category of Report *</label>
+            <select class="form-select" required>
+              <option value="safeguarding">Safeguarding / Child Protection Concern</option>
+              <option value="volunteer-conduct">Volunteer Conduct or Boundary Violation</option>
+              <option value="service-feedback">Community Service Feedback</option>
+              <option value="financial">Financial Integrity / Governance Concern</option>
+              <option value="other">Other General Inquiry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Detailed Description of Concern *</label>
+            <textarea class="form-control" rows="4" placeholder="Please provide date, location, persons involved, and full details so the Safeguarding Committee can investigate appropriately." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-gold btn-block btn-lg">
+            <i class="fa-solid fa-lock"></i> Submit Confidential Report
+          </button>
+        </form>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-'use strict';
-/* ── Cursor (desktop) ── */
-const cur=document.getElementById('cur'),curR=document.getElementById('cur-r');
-let mx=0,my=0,rx=0,ry=0;
-if(matchMedia('(pointer:fine)').matches){
-  addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
-  (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(loop)})();
-}
-
-/* ── Progress + Nav + BTT ── */
-const pgEl=document.getElementById('prog'),btt=document.getElementById('btt'),nav=document.getElementById('nav');
-addEventListener('scroll',()=>{
-  const p=scrollY/(document.documentElement.scrollHeight-innerHeight)*100;
-  pgEl.style.width=p+'%';
-  scrollY>80?nav.classList.add('sc'):nav.classList.remove('sc');
-  scrollY>500?btt.classList.add('sh'):btt.classList.remove('sh');
-},{passive:true});
-
-/* ── Hamburger / Mobile menu ── */
-const hb=document.getElementById('hb'),mm=document.getElementById('mm');
-const toggleMM=()=>{
-  const op=mm.classList.toggle('op');
-  hb.classList.toggle('op',op);
-  hb.setAttribute('aria-expanded',op);
-  document.body.style.overflow=op?'hidden':'';
-};
-hb.addEventListener('click',toggleMM);
-mm.querySelectorAll('a,button').forEach(el=>el.addEventListener('click',()=>{
-  mm.classList.remove('op');hb.classList.remove('op');hb.setAttribute('aria-expanded','false');document.body.style.overflow='';
-}));
-addEventListener('keydown',e=>{if(e.key==='Escape'&&mm.classList.contains('op'))toggleMM()});
-
-/* ── Particles ── */
-const pts=document.getElementById('pts');
-for(let i=0;i<50;i++){
-  const p=document.createElement('div');p.className='pt';
-  const s=1+Math.random()*2.2;
-  Object.assign(p.style,{left:Math.random()*100+'vw',width:s+'px',height:s+'px',animationDuration:(8+Math.random()*16)+'s',animationDelay:(-Math.random()*24)+'s',opacity:.22+Math.random()*.5});
-  pts.appendChild(p);
-}
-
-/* ── Hero slideshow ── */
-const SD=[
-  {bg:'images/waterpurifier.jpeg',l1:'CLEAN WATER.',l2:'HEALTHY',l3:'COMMUNITIES.',sub:'Sustainable water solutions that prevent disease and improve livelihoods in Namayingo District.',c1:'Donate Today',c2:'Learn More',h2:'water-sanitation.html'},
-  {bg:'images/education for all.jpeg',l1:'EDUCATION.',l2:'OPPORTUNITY.',l3:'FUTURE.',sub:'Empowering children through quality schooling, teacher training and community school support.',c1:'Support Education',c2:'Our Programs',h2:'education.html'},
-  {bg:'images/gathering.jpeg',l1:'STRONG',l2:'COMMUNITIES.',l3:'LASTING CHANGE.',sub:'Building local leadership, skills and sustainable livelihoods for generations to come.',c1:'Get Involved',c2:'Our Work',h2:'community-leadership.html'},
-];
-let cs=0,ht;
-const hi=document.getElementById('hi');
-hi.style.transition='opacity .55s ease';
-const hl1=document.getElementById('hl1'),hl2=document.getElementById('hl2'),hl3=document.getElementById('hl3');
-const hsub=document.getElementById('hsub'),hctas=document.getElementById('hctas');
-const pips=document.querySelectorAll('.s-pip'),scn=document.getElementById('scn');
-
-function goSlide(i){
-  cs=i;const s=SD[i];
-  hi.style.opacity=0;
-  setTimeout(()=>{hi.style.backgroundImage=`url('${s.bg}')`;hi.style.opacity=.22},480);
-  hl1.textContent=s.l1;hl2.textContent=s.l2;hl3.textContent=s.l3;
-  hsub.textContent=s.sub;
-  hctas.innerHTML=`<a href="donate.html" class="bg"><i class="fas fa-heart"></i> ${s.c1}</a><a href="${s.h2}" class="bgh"><i class="fas fa-play-circle"></i> ${s.c2}</a>`;
-  pips.forEach((p,j)=>p.classList.toggle('on',j===i));
-  scn.textContent=String(i+1).padStart(2,'0');
-}
-function nextS(){goSlide((cs+1)%SD.length);resetHT()}
-function resetHT(){clearInterval(ht);ht=setInterval(nextS,6200)}
-pips.forEach(p=>p.addEventListener('click',()=>{goSlide(+p.dataset.s);resetHT()}));
-goSlide(0);resetHT();
-
-// Touch swipe on hero
-let tx0=0;
-document.querySelector('.hero').addEventListener('touchstart',e=>tx0=e.touches[0].clientX,{passive:true});
-document.querySelector('.hero').addEventListener('touchend',e=>{
-  const dx=e.changedTouches[0].clientX-tx0;
-  if(Math.abs(dx)>55){dx<0?goSlide((cs+1)%SD.length):goSlide((cs+SD.length-1)%SD.length);resetHT()}
-},{passive:true});
-
-/* ── Counters ── */
-function animN(el,target){
-  let start=null;const dur=1800;
-  function step(ts){
-    if(!start)start=ts;
-    const pr=Math.min((ts-start)/dur,1),ease=1-Math.pow(1-pr,4);
-    el.textContent=Math.floor(ease*target).toLocaleString();
-    if(pr<1)requestAnimationFrame(step);else el.textContent=target.toLocaleString();
-  }
-  requestAnimationFrame(step);
-}
-const cObs=new IntersectionObserver(en=>{
-  if(en[0].isIntersecting){
-    animN(document.getElementById('n1'),5000);
-    animN(document.getElementById('n2'),1200);
-    animN(document.getElementById('n3'),20);
-    cObs.disconnect();
-  }
-},{threshold:.5});
-const n1el=document.getElementById('n1');if(n1el)cObs.observe(n1el);
-
-/* ── Reveal ── */
-const rObs=new IntersectionObserver(en=>{
-  en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('v');rObs.unobserve(e.target)}});
-},{threshold:.1,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.reveal,.rl,.rr').forEach(el=>rObs.observe(el));
-
-/* ── 3D tilt (desktop only) ── */
-if(matchMedia('(pointer:fine)').matches){
-  document.querySelectorAll('.pl-card').forEach(c=>{
-    c.addEventListener('mousemove',e=>{
-      const r=c.getBoundingClientRect();
-      const x=((e.clientX-r.left)/r.width-.5)*16,y=((e.clientY-r.top)/r.height-.5)*-16;
-      c.style.transform=`translateY(-8px) scale(1.01) rotateX(${y}deg) rotateY(${x}deg)`;
-    });
-    c.addEventListener('mouseleave',()=>{c.style.transform=''});
-  });
-}
-
-/* ── Donate ── */
-let selA=25000;
-document.getElementById('dgrid').addEventListener('click',e=>{
-  const card=e.target.closest('.d-card');if(!card)return;
-  document.querySelectorAll('.d-card').forEach(c=>c.classList.remove('sel'));
-  card.classList.add('sel');selA=+card.dataset.a;
-  document.getElementById('ddisp').textContent=selA.toLocaleString();
-  document.getElementById('dbtn').onclick=()=>location.href=`donate.html?amount=${selA}`;
-  document.getElementById('cai').value='';
-});
-document.getElementById('cai').addEventListener('input',function(){
-  const v=+this.value;if(v>0){
-    selA=v;document.querySelectorAll('.d-card').forEach(c=>c.classList.remove('sel'));
-    document.getElementById('ddisp').textContent=v.toLocaleString();
-    document.getElementById('dbtn').onclick=()=>location.href=`donate.html?amount=${v}`;
-  }
-});
-
-/* ── Gallery drag ── */
-const gs=document.getElementById('gscr');
-let gd=false,gX,gSL;
-gs.addEventListener('mousedown',e=>{gd=true;gX=e.pageX-gs.offsetLeft;gSL=gs.scrollLeft;gs.style.cursor='grabbing'});
-gs.addEventListener('mouseleave',()=>{gd=false;gs.style.cursor=''});
-gs.addEventListener('mouseup',()=>{gd=false;gs.style.cursor=''});
-gs.addEventListener('mousemove',e=>{if(!gd)return;e.preventDefault();gs.scrollLeft=gSL-(e.pageX-gs.offsetLeft-gX)*1.5});
-
-/* ── Modal ── */
-function openM(title,text,img){
-  document.getElementById('m-title').textContent=title;
-  document.getElementById('m-text').textContent=text;
-  const mi=document.getElementById('m-img');
-  mi.src=img||'';mi.style.display=img?'block':'none';
-  document.getElementById('modal').classList.add('op');
-  document.body.style.overflow='hidden';
-}
-function closeM(){document.getElementById('modal').classList.remove('op');document.body.style.overflow=''}
-addEventListener('keydown',e=>{if(e.key==='Escape')closeM()});
-
-/* ── Toast ── */
-function toast(msg){
-  const t=document.getElementById('toast');
-  document.getElementById('t-msg').textContent=msg;
-  t.classList.add('sh');setTimeout(()=>t.classList.remove('sh'),3400);
-}
-
-/* ── Newsletter ── */
-function subNL(){
-  const v=document.getElementById('nle').value.trim();
-  const m=document.getElementById('nl-m');
-  if(v&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){
-    m.textContent='✓ Subscribed — thank you!';m.style.color='var(--amber)';
-    document.getElementById('nle').value='';
-    toast('🎉 Welcome! You are now subscribed.');
-  }else{m.textContent='✗ Please enter a valid email.';m.style.color='#ff6b6b'}
-  setTimeout(()=>m.textContent='',4200);
-}
-document.getElementById('nle').addEventListener('keydown',e=>{if(e.key==='Enter')subNL()});
-</script>
+  <!-- Interactive Scripts -->
+  <script src="main.js"></script>
 </body>
 </html>

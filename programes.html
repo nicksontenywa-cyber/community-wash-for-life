@@ -1,703 +1,448 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Explore our comprehensive programs – water access, sanitation, hygiene education, community leadership, mental health, climate adaptation, and school WASH.">
-    <title>Our Programs | New Grace JS</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
-    
-    <!-- AOS (Animate on Scroll) -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-    
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap');
-        
-        :root { --primary: #1B4D3E; }
-        
-        body { font-family: 'Inter', system-ui, sans-serif; }
-        .heading-font { font-family: 'Montserrat', sans-serif; }
-        
-        /* Water drops background (subtle) */
-        .water-drops-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
-        }
-        .water-drop {
-            position: absolute;
-            top: -100px;
-            width: 40px;
-            height: 40px;
-            background: rgba(27, 77, 62, 0.03);
-            border-radius: 50% 50% 0 50%;
-            transform: rotate(45deg);
-            animation: fall 20s linear infinite;
-        }
-        .water-drop::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            width: 20px;
-            height: 20px;
-            background: rgba(27, 77, 62, 0.02);
-            border-radius: 50%;
-        }
-        @keyframes fall {
-            0% { top: -100px; opacity: 0; transform: rotate(45deg) scale(0.5); }
-            50% { opacity: 0.8; transform: rotate(45deg) scale(1.2); }
-            100% { top: 100vh; opacity: 0; transform: rotate(45deg) scale(0.5); }
-        }
-        
-        /* Navbar underline effect */
-        .nav-link {
-            position: relative;
-        }
-        .nav-link:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background: var(--primary);
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover:after,
-        .nav-link.active:after { width: 100%; }
-        
-        /* Card hover */
-        .card-hover {
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .card-hover:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 25px 50px -12px rgb(27 77 62 / 0.25);
-        }
-        
-        /* Stat numbers */
-        .stat-number { font-variant-numeric: tabular-nums; }
-        
-        /* Fade-in animation */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Donation card active state */
-        .donate-card.active {
-            background: rgba(255,255,255,0.25);
-            border: 2px solid white;
-            transform: scale(1.02);
-            box-shadow: 0 20px 40px -10px rgba(0,0,0,0.3);
-        }
-        
-        /* Modal animation */
-        #modal {
-            animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-        @keyframes modalPop {
-            0% { opacity: 0; transform: scale(0.95); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-        
-        /* Focus outline */
-        *:focus-visible {
-            outline: 3px solid #C6A15B;
-            outline-offset: 2px;
-        }
-        
-        /* Button hover */
-        .btn-primary {
-            transition: all 0.2s ease;
-        }
-        .btn-primary:hover {
-            background-color: #0F3A2E;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(27,77,62,0.4);
-        }
-        
-        /* Wave separator (for hero) */
-        .custom-shape-divider-bottom {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            overflow: hidden;
-            line-height: 0;
-        }
-        .custom-shape-divider-bottom svg {
-            position: relative;
-            display: block;
-            width: calc(100% + 1.3px);
-            height: 80px;
-        }
-        .custom-shape-divider-bottom .shape-fill {
-            fill: #FFFFFF;
-        }
-        
-        /* Program card image */
-        .program-img {
-            height: 200px;
-            background-size: cover;
-            background-position: center;
-        }
-        
-        /* Partner logo */
-        .partner-logo {
-            transition: all 0.3s;
-            filter: grayscale(100%);
-            opacity: 0.7;
-        }
-        .partner-logo:hover {
-            filter: grayscale(0);
-            opacity: 1;
-            transform: scale(1.05);
-        }
-        
-        /* Testimonial slider */
-        .testimonial-slide {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        .testimonial-slide.active {
-            display: block;
-            opacity: 1;
-        }
-        .testimonial-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #d1d5db;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .testimonial-dot.active,
-        .testimonial-dot:hover {
-            background: #1B4D3E;
-            transform: scale(1.2);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Programs and Services of Community Listeners for Christ (CLC) — The 6-Step Community Listener Model, 7 Program Areas, and Responsible Referral Pathways in Busia District, Uganda.">
+  <title>Programs & Services | Community Listeners for Christ (CLC) · Busia, Uganda</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="images/clc-badge.svg">
 </head>
-<body class="bg-white text-neutral-800 overflow-x-hidden">
+<body>
 
-<!-- Floating Water Drops (subtle background) -->
-<div class="water-drops-container">
-    <div class="water-drop" style="left: 5%; animation-delay: 0s;"></div>
-    <div class="water-drop" style="left: 15%; animation-delay: 2s;"></div>
-    <div class="water-drop" style="left: 25%; animation-delay: 4s;"></div>
-    <div class="water-drop" style="left: 35%; animation-delay: 6s;"></div>
-    <div class="water-drop" style="left: 45%; animation-delay: 8s;"></div>
-    <div class="water-drop" style="left: 55%; animation-delay: 10s;"></div>
-    <div class="water-drop" style="left: 65%; animation-delay: 12s;"></div>
-    <div class="water-drop" style="left: 75%; animation-delay: 14s;"></div>
-    <div class="water-drop" style="left: 85%; animation-delay: 16s;"></div>
-    <div class="water-drop" style="left: 95%; animation-delay: 18s;"></div>
-</div>
+  <!-- Announcement Bar -->
+  <aside class="announcement-bar">
+    <div class="bar-left">
+      <span><i class="fa-solid fa-location-dot"></i> Nahayima Road, Busia District, Uganda</span>
+      <span><i class="fa-solid fa-phone"></i> +256 709 251 412 / +256 785 950 405</span>
+      <span><i class="fa-solid fa-envelope"></i> info@clcuganda.org</span>
+    </div>
+    <div class="bar-right">
+      <span class="tagline-pill">“Listening with Love, Sharing Christ’s Hope”</span>
+      <span><i class="fa-solid fa-handshake-angle"></i> Partners: Resolution & Busia Town Baptist Church</span>
+    </div>
+  </aside>
 
-<!-- NAVBAR (same as all pages) -->
-<nav class="bg-white/95 backdrop-blur-2xl border-b sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-        <a href="index.html" class="flex items-center gap-3" aria-label="New Grace JS home">
-            <img src="images/LOGO.JPG" alt="New Grace JS logo" class="w-14 h-14 rounded-2xl shadow">
-            <div>
-                <span class="heading-font text-3xl font-bold tracking-tighter text-[#1B4D3E]">New Grace JS</span>
-                <p class="text-xs text-neutral-500 -mt-1">Since 2018 • Namayingo, Uganda</p>
-            </div>
-        </a>
-        
-        <div class="hidden md:flex items-center gap-9 text-sm font-medium">
-            <a href="index.html" class="nav-link">Home</a>
-            <a href="about.html" class="nav-link">About</a>
-            <a href="services.html" class="nav-link active" aria-current="page">Services</a>
-            <a href="education.html" class="nav-link">Education</a>
-            <a href="water-sanitation.html" class="nav-link">WASH</a>
-            <a href="gallery.html" class="nav-link">Gallery</a>
-            <a href="blog.html" class="nav-link">Blog</a>
-            <a href="volunteer.html" class="nav-link">Volunteer</a>
-            <a href="contact.html" class="nav-link">Contact</a>
-            <a href="donate.html" class="nav-link">Donate</a>
-        </div>
-        
-        <button onclick="document.getElementById('donate').scrollIntoView({behavior:'smooth'})" 
-                class="btn-primary bg-[#1B4D3E] hover:bg-[#0F3A2E] text-white px-8 py-4 rounded-3xl font-semibold flex items-center gap-2 shadow"
-                aria-label="Donate now">
-            <i class="fas fa-heart" aria-hidden="true"></i> Donate
+  <!-- Navbar -->
+  <header class="clc-navbar" role="banner">
+    <div class="navbar-inner">
+      <a href="index.html" class="clc-brand">
+        <img src="images/clc-logo.svg" alt="CLC Logo - Community Listeners for Christ" class="clc-brand-logo">
+      </a>
+      <nav class="nav-menu" role="navigation">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About CLC</a>
+        <a href="services.html" class="nav-link active">Our Model & Programs</a>
+        <a href="community-leadership.html" class="nav-link">Governance</a>
+        <a href="safeguarding.html" class="nav-link">Safeguarding</a>
+        <a href="partnerships.html" class="nav-link">Partners</a>
+        <a href="impact.html" class="nav-link">Impact</a>
+        <a href="gallery.html" class="nav-link">Gallery</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button type="button" class="btn btn-outline-forest btn-sm btn-prayer-modal" data-open-modal="modalPrayer">
+          <i class="fa-solid fa-heart"></i> Request a Listener
         </button>
+        <a href="donate.html" class="btn btn-gold btn-sm">
+          <i class="fa-solid fa-hand-holding-heart"></i> Give
+        </a>
+        <button class="mobile-nav-toggle" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
-</nav>
+  </header>
 
-<!-- HERO (gradient + wave) -->
-<section class="relative bg-gradient-to-b from-[#0A2F24] to-[#1B4D3E] text-white py-24 md:py-32 overflow-hidden">
-    <div class="custom-shape-divider-bottom">
-        <svg viewBox="0 0 1440 120" preserveAspectRatio="none" class="w-full h-auto">
-            <path d="M0,64L80,69.3C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z" fill="white"></path>
-        </svg>
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer-overlay"></div>
+  <aside class="mobile-drawer">
+    <div class="mobile-drawer-header">
+      <img src="images/clc-logo-white.svg" alt="CLC Logo" style="height: 42px;">
+      <button class="mobile-drawer-close">&times;</button>
     </div>
-    <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
-        <h1 class="heading-font text-5xl md:text-6xl font-bold mb-6" data-aos="fade-down">Our Programs</h1>
-        <p class="text-xl md:text-2xl max-w-3xl mx-auto opacity-90 mb-10" data-aos="fade-up" data-aos-delay="200">
-            Empowering communities through clean water, sanitation, hygiene, education, and more.
+    <ul class="mobile-drawer-menu">
+      <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+      <li><a href="about.html"><i class="fa-solid fa-circle-info"></i> About CLC</a></li>
+      <li><a href="services.html" class="active"><i class="fa-solid fa-hands-holding"></i> Programs & Model</a></li>
+      <li><a href="community-leadership.html"><i class="fa-solid fa-users-gear"></i> Governance & Leadership</a></li>
+      <li><a href="safeguarding.html"><i class="fa-solid fa-shield-halved"></i> Safeguarding & Referrals</a></li>
+      <li><a href="partnerships.html"><i class="fa-solid fa-handshake"></i> Partners (Resolution & Baptist)</a></li>
+      <li><a href="volunteer.html"><i class="fa-solid fa-user-plus"></i> Volunteer as a Listener</a></li>
+      <li><a href="impact.html"><i class="fa-solid fa-chart-line"></i> Community Impact</a></li>
+      <li><a href="gallery.html"><i class="fa-solid fa-images"></i> Photo Gallery</a></li>
+      <li><a href="donate.html"><i class="fa-solid fa-hand-holding-dollar"></i> Support Our Mission</a></li>
+      <li><a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact Us</a></li>
+    </ul>
+  </aside>
+
+  <!-- Page Header -->
+  <section class="section-padding-sm bg-forest" style="position: relative; overflow: hidden;">
+    <div class="container text-center">
+      <span class="section-tag" style="background: rgba(255, 255, 255, 0.08); color: var(--clc-gold-bright); border-color: rgba(242, 201, 76, 0.3);">
+        <i class="fa-solid fa-layer-group"></i> Sections 8 & 9
+      </span>
+      <h1 style="color: #FFFFFF; margin-top: 0.8rem; margin-bottom: 0.8rem;">Our Programs & The Listener Model</h1>
+      <p style="color: rgba(255, 255, 255, 0.82); font-size: 1.15rem; max-width: 720px; margin: 0 auto; font-style: italic;">
+        “LISTEN → UNDERSTAND → ENCOURAGE → SUPPORT → REFER → FOLLOW UP”
+      </p>
+    </div>
+  </section>
+
+  <!-- MAIN SERVICES CONTENT -->
+  <main class="section-padding bg-parchment">
+    <div class="container">
+      
+      <!-- DETAILED 6-STEP MODEL BREAKDOWN -->
+      <div style="background: #FFFFFF; border-radius: var(--radius-lg); padding: 3rem; border: 1px solid var(--clc-border-card); box-shadow: var(--clc-shadow-sm); margin-bottom: 4rem;">
+        <div class="section-header">
+          <span class="section-tag"><i class="fa-solid fa-sitemap"></i> Section 9</span>
+          <h2>The Community Listener Approach in Detail</h2>
+          <p>
+            The Community Listener is central to CLC's approach. A Community Listener is a Christian volunteer equipped to provide appropriate community-level support through a structured 6-stage model:
+          </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.8rem;">
+          <!-- 1. LISTEN -->
+          <div style="background: var(--clc-parchment); border-left: 4px solid var(--clc-leaf); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 1.8rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem;">
+              <h3 style="font-size: 1.25rem; color: var(--clc-forest); margin: 0;">1. LISTEN</h3>
+              <span style="background: var(--clc-forest); color: var(--clc-gold-bright); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700;">1</span>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--clc-slate-text); line-height: 1.65; margin-bottom: 0.8rem;">
+              Visiting households and individuals to listen with genuine compassion, patience, and non-judgmental attention. Providing an open, safe space for community members to express concerns without fear of criticism.
+            </p>
+            <small style="color: var(--clc-forest); font-weight: 700; display: block;"><i class="fa-solid fa-check"></i> Unhurried household presence</small>
+          </div>
+
+          <!-- 2. UNDERSTAND -->
+          <div style="background: var(--clc-parchment); border-left: 4px solid var(--clc-leaf); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 1.8rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem;">
+              <h3 style="font-size: 1.25rem; color: var(--clc-forest); margin: 0;">2. UNDERSTAND</h3>
+              <span style="background: var(--clc-forest); color: var(--clc-gold-bright); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700;">2</span>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--clc-slate-text); line-height: 1.65; margin-bottom: 0.8rem;">
+              Taking time to understand the personal, emotional, relational, or spiritual challenges being faced. Identifying root causes, assessing vulnerability, and discerning whether specialized assistance is required.
+            </p>
+            <small style="color: var(--clc-forest); font-weight: 700; display: block;"><i class="fa-solid fa-check"></i> Root problem discernment</small>
+          </div>
+
+          <!-- 3. ENCOURAGE -->
+          <div style="background: var(--clc-parchment); border-left: 4px solid var(--clc-leaf); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 1.8rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem;">
+              <h3 style="font-size: 1.25rem; color: var(--clc-forest); margin: 0;">3. ENCOURAGE</h3>
+              <span style="background: var(--clc-forest); color: var(--clc-gold-bright); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700;">3</span>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--clc-slate-text); line-height: 1.65; margin-bottom: 0.8rem;">
+              Offering heartfelt prayer where welcomed, sharing uplifting biblical hope, affirming human dignity, and providing spiritual comfort respectfully without coercion or condition of religious conversion.
+            </p>
+            <small style="color: var(--clc-forest); font-weight: 700; display: block;"><i class="fa-solid fa-check"></i> Respectful biblical encouragement</small>
+          </div>
+
+          <!-- 4. SUPPORT -->
+          <div style="background: var(--clc-parchment); border-left: 4px solid var(--clc-leaf); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 1.8rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem;">
+              <h3 style="font-size: 1.25rem; color: var(--clc-forest); margin: 0;">4. SUPPORT</h3>
+              <span style="background: var(--clc-forest); color: var(--clc-gold-bright); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700;">4</span>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--clc-slate-text); line-height: 1.65; margin-bottom: 0.8rem;">
+              Providing practical care, walking with families during distress, mentoring children and young people, facilitating positive family communication, and fostering community solidarity.
+            </p>
+            <small style="color: var(--clc-forest); font-weight: 700; display: block;"><i class="fa-solid fa-check"></i> Practical care & accompaniment</small>
+          </div>
+
+          <!-- 5. REFER -->
+          <div style="background: var(--clc-parchment); border-left: 4px solid var(--clc-gold-warm); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 1.8rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem;">
+              <h3 style="font-size: 1.25rem; color: var(--clc-forest); margin: 0;">5. REFER</h3>
+              <span style="background: var(--clc-gold-warm); color: var(--clc-forest-dark); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 800;">5</span>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--clc-slate-text); line-height: 1.65; margin-bottom: 0.8rem;">
+              Recognizing competency limits. Immediately connecting cases requiring medical treatment, psychiatric or psychological care, legal defense, or child safeguarding to qualified, registered providers.
+            </p>
+            <small style="color: var(--clc-gold); font-weight: 700; display: block;"><i class="fa-solid fa-shield-halved"></i> Mandatory ethical boundary</small>
+          </div>
+
+          <!-- 6. FOLLOW UP -->
+          <div style="background: var(--clc-parchment); border-left: 4px solid var(--clc-leaf); border-radius: 0 var(--radius-md) var(--radius-md) 0; padding: 1.8rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem;">
+              <h3 style="font-size: 1.25rem; color: var(--clc-forest); margin: 0;">6. FOLLOW UP</h3>
+              <span style="background: var(--clc-forest); color: var(--clc-gold-bright); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700;">6</span>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--clc-slate-text); line-height: 1.65; margin-bottom: 0.8rem;">
+              Continuing supportive visits to verify referral outcomes, encouraging ongoing emotional healing, checking family stability, and walking alongside the family through their recovery.
+            </p>
+            <small style="color: var(--clc-forest); font-weight: 700; display: block;"><i class="fa-solid fa-check"></i> Care continuity & check-ins</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- THE 7 PROGRAM AREAS (Section 8 Full In-Depth) -->
+      <div class="section-header">
+        <span class="section-tag"><i class="fa-solid fa-folder-tree"></i> Section 8</span>
+        <h2>The 7 Core Program Departments</h2>
+        <p>Operational scope, activities, and focus areas across Busia District communities:</p>
+      </div>
+
+      <!-- Program 1 -->
+      <section class="program-card" id="listening" style="margin-bottom: 2.5rem; flex-direction: row; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 300px; max-height: 340px;">
+          <img src="images/community vist.jpeg" alt="Community visit" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="flex: 1.3; min-width: 320px; padding: 2.4rem;">
+          <span class="program-pill-tag" style="position: static; margin-bottom: 0.8rem; display: inline-block;">Program 8.1</span>
+          <h3>Community Listening & Spiritual Encouragement</h3>
+          <p>
+            The frontline outreach of CLC. Volunteers conduct scheduled visits to homes, listening carefully to people enduring loss, poverty, sickness, marital discord, or discouragement. By listening without haste, we offer people dignity, emotional release, and spiritual reassurance.
+          </p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.85rem; margin-top: 1rem;">
+            <div><i class="fa-solid fa-circle-check" style="color: var(--clc-leaf);"></i> Community & Household visits</div>
+            <div><i class="fa-solid fa-circle-check" style="color: var(--clc-leaf);"></i> Active listening sessions</div>
+            <div><i class="fa-solid fa-circle-check" style="color: var(--clc-leaf);"></i> Prayer & spiritual hope</div>
+            <div><i class="fa-solid fa-circle-check" style="color: var(--clc-leaf);"></i> Community needs identification</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Program 2 -->
+      <section class="program-card" id="training" style="margin-bottom: 2.5rem; flex-direction: row-reverse; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 300px; max-height: 340px;">
+          <img src="images/youth training .jpg" alt="Volunteer training" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="flex: 1.3; min-width: 320px; padding: 2.4rem;">
+          <span class="program-pill-tag" style="position: static; margin-bottom: 0.8rem; display: inline-block;">Program 8.2</span>
+          <h3>Volunteer Training & Capacity Building</h3>
+          <p>
+            No volunteer is deployed without comprehensive training. Supervised by the Training Sub-Committee and hosted in partnership with institutions such as Busia Town Baptist Church, volunteers undergo structured instruction in listening techniques, safeguarding, ethical limits, and crisis de-escalation.
+          </p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.85rem; margin-top: 1rem;">
+            <div><i class="fa-solid fa-circle-check" style="color: var(--clc-leaf);"></i> Active listening techniques</div>
+            <div><i class="fa-solid fa-circle-check" style="color: var(--clc-leaf);"></i> Biblical counselling boundaries</div>
+            <div><i class="fa-solid fa-circle-check" style="color: var(--clc-leaf);"></i> Safeguarding & confidentiality</div>
+            <div><i class="fa-solid fa-circle-check" style="color: var(--clc-leaf);"></i> Responsible referral protocols</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Program 3 -->
+      <section class="program-card" id="family" style="margin-bottom: 2.5rem; flex-direction: row; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 300px; max-height: 340px;">
+          <img src="images/women club.jpeg" alt="Family strengthening" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="flex: 1.3; min-width: 320px; padding: 2.4rem;">
+          <span class="program-pill-tag" style="position: static; margin-bottom: 0.8rem; display: inline-block;">Program 8.3</span>
+          <h3>Family Strengthening</h3>
+          <p>
+            Healthy communities begin with stable, peaceful homes. CLC facilitates family dialogues, parental encouragement, marital counseling within limits, forgiveness workshops, and domestic reconciliation sessions to reduce tension and build mutual respect.
+          </p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.85rem; margin-top: 1rem;">
+            <div><i class="fa-solid fa-circle-check" style="color: var(--clc-leaf);"></i> Marital & household dialogue</div>
+            <div><i class="fa-solid fa-circle-check" style="color: var(--clc-leaf);"></i> Domestic peacebuilding</div>
+            <div><i class="fa-solid fa-circle-check" style="color: var(--clc-leaf);"></i> Forgiveness & reconciliation</div>
+            <div><i class="fa-solid fa-circle-check" style="color: var(--clc-leaf);"></i> Relationship restoration</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Program 4 -->
+      <section class="program-card" id="youth" style="margin-bottom: 2.5rem; flex-direction: row-reverse; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 300px; max-height: 340px;">
+          <img src="images/children program.jpg" alt="Youth mentorship" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="flex: 1.3; min-width: 320px; padding: 2.4rem;">
+          <span class="program-pill-tag" style="position: static; margin-bottom: 0.8rem; display: inline-block;">Program 8.4</span>
+          <h3>Children & Youth Mentorship</h3>
+          <p>
+            Equipping young people to navigate modern temptations, peer pressure, and academic anxiety. Through life skills workshops, Christian values sessions, leadership coaching, and career guidance in community clubs and local schools.
+          </p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.85rem; margin-top: 1rem;">
+            <div><i class="fa-solid fa-circle-check" style="color: var(--clc-leaf);"></i> Christian moral values</div>
+            <div><i class="fa-solid fa-circle-check" style="color: var(--clc-leaf);"></i> Life skills & leadership</div>
+            <div><i class="fa-solid fa-circle-check" style="color: var(--clc-leaf);"></i> Responsible citizenship</div>
+            <div><i class="fa-solid fa-circle-check" style="color: var(--clc-leaf);"></i> Positive peer mentorship</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Program 5 -->
+      <section class="program-card" id="vulnerable" style="margin-bottom: 2.5rem; flex-direction: row; flex-wrap: wrap;">
+        <div style="flex: 1; min-width: 300px; max-height: 340px;">
+          <img src="images/community empowermwnt.jpeg" alt="Vulnerable families" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div style="flex: 1.3; min-width: 320px; padding: 2.4rem;">
+          <span class="program-pill-tag" style="position: static; margin-bottom: 0.8rem; display: inline-block;">Program 8.5</span>
+          <h3>Support to Vulnerable Individuals & Families</h3>
+          <p>
+            Reaching out to child-headed households, widows, the elderly, persons with disabilities, and individuals suffering extreme isolation. We offer practical community assistance, prayer, and vital connections to social safety nets.
+          </p>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.85rem; margin-top: 1rem;">
+            <div><i class="fa-solid fa-circle-check" style="color: var(--clc-leaf);"></i> Practical care & prayer</div>
+            <div><i class="fa-solid fa-circle-check" style="color: var(--clc-leaf);"></i> Care for the elderly & widows</div>
+            <div><i class="fa-solid fa-circle-check" style="color: var(--clc-leaf);"></i> Church partner care networks</div>
+            <div><i class="fa-solid fa-circle-check" style="color: var(--clc-leaf);"></i> Connection to government social aid</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Program 6 & 7 Side by Side -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 4rem;">
+        <div style="background: #FFFFFF; border-radius: var(--radius-md); padding: 2.4rem; border: 1px solid var(--clc-border-card); box-shadow: var(--clc-shadow-sm);">
+          <span class="program-pill-tag" style="position: static; margin-bottom: 0.8rem; display: inline-block;">Program 8.6</span>
+          <h3 style="margin-bottom: 0.8rem;">Peace, Reconciliation & Community Unity</h3>
+          <p style="font-size: 0.92rem; color: var(--clc-slate-muted); line-height: 1.7; margin-bottom: 1rem;">
+            Promoting peaceful coexistence, mutual forgiveness, restorative dialogue, and harmony within sub-counties. Helping neighbors overcome land disputes, ethnic tension, and grievances through Christian peace principles.
+          </p>
+          <ul class="program-bullets">
+            <li><i class="fa-solid fa-check"></i> Restorative mediation & forgiveness</li>
+            <li><i class="fa-solid fa-check"></i> Community unity dialogues</li>
+            <li><i class="fa-solid fa-check"></i> Reconciliation forums in villages</li>
+          </ul>
+        </div>
+
+        <div style="background: #FFFFFF; border-radius: var(--radius-md); padding: 2.4rem; border: 1px solid var(--clc-border-card); box-shadow: var(--clc-shadow-sm);">
+          <span class="program-pill-tag" style="position: static; margin-bottom: 0.8rem; display: inline-block;">Program 8.7</span>
+          <h3 style="margin-bottom: 0.8rem;">Church–Community Engagement</h3>
+          <p style="font-size: 0.92rem; color: var(--clc-slate-muted); line-height: 1.7; margin-bottom: 1rem;">
+            Strengthening collaborative relationships between local Christian churches and their surrounding secular communities. Mobilizing believers to leave the sanctuary walls and serve neighbors with active love.
+          </p>
+          <ul class="program-bullets">
+            <li><i class="fa-solid fa-check"></i> Bridging churches and surrounding villages</li>
+            <li><i class="fa-solid fa-check"></i> Mobilizing volunteer listener teams</li>
+            <li><i class="fa-solid fa-check"></i> Demonstrating faith through practical service</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TARGET BENEFICIARIES (Section 10) -->
+      <div style="background: var(--clc-forest); color: #FFFFFF; border-radius: var(--radius-lg); padding: 3rem; box-shadow: var(--clc-shadow-lg);">
+        <span style="font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--clc-gold-bright);"><i class="fa-solid fa-users"></i> Section 10</span>
+        <h2 style="color: #FFFFFF; margin: 0.6rem 0 1.2rem 0;">Target Beneficiaries</h2>
+        <p style="color: rgba(255, 255, 255, 0.85); font-size: 1.05rem; line-height: 1.75; max-width: 820px; margin-bottom: 2rem;">
+          CLC particularly seeks to serve individuals and families who may benefit from compassionate listening, spiritual encouragement, practical care, or responsible connection to specialized services:
         </p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem;">
+          <div style="background: rgba(255, 255, 255, 0.08); padding: 1.2rem; border-radius: var(--radius-sm); border: 1px solid rgba(255, 255, 255, 0.12);">
+            <i class="fa-solid fa-user" style="color: var(--clc-gold-bright); margin-bottom: 0.4rem; display: block; font-size: 1.2rem;"></i>
+            <strong>Individuals</strong> in emotional distress or grief
+          </div>
+          <div style="background: rgba(255, 255, 255, 0.08); padding: 1.2rem; border-radius: var(--radius-sm); border: 1px solid rgba(255, 255, 255, 0.12);">
+            <i class="fa-solid fa-people-roof" style="color: var(--clc-gold-bright); margin-bottom: 0.4rem; display: block; font-size: 1.2rem;"></i>
+            <strong>Families</strong> experiencing strain and conflict
+          </div>
+          <div style="background: rgba(255, 255, 255, 0.08); padding: 1.2rem; border-radius: var(--radius-sm); border: 1px solid rgba(255, 255, 255, 0.12);">
+            <i class="fa-solid fa-child" style="color: var(--clc-gold-bright); margin-bottom: 0.4rem; display: block; font-size: 1.2rem;"></i>
+            <strong>Children & Youth</strong> seeking mentorship and hope
+          </div>
+          <div style="background: rgba(255, 255, 255, 0.08); padding: 1.2rem; border-radius: var(--radius-sm); border: 1px solid rgba(255, 255, 255, 0.12);">
+            <i class="fa-solid fa-hand-holding-hand" style="color: var(--clc-gold-bright); margin-bottom: 0.4rem; display: block; font-size: 1.2rem;"></i>
+            <strong>Vulnerable Groups</strong> (elderly, orphans, widows)
+          </div>
+          <div style="background: rgba(255, 255, 255, 0.08); padding: 1.2rem; border-radius: var(--radius-sm); border: 1px solid rgba(255, 255, 255, 0.12);">
+            <i class="fa-solid fa-church" style="color: var(--clc-gold-bright); margin-bottom: 0.4rem; display: block; font-size: 1.2rem;"></i>
+            <strong>Churches & Communities</strong> working for unity
+          </div>
+        </div>
+      </div>
     </div>
-</section>
+  </main>
 
-<!-- PROGRAMS GRID -->
-<section class="py-20 bg-neutral-50">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-12">
-            <h2 class="heading-font text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">What We Do</h2>
-            <div class="w-24 h-1 bg-[#1B4D3E] mx-auto rounded-full"></div>
-            <p class="text-lg text-neutral-600 max-w-3xl mx-auto mt-6" data-aos="fade-up" data-aos-delay="200">
-                Our comprehensive programs address the multifaceted challenges of water access, sanitation, and community health.
-            </p>
+  <!-- Footer -->
+  <footer class="clc-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand-col">
+          <img src="images/clc-logo-white.svg" alt="CLC Logo" class="footer-logo">
+          <p>
+            Community Listeners for Christ (CLC) operates across Busia District, Uganda, equipping volunteers to listen with love, share Christ's hope, and build stronger families.
+          </p>
+          <span class="footer-badge-law"><i class="fa-solid fa-scale-balanced"></i> Non-Profit Non-Partisan CBO</span>
         </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Water Access Projects -->
-            <div class="bg-white rounded-3xl overflow-hidden card-hover fade-in border border-neutral-100 shadow-sm" data-aos="fade-up" data-aos-delay="100">
-                <div class="program-img" style="background-image: url('images/waterpurifier.jpeg');"></div>
-                <div class="p-6">
-                    <h3 class="heading-font text-xl font-bold mb-2">Water Access Projects</h3>
-                    <p class="text-neutral-600 mb-4">Building wells, rainwater harvesting systems, and water purification facilities in communities without access to clean water.</p>
-                    <button onclick="openProgramModal('Water Access Projects', 'Building wells, rainwater harvesting systems, and purification facilities tailored to local needs.', ['Well construction','Rainwater harvesting','Water purification','Community training','Maintenance plans'])" 
-                            class="text-[#1B4D3E] font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-[#C6A15B] rounded">
-                        Learn More →
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Sanitation Facilities -->
-            <div class="bg-white rounded-3xl overflow-hidden card-hover fade-in border border-neutral-100 shadow-sm" data-aos="fade-up" data-aos-delay="200">
-                <div class="program-img" style="background-image: url('images/sanitaion%20improvement.jpg');"></div>
-                <div class="p-6">
-                    <h3 class="heading-font text-xl font-bold mb-2">Sanitation Facilities</h3>
-                    <p class="text-neutral-600 mb-4">Constructing community toilets, waste management systems, and promoting proper sanitation practices.</p>
-                    <button onclick="openProgramModal('Sanitation Facilities', 'Constructing toilets, waste management, and sanitation infrastructure with local engagement.', ['Community toilets','Waste management','Handwashing stations','Local training','Gender-segregated facilities'])" 
-                            class="text-[#1B4D3E] font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-[#C6A15B] rounded">
-                        Learn More →
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Hygiene Education -->
-            <div class="bg-white rounded-3xl overflow-hidden card-hover fade-in border border-neutral-100 shadow-sm" data-aos="fade-up" data-aos-delay="300">
-                <div class="program-img" style="background-image: url('images/hygiene%20education%20in%20schools.jpg');"></div>
-                <div class="p-6">
-                    <h3 class="heading-font text-xl font-bold mb-2">Hygiene Education</h3>
-                    <p class="text-neutral-600 mb-4">Training community health workers and conducting workshops on handwashing, menstrual hygiene, and disease prevention.</p>
-                    <button onclick="openProgramModal('Hygiene Education', 'Workshops and training on handwashing, menstrual hygiene, and disease prevention.', ['School workshops','Community outreach','Materials & curriculum','Trainer training','Monitoring'])" 
-                            class="text-[#1B4D3E] font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-[#C6A15B] rounded">
-                        Learn More →
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Community Leadership -->
-            <div class="bg-white rounded-3xl overflow-hidden card-hover fade-in border border-neutral-100 shadow-sm" data-aos="fade-up" data-aos-delay="400">
-                <div class="program-img" style="background-image: url('images/community%20meeting.jpeg');"></div>
-                <div class="p-6">
-                    <h3 class="heading-font text-xl font-bold mb-2">Community Leadership</h3>
-                    <p class="text-neutral-600 mb-4">Developing local water committees and training technicians to maintain water systems and promote WASH practices.</p>
-                    <button onclick="openProgramModal('Community Leadership', 'Developing local water committees and technician training to ensure ownership and sustainability.', ['Water committees','Technical training','Leadership workshops','Sustainability plans','Monitoring'])" 
-                            class="text-[#1B4D3E] font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-[#C6A15B] rounded">
-                        Learn More →
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Mental Health -->
-            <div class="bg-white rounded-3xl overflow-hidden card-hover fade-in border border-neutral-100 shadow-sm" data-aos="fade-up" data-aos-delay="500">
-                <div class="program-img" style="background-image: url('images/mentalhealth.jpg');"></div>
-                <div class="p-6">
-                    <h3 class="heading-font text-xl font-bold mb-2">Mental Health</h3>
-                    <p class="text-neutral-600 mb-4">Supporting community mental health with resources, counseling, and resilience programs. We help break the silence around depression and provide hope.</p>
-                    <button onclick="openProgramModal('Mental Health', 'Support community mental health with resources, counseling, and resilience programs.', ['Counseling','Support groups','Training for volunteers','Referral pathways','Community awareness'])" 
-                            class="text-[#1B4D3E] font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-[#C6A15B] rounded">
-                        Learn More →
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Climate Adaptation -->
-            <div class="bg-white rounded-3xl overflow-hidden card-hover fade-in border border-neutral-100 shadow-sm" data-aos="fade-up" data-aos-delay="600">
-                <div class="program-img" style="background-image: url('images/climateadaptation.jpg');"></div>
-                <div class="p-6">
-                    <h3 class="heading-font text-xl font-bold mb-2">Climate Adaptation</h3>
-                    <p class="text-neutral-600 mb-4">Helping communities adapt to climate change by promoting water conservation, sustainable agriculture, and disaster preparedness.</p>
-                    <button onclick="openProgramModal('Climate Adaptation', 'Promote water conservation, sustainable agriculture, and disaster preparedness for vulnerable communities.', ['Water conservation','Sustainable agriculture','Disaster prep','Climate-resilient tech','Training'])" 
-                            class="text-[#1B4D3E] font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-[#C6A15B] rounded">
-                        Learn More →
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Education & School WASH -->
-            <div class="bg-white rounded-3xl overflow-hidden card-hover fade-in border border-neutral-100 shadow-sm" data-aos="fade-up" data-aos-delay="700">
-                <div class="program-img" style="background-image: url('images/school%20feeding%20program.jpeg');"></div>
-                <div class="p-6">
-                    <h3 class="heading-font text-xl font-bold mb-2">Education & School WASH</h3>
-                    <p class="text-neutral-600 mb-4">Support schools with WASH facilities, scholarships, teacher training, and learning materials so children stay healthy and in class.</p>
-                    <button onclick="openProgramModal('Education & School WASH', 'Support schools with WASH facilities, scholarships, teacher training, and learning materials.', ['School WASH facilities','Scholarships','Teacher training','Curriculum materials','Student projects'])" 
-                            class="text-[#1B4D3E] font-medium hover:underline focus:outline-none focus:ring-2 focus:ring-[#C6A15B] rounded">
-                        Learn More →
-                    </button>
-                </div>
-            </div>
+        <div class="footer-col">
+          <h4>Organization</h4>
+          <ul class="footer-links">
+            <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
+            <li><a href="community-leadership.html"><i class="fa-solid fa-chevron-right"></i> Governance</a></li>
+            <li><a href="safeguarding.html"><i class="fa-solid fa-chevron-right"></i> Safeguarding Policy</a></li>
+            <li><a href="partnerships.html"><i class="fa-solid fa-chevron-right"></i> Partners</a></li>
+          </ul>
         </div>
+        <div class="footer-col">
+          <h4>7 Program Areas</h4>
+          <ul class="footer-links">
+            <li><a href="services.html#listening"><i class="fa-solid fa-chevron-right"></i> Community Listening</a></li>
+            <li><a href="services.html#training"><i class="fa-solid fa-chevron-right"></i> Volunteer Capacity Building</a></li>
+            <li><a href="services.html#family"><i class="fa-solid fa-chevron-right"></i> Family Strengthening</a></li>
+            <li><a href="services.html#youth"><i class="fa-solid fa-chevron-right"></i> Youth Mentorship</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact & Location</h4>
+          <ul class="footer-contact-list">
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-map-location-dot"></i>
+              <div>Nahayima Road, Busia District, Uganda</div>
+            </li>
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-phone"></i>
+              <div><a href="tel:+256709251412">+256 709 251 412</a></div>
+            </li>
+            <li class="footer-contact-item">
+              <i class="fa-solid fa-envelope"></i>
+              <div><a href="mailto:info@clcuganda.org">info@clcuganda.org</a></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>&copy; 2026 Community Listeners for Christ (CLC). “Listening with Love, Sharing Christ’s Hope.”</div>
+        <div class="footer-bottom-links">
+          <a href="safeguarding.html">Safeguarding</a>
+          <a href="resources.html">Constitution</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
     </div>
-</section>
+  </footer>
 
-<!-- IMPACT STATS (animated counters) -->
-<section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-12">
-            <h2 class="heading-font text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">Our Impact</h2>
-            <div class="w-24 h-1 bg-[#1B4D3E] mx-auto rounded-full"></div>
-            <p class="text-lg text-neutral-600 max-w-3xl mx-auto mt-6" data-aos="fade-up" data-aos-delay="200">
-                Through our programs, we've made a significant difference in communities around the world.
-            </p>
+  <!-- Modal -->
+  <div class="clc-modal-backdrop" id="modalPrayer">
+    <div class="clc-modal">
+      <div class="clc-modal-header">
+        <div>
+          <h3><i class="fa-solid fa-ear-listen" style="color: var(--clc-leaf);"></i> Request a Listening Visit</h3>
+          <p>Confidential, free, and caring presence from CLC volunteers.</p>
         </div>
-        
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div class="fade-in" data-aos="zoom-in" data-aos-delay="100">
-                <i class="fas fa-users text-5xl text-[#1B4D3E] mb-4" aria-hidden="true"></i>
-                <div id="stat1" class="stat-number text-5xl font-bold heading-font text-[#1B4D3E]">0</div>
-                <p class="text-neutral-600">People with Clean Water</p>
-            </div>
-            <div class="fade-in" data-aos="zoom-in" data-aos-delay="200">
-                <i class="fas fa-hand-holding-water text-5xl text-[#1B4D3E] mb-4" aria-hidden="true"></i>
-                <div id="stat2" class="stat-number text-5xl font-bold heading-font text-[#1B4D3E]">0</div>
-                <p class="text-neutral-600">Water Wells Installed</p>
-            </div>
-            <div class="fade-in" data-aos="zoom-in" data-aos-delay="300">
-                <i class="fas fa-toilet text-5xl text-[#1B4D3E] mb-4" aria-hidden="true"></i>
-                <div id="stat3" class="stat-number text-5xl font-bold heading-font text-[#1B4D3E]">0</div>
-                <p class="text-neutral-600">Sanitation Facilities</p>
-            </div>
-            <div class="fade-in" data-aos="zoom-in" data-aos-delay="400">
-                <i class="fas fa-graduation-cap text-5xl text-[#1B4D3E] mb-4" aria-hidden="true"></i>
-                <div id="stat4" class="stat-number text-5xl font-bold heading-font text-[#1B4D3E]">0</div>
-                <p class="text-neutral-600">People Trained in Hygiene</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- TESTIMONIALS SLIDER -->
-<section class="py-20 bg-neutral-50">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-        <h2 class="heading-font text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">What People Say</h2>
-        <div class="w-24 h-1 bg-[#1B4D3E] mx-auto rounded-full mb-12"></div>
-        
-        <div class="relative">
-            <!-- Testimonial slides -->
-            <div class="testimonial-slide active" data-index="0">
-                <p class="text-xl italic text-neutral-700 mb-6">"Before New Grace JS came to our village, we had to walk miles to fetch water that wasn't even clean. Now we have a well right in our community, and our children are healthier."</p>
-                <div class="font-bold text-[#1B4D3E]">Maria Santos</div>
-                <div class="text-sm text-neutral-500">Community Leader, Guatemala</div>
-            </div>
-            <div class="testimonial-slide" data-index="1">
-                <p class="text-xl italic text-neutral-700 mb-6">"The hygiene education program has transformed our school. Children are now practicing handwashing regularly, and we've seen a significant decrease in waterborne diseases."</p>
-                <div class="font-bold text-[#1B4D3E]">James Ochieng</div>
-                <div class="text-sm text-neutral-500">School Principal, Kenya</div>
-            </div>
-            <div class="testimonial-slide" data-index="2">
-                <p class="text-xl italic text-neutral-700 mb-6">"The mental health support program helped our community address trauma and build resilience. It's not just about water - it's about overall wellbeing."</p>
-                <div class="font-bold text-[#1B4D3E]">Amina Jallow</div>
-                <div class="text-sm text-neutral-500">Community Health Worker, Senegal</div>
-            </div>
-            
-            <!-- Dots -->
-            <div class="flex justify-center gap-3 mt-8">
-                <span class="testimonial-dot active" onclick="goToTestimonial(0)"></span>
-                <span class="testimonial-dot" onclick="goToTestimonial(1)"></span>
-                <span class="testimonial-dot" onclick="goToTestimonial(2)"></span>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- PARTNERS SECTION -->
-<section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-6 text-center">
-        <h2 class="heading-font text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">Our Partners</h2>
-        <div class="w-24 h-1 bg-[#1B4D3E] mx-auto rounded-full mb-12"></div>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 items-center justify-items-center">
-            <div class="partner-logo">
-                <h4 class="font-bold text-lg mb-2">BUSIA TOWN</h4>
-                <img src="https://via.placeholder.com/150x80/2E8B57/FFFFFF?text=Partner+1" alt="Partner 1" class="max-h-16">
-            </div>
-            <div class="partner-logo">
-                <h4 class="font-bold text-lg mb-2">CN TECH</h4>
-                <img src="https://via.placeholder.com/150x80/2E8B57/FFFFFF?text=Partner+2" alt="Partner 2" class="max-h-16">
-            </div>
-            <div class="partner-logo">
-                <img src="https://via.placeholder.com/150x80/2E8B57/FFFFFF?text=Partner+3" alt="Partner 3" class="max-h-16">
-            </div>
-            <div class="partner-logo">
-                <img src="https://via.placeholder.com/150x80/2E8B57/FFFFFF?text=Partner+4" alt="Partner 4" class="max-h-16">
-            </div>
-            <div class="partner-logo">
-                <img src="https://via.placeholder.com/150x80/2E8B57/FFFFFF?text=Partner+5" alt="Partner 5" class="max-h-16">
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- DONATE CTA (same as all pages) -->
-<section id="donate" class="py-24 bg-[#1B4D3E] text-white">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-        <h2 class="heading-font text-5xl font-bold mb-4" data-aos="fade-up">Support Our Programs</h2>
-        <p class="text-2xl opacity-90 mb-12" data-aos="fade-up" data-aos-delay="200">Your contribution helps us expand our impact and reach more communities in need.</p>
-        
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12" data-aos="fade-up" data-aos-delay="300">
-            <div onclick="selectAmount(this)" data-amount="25000" class="donate-card active bg-white/20 rounded-3xl p-8 cursor-pointer transition-all hover:bg-white/30" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' ') selectAmount(this)">
-                <div class="text-3xl font-bold">UGX 25,000</div>
-                <small class="opacity-90">Hygiene kits for 5 children</small>
-            </div>
-            <div onclick="selectAmount(this)" data-amount="50000" class="donate-card bg-white/20 rounded-3xl p-8 cursor-pointer transition-all hover:bg-white/30" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' ') selectAmount(this)">
-                <div class="text-3xl font-bold">UGX 50,000</div>
-                <small class="opacity-90">Clean water for a family (1 month)</small>
-            </div>
-            <div onclick="selectAmount(this)" data-amount="100000" class="donate-card bg-white/20 rounded-3xl p-8 cursor-pointer transition-all hover:bg-white/30" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' ') selectAmount(this)">
-                <div class="text-3xl font-bold">UGX 100,000</div>
-                <small class="opacity-90">Sanitation facility</small>
-            </div>
-            <div onclick="selectAmount(this)" data-amount="250000" class="donate-card bg-white/20 rounded-3xl p-8 cursor-pointer transition-all hover:bg-white/30" tabindex="0" role="button" onkeydown="if(event.key==='Enter'||event.key===' ') selectAmount(this)">
-                <div class="text-3xl font-bold">UGX 250,000</div>
-                <small class="opacity-90">Water system training</small>
-            </div>
-        </div>
-        
-        <form action="donate.html" method="get">
-            <input type="hidden" id="selected-amount" name="amount" value="25000">
-            <button type="submit" class="btn-primary bg-white text-[#1B4D3E] w-full max-w-md mx-auto py-7 rounded-3xl text-2xl font-semibold shadow-2xl hover:bg-amber-100 transition">
-                DONATE UGX <span id="selected-amount-display">25,000</span> NOW
-            </button>
+        <button class="clc-modal-close">&times;</button>
+      </div>
+      <div class="clc-modal-body">
+        <form data-clc-form="prayer-request">
+          <div class="form-group">
+            <label class="form-label">Full Name or Preferred Name *</label>
+            <input type="text" class="form-control" required placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Contact *</label>
+            <input type="tel" class="form-control" required placeholder="+256 700 000 000">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Sub-County in Busia *</label>
+            <input type="text" class="form-control" required placeholder="e.g. Nahayima / Banda / Busia Town">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Your Message or Concern</label>
+            <textarea class="form-control" placeholder="Share what is on your heart..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block btn-lg">Submit Request</button>
         </form>
+      </div>
     </div>
-</section>
+  </div>
 
-<!-- FOOTER (exact same as all pages) -->
-<footer class="bg-neutral-950 text-white py-20">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="grid md:grid-cols-5 gap-12">
-            <div>
-                <img src="images/LOGO.JPG" alt="New Grace JS logo" class="w-16 h-16 rounded-2xl mb-6">
-                <h5 class="font-semibold">New Grace JS</h5>
-                <p class="text-neutral-400 text-sm mt-2">Transforming communities through clean water and education.</p>
-            </div>
-            
-            <div>
-                <h6 class="uppercase font-medium mb-6">Quick Links</h6>
-                <ul class="space-y-3 text-neutral-400">
-                    <li><a href="index.html" class="hover:text-white focus:outline-none focus:underline">Home</a></li>
-                    <li><a href="about.html" class="hover:text-white focus:outline-none focus:underline">About</a></li>
-                    <li><a href="education.html" class="hover:text-white focus:outline-none focus:underline">Education</a></li>
-                    <li><a href="water-sanitation.html" class="hover:text-white focus:outline-none focus:underline">WASH</a></li>
-                </ul>
-            </div>
-            
-            <div>
-                <h6 class="uppercase font-medium mb-6">Programs</h6>
-                <ul class="space-y-3 text-neutral-400">
-                    <li><a href="education.html" class="hover:text-white focus:outline-none focus:underline">School Programs</a></li>
-                    <li><a href="water-sanitation.html" class="hover:text-white focus:outline-none focus:underline">Clean Water</a></li>
-                    <li><a href="gallery.html" class="hover:text-white focus:outline-none focus:underline">Our Impact</a></li>
-                </ul>
-            </div>
-            
-            <div>
-                <h6 class="uppercase font-medium mb-6">Contact</h6>
-                <p class="text-neutral-400">Busuma Village, Buchumba Parish<br>Banda Subcounty, Namayingo District, Uganda</p>
-                <p class="mt-4 text-neutral-400">0709 251 412 • 0785 950 405<br>newgracejs@gmail.com</p>
-            </div>
-            
-            <!-- Newsletter with label and inline feedback -->
-            <div>
-                <h6 class="uppercase font-medium mb-6">Stay Updated</h6>
-                <p class="text-neutral-400 text-sm mb-4">Monthly impact stories straight to your inbox.</p>
-                <form id="newsletter" class="flex flex-col">
-                    <div class="flex">
-                        <label for="newsletter-email" class="sr-only">Email address</label>
-                        <input type="email" id="newsletter-email" placeholder="your@email.com" 
-                               class="bg-neutral-900 border border-neutral-700 rounded-l-3xl px-6 py-4 text-white flex-1 focus:outline-none focus:ring-2 focus:ring-amber-600">
-                        <button type="submit" class="bg-[#C6A15B] hover:bg-amber-400 text-neutral-900 font-semibold px-8 rounded-r-3xl transition">Subscribe</button>
-                    </div>
-                    <div id="newsletter-feedback" class="text-sm mt-2 text-amber-300 hidden"></div>
-                </form>
-            </div>
-        </div>
-        
-        <hr class="border-neutral-800 my-12">
-        
-        <div class="text-center text-neutral-500 text-sm">
-            © 2026 New Grace JS • All Rights Reserved • Registered Charity BAS/CS/4067
-        </div>
-    </div>
-</footer>
-
-<!-- MODAL with close button and X (reused for program details) -->
-<div id="modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-[9999] p-4" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto relative">
-        <button onclick="closeModal()" class="absolute top-4 right-4 text-neutral-500 hover:text-neutral-800 text-3xl w-10 h-10 flex items-center justify-center rounded-full bg-white/80 backdrop-blur z-10" aria-label="Close modal">&times;</button>
-        <img id="modal-image" class="w-full h-72 object-cover hidden" alt="">
-        <div class="p-8">
-            <h3 id="modal-title" class="heading-font text-3xl font-bold"></h3>
-            <div id="modal-text" class="mt-6 text-neutral-700"></div>
-            <button onclick="closeModal()" class="mt-10 w-full py-4 bg-[#1B4D3E] text-white rounded-3xl font-medium hover:bg-[#0F3A2E] transition">Close</button>
-        </div>
-    </div>
-</div>
-
-<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-<script>
-    AOS.init({ once: true, duration: 900, offset: 80 });
-
-    // Navbar scroll effect
-    window.addEventListener('scroll', function() {
-        const navbar = document.querySelector('.navbar');
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
-
-    // Counter animation
-    function animateCounter(elementId, target, suffix = '') {
-        const el = document.getElementById(elementId);
-        if (!el) return;
-        let current = 0;
-        const step = () => {
-            if (current < target) {
-                current += Math.ceil(target / 40);
-                if (current > target) current = target;
-                el.textContent = current.toLocaleString() + suffix;
-                requestAnimationFrame(step);
-            }
-        };
-        requestAnimationFrame(step);
-    }
-
-    // Intersection Observer for stats
-    const statsObserver = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-            animateCounter("stat1", 250000);
-            animateCounter("stat2", 150);
-            animateCounter("stat3", 75);
-            animateCounter("stat4", 50000);
-            statsObserver.disconnect();
-        }
-    }, { threshold: 0.5 });
-    const stat1 = document.getElementById("stat1");
-    if (stat1) statsObserver.observe(stat1);
-
-    // Donation selector
-    function selectAmount(el) {
-        document.querySelectorAll('.donate-card').forEach(c => {
-            c.classList.remove('active');
-            c.setAttribute('aria-selected', 'false');
-        });
-        el.classList.add('active');
-        el.setAttribute('aria-selected', 'true');
-        const amount = el.dataset.amount;
-        document.getElementById('selected-amount').value = amount;
-        document.getElementById('selected-amount-display').textContent = Number(amount).toLocaleString();
-    }
-
-    // Modal functions (reused for program details)
-    function openModal(title, html) {
-        document.getElementById('modal-title').textContent = title;
-        document.getElementById('modal-text').innerHTML = html;
-        document.getElementById('modal-image').classList.add('hidden');
-        document.getElementById('modal').classList.remove('hidden');
-        document.getElementById('modal').classList.add('flex');
-        document.querySelector('#modal button:last-child').focus();
-    }
-
-    function closeModal() {
-        document.getElementById('modal').classList.add('hidden');
-        document.getElementById('modal').classList.remove('flex');
-    }
-
-    // Program modal opener
-    function openProgramModal(title, description, features) {
-        let html = `<p class="mb-4">${description}</p>`;
-        if (features && features.length) {
-            html += '<ul class="list-disc pl-5 space-y-1">';
-            features.forEach(f => { html += `<li>${f}</li>`; });
-            html += '</ul>';
-        }
-        openModal(title, html);
-    }
-
-    // Testimonial slider
-    function goToTestimonial(index) {
-        document.querySelectorAll('.testimonial-slide').forEach(s => s.classList.remove('active'));
-        document.querySelectorAll('.testimonial-dot').forEach(d => d.classList.remove('active'));
-        document.querySelector(`.testimonial-slide[data-index="${index}"]`).classList.add('active');
-        document.querySelectorAll('.testimonial-dot')[index].classList.add('active');
-    }
-
-    // Newsletter with inline feedback
-    document.getElementById('newsletter').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const email = document.getElementById('newsletter-email').value.trim();
-        const feedback = document.getElementById('newsletter-feedback');
-        if (email && email.includes('@')) {
-            feedback.textContent = '✅ Thank you! You are now subscribed.';
-            feedback.classList.remove('hidden');
-            this.reset();
-        } else {
-            feedback.textContent = '❌ Please enter a valid email address.';
-            feedback.classList.remove('hidden');
-        }
-        setTimeout(() => feedback.classList.add('hidden'), 5000);
-    });
-
-    // Fade-in observer
-    const fadeObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add('visible');
-        });
-    }, { threshold: 0.15 });
-    document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
-
-    // Set first donate card active on load
-    window.addEventListener('load', function() {
-        document.querySelectorAll('.donate-card').forEach((c, i) => {
-            if (i === 0) {
-                c.classList.add('active');
-                c.setAttribute('aria-selected', 'true');
-            } else {
-                c.setAttribute('aria-selected', 'false');
-            }
-        });
-    });
-
-    // Close modal with Escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && !document.getElementById('modal').classList.contains('hidden')) {
-            closeModal();
-        }
-    });
-</script>
+  <script src="main.js"></script>
 </body>
 </html>
